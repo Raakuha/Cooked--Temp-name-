@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://41jgmjivqtya"]
+
+[ext_resource type="Texture2D" uid="uid://irim7j8o883i" path="res://Screenshot 2026-07-22 200509.png" id="1_3er1b"]
+
+[node name="Main_Menu" type="Control" unique_id=1657926106]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background_menu" type="Node2D" parent="." unique_id=1026418851]
+
+[node name="Sprite2D" type="Sprite2D" parent="Background_menu" unique_id=971518668]
+position = Vector2(575, 321)
+scale = Vector2(1.4940629, 1.5746408)
+texture = ExtResource("1_3er1b")
+
+[node name="Start" type="TextureButton" parent="." unique_id=2003418397]
+layout_mode = 0
+offset_left = 484.0
+offset_top = 364.0
+offset_right = 524.0
+offset_bottom = 404.0
+
+[node name="Settings" type="TextureButton" parent="." unique_id=1332293569]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Quit" type="TextureButton" parent="." unique_id=1300333057]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
