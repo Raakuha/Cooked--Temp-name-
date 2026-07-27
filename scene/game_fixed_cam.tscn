@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://bpmtkuj6wbrk8"]
+
+[ext_resource type="Script" uid="uid://d0ervp0ualp34" path="res://script/Game_fixedCam_01.gd" id="1_5his6"]
+[ext_resource type="PackedScene" uid="uid://b1mq676dwmt3s" path="res://scene/player.tscn" id="2_chaj1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yv3tm"]
+sky_top_color = Color(0.011986146, 0.50753605, 0.562105, 1)
+sky_horizon_color = Color(0.44708312, 0.7328029, 0.6921231, 1)
+ground_bottom_color = Color(0.3355466, 0.28858528, 0.23580444, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_1fxwu"]
+sky_material = SubResource("ProceduralSkyMaterial_yv3tm")
+
+[sub_resource type="Environment" id="Environment_st2p7"]
+background_mode = 2
+sky = SubResource("Sky_1fxwu")
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bhunq"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_yv3tm"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[node name="Game_FixedCam" type="Node3D" unique_id=2034185063]
+script = ExtResource("1_5his6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1398989014]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25000003, 0.018261256, 0.47227454, 0.8812623, -0.49966648, 0.7677609, -0.40109435, 0, 4.0737324, -3.4986818)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=690848389]
+environment = SubResource("Environment_st2p7")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=201428528]
+transform = Transform3D(1, 0, 0, 0, 0.87839574, 0.47793403, 0, -0.47793403, 0.87839574, 2.0556817, 2.4411216, 0.43416023)
+
+[node name="Player" parent="." unique_id=773326258 instance=ExtResource("2_chaj1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.417, 1, -1.263)
+
+[node name="Area3D" type="StaticBody3D" parent="." unique_id=88642689]
+transform = Transform3D(3.745, 0, 0, 0, 3.745, 0, 0, 0, 3.745, 0, 0, -6.6964273)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D" unique_id=1018227502]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, -3.784777)
+mesh = SubResource("PlaneMesh_bhunq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=138864601]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, -3.784777)
+shape = SubResource("ConcavePolygonShape3D_yv3tm")
+
+[node name="TargetMarkerB" type="Marker3D" parent="." unique_id=1130862699]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1632767, 1, -14.497195)
+
+[node name="TargetMarkerA" type="Marker3D" parent="." unique_id=1563616302]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4144478, 1, -3.8789377)
+
+[connection signal="arrived_at_target" from="Player" to="." method="_on_player_arrived_at_target"]
