@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d0ervp0ualp34" path="res://script/Game_fixedCam_01.gd" id="1_5his6"]
 [ext_resource type="PackedScene" uid="uid://b1mq676dwmt3s" path="res://scene/player.tscn" id="2_chaj1"]
+[ext_resource type="PackedScene" uid="uid://cehb1aohu4fde" path="res://scene/typing_prototype.tscn" id="3_chaj1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yv3tm"]
 sky_top_color = Color(0.011986146, 0.50753605, 0.562105, 1)
@@ -55,4 +56,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1632767, 1, -14.497195)
 [node name="TargetMarkerA" type="Marker3D" parent="." unique_id=1563616302]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4144478, 1, -3.8789377)
 
+[node name="Typing_prototype" parent="." unique_id=1494470883 instance=ExtResource("3_chaj1")]
+
 [connection signal="arrived_at_target" from="Player" to="." method="_on_player_arrived_at_target"]
+[connection signal="typing_completed" from="Typing_prototype" to="." method="_on_typing_prototype_typing_completed"]
