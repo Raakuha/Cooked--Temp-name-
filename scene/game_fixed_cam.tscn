@@ -33,6 +33,8 @@ background_mode = 2
 sky = SubResource("Sky_1fxwu")
 glow_enabled = true
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bhunq"]
+
 [node name="Game_FixedCam" type="Node3D" unique_id=2034185063]
 script = ExtResource("1_5his6")
 
@@ -80,6 +82,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1632767, 1, -14.497195)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4144478, 1, -3.8789377)
 
 [node name="Typing_prototype" parent="." unique_id=1494470883 instance=ExtResource("3_chaj1")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1981577140]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2144363, 0.77427435, -4.5602856)
+mesh = SubResource("CapsuleMesh_bhunq")
 
 [connection signal="arrived_at_target" from="Player" to="." method="_on_player_arrived_at_target"]
 [connection signal="typing_completed" from="Typing_prototype" to="." method="_on_typing_prototype_typing_completed"]
