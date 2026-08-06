@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://chqvev0u3tws0"]
 
-[ext_resource type="PackedScene" uid="uid://b1mq676dwmt3s" path="res://scene/player.tscn" id="1_hcl81"]
+[ext_resource type="PackedScene" uid="uid://b1mq676dwmt3s" path="res://scene/player.tscn" id="1_7iju0"]
+[ext_resource type="PackedScene" uid="uid://c0jxrcxp601e" path="res://scene/ui/DialogueBubble.tscn" id="2_0aado"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8f85w"]
 size = Vector3(10, 0.442, 10)
@@ -8,7 +9,7 @@ size = Vector3(10, 0.442, 10)
 [sub_resource type="BoxShape3D" id="BoxShape3D_8f85w"]
 size = Vector3(10, 0.442, 10)
 
-[node name="DialogSysetem" type="Node3D" unique_id=155577376]
+[node name="Test_for_DialogSysetem" type="Node3D" unique_id=155577376]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1849496043]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48172975, 0)
@@ -21,5 +22,10 @@ mesh = SubResource("BoxMesh_8f85w")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.27075195, 0)
 shape = SubResource("BoxShape3D_8f85w")
 
-[node name="Player" parent="." unique_id=1224841943 instance=ExtResource("1_hcl81")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23049283, 1.4319773, 0.16527927)
+[node name="Player" parent="." unique_id=1224841943 instance=ExtResource("1_7iju0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23049283, 2.8251538, 0.16527927)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1402055258]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.42595005, 2.537648, 5.630455)
+
+[node name="DialogueBubble" parent="." unique_id=1769872994 instance=ExtResource("2_0aado")]

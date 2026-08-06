@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://ieqdf05p2lmp"]
+
+[ext_resource type="Script" uid="uid://cjd27tfmssv4d" path="res://script/customer/customer.gd" id="1_vcx5p"]
+
+[node name="Customer" type="Node3D" unique_id=666160747]
+script = ExtResource("1_vcx5p")
+
+[node name="Marker3D" type="Marker3D" parent="." unique_id=1556275660]

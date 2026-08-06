@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cyn8rrbnc0n4o"]
+
+[ext_resource type="Script" uid="uid://dg1etgc3scfr" path="res://scene/customer/test_customer.gd" id="1_bx2uk"]
+[ext_resource type="PackedScene" uid="uid://ieqdf05p2lmp" path="res://scene/customer/Customer.tscn" id="1_n780n"]
+
+[node name="TestCustomer" type="Node3D" unique_id=1396750093]
+script = ExtResource("1_bx2uk")
+
+[node name="Customer" parent="." unique_id=666160747 instance=ExtResource("1_n780n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4470557, 0, 0.40997505)
