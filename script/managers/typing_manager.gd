@@ -1,25 +1,77 @@
-class_name TypingManager
 extends Node
 
+class_name TypingManager
 
-signal typing_finished
+signal typing_started(target_word : String)
+signal typing_updated(
+	target_word : String,
+	fill_word : String,
+	mistake_count : int,
+	last_input_correct : bool
+)
+signal typing_completed (command : String)
+
+var target : String = ""
+var fill : String = ""
+var mistake_count: int = 0
+var active : bool = false
+
+func start_typing(new_target : String)-> void:
+	target = new_target.to_upper()
+	fill = ""
+	mistake_count = 0
+	active = true
+	typing_started.emit(target)
+	typing_updated.emit(target, fill, mistake_count, true)
 
 
-var current_typing = {}
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not active:
+		return
+	if not event is InputEventKey:
+		return
+	var key := event as InputEventKey
 
+	if not key.pressed or key.echo:
+		return
 
-func start_typing(data):
+	if key.unicode == 0:
+		return
 
-	current_typing = data
+	var input := String.chr(key.unicode).to_upper()
 
-	print("========================")
-	print("TYPING DIMULAI")
-	print("Recipe :", data["recipe"])
-	print("========================")
+	if not "ABCDEFGHIJKLMNOPQRSTUVWXYZ".contains(input):
+		return
 
+	check(input)
+	get_viewport().set_input_as_handled()
 
-func finish_typing():
+func check(input: String) -> void:
+	var cur_index:= fill.length()
+	var expected_char := target.substr(cur_index, 1)
 
-	print("TYPING SELESAI")
+	if input == expected_char:
+		fill += input
 
-	typing_finished.emit()
+		typing_updated.emit(
+			target,
+			fill,
+			mistake_count,
+			true
+		)
+
+		if fill.length() == target.length():
+			finish_typing()
+	else:
+		mistake_count += 1
+		typing_updated.emit(
+			target,
+			fill,
+			mistake_count,
+			false
+		)
+
+func finish_typing() -> void:
+	active = false
+	print("Target word sudah selesai " + target)
+	typing_completed.emit(target)
