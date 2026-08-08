@@ -1,34 +1,33 @@
 class_name CustomerManager
 extends Node
 
-# =========================================================
-# EXPORT
-# =========================================================
+
+signal customer_arrived
+
 
 @export var customer_scene : PackedScene
 
-# =========================================================
-# VARIABLE
-# =========================================================
 
 var current_customer : Customer = null
 
-# =========================================================
-# PUBLIC FUNCTION
-# =========================================================
 
 func _on_customer_arrived():
 
 	print("Customer sudah sampai di kasir.")
+
+	customer_arrived.emit()
+
 
 func spawn_customer():
 
 	if current_customer != null:
 		return
 
+
 	current_customer = customer_scene.instantiate()
 
 	add_child(current_customer)
+
 
 	current_customer.customer_name = "Pak Budi"
 

@@ -1,32 +1,50 @@
+class_name DialogueManager
 extends Node
 
-@export var bubble : CanvasLayer
 
-var dialogues = []
-var current = 0
-
-var after_event = ""
+signal dialogue_finished
 
 
-func start_dialog(dialog_data):
-
-	current = 0
-
-	dialogues = dialog_data["dialogues"]
-
-	after_event = dialog_data["after"]
-
-	bubble.show_dialog(dialogues[current])
+@onready var bubble : DialogueBubble = $"../../UI/DialogueBubble"
 
 
-func next():
+var current_dialog = {}
 
-	current += 1
 
-	if current >= dialogues.size():
+func _ready():
 
-		bubble.hide_dialog()
+	print("DialogueBubble:", bubble)
+
+
+func start_dialog(dialog, target : Node3D = null):
+
+	current_dialog = dialog
+
+
+	if target != null:
+
+		bubble.set_target(target)
+
+
+	bubble.show_dialog(dialog)
+
+
+func finish_dialog():
+
+	if not bubble.is_open():
 
 		return
 
-	bubble.show_dialog(dialogues[current])
+
+	bubble.hide_dialog()
+
+	dialogue_finished.emit()
+
+
+func _unhandled_input(event):
+
+	if event.is_action_pressed("ui_accept"):
+
+		if bubble.is_open():
+
+			finish_dialog()

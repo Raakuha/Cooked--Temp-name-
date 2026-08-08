@@ -1,10 +1,13 @@
 class_name Customer
 extends Node3D
 
+
 signal arrived
 signal exited
 
+
 var customer_name : String = ""
+
 
 func walk_to_cashier():
 

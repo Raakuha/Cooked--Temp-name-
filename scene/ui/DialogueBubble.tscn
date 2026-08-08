@@ -14,36 +14,40 @@ grow_horizontal = 2
 grow_vertical = 2
 offset_transform_enabled = true
 
-[node name="SmallPanel" type="Panel" parent="Control" unique_id=107140475]
+[node name="BubbleDialog" type="Panel" parent="Control" unique_id=107140475]
 layout_mode = 0
-offset_right = 180.0
-offset_bottom = 97.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 375.0
+offset_bottom = 125.0
 
-[node name="DialogueLabel" type="Label" parent="Control/SmallPanel" unique_id=1552590124]
+[node name="DialogueLabel" type="Label" parent="Control/BubbleDialog" unique_id=1552590124]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_top = 52.0
+offset_right = 356.0
+offset_bottom = 100.0
 
-[node name="SpeakerLabel" type="Label" parent="Control/SmallPanel" unique_id=1451720276]
+[node name="SpeakerLabel" type="Label" parent="Control/BubbleDialog" unique_id=1451720276]
 layout_mode = 0
-offset_right = 179.0
-offset_bottom = 95.0
-text = "HALO
+offset_right = 351.0
+offset_bottom = 49.0
+text = "
 "
 
-[node name="LargePanel" type="Panel" parent="Control" unique_id=439468625]
+[node name="FullscreenDialog" type="Panel" parent="Control" unique_id=439468625]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_top = 293.0
+offset_right = 1152.0
+offset_bottom = 640.0
 
-[node name="DialogueLabel" type="Label" parent="Control/LargePanel" unique_id=826763495]
+[node name="DialogueLabel" type="Label" parent="Control/FullscreenDialog" unique_id=826763495]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_right = 1146.0
+offset_bottom = 640.0
 
-[node name="SpeakerLabel" type="Label" parent="Control/LargePanel" unique_id=1472393983]
+[node name="SpeakerLabel" type="Label" parent="Control/FullscreenDialog" unique_id=1472393983]
 layout_mode = 0
-offset_right = 179.0
-offset_bottom = 95.0
-text = "HALO
+offset_right = 1152.0
+offset_bottom = 653.0
+text = "
 "
