@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://jlj4e5lb5crv"]
+
+[ext_resource type="Script" uid="uid://brflpwok2dbus" path="res://script/event/test_event_runner.gd" id="1_o6sug"]
+[ext_resource type="PackedScene" uid="uid://bf8t3scq2onna" path="res://script/event/EventRunner.tscn" id="2_kubx8"]
+[ext_resource type="Script" uid="uid://ct4a7gmbq11q8" path="res://script/event/event_runner.gd" id="3_75wec"]
+
+[node name="TestEventRunner" type="Node" unique_id=1213034432]
+script = ExtResource("1_o6sug")
+
+[node name="EventRunner" parent="." unique_id=798934678 instance=ExtResource("2_kubx8")]
+script = ExtResource("3_75wec")

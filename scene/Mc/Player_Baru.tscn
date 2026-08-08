@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c58ebfvjps2ko"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m5dmv"]
+albedo_color = Color(0.043137256, 1, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8f85w"]
+material = SubResource("StandardMaterial3D_m5dmv")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8f85w"]
+
+[node name="PlayerBaru" type="CharacterBody3D" unique_id=835283696]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95446944, 0)
+
+[node name="DialogueMarker" type="Marker3D" parent="." unique_id=1648197195]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1082813611]
+mesh = SubResource("CapsuleMesh_8f85w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=940994705]
+shape = SubResource("CapsuleShape3D_8f85w")

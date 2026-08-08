@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bf8t3scq2onna"]
+
+[ext_resource type="Script" uid="uid://ct4a7gmbq11q8" path="res://script/event/event_runner.gd" id="1_n276j"]
+
+[node name="EventRunner" type="Node" unique_id=798934678]
+script = ExtResource("1_n276j")
