@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cdg5gj08rmyys"]
+
+[ext_resource type="Script" uid="uid://ct1swwvgf7nl5" path="res://script/workstation_registry.gd" id="1_a8lg3"]
+
+[node name="workstation_registry" type="Node" unique_id=1002319064]
+script = ExtResource("1_a8lg3")

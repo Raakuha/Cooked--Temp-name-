@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dco0q4l08t3hw"]
+
+[ext_resource type="Script" uid="uid://cxn6woxhekpe7" path="res://script/workstation.gd" id="1_1u4rh"]
+
+[node name="Workstation" type="Node3D" unique_id=1520171741]
+script = ExtResource("1_1u4rh")
+
+[node name="NavigationTarget" type="Marker3D" parent="." unique_id=526064413]
