@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://c0jxrcxp601e"]
+
+[ext_resource type="Script" uid="uid://dxl2x4ksbq4mt" path="res://script/ui/dialogue_bubble.gd" id="1_e5dkq"]
+
+[node name="DialogueBubble" type="CanvasLayer" unique_id=1769872994]
+script = ExtResource("1_e5dkq")
+
+[node name="Control" type="Control" parent="." unique_id=707559012]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+
+[node name="BubbleDialog" type="Panel" parent="Control" unique_id=107140475]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 375.0
+offset_bottom = 125.0
+
+[node name="DialogueLabel" type="Label" parent="Control/BubbleDialog" unique_id=1552590124]
+layout_mode = 0
+offset_top = 52.0
+offset_right = 356.0
+offset_bottom = 100.0
+
+[node name="SpeakerLabel" type="Label" parent="Control/BubbleDialog" unique_id=1451720276]
+layout_mode = 0
+offset_right = 351.0
+offset_bottom = 49.0
+text = "
+"
+
+[node name="FullscreenDialog" type="Panel" parent="Control" unique_id=439468625]
+layout_mode = 0
+offset_top = 293.0
+offset_right = 1152.0
+offset_bottom = 640.0
+
+[node name="DialogueLabel" type="Label" parent="Control/FullscreenDialog" unique_id=826763495]
+layout_mode = 0
+offset_right = 1146.0
+offset_bottom = 640.0
+
+[node name="SpeakerLabel" type="Label" parent="Control/FullscreenDialog" unique_id=1472393983]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 653.0
+text = "
+"
