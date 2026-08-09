@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://cdg5gj08rmyys" path="res://scene/workstation_registry.tscn" id="1_rmj44"]
 [ext_resource type="PackedScene" uid="uid://dco0q4l08t3hw" path="res://scene/workstation.tscn" id="2_xox26"]
 [ext_resource type="PackedScene" uid="uid://b1mq676dwmt3s" path="res://scene/player.tscn" id="3_36e65"]
+[ext_resource type="PackedScene" uid="uid://c1mp6x6pnko1f" path="res://scene/managers/TypingManager.tscn" id="3_y88tg"]
+[ext_resource type="PackedScene" uid="uid://bxwdn3yvlgi7m" path="res://scene/ui/TypingUI.tscn" id="4_wyt28"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_iagvn"]
 vertices = PackedVector3Array(-21.97, 0.26079988, -11.340416, -4.7199993, 0.26079988, -11.340416, -4.2199993, 0.26079988, -12.340416, -2.2199993, 0.26079988, -42.840416, -21.97, 0.26079988, -42.840416, -2.2199993, 0.26079988, -12.340416, 2.0300007, 0.26079988, -12.340416, 2.0300007, 0.26079988, -42.840416, 4.0300007, 0.26079988, -12.340416, 4.5300007, 0.26079988, -11.340416, 22.03, 0.26079988, -11.340416, 22.03, 0.26079988, -42.840416, -0.9699993, 0.26079988, -6.840416, 0.030000687, 0.26079988, -7.090416, 0.030000687, 0.26079988, -10.090416, -4.2199993, 0.26079988, -10.090416, 0.030000687, 0.26079988, 1.159584, -21.97, 0.26079988, 1.159584, -0.9699993, 0.26079988, -5.340416, 0.030000687, 0.26079988, -4.840416, 1.2800007, 0.26079988, -6.590416, 4.0300007, 0.26079988, -10.090416, 22.03, 0.26079988, 1.159584, 1.2800007, 0.26079988, -5.590416)
@@ -38,6 +40,10 @@ glow_enabled = true
 script = ExtResource("1_iagvn")
 
 [node name="workstation_registry" parent="." unique_id=1002319064 instance=ExtResource("1_rmj44")]
+
+[node name="TypingManager" parent="." unique_id=176999645 instance=ExtResource("3_y88tg")]
+
+[node name="TypingUI" parent="." unique_id=1494470883 instance=ExtResource("4_wyt28")]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1092841579]
 navigation_mesh = SubResource("NavigationMesh_iagvn")
@@ -172,7 +178,7 @@ command = "STOVE"
 
 [node name="Microwave" parent="." unique_id=917086952 instance=ExtResource("2_xox26")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1764565, 0.53230715, -9.563817)
-command = "Microwave"
+command = "MICROWAVE"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=602132291]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25000003, 0.018261256, 0.47227454, 0.8812623, -0.49966648, 0.7677609, -0.40109435, 0, 4.0737324, -3.4986818)
@@ -187,4 +193,7 @@ transform = Transform3D(1, 0, 0, 0, 0.5948236, 0.80385625, 0, -0.80385625, 0.594
 [node name="Player" parent="." unique_id=1224841943 instance=ExtResource("3_36e65")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.417, 1, -1.263)
 
-[connection signal="arrived_at_target" from="Player" to="." method="_on_player_arrived_at_target"]
+[connection signal="typing_completed" from="TypingManager" to="." method="_on_typing_manager_typing_completed"]
+[connection signal="typing_completed" from="TypingManager" to="TypingUI" method="_on_typing_manager_typing_completed"]
+[connection signal="typing_started" from="TypingManager" to="TypingUI" method="_on_typing_manager_typing_started"]
+[connection signal="typing_updated" from="TypingManager" to="TypingUI" method="_on_typing_manager_typing_updated"]

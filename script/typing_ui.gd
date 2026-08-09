@@ -37,4 +37,5 @@ func _on_typing_manager_typing_updated(target_word: String, fill_word: String, m
 
 
 func _on_typing_manager_typing_completed(command: String) -> void:
+	
 	hide()
