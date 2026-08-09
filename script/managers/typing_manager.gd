@@ -2,6 +2,7 @@ extends Node
 
 class_name TypingManager
 
+
 signal typing_started(target_word : String)
 signal typing_updated(
 	target_word : String,
@@ -48,6 +49,10 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 func check(input: String) -> void:
 	var cur_index:= fill.length()
+	
+	while cur_index < target.length() and target.substr(cur_index, 1) == " ":
+		fill += " "
+		cur_index += 1
 	var expected_char := target.substr(cur_index, 1)
 
 	if input == expected_char:

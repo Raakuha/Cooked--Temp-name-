@@ -197,3 +197,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.417, 1, -1.263)
 [connection signal="typing_completed" from="TypingManager" to="TypingUI" method="_on_typing_manager_typing_completed"]
 [connection signal="typing_started" from="TypingManager" to="TypingUI" method="_on_typing_manager_typing_started"]
 [connection signal="typing_updated" from="TypingManager" to="TypingUI" method="_on_typing_manager_typing_updated"]
+[connection signal="arrived_at_target" from="Player" to="." method="_on_player_arrived_at_target"]
