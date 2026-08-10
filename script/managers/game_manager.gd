@@ -1,6 +1,7 @@
 class_name GameManager
 extends Node
 
+signal order_requested(recipe_id)
 
 @onready var event_runner : EventRunner = $"../EventRunner"
 @onready var dialogue_manager : DialogueManager = $"../DialogueManager"
@@ -14,11 +15,15 @@ func _ready():
 
 	event_runner.event_started.connect(_on_event_started)
 
+	event_runner.finished.connect(_on_day_finished)
+
 	dialogue_manager.dialogue_finished.connect(_on_dialog_finished)
 
 	typing_manager.typing_finished.connect(_on_typing_finished)
 
 	customer_manager.customer_arrived.connect(_on_customer_arrived)
+
+	customer_manager.customer_exited.connect(_on_customer_exited)
 
 	call_deferred("start_day")
 
@@ -27,14 +32,27 @@ func start_day():
 
 	print("===== DAY START =====")
 
-	customer_manager.spawn_customer()
+	event_runner.start(GameData.DAY1)
+
+func _on_day_finished():
+
+	print("========================")
+	print("===== DAY 1 COMPLETE =====")
+	print("========================")
 
 
 func _on_customer_arrived():
 
 	print("GameManager menerima: Customer sampai kasir")
 
-	event_runner.start(GameData.DAY1)
+	event_runner.next_event()
+
+
+func _on_customer_exited():
+
+	print("GameManager menerima: Customer keluar")
+
+	event_runner.next_event()
 
 
 func _on_dialog_finished():
@@ -48,6 +66,9 @@ func _on_typing_finished():
 
 	print("Typing selesai")
 
+	if customer_manager.current_customer != null:
+		customer_manager.current_customer.receive_food()
+
 	event_runner.next_event()
 
 
@@ -59,27 +80,35 @@ func _on_event_started(event):
 
 			var target : Node3D = null
 
-
 			if event["speaker"] == "customer":
 
 				if customer_manager.current_customer != null:
-
 					target = customer_manager.current_customer.get_node("Marker3D")
-
 
 			elif event["speaker"] == "mc":
 
 				target = player.get_node("DialogueMarker")
-
 
 			dialogue_manager.start_dialog(event, target)
 
 
 		"typing":
 
-			typing_manager.start_typing(event)
+				if customer_manager.current_customer != null:
+					customer_manager.current_customer.start_waiting()
+
+				order_requested.emit(event["recipe"])
+
+				typing_manager.start_typing(event)
 
 
 		"exit":
 
 			print("Customer Exit")
+
+			customer_manager.exit_customer()
+
+
+		"spawn_customer":
+
+			customer_manager.spawn_customer(event["name"])
