@@ -3,6 +3,7 @@ class_name Workstation
 @export var command : String = ""
 @onready var navigation_target: Marker3D = $NavigationTarget
 var is_interact : bool = false
+@onready var prompt_anchor: Marker3D = $PromptAnchor
 
 signal interaction_started
 signal interaction_finished
@@ -13,9 +14,12 @@ signal action_started(action_name : String)
 signal action_finished(action_name : String)
 func get_navigation_position() -> Vector3 :
 	return navigation_target.global_position
-func _ready() -> void:
-	add_to_group("workstations")
 	
+func get_prompt_position() -> Vector3:
+	return prompt_anchor.global_position
+	
+func _enter_tree() -> void:
+	add_to_group("workstations")
 
 func perform_action(action_name : String) -> void:
 	if current_action != "":
@@ -46,9 +50,12 @@ func start_interaction() -> void:
 	interaction_started.emit()
 
 func finish_interaction() -> void:
-	
 	if not is_interact:
-		return	
+		return
+
+	if current_action != "":
+		return
+
 	is_interact = false
 	print("Interaction " + command + " Selesai") 
 	interaction_finished.emit()

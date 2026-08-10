@@ -6,3 +6,5 @@
 script = ExtResource("1_1u4rh")
 
 [node name="NavigationTarget" type="Marker3D" parent="." unique_id=526064413]
+
+[node name="PromptAnchor" type="Marker3D" parent="." unique_id=886716442]

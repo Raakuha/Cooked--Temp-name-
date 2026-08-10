@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cl1b66ctpy160"]
+
+[ext_resource type="Script" uid="uid://cms1nrgd52b63" path="res://cooking_sequence_test.gd" id="1_m5pg5"]
+[ext_resource type="Script" uid="uid://df2u5jepn1dge" path="res://script/managers/CookingSequence_manager.gd" id="2_do3xy"]
+
+[node name="CookingSequenceTest" type="Node" unique_id=1068872654]
+script = ExtResource("1_m5pg5")
+
+[node name="CookingSequenceManager" type="Node" parent="." unique_id=37449006]
+script = ExtResource("2_do3xy")
+
+[connection signal="recipe_completed" from="CookingSequenceManager" to="." method="_on_cooking_sequence_manager_recipe_completed"]
+[connection signal="recipe_started" from="CookingSequenceManager" to="." method="_on_cooking_sequence_manager_recipe_started"]
+[connection signal="step_started" from="CookingSequenceManager" to="." method="_on_cooking_sequence_manager_step_started"]
