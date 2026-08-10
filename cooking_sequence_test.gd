@@ -3,6 +3,7 @@ extends Node
 @onready var cooking_sequence_manager: CookingSequenceManager = $CookingSequenceManager
 
 
+
 func _ready() -> void:
 	cooking_sequence_manager.start_recipe("nasgor_goreng")
 

@@ -13,6 +13,7 @@ var current_step: Dictionary = {}
 var current_workstation: Workstation = null
 var pending_workstation: Workstation = null
 
+var waiting_for_action: bool = false
 
 func _ready() -> void:
 	typing_manager.typing_completed.connect(_on_typing_completed)
@@ -63,6 +64,8 @@ func start_move_step() -> void:
 		return
 
 	if current_workstation != null:
+		if current_workstation.action_completed.is_connected(_on_action_completed):
+			current_workstation.action_completed.disconnect(_on_action_completed)
 		current_workstation.finish_interaction()
 		current_workstation = null
 
@@ -80,8 +83,10 @@ func _on_player_arrived() -> void:
 	current_workstation = pending_workstation
 	pending_workstation = null
 
+	if not current_workstation.action_completed.is_connected(
+		_on_action_completed):
+			current_workstation.action_completed.connect(_on_action_completed)
 	current_workstation.start_interaction()
-
 	step_completed.emit()
 
 
@@ -105,10 +110,35 @@ func run_action_step() -> void:
 		push_error("Action tidak ditemukan.")
 		return
 
-	current_workstation.perform_action(String(action_name))
+	if waiting_for_action:
+		push_warning("Masih menunggu action sebelumnya selesai.")
+		return
 
-	# Untuk sementara action langsung dianggap selesai.
-	# Nanti Cooking Action bisa menentukan kapan benar-benar selesai.
-	current_workstation.complete_action()
+	waiting_for_action = true
+
+	print(
+		"[RecipeStepExecutor] Memulai action: ",
+		action_name
+	)
+
+	current_workstation.perform_action(
+		String(action_name)
+	)
+func _on_action_completed(
+	workstation: Workstation,
+	action_name: String
+) -> void:
+	if not waiting_for_action:
+		return
+
+	if workstation != current_workstation:
+		return
+
+	waiting_for_action = false
+
+	print(
+		"[RecipeStepExecutor] Action selesai: ",
+		action_name
+	)
 
 	step_completed.emit()
