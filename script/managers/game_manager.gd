@@ -10,6 +10,7 @@ signal order_requested(recipe_id)
 @onready var profit_manager : ProfitManager = $"../ProfitManager"
 @onready var sanity_manager : SanityManager = $"../SanityManager"
 @onready var horror_manager : HorrorManager = $"../HorrorManager"
+@onready var day_manager : DayManager = $"../DayManager"
 
 @onready var player : Node3D = $"../../PlayerBaru"
 @onready var game_hud : GameHUD = $"../../UI/GameHUD"
@@ -31,6 +32,10 @@ func _ready():
 	profit_manager.profit_changed.connect(_on_profit_changed)
 	
 	sanity_manager.horror_threshold_reached.connect(_on_horror_threshold_reached)
+	
+	day_manager.day_started.connect(_on_day_started)
+	day_manager.day_completed.connect(_on_day_completed)
+	#day_manager.game_completed.connect(_on_game_completed)
 
 	call_deferred("start_day")
 	
@@ -54,17 +59,26 @@ func start_day():
 
 	print("===== DAY START =====")
 
-	profit_manager.reset_profit()
-	sanity_manager.reset_sanity()
+	day_manager.start_day(1)
 
-	event_runner.start(GameData.DAY1)
+func _on_day_started(day: int) -> void:
+	print("GameManager memulai Day ", day)
+
+	var events = GameData.get_day_events(day)
+
+	if events.is_empty():
+		print("Belum ada event untuk Day ", day)
+		return
+
+	event_runner.start(events)
 
 func _on_day_finished():
+	day_manager.complete_day()
 
-	print("========================")
-	print("===== DAY 1 COMPLETE =====")
-	print("========================")
+func _on_day_completed(day: int) -> void:
+	print("GameManager menerima Day ", day, " selesai")
 
+	day_manager.next_day()
 
 func _on_customer_arrived():
 

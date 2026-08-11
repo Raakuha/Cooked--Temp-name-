@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c58ebfvjps2ko" path="res://scene/Mc/Player_Baru.tscn" id="7_m5dmv"]
 [ext_resource type="Script" uid="uid://cdt0nys3j1kdi" path="res://script/managers/horror_manager.gd" id="8_4w345"]
 [ext_resource type="Script" uid="uid://dt7r4d737i7rl" path="res://script/ui/game_hud.gd" id="9_fuybt"]
+[ext_resource type="Script" uid="uid://brc3o4r7a765n" path="res://script/managers/day_manager.gd" id="9_olp7e"]
 
 [node name="GameRoot" type="Node" unique_id=1342161543]
 
@@ -34,6 +35,9 @@ script = ExtResource("7_8n54l")
 
 [node name="HorrorManager" type="Node" parent="Managers" unique_id=1495089430]
 script = ExtResource("8_4w345")
+
+[node name="DayManager" type="Node" parent="Managers" unique_id=8268402]
+script = ExtResource("9_olp7e")
 
 [node name="UI" type="Node" parent="." unique_id=1624596758]
 
