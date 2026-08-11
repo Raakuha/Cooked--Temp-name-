@@ -24,6 +24,10 @@ func execute_step(step: Dictionary) -> void:
 	current_step = step
 
 	var workstation_name: String = step["workstation"]
+	print(
+	"[RecipeStepExecutor] Mencari workstation: ",
+	workstation_name
+)
 	var workstation: Workstation = workstation_registry.get_workstation(workstation_name)
 
 	if workstation == null:
@@ -44,13 +48,15 @@ func _on_typing_completed(_command: String) -> void:
 	if current_step.is_empty():
 		return
 
+	if waiting_for_action:
+		return
+
 	match current_step["type"]:
 		RecipeData.StepType.MOVE:
 			start_move_step()
 
 		RecipeData.StepType.ACTION:
 			run_action_step()
-
 
 func start_move_step() -> void:
 	var workstation_name: String = current_step["workstation"]
@@ -121,8 +127,13 @@ func run_action_step() -> void:
 		action_name
 	)
 
+	var interaction_data: Dictionary = current_step.get(
+		"interaction",
+		{}
+	)
 	current_workstation.perform_action(
-		String(action_name)
+		String(action_name),
+		interaction_data
 	)
 func _on_action_completed(
 	workstation: Workstation,

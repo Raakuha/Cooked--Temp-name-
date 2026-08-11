@@ -1,20 +1,22 @@
 extends Node3D
 class_name Workstation
+
 @export var command : String = ""
 @onready var navigation_target: Marker3D = $NavigationTarget
-var is_interact : bool = false
 @onready var prompt_anchor: Marker3D = $PromptAnchor
-
+@export var typing_ui: TypingUI
 signal interaction_started
 signal interaction_finished
 signal action_completed(workstation, action_name)
 
 var action_in_progress : bool = false
 var current_action: String = ""
+var is_interact : bool = false
+var current_action_data: Dictionary = {}
 
 @export var camera_controller : CameraController
 @export var interaction_camera_anchor : Marker3D
-
+@export var typing_manager: TypingManager
 
 
 signal action_started(action_name : String)
@@ -28,13 +30,17 @@ func get_prompt_position() -> Vector3:
 func _enter_tree() -> void:
 	add_to_group("workstations")
 
-func perform_action(action_name: String) -> void:
+func perform_action(
+	action_name: String,
+	interaction_data: Dictionary = {}
+) -> void:
 	if action_in_progress:
 		push_warning("Masih ada action yang sedang berjalan.")
 		return
 
 	action_in_progress = true
 	current_action = action_name
+	current_action_data = interaction_data
 
 	print(
 		"[Workstation] ",
@@ -116,10 +122,57 @@ func run_cut_action() -> void:
 func run_mix_action() -> void:
 	print("[CookingAction] MIX")
 
-	# Temporary.
-	# Nanti diganti Wok FPP interaction.
-	finish_action_after_delay(1.0)
+	var prompts: Array = current_action_data.get(
+		"prompts",
+		["MIX"]
+	)
 
+	print("[CookingAction] Interaction prompts: ", prompts)
+
+	if camera_controller == null:
+		push_warning("CameraController belum dipasang.")
+		complete_action()
+		return
+
+	if interaction_camera_anchor == null:
+		push_warning("InteractionCameraAnchor belum dipasang.")
+		complete_action()
+		return
+
+	if typing_manager == null:
+		push_warning("TypingManager belum dipasang.")
+		complete_action()
+		return
+
+	camera_controller.enter_interaction(
+		interaction_camera_anchor
+	)
+
+	await camera_controller.transition_finished
+	typing_ui.use_screen_mode()
+
+	print("[CookingAction] FPP MIX dimulai")
+
+	for prompt in prompts:
+		typing_manager.call_deferred(
+			"start_typing",
+			String(prompt)
+		)
+
+		await typing_manager.typing_completed
+
+		print(
+			"[CookingAction] Prompt selesai: ",
+			prompt
+		)
+
+	print("[CookingAction] FPP MIX selesai")
+
+	camera_controller.exit_interaction()
+	typing_ui.use_world_mode()
+	await camera_controller.transition_finished
+
+	complete_action()
 
 func run_cook_action() -> void:
 	print("[CookingAction] COOK")
@@ -152,7 +205,8 @@ func complete_action() -> void:
 
 	action_in_progress = false
 	current_action = ""
-
+	current_action_data = {}
+	
 	print(
 		"[Workstation] ",
 		command,
