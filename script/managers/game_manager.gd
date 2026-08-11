@@ -25,7 +25,7 @@ func _ready():
 
 	dialogue_manager.dialogue_finished.connect(_on_dialog_finished)
 
-	typing_manager.typing_finished.connect(_on_typing_finished)
+	
 
 	customer_manager.customer_arrived.connect(_on_customer_arrived)
 
@@ -106,15 +106,6 @@ func _on_dialog_finished():
 	event_runner.next_event()
 
 
-func _on_typing_finished():
-
-	print("Typing selesai")
-
-	if customer_manager.current_customer != null:
-		customer_manager.current_customer.receive_food()
-
-	event_runner.next_event()
-
 
 func _on_event_started(event):
 
@@ -138,12 +129,8 @@ func _on_event_started(event):
 
 		"typing":
 
-				if customer_manager.current_customer != null:
-					customer_manager.current_customer.start_waiting()
+			print("Recipe dimulai: ", event["recipe"])
 
-				order_requested.emit(event["recipe"])
-
-				typing_manager.start_typing(event)
 
 
 		"exit":

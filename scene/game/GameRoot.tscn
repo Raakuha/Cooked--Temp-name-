@@ -6,8 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://cji3etv718rs4" path="res://scene/managers/GameManager.tscn" id="3_54au1"]
 [ext_resource type="PackedScene" uid="uid://c0jxrcxp601e" path="res://scene/ui/DialogueBubble.tscn" id="4_m5dmv"]
 [ext_resource type="PackedScene" uid="uid://bf8t3scq2onna" path="res://script/event/EventRunner.tscn" id="5_54au1"]
+
 [ext_resource type="Script" uid="uid://dpxgvr86d2v4b" path="res://script/managers/profit_manager.gd" id="6_f5u50"]
 [ext_resource type="Script" uid="uid://dvejkl57hqp63" path="res://script/managers/sanity_manager.gd" id="7_8n54l"]
+
+[ext_resource type="PackedScene" uid="uid://cehb1aohu4fde" path="res://scene/typing_prototype.tscn" id="6_54au1"]
+
 [ext_resource type="PackedScene" uid="uid://c58ebfvjps2ko" path="res://scene/Mc/Player_Baru.tscn" id="7_m5dmv"]
 [ext_resource type="Script" uid="uid://cdt0nys3j1kdi" path="res://script/managers/horror_manager.gd" id="8_4w345"]
 [ext_resource type="Script" uid="uid://dt7r4d737i7rl" path="res://script/ui/game_hud.gd" id="9_fuybt"]
@@ -51,6 +55,7 @@ script = ExtResource("9_olp7e")
 
 [node name="DialogueBubble" parent="UI" unique_id=1769872994 instance=ExtResource("4_m5dmv")]
 
+
 [node name="GameHUD" type="CanvasLayer" parent="UI" unique_id=1268146488]
 script = ExtResource("9_fuybt")
 
@@ -60,6 +65,9 @@ offset_bottom = 40.0
 
 [node name="ProfitLabel" type="Label" parent="UI/GameHUD/MarginContainer" unique_id=1920866351]
 layout_mode = 2
+
+[node name="TypingUI" parent="UI" unique_id=1494470883 instance=ExtResource("6_54au1")]
+
 
 [node name="SpawnPoints" type="Node" parent="." unique_id=237271012]
 
@@ -89,5 +97,9 @@ mesh = SubResource("BoxMesh_8d8pf")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=610553848]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004547119, 0, -0.010131836)
 shape = SubResource("BoxShape3D_8f85w")
+
+[connection signal="typing_completed" from="Managers/TypingManager" to="UI/TypingUI" method="_on_typing_manager_typing_completed"]
+[connection signal="typing_started" from="Managers/TypingManager" to="UI/TypingUI" method="_on_typing_manager_typing_started"]
+[connection signal="typing_updated" from="Managers/TypingManager" to="UI/TypingUI" method="_on_typing_manager_typing_updated"]
 
 [editable path="UI/DialogueBubble"]

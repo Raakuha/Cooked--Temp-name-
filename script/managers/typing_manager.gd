@@ -1,44 +1,82 @@
-class_name TypingManager
 extends Node
 
-
-signal typing_finished
-
-
-var current_typing = {}
+class_name TypingManager
 
 
-func start_typing(data):
+signal typing_started(target_word : String)
+signal typing_updated(
+	target_word : String,
+	fill_word : String,
+	mistake_count : int,
+	last_input_correct : bool
+)
+signal typing_completed (command : String)
 
-	current_typing = data
+var target : String = ""
+var fill : String = ""
+var mistake_count: int = 0
+var active : bool = false
 
-	print("========================")
-	print("TYPING DIMULAI")
-	print("Recipe :", data["recipe"])
-	print("========================")
+func start_typing(new_target : String)-> void:
+	target = new_target.to_upper()
+	fill = ""
+	mistake_count = 0
+	active = true
+	typing_started.emit(target)
+	typing_updated.emit(target, fill, mistake_count, true)
 
 
-func finish_typing():
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not active:
+		return
+	if not event is InputEventKey:
+		return
+	var key := event as InputEventKey
 
-	if current_typing.is_empty():
+	if not key.pressed or key.echo:
 		return
 
-	print("========================")
-	print("TYPING SELESAI")
-	print("========================")
+	if key.unicode == 0:
+		return
 
-	# PENTING:
-	# kosongkan status typing sebelum signal dikirim
-	current_typing = {}
+	var input := String.chr(key.unicode).to_upper()
 
-	typing_finished.emit()
+	if not "ABCDEFGHIJKLMNOPQRSTUVWXYZ".contains(input):
+		return
 
+	check(input)
+	get_viewport().set_input_as_handled()
 
-func _unhandled_input(event):
+func check(input: String) -> void:
+	var cur_index:= fill.length()
+	
+	while cur_index < target.length() and target.substr(cur_index, 1) == " ":
+		fill += " "
+		cur_index += 1
+	var expected_char := target.substr(cur_index, 1)
 
-	if event.is_action_pressed("ui_accept"):
+	if input == expected_char:
+		fill += input
 
-		if current_typing.is_empty():
-			return
+		typing_updated.emit(
+			target,
+			fill,
+			mistake_count,
+			true
+		)
 
-		finish_typing()
+		if fill.length() == target.length():
+			finish_typing()
+	else:
+		mistake_count += 1
+		typing_updated.emit(
+			target,
+			fill,
+			mistake_count,
+			false
+		)
+
+func finish_typing() -> void:
+	active = false
+	print("Target word sudah selesai " + target)
+	typing_completed.emit(target)
