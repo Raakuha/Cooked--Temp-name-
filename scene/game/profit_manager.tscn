@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cd27pfjqn2bd5"]
+
+[ext_resource type="Script" uid="uid://dpxgvr86d2v4b" path="res://script/managers/profit_manager.gd" id="1_0nn6j"]
+
+[node name="ProfitManager" type="Node" unique_id=1647715688]
+script = ExtResource("1_0nn6j")

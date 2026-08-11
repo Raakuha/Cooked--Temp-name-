@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cji3etv718rs4" path="res://scene/managers/GameManager.tscn" id="3_54au1"]
 [ext_resource type="PackedScene" uid="uid://c0jxrcxp601e" path="res://scene/ui/DialogueBubble.tscn" id="4_m5dmv"]
 [ext_resource type="PackedScene" uid="uid://bf8t3scq2onna" path="res://script/event/EventRunner.tscn" id="5_54au1"]
+[ext_resource type="Script" uid="uid://dpxgvr86d2v4b" path="res://script/managers/profit_manager.gd" id="6_f5u50"]
 [ext_resource type="PackedScene" uid="uid://c58ebfvjps2ko" path="res://scene/Mc/Player_Baru.tscn" id="7_m5dmv"]
 
 [node name="GameRoot" type="Node" unique_id=1342161543]
@@ -21,6 +22,9 @@
 [node name="TypingManager" parent="Managers" unique_id=176999645 instance=ExtResource("3_2i8xl")]
 
 [node name="EventRunner" parent="Managers" unique_id=798934678 instance=ExtResource("5_54au1")]
+
+[node name="ProfitManager" type="Node" parent="Managers" unique_id=1224377178]
+script = ExtResource("6_f5u50")
 
 [node name="UI" type="Node" parent="." unique_id=1624596758]
 

@@ -7,6 +7,7 @@ signal order_requested(recipe_id)
 @onready var dialogue_manager : DialogueManager = $"../DialogueManager"
 @onready var customer_manager : CustomerManager = $"../CustomerManager"
 @onready var typing_manager : TypingManager = $"../TypingManager"
+@onready var profit_manager : ProfitManager = $"../ProfitManager"
 
 @onready var player : Node3D = $"../../PlayerBaru"
 
@@ -27,6 +28,12 @@ func _ready():
 
 	call_deferred("start_day")
 
+func _input(event):
+	if event.is_action_pressed("ui_accept"):
+		profit_manager.customer_success()
+
+	if event.is_action_pressed("ui_cancel"):
+		profit_manager.customer_failed()
 
 func start_day():
 
