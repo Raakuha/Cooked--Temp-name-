@@ -1,6 +1,11 @@
 class_name HorrorManager
 extends Node
 
+var triggered_events: Array[int] = []
+
+@onready var main_light: DirectionalLight3D = $"../../World/DirectionalLight3D"
+
+var original_energy: float = 1.0
 
 func trigger_horror(threshold: int) -> void:
 
@@ -22,8 +27,27 @@ func trigger_horror(threshold: int) -> void:
 
 
 func _horror_event_1() -> void:
+	print("========================")
 	print("HORROR EVENT 1")
-	print("Sesuatu terasa sedikit aneh...")
+	print("Lampu mulai berkedip...")
+	print("========================")
+
+	if main_light == null:
+		print("DirectionalLight3D tidak ditemukan.")
+		return
+
+	for i in range(4):
+
+		main_light.light_energy = 0.1
+		await get_tree().create_timer(0.12).timeout
+
+		main_light.light_energy = original_energy
+		await get_tree().create_timer(0.15).timeout
+
+	main_light.light_energy = original_energy
+
+	print("Horror Event 1 selesai.")
+	
 
 
 func _horror_event_2() -> void:

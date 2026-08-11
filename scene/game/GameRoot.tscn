@@ -13,6 +13,14 @@
 [ext_resource type="Script" uid="uid://dt7r4d737i7rl" path="res://script/ui/game_hud.gd" id="9_fuybt"]
 [ext_resource type="Script" uid="uid://brc3o4r7a765n" path="res://script/managers/day_manager.gd" id="9_olp7e"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8f85w"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8d8pf"]
+size = Vector3(30, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8f85w"]
+size = Vector3(29.975037, 1, 9.999756)
+
 [node name="GameRoot" type="Node" unique_id=1342161543]
 
 [node name="Managers" type="Node" parent="." unique_id=1822758585]
@@ -67,7 +75,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2871366, 0.95446944, 0)
 [node name="Camera3D" type="Camera3D" parent="World" unique_id=1714549731]
 transform = Transform3D(1, 0, 0, 0, 0.9964558, 0.08411815, 0, -0.08411814, 0.9964558, 2.071083, 2.7741811, 5.8685822)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1016756547]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World" unique_id=1016756547]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 11, 0)
+light_energy = 7.121
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=8132546]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4880967, 0)
+physics_material_override = SubResource("PhysicsMaterial_8f85w")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=116837670]
+mesh = SubResource("BoxMesh_8d8pf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=610553848]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004547119, 0, -0.010131836)
+shape = SubResource("BoxShape3D_8f85w")
 
 [editable path="UI/DialogueBubble"]

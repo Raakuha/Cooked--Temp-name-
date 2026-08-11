@@ -8,6 +8,8 @@ signal order_requested(recipe_id)
 @onready var customer_manager : CustomerManager = $"../CustomerManager"
 @onready var typing_manager : TypingManager = $"../TypingManager"
 @onready var profit_manager : ProfitManager = $"../ProfitManager"
+
+
 @onready var sanity_manager : SanityManager = $"../SanityManager"
 @onready var horror_manager : HorrorManager = $"../HorrorManager"
 @onready var day_manager : DayManager = $"../DayManager"
@@ -33,6 +35,8 @@ func _ready():
 	
 	sanity_manager.horror_threshold_reached.connect(_on_horror_threshold_reached)
 	
+
+	
 	day_manager.day_started.connect(_on_day_started)
 	day_manager.day_completed.connect(_on_day_completed)
 	#day_manager.game_completed.connect(_on_game_completed)
@@ -45,6 +49,7 @@ func _on_horror_threshold_reached(threshold: int) -> void:
 
 func _on_profit_changed(value: int) -> void:
 	game_hud.update_profit(value)
+
 
 
 	
