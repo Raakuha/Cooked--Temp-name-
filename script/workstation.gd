@@ -12,6 +12,9 @@ signal action_completed(workstation, action_name)
 var action_in_progress : bool = false
 var current_action: String = ""
 
+@export var camera_controller : CameraController
+@export var interaction_camera_anchor : Marker3D
+
 
 
 signal action_started(action_name : String)

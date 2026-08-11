@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://cxn6woxhekpe7" path="res://script/workstation.gd" id="5_8j8vy"]
 [ext_resource type="Script" uid="uid://df2u5jepn1dge" path="res://script/managers/CookingSequence_manager.gd" id="7_wyt28"]
 [ext_resource type="Script" uid="uid://di2770pwmbfuc" path="res://script/managers/recipe_step_executor.gd" id="8_aderx"]
+[ext_resource type="Script" uid="uid://cifsruuqunj87" path="res://scene/camera_controller.gd" id="10_8xanc"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_iagvn"]
 vertices = PackedVector3Array(-21.97, 0.26079988, -11.340416, -4.7199993, 0.26079988, -11.340416, -4.2199993, 0.26079988, -12.340416, -2.2199993, 0.26079988, -42.840416, -21.97, 0.26079988, -42.840416, -2.2199993, 0.26079988, -12.340416, 2.0300007, 0.26079988, -12.340416, 2.0300007, 0.26079988, -42.840416, 4.0300007, 0.26079988, -12.340416, 4.5300007, 0.26079988, -11.340416, 22.03, 0.26079988, -11.340416, 22.03, 0.26079988, -42.840416, -0.9699993, 0.26079988, -6.840416, 0.030000687, 0.26079988, -7.090416, 0.030000687, 0.26079988, -10.090416, -4.2199993, 0.26079988, -10.090416, 0.030000687, 0.26079988, 1.159584, -21.97, 0.26079988, 1.159584, -0.9699993, 0.26079988, -5.340416, 0.030000687, 0.26079988, -4.840416, 1.2800007, 0.26079988, -6.590416, 4.0300007, 0.26079988, -10.090416, 22.03, 0.26079988, 1.159584, 1.2800007, 0.26079988, -5.590416)
@@ -47,7 +48,7 @@ script = ExtResource("1_iagvn")
 [node name="TypingManager" parent="." unique_id=176999645 instance=ExtResource("3_y88tg")]
 
 [node name="TypingUI" parent="." unique_id=1494470883 node_paths=PackedStringArray("camera") instance=ExtResource("4_wyt28")]
-camera = NodePath("../Camera3D")
+camera = NodePath("../CameraSystem/GameplayCamera")
 metadata/_edit_use_anchors_ = true
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1092841579]
@@ -186,6 +187,8 @@ command = "REFRIGERATOR"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0935092, 0.77145433, -3.7100444)
 command = "STOVE"
 
+[node name="InteractionCameraAnchor" type="Marker3D" parent="Stove" unique_id=1542639302]
+
 [node name="Microwave" parent="." unique_id=917086952 instance=ExtResource("2_xox26")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1764565, 0.53230715, -9.563817)
 command = "MICROWAVE"
@@ -196,9 +199,6 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1449296866]
 environment = SubResource("Environment_8xanc")
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=555794287]
-transform = Transform3D(1, 0, 0, 0, 0.59443855, 0.8041411, 0, -0.8041411, 0.59443855, 0.72230554, 6.1873817, -0.7841332)
 
 [node name="Player" parent="." unique_id=1224841943 instance=ExtResource("3_36e65")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.417, 1, -1.263)
@@ -212,6 +212,13 @@ player = NodePath("../Player")
 typing_manager = NodePath("../TypingManager")
 workstation_registry = NodePath("../WorkstationRegistry")
 typing_ui = NodePath("../TypingUI")
+
+[node name="CameraSystem" type="Node3D" parent="." unique_id=2131922026 node_paths=PackedStringArray("interaction_camera_anchor")]
+script = ExtResource("10_8xanc")
+interaction_camera_anchor = NodePath("../Stove/InteractionCameraAnchor")
+
+[node name="GameplayCamera" type="Camera3D" parent="CameraSystem" unique_id=555794287]
+transform = Transform3D(1, 0, 0, 0, 0.59443855, 0.8041411, 0, -0.8041411, 0.59443855, 0.72230554, 6.1873817, -0.7841332)
 
 [connection signal="typing_completed" from="TypingManager" to="." method="_on_typing_manager_typing_completed"]
 [connection signal="typing_completed" from="TypingManager" to="TypingUI" method="_on_typing_manager_typing_completed"]
