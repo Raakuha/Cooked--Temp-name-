@@ -8,9 +8,10 @@ signal order_requested(recipe_id)
 @onready var customer_manager : CustomerManager = $"../CustomerManager"
 @onready var typing_manager : TypingManager = $"../TypingManager"
 @onready var profit_manager : ProfitManager = $"../ProfitManager"
+@onready var sanity_manager : SanityManager = $"../SanityManager"
 
 @onready var player : Node3D = $"../../PlayerBaru"
-
+@onready var game_hud : GameHUD = $"../../UI/GameHUD"
 
 func _ready():
 
@@ -25,19 +26,30 @@ func _ready():
 	customer_manager.customer_arrived.connect(_on_customer_arrived)
 
 	customer_manager.customer_exited.connect(_on_customer_exited)
+	
+	profit_manager.profit_changed.connect(_on_profit_changed)
+	
 
 	call_deferred("start_day")
+	
+func _on_profit_changed(value: int) -> void:
+	game_hud.update_profit(value)
 
+
+	
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
-		profit_manager.customer_success()
+		sanity_manager.decrease_sanity(10)
 
 	if event.is_action_pressed("ui_cancel"):
-		profit_manager.customer_failed()
+		sanity_manager.increase_sanity(10)
 
 func start_day():
 
 	print("===== DAY START =====")
+
+	profit_manager.reset_profit()
+	sanity_manager.reset_sanity()
 
 	event_runner.start(GameData.DAY1)
 

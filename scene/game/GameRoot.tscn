@@ -7,7 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://c0jxrcxp601e" path="res://scene/ui/DialogueBubble.tscn" id="4_m5dmv"]
 [ext_resource type="PackedScene" uid="uid://bf8t3scq2onna" path="res://script/event/EventRunner.tscn" id="5_54au1"]
 [ext_resource type="Script" uid="uid://dpxgvr86d2v4b" path="res://script/managers/profit_manager.gd" id="6_f5u50"]
+[ext_resource type="Script" uid="uid://dvejkl57hqp63" path="res://script/managers/sanity_manager.gd" id="7_8n54l"]
 [ext_resource type="PackedScene" uid="uid://c58ebfvjps2ko" path="res://scene/Mc/Player_Baru.tscn" id="7_m5dmv"]
+[ext_resource type="Script" uid="uid://dt7r4d737i7rl" path="res://script/ui/game_hud.gd" id="9_fuybt"]
 
 [node name="GameRoot" type="Node" unique_id=1342161543]
 
@@ -26,9 +28,22 @@
 [node name="ProfitManager" type="Node" parent="Managers" unique_id=1224377178]
 script = ExtResource("6_f5u50")
 
+[node name="SanityManager" type="Node" parent="Managers" unique_id=332206596]
+script = ExtResource("7_8n54l")
+
 [node name="UI" type="Node" parent="." unique_id=1624596758]
 
 [node name="DialogueBubble" parent="UI" unique_id=1769872994 instance=ExtResource("4_m5dmv")]
+
+[node name="GameHUD" type="CanvasLayer" parent="UI" unique_id=1268146488]
+script = ExtResource("9_fuybt")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameHUD" unique_id=320749345]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ProfitLabel" type="Label" parent="UI/GameHUD/MarginContainer" unique_id=1920866351]
+layout_mode = 2
 
 [node name="SpawnPoints" type="Node" parent="." unique_id=237271012]
 
