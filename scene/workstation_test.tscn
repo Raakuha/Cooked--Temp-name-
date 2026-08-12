@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://blrc087prr4v" path="res://scene/Timing_mekanisme.tscn" id="7_itdsq"]
 [ext_resource type="Script" uid="uid://df2u5jepn1dge" path="res://script/managers/CookingSequence_manager.gd" id="7_wyt28"]
 [ext_resource type="Script" uid="uid://di2770pwmbfuc" path="res://script/managers/recipe_step_executor.gd" id="8_aderx"]
+[ext_resource type="Script" uid="uid://bk4grk6b61gs2" path="res://script/Plating.gd" id="9_kwcmp"]
 [ext_resource type="Script" uid="uid://cifsruuqunj87" path="res://script/camera_controller.gd" id="10_8xanc"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_iagvn"]
@@ -121,6 +122,7 @@ command = "SEASONING"
 
 [node name="Plating" parent="." unique_id=305849346 node_paths=PackedStringArray("typing_ui", "camera_controller", "typing_manager") instance=ExtResource("2_xox26")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9112206, 0.3636067, -21.844025)
+script = ExtResource("9_kwcmp")
 command = "PLATING"
 typing_ui = NodePath("../TypingUI")
 camera_controller = NodePath("../CameraSystem")
