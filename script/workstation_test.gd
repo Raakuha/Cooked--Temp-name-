@@ -18,5 +18,6 @@ func _on_recipe_started(recipe_id: String) -> void:
 	print("RECIPE DIMULAI: ", recipe_id)
 
 
-func _on_recipe_completed(recipe_id: String) -> void:
-	print("RECIPE SELESAI: ", recipe_id)
+func _on_recipe_completed(result: CookingResult) -> void:
+	print("RECIPE SELESAI: ", result.recipe_id)
+	print("[CookingResult] ", result.to_dict())

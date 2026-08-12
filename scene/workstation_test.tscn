@@ -8,9 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://bxwdn3yvlgi7m" path="res://scene/ui/TypingUI.tscn" id="4_wyt28"]
 [ext_resource type="Script" uid="uid://cxn6woxhekpe7" path="res://script/workstation.gd" id="5_8j8vy"]
 [ext_resource type="PackedScene" uid="uid://cpmyhm7didfpf" path="res://kitchenmodel_ingame/node_3d.tscn" id="5_pw64f"]
+[ext_resource type="PackedScene" uid="uid://blrc087prr4v" path="res://scene/Timing_mekanisme.tscn" id="7_itdsq"]
 [ext_resource type="Script" uid="uid://df2u5jepn1dge" path="res://script/managers/CookingSequence_manager.gd" id="7_wyt28"]
 [ext_resource type="Script" uid="uid://di2770pwmbfuc" path="res://script/managers/recipe_step_executor.gd" id="8_aderx"]
-[ext_resource type="Script" uid="uid://cifsruuqunj87" path="res://scene/camera_controller.gd" id="10_8xanc"]
+[ext_resource type="Script" uid="uid://bk4grk6b61gs2" path="res://script/Plating.gd" id="9_kwcmp"]
+[ext_resource type="Script" uid="uid://cifsruuqunj87" path="res://script/camera_controller.gd" id="10_8xanc"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_iagvn"]
 vertices = PackedVector3Array(-21.97, 0.44523287, -26.840416, -7.7199993, 0.44523287, -26.590416, -7.4699993, 0.44523287, -28.340416, -5.4699993, 0.44523287, -42.840416, -21.97, 0.44523287, -42.840416, -5.4699993, 0.44523287, -28.340416, 9.030001, 0.44523287, -28.340416, 9.030001, 0.44523287, -42.840416, 11.030001, 0.44523287, -28.340416, 11.280001, 0.44523287, -26.590416, 22.03, 0.44523287, -26.840416, 22.03, 0.44523287, -42.840416, 2.5300007, 0.44523287, -20.590416, 2.7800007, 0.44523287, -21.590416, 1.7800007, 0.44523287, -21.840416, -1.4699993, 0.44523287, -22.090416, -1.7199993, 0.44523287, -19.840416, -1.4699993, 0.44523287, -19.340416, -3.2199993, 0.44523287, -21.590416, -6.2199993, 0.44523287, -21.840416, -6.2199993, 0.44523287, -19.840416, -3.2199993, 0.44523287, -20.090416, -1.4699993, 0.44523287, -25.340416, 1.7800007, 0.44523287, -27.090416, -5.9699993, 0.44523287, -27.090416, -6.2199993, 0.44523287, -25.590416, 5.2800007, 1.9452329, -26.590416, 7.7800007, 1.9452329, -26.590416, 7.5300007, 1.9452329, -27.090416, 4.0300007, 2.1952329, -27.090416, -21.97, 0.44523287, -9.590416, -7.7199993, 0.44523287, -9.840416, 11.280001, 0.44523287, -9.840416, 22.03, 0.44523287, -9.590416, 8.530001, 0.44523287, -21.590416, 8.530001, 0.44523287, -25.840416, 4.0300007, 0.44523287, -25.590416, 3.7800007, 0.44523287, -21.840416, -4.7199993, 1.9452329, -24.590416, -4.7199993, 1.9452329, -22.590416, -3.9699993, 1.9452329, -22.590416, -3.9699993, 1.9452329, -24.590416, 4.7800007, 0.44523287, -9.590416, 5.0300007, 0.69523287, -8.840416, 5.5300007, 0.69523287, -9.090416, 5.7800007, 0.44523287, -9.590416, 7.2800007, 0.69523287, -9.090416, 7.7800007, 0.69523287, -8.840416, 8.030001, 0.44523287, -9.590416, 7.0300007, 0.44523287, -9.590416, -1.4699993, 0.44523287, -13.590416, -1.4699993, 0.44523287, -10.340416, 9.780001, 0.44523287, -9.840416, 9.780001, 0.44523287, -19.340416, 2.7800007, 0.44523287, -19.340416, -6.2199993, 0.44523287, -16.340416, -6.2199993, 0.44523287, -13.840416, -3.2199993, 0.44523287, -14.090416, -1.7199993, 0.44523287, -16.340416, -6.2199993, 0.44523287, -9.840416, -4.7199993, 1.9452329, -19.090416, -4.7199993, 1.9452329, -17.090416, -3.9699993, 1.9452329, -17.090416, -3.9699993, 1.9452329, -19.090416, -4.7199993, 1.9452329, -13.090416, -4.7199993, 1.9452329, -11.090416, -3.9699993, 1.9452329, -11.090416, -3.9699993, 1.9452329, -13.090416, -7.9699993, 0.44523287, 1.159584, -7.7199993, 0.44523287, -8.590416, -21.97, 0.44523287, 1.159584, 11.280001, 0.44523287, -8.590416, 11.530001, 0.44523287, 1.159584, 22.03, 0.44523287, 1.159584, 7.0300007, 0.44523287, -8.340416, 8.030001, 0.44523287, -8.090416, 5.7800007, 0.44523287, -8.340416, 4.7800007, 0.44523287, -8.090416, 11.030001, 0.44523287, -8.090416, -7.4699993, 0.44523287, -8.090416)
@@ -73,7 +75,7 @@ command = "REFRIGERATOR"
 [node name="PromptAnchor" type="Marker3D" parent="Refrigerator" unique_id=886716442]
 
 [node name="RiceStorage" type="Node3D" parent="." unique_id=1859986553]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.463018, 0.2771932, -24.867065)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.52128, 0.2771932, -22.670095)
 script = ExtResource("5_8j8vy")
 command = "RICE_STORAGE"
 
@@ -90,16 +92,24 @@ command = "PRODUCE"
 
 [node name="PromptAnchor" type="Marker3D" parent="Produce" unique_id=155377825]
 
-[node name="Stove" parent="." unique_id=321512018 node_paths=PackedStringArray("typing_ui", "camera_controller", "interaction_camera_anchor", "typing_manager") instance=ExtResource("2_xox26")]
+[node name="Stove" type="Node3D" parent="." unique_id=321512018 node_paths=PackedStringArray("typing_ui", "camera_controller", "interaction_camera_anchor", "typing_manager", "stove_timing_ui")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.421321, 0.77145433, -25.592337)
+script = ExtResource("5_8j8vy")
 command = "STOVE"
 typing_ui = NodePath("../TypingUI")
 camera_controller = NodePath("../CameraSystem")
 interaction_camera_anchor = NodePath("InteractionCameraAnchor")
 typing_manager = NodePath("../TypingManager")
+stove_timing_ui = NodePath("Timing_mekanisme")
 
-[node name="InteractionCameraAnchor" type="Marker3D" parent="Stove" unique_id=1542639302]
-transform = Transform3D(1, 0, 0, 0, 0.98584956, 0.16763239, 0, -0.16763239, 0.98584956, 0, 1.4827511, -0.13145828)
+[node name="NavigationTarget" type="Marker3D" parent="Stove" unique_id=1482941353]
+
+[node name="PromptAnchor" type="Marker3D" parent="Stove" unique_id=1085717635]
+
+[node name="InteractionCameraAnchor" type="Marker3D" parent="Stove" unique_id=1388993636]
+transform = Transform3D(1, 0, 0, 0, 0.9787827, 0.20490098, 0, -0.20490098, 0.9787827, 0, 1.4691057, 0)
+
+[node name="Timing_mekanisme" parent="Stove" unique_id=48844692 instance=ExtResource("7_itdsq")]
 
 [node name="Seasoning" type="Node3D" parent="." unique_id=840262863]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.463018, 0.2771932, -24.867065)
@@ -110,10 +120,13 @@ command = "SEASONING"
 
 [node name="PromptAnchor" type="Marker3D" parent="Seasoning" unique_id=1972908901]
 
-[node name="Microwave" parent="." unique_id=917086952 instance=ExtResource("2_xox26")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1764565, 0.53230715, -9.563817)
-visible = false
-command = "MICROWAVE"
+[node name="Plating" parent="." unique_id=305849346 node_paths=PackedStringArray("typing_ui", "camera_controller", "typing_manager") instance=ExtResource("2_xox26")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9112206, 0.3636067, -21.844025)
+script = ExtResource("9_kwcmp")
+command = "PLATING"
+typing_ui = NodePath("../TypingUI")
+camera_controller = NodePath("../CameraSystem")
+typing_manager = NodePath("../TypingManager")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=602132291]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25000003, 0.018261256, 0.47227454, 0.8812623, -0.49966648, 0.7677609, -0.40109435, 0, 4.0737324, -3.4986818)
@@ -135,13 +148,28 @@ typing_manager = NodePath("../TypingManager")
 workstation_registry = NodePath("../WorkstationRegistry")
 typing_ui = NodePath("../TypingUI")
 
-[node name="CameraSystem" type="Node3D" parent="." unique_id=2131922026 node_paths=PackedStringArray("interaction_camera_anchor")]
+[node name="CameraSystem" type="Node3D" parent="." unique_id=2131922026]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2272215, 0, -26.198725)
 script = ExtResource("10_8xanc")
-interaction_camera_anchor = NodePath("../Stove/InteractionCameraAnchor")
 
 [node name="GameplayCamera" type="Camera3D" parent="CameraSystem" unique_id=555794287]
 transform = Transform3D(-0.9999298, -0.009525269, 0.00704132, -1.4003764e-08, 0.59443855, 0.8041411, -0.011845276, 0.8040848, -0.5943969, 0.7223053, 6.1873817, -0.7841339)
+
+[node name="CuttingBoard" type="Node3D" parent="." unique_id=1684586544 node_paths=PackedStringArray("typing_ui", "camera_controller", "interaction_camera_anchor", "typing_manager")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9086428, 0.36409187, -23.56787)
+script = ExtResource("5_8j8vy")
+command = "CUTTING_BOARD"
+typing_ui = NodePath("../TypingUI")
+camera_controller = NodePath("../CameraSystem")
+interaction_camera_anchor = NodePath("InteractionCameraAnchor")
+typing_manager = NodePath("../TypingManager")
+
+[node name="NavigationTarget" type="Marker3D" parent="CuttingBoard" unique_id=844835047]
+
+[node name="PromptAnchor" type="Marker3D" parent="CuttingBoard" unique_id=27552629]
+
+[node name="InteractionCameraAnchor" type="Marker3D" parent="CuttingBoard" unique_id=1881930623]
+transform = Transform3D(-0.379705, 0, 0.9251076, 0, 1, 0, -0.9251076, 0, -0.379705, 0, 1.3847647, 0)
 
 [connection signal="typing_completed" from="TypingManager" to="." method="_on_typing_manager_typing_completed"]
 [connection signal="typing_completed" from="TypingManager" to="TypingUI" method="_on_typing_manager_typing_completed"]
