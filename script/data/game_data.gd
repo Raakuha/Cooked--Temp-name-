@@ -61,14 +61,14 @@ const DAY1 = [
 
 	{
 		"type": "typing",
-		"recipe": "nasi_goreng"
+		"recipe": "nasgor_goreng"
 	},
 
 	{
 		"type": "dialog",
 		"mode": "bubble",
 		"speaker": "customer",
-		"text": "Terima kasih."
+		"text": "Terima kasih, makanannya enak."
 	},
 
 	{

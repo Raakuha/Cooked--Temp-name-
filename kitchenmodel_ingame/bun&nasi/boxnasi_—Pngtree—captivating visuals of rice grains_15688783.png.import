@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dv8hgb2k55iup"
-path.s3tc="res://.godot/imported/kompor_Screenshot 2026-08-07 091752.png-0d4540fc00a2259a8b3c0f5e9f57c638.s3tc.ctex"
+uid="uid://f5xta35421qr"
+path.s3tc="res://.godot/imported/boxnasi_—Pngtree—captivating visuals of rice grains_15688783.png-478defafcac11bbccce9b6d6f8bbc529.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "576e87ba7dd36eff717321906f36bdbd"
+"md5": "8349cc37d2609f60c400204f3425cfa4"
 }
 
 [deps]
 
-source_file="res://assets/kitchenmodel_ingame/kompornoven/kompor_Screenshot 2026-08-07 091752.png"
-dest_files=["res://.godot/imported/kompor_Screenshot 2026-08-07 091752.png-0d4540fc00a2259a8b3c0f5e9f57c638.s3tc.ctex"]
+source_file="res://kitchenmodel_ingame/bun&nasi/boxnasi_—Pngtree—captivating visuals of rice grains_15688783.png"
+dest_files=["res://.godot/imported/boxnasi_—Pngtree—captivating visuals of rice grains_15688783.png-478defafcac11bbccce9b6d6f8bbc529.s3tc.ctex"]
 
 [params]
 

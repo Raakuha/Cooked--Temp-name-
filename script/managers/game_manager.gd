@@ -9,6 +9,8 @@ signal order_requested(recipe_id)
 @onready var typing_manager : TypingManager = $"../TypingManager"
 @onready var profit_manager : ProfitManager = $"../ProfitManager"
 
+var fake_typing_active := false
+var fake_typing_recipe := ""
 
 @onready var sanity_manager : SanityManager = $"../SanityManager"
 @onready var horror_manager : HorrorManager = $"../HorrorManager"
@@ -28,6 +30,10 @@ func _ready():
 	
 
 	customer_manager.customer_arrived.connect(_on_customer_arrived)
+
+	customer_manager.customer_returned_to_cashier.connect(
+		_on_customer_returned_to_cashier
+	)
 
 	customer_manager.customer_exited.connect(_on_customer_exited)
 	
@@ -53,12 +59,30 @@ func _on_profit_changed(value: int) -> void:
 
 
 	
-func _input(event):
-	if event.is_action_pressed("ui_accept"):
-		sanity_manager.decrease_sanity(10)
+#func _input(event):
+	#if event.is_action_pressed("ui_accept"):
+		#sanity_manager.decrease_sanity(10)
+#
+	#if event.is_action_pressed("ui_cancel"):
+		#sanity_manager.increase_sanity(10)
 
-	if event.is_action_pressed("ui_cancel"):
-		sanity_manager.increase_sanity(10)
+func _input(event):
+
+	if not fake_typing_active:
+		return
+
+	if event.is_action_pressed("ui_accept"):
+
+		fake_typing_active = false
+
+		print("========================")
+		print("TYPING SELESAI")
+		print("========================")
+
+		if customer_manager.current_customer != null:
+			customer_manager.current_customer.receive_food()
+
+			customer_manager.send_customer_to_table()
 
 func start_day():
 
@@ -105,7 +129,20 @@ func _on_dialog_finished():
 
 	event_runner.next_event()
 
+func _on_typing_finished():
 
+	print("Typing selesai")
+
+	if customer_manager.current_customer != null:
+		customer_manager.current_customer.receive_food()
+
+	customer_manager.send_customer_to_table()
+
+func _on_customer_returned_to_cashier():
+
+	print("GameManager menerima: Customer kembali ke kasir")
+
+	event_runner.next_event()
 
 func _on_event_started(event):
 
@@ -129,7 +166,16 @@ func _on_event_started(event):
 
 		"typing":
 
-			print("Recipe dimulai: ", event["recipe"])
+			if customer_manager.current_customer != null:
+				customer_manager.current_customer.start_waiting()
+
+			fake_typing_recipe = event["recipe"]
+			fake_typing_active = true
+
+			print("========================")
+			print("TYPING DIMULAI")
+			print("Recipe :", fake_typing_recipe)
+			print("========================")
 
 
 

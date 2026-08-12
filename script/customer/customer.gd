@@ -2,6 +2,7 @@ class_name Customer
 extends Node3D
 
 signal arrived
+signal returned_to_cashier
 signal exited
 
 enum State {
@@ -10,6 +11,8 @@ enum State {
 	ORDERING,
 	WAITING,
 	RECEIVING,
+	DINING,
+	RETURNING_TO_CASHIER,
 	LEAVING,
 	DONE
 }
@@ -51,6 +54,35 @@ func walk_to_cashier(target_position : Vector3):
 
 	arrived.emit()
 
+func walk_to_table(
+	target_position: Vector3,
+	cashier_position: Vector3):
+
+	set_state(State.DINING)
+
+	print(customer_name + " berjalan ke meja")
+
+	var tween = create_tween()
+
+	tween.tween_property(
+		self,
+		"global_position",
+		target_position,
+		1.5
+	)
+
+	await tween.finished
+
+	print(customer_name + " sudah sampai di meja")
+
+	print(customer_name + " mulai makan")
+
+	await get_tree().create_timer(5.0).timeout
+
+	print(customer_name + " selesai makan")
+
+	return_to_cashier(cashier_position)
+
 
 func start_waiting():
 
@@ -65,6 +97,26 @@ func receive_food():
 
 	print(customer_name + " menerima makanan")
 
+func return_to_cashier(target_position: Vector3):
+
+	set_state(State.RETURNING_TO_CASHIER)
+
+	print(customer_name + " kembali ke kasir")
+
+	var tween = create_tween()
+
+	tween.tween_property(
+		self,
+		"global_position",
+		target_position,
+		1.5
+	)
+
+	await tween.finished
+
+	print(customer_name + " sudah kembali ke kasir")
+
+	returned_to_cashier.emit()
 
 func walk_out(target_position : Vector3):
 

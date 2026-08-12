@@ -3,6 +3,7 @@ extends Node
 
 
 signal customer_arrived
+signal customer_returned_to_cashier
 signal customer_exited
 
 
@@ -13,7 +14,20 @@ var current_customer : Customer = null
 
 @onready var customer_spawn : Marker3D = $"../../SpawnPoints/CustomerSpawn"
 @onready var cashier_point : Marker3D = $"../../SpawnPoints/CashierPoint"
+@onready var customer_exit : Marker3D = $"../../SpawnPoints/CustomerExit"
 
+@onready var sit_point : Marker3D = $"../../DiningPoints/Table01/SitPoint"
+
+func send_customer_to_table():
+	if current_customer == null:
+		return
+
+	print("Customer pergi ke meja")
+
+	current_customer.walk_to_table(
+		sit_point.global_position,
+		cashier_point.global_position
+	)
 
 func _on_customer_arrived():
 
@@ -53,11 +67,26 @@ func spawn_customer(customer_name : String = "Pak Budi"):
 	print("Posisi kasir :", cashier_point.global_position)
 
 	current_customer.arrived.connect(_on_customer_arrived)
+	current_customer.returned_to_cashier.connect(_on_customer_returned_to_cashier)
 
 	current_customer.walk_to_cashier(
 		cashier_point.global_position
 	)
 
+func _on_customer_returned_to_cashier():
+
+	print("Customer kembali ke kasir")
+
+	customer_returned_to_cashier.emit()
+
+func return_customer_to_cashier():
+
+	if current_customer == null:
+		return
+
+	current_customer.return_to_cashier(
+		cashier_point.global_position
+	)
 
 func exit_customer():
 
@@ -71,7 +100,7 @@ func exit_customer():
 	current_customer.exited.connect(_on_customer_exited)
 
 	current_customer.walk_out(
-		customer_spawn.global_position
+		customer_exit.global_position
 	)
 
 
