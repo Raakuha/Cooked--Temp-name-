@@ -2,23 +2,22 @@ extends RefCounted
 class_name RecipeData
 
 # Workstation command IDs.
-# Nilai ini harus sama dengan `command` pada masing-masing node Workstation.
+# Sesuaikan string di bawah dengan `command` pada node Workstation masing-masing.
 const WS_REFRIGERATOR := "REFRIGERATOR"
 const WS_RICE_STORAGE := "RICE_STORAGE"
 const WS_BUN_STORAGE := "BUN_STORAGE"
 const WS_PRODUCE := "PRODUCE"
 const WS_SEASONING := "SEASONING"
-const WS_STOVE := "STOVE"                 # Wok / kompor untuk nasgor
-const WS_FLAT_PAN := "FLAT_PAN"           # Wajan datar untuk steak & burger
+const WS_STOVE := "STOVE"
+const WS_FLAT_PAN := "FLAT_PAN"
 const WS_CUTTING_BOARD := "CUTTING_BOARD"
 const WS_OVEN := "OVEN"
-
+const WS_PLATING := "PLATING"
 
 enum StepType {
 	MOVE,
 	ACTION
 }
-
 
 enum ActionType {
 	NONE,
@@ -34,15 +33,20 @@ enum ActionType {
 	SERVE
 }
 
+# R-P3-11 --- Opsional: override deadline (detik) per recipe_id.
+# Kalau recipe_id tidak ada di sini, MenuDeadlineTimer pakai
+# default_deadline_seconds. Isi/sesuaikan angkanya sesuai kebutuhan balance.
+const DEADLINES: Dictionary = {
+	 "nasgor_goreng": 90.0,
+	# "steak": 120.0,
+}
 
-# `interaction` bersifat opsional.
-# Dipakai untuk sub-prompt aktif di dalam action seperti MIX / CUT / COOK.
-# RecipeStepExecutor / Workstation nanti cukup membaca data ini tanpa
-# meng-hardcode prompt per menu di Workstation.gd.
+# `interaction.prompts` opsional untuk action yang memiliki rangkaian typing.
+# Contoh MIX nasgor: MIX -> MIX -> MIX.
 const RECIPES = {
+
 	# ================================================================
-	# NASGOR GORENG
-	# Alur: nasi -> daging -> telur -> bumbu -> wok -> plating
+	# NASI GORENG
 	# ================================================================
 	"nasgor_goreng": [
 		{
@@ -133,14 +137,20 @@ const RECIPES = {
 			"type": StepType.ACTION,
 			"workstation": WS_STOVE,
 			"prompt": "ADUK NASI GORENG",
-			"action": ActionType.MIX,
+			"action": ActionType.COOK,
 			"interaction": {
 				"prompts": ["MIX", "MIX", "MIX"]
 			}
 		},
 		{
+			"type": StepType.MOVE,
+			"workstation": WS_PLATING,
+			"prompt": "KE TEMPAT PLATING",
+			"action": ActionType.NONE
+		},
+		{
 			"type": StepType.ACTION,
-			"workstation": WS_STOVE,
+			"workstation": WS_PLATING,
 			"prompt": "PLATING NASI GORENG",
 			"action": ActionType.PLATE
 		}
@@ -148,7 +158,6 @@ const RECIPES = {
 
 	# ================================================================
 	# STEAK
-	# Alur: butter -> wagyu -> bumbu -> wajan datar -> plating
 	# ================================================================
 	"steak": [
 		{
@@ -197,8 +206,14 @@ const RECIPES = {
 			}
 		},
 		{
+			"type": StepType.MOVE,
+			"workstation": WS_PLATING,
+			"prompt": "KE TEMPAT PLATING",
+			"action": ActionType.NONE
+		},
+		{
 			"type": StepType.ACTION,
-			"workstation": WS_FLAT_PAN,
+			"workstation": WS_PLATING,
 			"prompt": "PLATING STEAK",
 			"action": ActionType.PLATE
 		}
@@ -206,7 +221,6 @@ const RECIPES = {
 
 	# ================================================================
 	# SALAD
-	# Alur: buah & sayur -> bumbu -> talenan -> plating
 	# ================================================================
 	"salad": [
 		{
@@ -249,8 +263,14 @@ const RECIPES = {
 			}
 		},
 		{
+			"type": StepType.MOVE,
+			"workstation": WS_PLATING,
+			"prompt": "KE TEMPAT PLATING",
+			"action": ActionType.NONE
+		},
+		{
 			"type": StepType.ACTION,
-			"workstation": WS_CUTTING_BOARD,
+			"workstation": WS_PLATING,
 			"prompt": "PLATING SALAD",
 			"action": ActionType.PLATE
 		}
@@ -258,8 +278,6 @@ const RECIPES = {
 
 	# ================================================================
 	# ROTI KHAS LEMPUYANGAN ISI DAGING
-	# Alur: adonan -> daging -> talenan -> oven -> plating
-	# Adonan dan daging sama-sama diambil dari kulkas sesuai keputusan terbaru.
 	# ================================================================
 	"roti_khas_lempuyangan": [
 		{
@@ -311,8 +329,14 @@ const RECIPES = {
 			}
 		},
 		{
+			"type": StepType.MOVE,
+			"workstation": WS_PLATING,
+			"prompt": "KE TEMPAT PLATING",
+			"action": ActionType.NONE
+		},
+		{
 			"type": StepType.ACTION,
-			"workstation": WS_OVEN,
+			"workstation": WS_PLATING,
 			"prompt": "PLATING ROTI",
 			"action": ActionType.PLATE
 		}
@@ -320,7 +344,6 @@ const RECIPES = {
 
 	# ================================================================
 	# BURGER BANGGOR
-	# Alur: bun -> patty -> bumbu -> wajan datar -> plating
 	# ================================================================
 	"burger_banggor": [
 		{
@@ -375,8 +398,14 @@ const RECIPES = {
 			}
 		},
 		{
+			"type": StepType.MOVE,
+			"workstation": WS_PLATING,
+			"prompt": "KE TEMPAT PLATING",
+			"action": ActionType.NONE
+		},
+		{
 			"type": StepType.ACTION,
-			"workstation": WS_FLAT_PAN,
+			"workstation": WS_PLATING,
 			"prompt": "PLATING BURGER",
 			"action": ActionType.PLATE
 		}
@@ -384,7 +413,8 @@ const RECIPES = {
 
 	# ================================================================
 	# AIR MINERAL
-	# Alur: kulkas -> ambil minuman -> selesai
+	# Minuman tidak perlu plating Chef; customer mengambil dari area
+	# minuman setelah item tersedia.
 	# ================================================================
 	"air_mineral": [
 		{
@@ -403,7 +433,6 @@ const RECIPES = {
 
 	# ================================================================
 	# SODA
-	# Alur: kulkas -> ambil minuman -> selesai
 	# ================================================================
 	"soda": [
 		{

@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://blrc087prr4v"]
+
+[ext_resource type="Script" uid="uid://cbym1lr03fatj" path="res://script/ui/stove_timing_ui.gd" id="1_gu47y"]
+
+[node name="Timing_mekanisme" type="CanvasLayer" unique_id=48844692]
+script = ExtResource("1_gu47y")
+
+[node name="Control" type="Control" parent="." unique_id=420410818]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=627425509]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer" unique_id=776109034]
+layout_mode = 2
+
+[node name="TemperatureLabel" type="Label" parent="Control/PanelContainer/VBoxContainer" unique_id=1793298891]
+layout_mode = 2
+
+[node name="TimingBar" type="ProgressBar" parent="Control/PanelContainer/VBoxContainer" unique_id=1529477901]
+layout_mode = 2

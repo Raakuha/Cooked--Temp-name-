@@ -18,9 +18,19 @@ var current_action_data: Dictionary = {}
 @export var interaction_camera_anchor : Marker3D
 @export var typing_manager: TypingManager
 
+## R-P3-09 --- opsional. Kalau kosong, COOK/FRY fallback ke delay biasa
+## (supaya workstation lain yang belum dipasangi timing tidak crash).
+@export var stove_timing_ui: StoveTimingUI
+
+## Hasil PERFECT/GOOD/MISS dari ronde timing terakhir (Array[String]).
+## Dibaca nanti oleh R-P3-06 (Cooking Result Contract). Workstation
+## sendiri TIDAK memanggil Profit/Sanity langsung dari data ini.
+var last_timing_results: Array = []
+
 
 signal action_started(action_name : String)
 signal action_finished(action_name : String)
+signal timing_result(workstation: Workstation, action_name: String, results: Array)
 func get_navigation_position() -> Vector3 :
 	return navigation_target.global_position
 	
@@ -42,12 +52,7 @@ func perform_action(
 	current_action = action_name
 	current_action_data = interaction_data
 
-	print(
-		"[Workstation] ",
-		command,
-		" mulai action: ",
-		action_name
-	)
+
 
 	action_started.emit(action_name)
 
@@ -88,39 +93,76 @@ func perform_action(
 			)
 			complete_action()
 func run_take_action() -> void:
-	print("[CookingAction] TAKE")
+
 
 	finish_action_after_delay(0.3)
 
 
 func run_add_action() -> void:
-	print("[CookingAction] ADD")
+	
 
 	finish_action_after_delay(0.3)
 
 
 func run_open_action() -> void:
-	print("[CookingAction] OPEN")
+
 
 	finish_action_after_delay(0.3)
 
 
 func run_close_action() -> void:
-	print("[CookingAction] CLOSE")
+
 
 	finish_action_after_delay(0.3)
 
 
 func run_cut_action() -> void:
-	print("[CookingAction] CUT")
+	var prompts: Array = current_action_data.get(
+		"prompts",
+		["CUT"]
+	)
 
-	# Temporary.
-	# Nanti diganti Cutting Board FPP interaction.
-	finish_action_after_delay(1.0)
+	if camera_controller == null:
+		push_warning("CameraController belum dipasang.")
+		complete_action()
+		return
 
+	if interaction_camera_anchor == null:
+		push_warning("InteractionCameraAnchor belum dipasang.")
+		complete_action()
+		return
+
+	if typing_manager == null:
+		push_warning("TypingManager belum dipasang.")
+		complete_action()
+		return
+
+	camera_controller.enter_interaction(
+		interaction_camera_anchor
+	)
+
+	await camera_controller.transition_finished
+
+	typing_ui.use_screen_mode()
+
+	for prompt in prompts:
+		typing_manager.call_deferred(
+			"start_typing",
+			String(prompt)
+		)
+
+		await typing_manager.typing_completed
+
+	camera_controller.exit_interaction()
+
+	typing_ui.use_world_mode()
+
+	await camera_controller.transition_finished
+
+	complete_action()
 
 func run_mix_action() -> void:
-	print("[CookingAction] MIX")
+
 
 	var prompts: Array = current_action_data.get(
 		"prompts",
@@ -151,7 +193,7 @@ func run_mix_action() -> void:
 	await camera_controller.transition_finished
 	typing_ui.use_screen_mode()
 
-	print("[CookingAction] FPP MIX dimulai")
+
 
 	for prompt in prompts:
 		typing_manager.call_deferred(
@@ -166,7 +208,6 @@ func run_mix_action() -> void:
 			prompt
 		)
 
-	print("[CookingAction] FPP MIX selesai")
 
 	camera_controller.exit_interaction()
 	typing_ui.use_world_mode()
@@ -175,25 +216,66 @@ func run_mix_action() -> void:
 	complete_action()
 
 func run_cook_action() -> void:
-	print("[CookingAction] COOK")
-
-	finish_action_after_delay(1.0)
+	await run_stove_timing_sequence()
 
 
 func run_fry_action() -> void:
-	print("[CookingAction] FRY")
+	await run_stove_timing_sequence()
 
-	finish_action_after_delay(1.0)
+
+## R-P3-09 --- Dipakai oleh COOK dan FRY. Menjalankan 1 ronde timing per
+## item di interaction.prompts (kalau tidak ada, default 1 ronde "COOK"),
+## persis pola perulangan yang sama seperti run_cut_action/run_mix_action
+## tapi memakai StoveTimingUI, bukan TypingManager.
+func run_stove_timing_sequence() -> void:
+	if stove_timing_ui == null:
+		push_warning(
+			"StoveTimingUI belum dipasang di " + command
+			+ " -- fallback ke delay biasa (belum ada skill-check)."
+		)
+		finish_action_after_delay(1.0)
+		return
+
+	var prompts: Array = current_action_data.get(
+		"prompts",
+		["COOK"]
+	)
+
+	if camera_controller != null and interaction_camera_anchor != null:
+		camera_controller.enter_interaction(interaction_camera_anchor)
+		await camera_controller.transition_finished
+
+	var results: Array = []
+
+	for prompt in prompts:
+		var result: String = await stove_timing_ui.run_timing(String(prompt))
+
+		results.append(result)
+
+		print(
+			"[Workstation] ", command,
+			" timing '", prompt, "' -> ", result
+		)
+
+	if camera_controller != null and interaction_camera_anchor != null:
+		camera_controller.exit_interaction()
+		await camera_controller.transition_finished
+
+	last_timing_results = results
+
+	timing_result.emit(self, current_action, results)
+
+	complete_action()
 
 
 func run_plate_action() -> void:
-	print("[CookingAction] PLATE")
+
 
 	finish_action_after_delay(0.5)
 
 
 func run_serve_action() -> void:
-	print("[CookingAction] SERVE")
+
 
 	finish_action_after_delay(0.5)
 

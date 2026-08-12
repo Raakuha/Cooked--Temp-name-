@@ -24,5 +24,6 @@ func _on_cooking_sequence_manager_step_started(step: Dictionary) -> void:
 	print("--------------------")
 
 
-func _on_cooking_sequence_manager_recipe_completed(recipe_id: String) -> void:
-	print("RECIPE SELESAI: ", recipe_id)
+func _on_cooking_sequence_manager_recipe_completed(result: CookingResult) -> void:
+	print("RECIPE SELESAI: ", result.recipe_id)
+	print("[CookingResult] ", result.to_dict())

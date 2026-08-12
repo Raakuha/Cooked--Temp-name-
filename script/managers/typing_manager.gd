@@ -2,7 +2,7 @@ extends Node
 
 class_name TypingManager
 
-
+signal typing_result(target_word: String, mistake_count: int)
 signal typing_started(target_word : String)
 signal typing_updated(
 	target_word : String,
@@ -79,4 +79,6 @@ func check(input: String) -> void:
 func finish_typing() -> void:
 	active = false
 	print("Target word sudah selesai " + target)
+
+	typing_result.emit(target, mistake_count)
 	typing_completed.emit(target)

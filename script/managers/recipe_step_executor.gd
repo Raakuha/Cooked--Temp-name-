@@ -10,6 +10,8 @@ signal step_completed
 
 var current_step: Dictionary = {}
 
+var current_recipe_name: String = ""
+
 var current_workstation: Workstation = null
 var pending_workstation: Workstation = null
 
@@ -120,6 +122,26 @@ func run_action_step() -> void:
 		push_warning("Masih menunggu action sebelumnya selesai.")
 		return
 
+	# ============================================================
+	# KHUSUS PLATING
+	# ============================================================
+	if action_value == RecipeData.ActionType.PLATE:
+		var plating := current_workstation as Plating
+
+		if plating == null:
+			push_error("Workstation PLATING bukan instance Plating.")
+			return
+
+		if current_recipe_name.is_empty():
+			push_error("Nama recipe belum diisi.")
+			return
+
+		if not plating.plate_recipe(current_recipe_name):
+			return
+
+	# ============================================================
+	# ACTION NORMAL
+	# ============================================================
 	waiting_for_action = true
 
 	print(
@@ -131,6 +153,7 @@ func run_action_step() -> void:
 		"interaction",
 		{}
 	)
+
 	current_workstation.perform_action(
 		String(action_name),
 		interaction_data
