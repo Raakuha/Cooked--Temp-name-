@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dko3175p12cb"]
+
+[ext_resource type="PackedScene" uid="uid://dtcx5tycdsvjr" path="res://kitchenmodel_ingame/tembok/temboknframe.glb" id="1_chcu6"]
+[ext_resource type="Script" uid="uid://rf705lawplhh" path="res://script/basement_horror_trigger.gd" id="1_wwv3x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8f85w"]
+
+[node name="Basement" type="Node3D" unique_id=1226734922]
+
+[node name="BasementHorrorTrigger" type="Area3D" parent="." unique_id=219886340]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49881792, 0, -0.16719937)
+script = ExtResource("1_wwv3x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BasementHorrorTrigger" unique_id=405725172]
+shape = SubResource("BoxShape3D_8f85w")
+
+[node name="temboknframe" parent="." unique_id=638734889 instance=ExtResource("1_chcu6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49881792, 0, -0.16719937)
