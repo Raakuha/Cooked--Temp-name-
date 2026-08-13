@@ -124,12 +124,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2947865, 0, 0.45060158)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5599613, 0, -9.053628)
 
 [node name="BasementHorrorTrigger" parent="World/Basement" index="0" unique_id=219886340 node_paths=PackedStringArray("camera_director", "player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49881792, 1.6437993, -2.8745852)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4306738, 0.54048204, -5.5069017)
 camera_director = NodePath("../../../Managers/CameraDirector")
 player = NodePath("../../../PlayerBaru")
 
+[node name="MeshInstance3D" parent="World/Basement/Wall" parent_id_path=PackedInt32Array(1226734922, 1547274861) index="0" unique_id=2057014998]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55578923, 1.527353, 0.0009717941)
+
 [node name="HorrorCamera" type="Camera3D" parent="World" unique_id=687190185]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2634544, 4.094738, -8.365233)
+transform = Transform3D(-0.9998384, 0, 0.017978443, 0, 1, 0, -0.017978443, 0, -0.9998384, 0.10675669, 1.5909593, -18.09687)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=8132546]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4880967, 0)
