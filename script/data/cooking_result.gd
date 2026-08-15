@@ -1,28 +1,21 @@
 class_name CookingResult
 extends RefCounted
 
-## R-P3-06 --- Cooking Result / Deadline Contract
+## R-P3-06 --- Cooking Result / Deadline Contract.
 ##
-## Cooking layer CUMA melaporkan apa yang terjadi selama masak satu resep.
-## Profit/Sanity system di luar (downstream) yang mutuskan konsekuensi
-## finansial & mental berdasarkan data ini.
+## Cooking runtime hanya melaporkan fakta dari satu order.
+## Profit dan Sanity/Mental diproses downstream.
 ##
-## PENTING: dish akhir TIDAK PERNAH berubah gara-gara mistake, timing MISS,
-## atau menu-timer expiry. Semua itu cuma nambah mental_delta.
-
-const MENTAL_PENALTY_PER_MISTAKE := 1
-const MENTAL_PENALTY_PER_TIMING_MISS := 2
-const MENTAL_PENALTY_PER_DEADLINE_EXPIRED := 5
+## ATURAN:
+## - Typing mistake tidak mengubah hasil makanan.
+## - Stove timing MISS dapat mengurangi profit sedikit.
+## - Deadline habis membuat order FAILED.
+## - Deadline failure tidak mengubah hasil makanan secara visual/gameplay.
+## - Tidak ada mental/profit calculation di class ini.
 
 var recipe_id: String = ""
 var mistake_count: int = 0
-
-# Diisi belakangan oleh R-P3-09 (stove timing skill-window).
-# Isi: array of String "PERFECT" / "GOOD" / "MISS", satu entry per timing
-# check dalam resep ini.
 var timing_summary: Array = []
-
-# Diisi belakangan oleh R-P3-11 (menu deadline timer).
 var deadline_expired: bool = false
 
 
@@ -34,6 +27,9 @@ func reset(new_recipe_id: String) -> void:
 
 
 func add_mistake(count: int = 1) -> void:
+	if count <= 0:
+		return
+
 	mistake_count += count
 
 
@@ -45,24 +41,26 @@ func mark_deadline_expired() -> void:
 	deadline_expired = true
 
 
-func mental_delta() -> int:
-	var delta := mistake_count * MENTAL_PENALTY_PER_MISTAKE
+func get_timing_miss_count() -> int:
+	var count := 0
 
 	for result in timing_summary:
 		if result == "MISS":
-			delta += MENTAL_PENALTY_PER_TIMING_MISS
+			count += 1
 
-	if deadline_expired:
-		delta += MENTAL_PENALTY_PER_DEADLINE_EXPIRED
+	return count
 
-	return delta
+
+func is_success() -> bool:
+	return not deadline_expired
 
 
 func to_dict() -> Dictionary:
 	return {
 		"recipe_id": recipe_id,
+		"success": is_success(),
 		"mistake_count": mistake_count,
 		"timing_summary": timing_summary.duplicate(),
-		"deadline_expired": deadline_expired,
-		"mental_delta": mental_delta()
+		"timing_misses": get_timing_miss_count(),
+		"deadline_expired": deadline_expired
 	}

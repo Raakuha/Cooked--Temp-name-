@@ -1,26 +1,112 @@
 [gd_scene format=3 uid="uid://blrc087prr4v"]
 
 [ext_resource type="Script" uid="uid://cbym1lr03fatj" path="res://script/ui/stove_timing_ui.gd" id="1_gu47y"]
+[ext_resource type="Texture2D" uid="uid://ol4yk7oyhnj" path="res://assets/UI/Desain tanpa judul (1).png" id="2_avxn5"]
+[ext_resource type="Texture2D" uid="uid://cx2s1qqsjg25i" path="res://assets/UI/good (1).png" id="3_dpqvv"]
+[ext_resource type="Texture2D" uid="uid://cslk0pycnrv4t" path="res://assets/UI/perfect (2).png" id="4_7irog"]
+[ext_resource type="Texture2D" uid="uid://c0hn8w8e8p2nh" path="res://assets/UI/arrow.png" id="5_8kh0w"]
 
-[node name="Timing_mekanisme" type="CanvasLayer" unique_id=48844692]
+[node name="Timing_mekanisme" type="CanvasLayer" unique_id=48844692 node_paths=PackedStringArray("needle", "good_zone", "perfect_zone", "label", "result_badge")]
 script = ExtResource("1_gu47y")
+cycle_duration = 1.5
+needle = NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge/Needle")
+needle_min_angle = -90.0
+needle_max_angle = 90.0
+good_zone = NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge/GoodZone")
+perfect_zone = NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge/PerfectZone")
+label = NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/TemperatureLabel")
+result_badge = NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge/ResultBadge")
 
 [node name="Control" type="Control" parent="." unique_id=420410818]
+texture_filter = 1
+texture_repeat = 1
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 737.0
+offset_top = 438.0
+offset_right = 777.0
+offset_bottom = 478.0
 
 [node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=627425509]
+texture_filter = 1
+texture_repeat = 1
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 12.0
+offset_top = -5.0
+offset_right = 512.0
+offset_bottom = 495.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer" unique_id=776109034]
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer" unique_id=426503027]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+accessibility_region = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer" unique_id=44809935]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+alignment = 1
+
+[node name="TemperatureLabel" type="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer" unique_id=1520371653]
 layout_mode = 2
 
-[node name="TemperatureLabel" type="Label" parent="Control/PanelContainer/VBoxContainer" unique_id=1793298891]
+[node name="DialGauge" type="Control" parent="Control/PanelContainer/MarginContainer/VBoxContainer" unique_id=672618460]
 layout_mode = 2
+size_flags_horizontal = 0
 
-[node name="TimingBar" type="ProgressBar" parent="Control/PanelContainer/VBoxContainer" unique_id=1529477901]
-layout_mode = 2
+[node name="Track" type="TextureRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge" unique_id=1590899939]
+layout_mode = 0
+offset_left = -243.0
+offset_top = -488.99994
+offset_right = 757.0
+offset_bottom = 11.000061
+scale = Vector2(0.5055668, 0.54343796)
+pivot_offset = Vector2(486.56177, 505.04236)
+texture = ExtResource("2_avxn5")
+
+[node name="StopButton" type="TextureRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge" unique_id=683907849]
+layout_mode = 0
+offset_left = 93.0
+offset_top = 21.0
+offset_right = 133.0
+offset_bottom = 61.0
+
+[node name="GoodZone" type="TextureRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge" unique_id=2058245731]
+layout_mode = 0
+offset_left = -7.0
+offset_top = -256.0
+offset_right = 492.0
+offset_bottom = 20.0
+pivot_offset = Vector2(256, 262)
+texture = ExtResource("3_dpqvv")
+expand_mode = 1
+
+[node name="PerfectZone" type="TextureRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge" unique_id=1966471458]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -258.0
+offset_right = 494.0
+offset_bottom = 15.0
+pivot_offset = Vector2(255, 270)
+texture = ExtResource("4_7irog")
+expand_mode = 1
+
+[node name="Needle" type="TextureRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge" unique_id=1074638755]
+layout_mode = 0
+offset_left = 175.00003
+offset_top = -375.0
+offset_right = 313.3632
+offset_bottom = 30.007324
+scale = Vector2(0.6348767, 0.462645)
+pivot_offset = Vector2(65.14685, 394.8015)
+texture = ExtResource("5_8kh0w")
+expand_mode = 1
+
+[node name="ResultBadge" type="TextureRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge" unique_id=745649647]
+layout_mode = 0
+offset_left = 7.9999847
+offset_top = -225.0
+offset_right = 7.9999847
+offset_bottom = -225.0
+scale = Vector2(0.5953233, 0.5596518)

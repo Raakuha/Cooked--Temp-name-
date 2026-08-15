@@ -8,6 +8,7 @@ signal order_requested(recipe_id)
 @onready var customer_manager : CustomerManager = $"../CustomerManager"
 @onready var typing_manager : TypingManager = $"../TypingManager"
 @onready var profit_manager : ProfitManager = $"../ProfitManager"
+@onready var cooking_sequence_manager : CookingSequenceManager = $"../CookingSequenceManager"
 
 var fake_typing_active := false
 var fake_typing_recipe := ""
@@ -38,6 +39,7 @@ func _ready():
 	customer_manager.customer_exited.connect(_on_customer_exited)
 	
 	profit_manager.profit_changed.connect(_on_profit_changed)
+	cooking_sequence_manager.recipe_completed.connect(_on_cooking_recipe_completed)
 	
 	sanity_manager.horror_threshold_reached.connect(_on_horror_threshold_reached)
 	
@@ -55,6 +57,23 @@ func _on_horror_threshold_reached(threshold: int) -> void:
 
 func _on_profit_changed(value: int) -> void:
 	game_hud.update_profit(value)
+
+
+func _on_cooking_recipe_completed(result: CookingResult) -> void:
+	if result == null:
+		return
+
+	print("[GameManager] Cooking result: ", result.to_dict())
+
+	var profit_delta := profit_manager.apply_cooking_result(result)
+	sanity_manager.apply_profit_delta(profit_delta)
+
+	print(
+		"[GameManager] Order ",
+		result.recipe_id,
+		" -> ",
+		"SUCCESS" if result.is_success() else "FAILED"
+	)
 
 
 

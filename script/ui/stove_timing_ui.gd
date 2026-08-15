@@ -1,24 +1,6 @@
 extends CanvasLayer
 class_name StoveTimingUI
 
-## R-P3-09 --- Simple Stove Temperature Timing.
-##
-## Skill-window sederhana, BUKAN heat simulation. "Jarum" (TimingBar.value)
-## bergerak bolak-balik secara DETERMINISTIK (triangle wave, bukan random)
-## di sepanjang gauge 0-100. Player menekan SPASI untuk mengunci posisi
-## jarum saat itu -> dibandingkan ke target zone -> PERFECT / GOOD / MISS.
-##
-## Dipasang di atas node scene yang sudah ada (Timing_mekanisme.tscn):
-##   Control/PanelContainer/VBoxContainer/TemperatureLabel (Label)
-##   Control/PanelContainer/VBoxContainer/TimingBar (ProgressBar)
-##
-## Kontrak penting (jangan dilanggar saat extend):
-##   - Tidak pernah memanggil Profit/Sanity/mental system langsung dari sini.
-##   - Hasil MISS tidak pernah mengubah dish/recipe menjadi gagal; hasil
-##     cuma dikembalikan ke pemanggil (Workstation) lewat sinyal/return.
-##   - evaluate() adalah fungsi murni supaya gampang di-unit-test terpisah
-##     dari node/scene (deterministik: input sama -> output sama).
-
 signal timing_completed(result: String)
 
 const RESULT_PERFECT := "PERFECT"
@@ -30,13 +12,18 @@ const MAX_VALUE := 100.0
 ## Berapa detik untuk 1x jarum bolak-balik penuh (0 -> 100 -> 0).
 @export var cycle_duration: float = 1.4
 
-## Titik tengah target zone, dalam skala gauge 0-100.
+## Titik tengah target zone, dalam skala LOGIKA 0-100 (dipakai buat scoring
+## evaluate() -- TIDAK otomatis ngubah ukuran gambar zona, soalnya
+## GoodZone/PerfectZone sekarang gambar jadi yang cuma di-ROTATE, bukan
+## di-resize. Kalau ubah angka ini, inget rotasi manual GoodZone/
+## PerfectZone di editor juga perlu disesuaikan biar visual & logika
+## nyambung.
 @export var target_center: float = 50.0
 
-## Setengah lebar zona PERFECT (dari target_center).
+## Setengah lebar zona PERFECT (dari target_center) -- buat SCORING aja.
 @export var perfect_half_width: float = 6.0
 
-## Setengah lebar zona GOOD (dari target_center, harus >= perfect_half_width).
+## Setengah lebar zona GOOD (dari target_center) -- buat SCORING aja.
 @export var good_half_width: float = 16.0
 
 ## Nilai penalty yang "disarankan" untuk hasil MISS. Nilai ini CUMA
@@ -45,11 +32,45 @@ const MAX_VALUE := 100.0
 ## memutuskan cara memakainya.
 @export var suggested_miss_penalty: float = 5.0
 
-@onready var _label: Label = $Control/PanelContainer/VBoxContainer/TemperatureLabel
-@onready var _bar: ProgressBar = $Control/PanelContainer/VBoxContainer/TimingBar
+# ------------------------------------------------------------------
+# Visual: DIAL (jarum muter). Ini yang dipakai kalau desain gambar
+# kamu berbentuk lengkung/dial, bukan bar lurus.
+# ------------------------------------------------------------------
 
-var _good_zone: ColorRect
-var _perfect_zone: ColorRect
+## Node jarum (TextureRect). Pivot_offset-nya HARUS udah di-set di editor
+## ke titik poros dial (lihat instruksi terpisah). Kalau kosong, dial
+## rotary gak aktif -- fallback ke `bar` (linear) di bawah kalau itu ada.
+@export var needle: Control
+
+## Sudut (derajat) jarum saat value = 0.
+@export var needle_min_angle: float = -60.0
+
+## Sudut (derajat) jarum saat value = 100.
+@export var needle_max_angle: float = 60.0
+
+## Node gambar segmen zona GOOD (TextureRect, pivot_offset udah di-set
+## sama kayak needle). Diputer SEKALI ke posisi target_center, gak
+## di-resize/animate tiap frame kayak needle.
+@export var good_zone: Control
+
+## Sama kayak good_zone, tapi buat segmen PERFECT.
+@export var perfect_zone: Control
+
+# ------------------------------------------------------------------
+# Visual: BAR (linear, sistem lama). Opsional, tetap didukung buat yang
+# masih pakai TextureProgressBar/ProgressBar biasa -- boleh dikosongin
+# kalau kamu udah full pindah ke dial di atas.
+# ------------------------------------------------------------------
+
+@export var bar: Range
+
+@export var label: Label
+
+## Opsional -- badge gambar buat hasil PERFECT/GOOD/MISS.
+@export var result_badge: TextureRect
+@export var perfect_texture: Texture2D
+@export var good_texture: Texture2D
+@export var miss_texture: Texture2D
 
 var _active: bool = false
 var _elapsed: float = 0.0
@@ -61,13 +82,15 @@ func _ready() -> void:
 	visible = false
 	set_process(false)
 
-	_bar.min_value = 0.0
-	_bar.max_value = MAX_VALUE
-	_bar.value = 0.0
+	if result_badge != null:
+		result_badge.visible = false
 
-	_build_zone_overlays()
-	_bar.resized.connect(_layout_zone_overlays)
-	_layout_zone_overlays()
+	if bar != null:
+		bar.min_value = 0.0
+		bar.max_value = MAX_VALUE
+		bar.value = 0.0
+
+	_layout_zones()
 
 
 ## Dipanggil oleh Workstation. round_label opsional, ditampilkan di label
@@ -89,7 +112,7 @@ func start_timing(round_label: String = "") -> void:
 	visible = true
 	set_process(true)
 
-	_layout_zone_overlays()
+	_layout_zones()
 	_update_label("")
 
 
@@ -100,11 +123,16 @@ func _process(delta: float) -> void:
 	_elapsed += delta
 
 	# Triangle wave deterministik: 0 -> 1 -> 0 sepanjang cycle_duration.
-	var t := fmod(_elapsed, cycle_duration) / cycle_duration
-	var wave : float = 1.0 - abs(1.0 - (t * 2.0))
+	var t: float = fmod(_elapsed, cycle_duration) / cycle_duration
+	var wave: float = 1.0 - abs(1.0 - (t * 2.0))
 
 	_needle_value = wave * MAX_VALUE
-	_bar.value = _needle_value
+
+	if needle != null:
+		needle.rotation_degrees = _angle_for_value(_needle_value)
+
+	if bar != null:
+		bar.value = _needle_value
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -147,47 +175,53 @@ func _confirm(value: float) -> void:
 
 
 func _update_label(result: String) -> void:
-	if _label == null:
+	if label != null:
+		if result == "":
+			label.text = _round_label + " -- Tekan SPASI di zona target!"
+		else:
+			label.text = _round_label + " -> " + result
+
+	if result_badge == null:
 		return
 
 	if result == "":
-		_label.text = _round_label + " -- Tekan SPASI di zona target!"
-	else:
-		_label.text = _round_label + " -> " + result
-
-
-func _build_zone_overlays() -> void:
-	_good_zone = ColorRect.new()
-	_good_zone.color = Color(0.9, 0.7, 0.1, 0.35)
-	_good_zone.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_bar.add_child(_good_zone)
-
-	_perfect_zone = ColorRect.new()
-	_perfect_zone.color = Color(0.2, 0.85, 0.3, 0.55)
-	_perfect_zone.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_bar.add_child(_perfect_zone)
-
-
-func _layout_zone_overlays() -> void:
-	if _bar.size.x <= 0.0:
+		result_badge.visible = false
 		return
 
-	_position_zone(_good_zone, target_center, good_half_width)
-	_position_zone(_perfect_zone, target_center, perfect_half_width)
+	result_badge.visible = true
+
+	match result:
+		RESULT_PERFECT:
+			result_badge.texture = perfect_texture
+		RESULT_GOOD:
+			result_badge.texture = good_texture
+		RESULT_MISS:
+			result_badge.texture = miss_texture
 
 
-func _position_zone(zone: ColorRect, center: float, half_width: float) -> void:
-	var px_per_unit := _bar.size.x / MAX_VALUE
-	var start_x := (center - half_width) * px_per_unit
-	var width_px := (half_width * 2.0) * px_per_unit
+## Konversi value (skala 0-100) ke sudut jarum (derajat), dipakai buat
+## needle DAN buat naruh good_zone/perfect_zone di posisi target_center.
+func _angle_for_value(value: float) -> float:
+	var t: float = value / MAX_VALUE
+	return lerp(needle_min_angle, needle_max_angle, t)
 
-	zone.position = Vector2(start_x, 0.0)
-	zone.size = Vector2(width_px, _bar.size.y)
+
+## Muter good_zone/perfect_zone (gambar jadi) ke posisi target_center.
+## Dipanggil sekali di _ready() dan tiap start_timing() -- bukan tiap
+## frame, soalnya zona gak animasi, cuma diem di posisi targetnya.
+func _layout_zones() -> void:
+	if good_zone != null:
+		good_zone.rotation_degrees = _angle_for_value(target_center)
+
+	if perfect_zone != null:
+		perfect_zone.rotation_degrees = _angle_for_value(target_center)
 
 
 ## Fungsi MURNI (tidak menyentuh node/scene) supaya gampang di-unit-test
 ## terpisah. Deterministik: input yang sama selalu menghasilkan output
-## yang sama -- ini yang bikin R-P3-09 "testable" sesuai Definition of Done.
+## yang sama -- ini yang bikin R-P3-09 "testable" sesuai Definition of
+## Done. Scoring ini TIDAK bergantung ke visual dial/bar -- tetap pakai
+## skala 0-100 yang sama walaupun tampilannya udah muter.
 static func evaluate(
 	value: float,
 	center: float,

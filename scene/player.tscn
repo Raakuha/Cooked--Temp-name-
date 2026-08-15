@@ -5,6 +5,7 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xo3ru"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bhunq"]
+radius = 0.4
 
 [node name="Player" type="CharacterBody3D" unique_id=1224841943]
 script = ExtResource("1_xo3ru")

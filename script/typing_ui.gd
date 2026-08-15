@@ -82,68 +82,71 @@ func _on_typing_manager_typing_updated(
 	)
 	if not last_input_correct:
 		play_error_feedback()
-func play_error_feedback() -> void:
+func play_error_feedback(target_control: Control = self) -> void:
 	if shake_tween != null:
 		shake_tween.kill()
 	if error_color_tween != null:
 		error_color_tween.kill()
 
-	fill_word_label.modulate = Color.WHITE
+	# Flash merah pada target
+	var target_label: CanvasItem = target_control
 
 	error_color_tween = create_tween()
 
 	error_color_tween.tween_property(
-		fill_word_label,
+		target_label,
 		"modulate",
 		Color(1.0, 0.2, 0.2, 1.0),
 		0.08
 	)
 
 	error_color_tween.tween_property(
-		fill_word_label,
+		target_label,
 		"modulate",
 		Color.WHITE,
 		0.18
 	)
-	shake_offset = Vector2.ZERO
 
-	shake_tween = create_tween()
+	# Kalau target adalah TypingUI, pakai shake_offset yang sudah ada
+	if target_control == self:
+		shake_offset = Vector2.ZERO
 
-	shake_tween.tween_property(
-		self,
-		"shake_offset:x",
-		10.0,
-		0.04
-	)
+		shake_tween = create_tween()
 
-	shake_tween.tween_property(
-		self,
-		"shake_offset:x",
-		-10.0,
-		0.04
-	)
+		shake_tween.tween_property(
+			self,
+			"shake_offset:x",
+			10.0,
+			0.04
+		)
 
-	shake_tween.tween_property(
-		self,
-		"shake_offset:x",
-		7.0,
-		0.04
-	)
+		shake_tween.tween_property(
+			self,
+			"shake_offset:x",
+			-10.0,
+			0.04
+		)
 
-	shake_tween.tween_property(
-		self,
-		"shake_offset:x",
-		-7.0,
-		0.04
-	)
+		shake_tween.tween_property(
+			self,
+			"shake_offset:x",
+			7.0,
+			0.04
+		)
 
-	shake_tween.tween_property(
-		self,
-		"shake_offset:x",
-		0.0,
-		0.04
-	)
+		shake_tween.tween_property(
+			self,
+			"shake_offset:x",
+			-7.0,
+			0.04
+		)
 
+		shake_tween.tween_property(
+			self,
+			"shake_offset:x",
+			0.0,
+			0.04
+		)
 func _on_typing_manager_typing_completed(_command: String) -> void:
 	typing_active = false
 	prompt_panel.hide()

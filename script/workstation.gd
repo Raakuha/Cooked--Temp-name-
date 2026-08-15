@@ -22,6 +22,11 @@ var current_action_data: Dictionary = {}
 ## (supaya workstation lain yang belum dipasangi timing tidak crash).
 @export var stove_timing_ui: StoveTimingUI
 
+## R-P3-10 extension --- opsional. Kalau kosong ATAU step TAKE ini gak
+## punya interaction.item_id, TAKE fallback ke delay biasa (workstation
+## lama yang belum dipasangi mekanisme pilih barang tidak crash).
+@export var item_pick_manager: ItemPickManager
+
 ## Hasil PERFECT/GOOD/MISS dari ronde timing terakhir (Array[String]).
 ## Dibaca nanti oleh R-P3-06 (Cooking Result Contract). Workstation
 ## sendiri TIDAK memanggil Profit/Sanity langsung dari data ini.
@@ -31,6 +36,27 @@ var last_timing_results: Array = []
 signal action_started(action_name : String)
 signal action_finished(action_name : String)
 signal timing_result(workstation: Workstation, action_name: String, results: Array)
+
+## R-P3-10 extension --- fired tiap kali player berhasil ngetik PAS nama
+## barang, tapi barang itu BUKAN yang dibutuhkan checklist saat ini.
+## Dibaca CookingSequenceManager buat nyatet mistake (persis pola
+## timing_result). Workstation sendiri tidak menerapkan penalty apapun.
+signal wrong_item_picked(
+	workstation: Workstation,
+	picked_item_id: String,
+	required_item_id: String
+)
+
+## R-P3-10 fix --- fired begitu barang yang BENAR berhasil dipetik.
+## CookingSequenceManager dengerin ini buat tau checklist_id mana yang
+## beneran selesai (bisa beda dari checklist_id yang tadinya "aktif",
+## karena sekarang player boleh milih barang lain yang sama-sama eligible
+## di workstation yang sama).
+signal item_picked(workstation: Workstation, item_id: String)
+
+## Barang terakhir yang beneran kepetik BENAR di workstation ini.
+var last_picked_item_id: String = ""
+
 func get_navigation_position() -> Vector3 :
 	return navigation_target.global_position
 	
@@ -93,9 +119,54 @@ func perform_action(
 			)
 			complete_action()
 func run_take_action() -> void:
+	var required_item_id: String = current_action_data.get("item_id", "")
 
+	# R-P3-10 fix --- "item_ids" (jamak, dari CookingSequenceManager) berisi
+	# SEMUA barang yang sah diambil sekarang di workstation ini, bukan cuma
+	# 1 required_item_id spesifik. Kalau CookingSequenceManager belum
+	# ngirim ini (mis. dipanggil dari test lama), fallback ke required_item_id
+	# tunggal dibungkus jadi array 1 elemen -- perilaku lama tetap jalan.
+	var required_item_ids: Array = current_action_data.get("item_ids", [])
 
-	finish_action_after_delay(0.3)
+	if required_item_ids.is_empty() and required_item_id != "":
+		required_item_ids = [required_item_id]
+
+	if required_item_ids.is_empty() or item_pick_manager == null:
+		# Fallback lama: step ini belum dipasangi item_id (RecipeData) atau
+		# workstation-nya belum dipasangi ItemPickManager di scene.
+		finish_action_after_delay(0.3)
+		return
+
+	var candidates: Array = WorkstationInventory.get_items(command)
+
+	if candidates.is_empty():
+		push_warning(
+			"WorkstationInventory kosong untuk: " + command
+			+ " -- fallback ke delay biasa."
+		)
+		finish_action_after_delay(0.3)
+		return
+
+	var picked: Dictionary = await item_pick_manager.run_pick(candidates)
+
+	while not required_item_ids.has(picked["item_id"]):
+		wrong_item_picked.emit(self, picked["item_id"], required_item_id)
+
+		await item_pick_manager.run_return(picked["label"])
+
+		picked = await item_pick_manager.run_pick(candidates)
+
+	# Barang udah BENAR (salah satu dari required_item_ids -- player bebas
+	# milih yang mana). Catat barang mana yang beneran kepetik, biar
+	# CookingSequenceManager bisa nyocokin checklist_id yang tepat.
+	last_picked_item_id = picked["item_id"]
+	item_picked.emit(self, picked["item_id"])
+
+	# Player TETAP di workstation ini sampai dia sendiri yang nekan
+	# BACKSPACE -- gak ada auto-keluar begitu ambil barang yang tepat.
+	await item_pick_manager.wait_for_exit(picked["label"])
+
+	complete_action()
 
 
 func run_add_action() -> void:

@@ -36,6 +36,30 @@ func execute_step(step: Dictionary) -> void:
 		push_error("Workstation tidak ditemukan: " + workstation_name)
 		return
 
+	# R-P3-10 extension --- step TAKE di workstation ber-inventory (mis.
+	# Kulkas) SKIP typing prompt tunggal biasa. Player sudah sampai di
+	# workstation (MOVE step sebelumnya sudah selesai), jadi langsung
+	# jalanin action-nya -- ItemPickManager yang nunjukkin semua nama
+	# barang & nunggu ketikan player.
+	var interaction_data: Dictionary = step.get("interaction", {})
+
+	if step["type"] == RecipeData.StepType.ACTION \
+		and step["action"] == RecipeData.ActionType.TAKE \
+		and interaction_data.has("item_id"):
+		run_action_step()
+		return
+
+	# R-P3-10 extension --- MOVE step yang datang dari prep item (dipicu
+	# PrepLocationPicker, player udah "milih" lokasinya lewat prompt
+	# lokasi kecil) SKIP typing prompt "KE TEMPAT ..." -- auto-jalan
+	# langsung, biar gak double-ngetik buat 1 keputusan yang sama. MOVE
+	# step di fase cooking TIDAK kena ini (skip_typing gak pernah diisi
+	# di sana), jadi tetap kayak biasa.
+	if step["type"] == RecipeData.StepType.MOVE \
+	and step.get("skip_typing", false):
+		start_move_step()
+		return
+
 	typing_ui.set_world_target(
 		workstation.get_prompt_position()
 	)

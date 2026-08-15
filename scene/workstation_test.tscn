@@ -7,16 +7,18 @@
 [ext_resource type="PackedScene" uid="uid://c1mp6x6pnko1f" path="res://scene/managers/TypingManager.tscn" id="3_y88tg"]
 [ext_resource type="PackedScene" uid="uid://bxwdn3yvlgi7m" path="res://scene/ui/TypingUI.tscn" id="4_wyt28"]
 [ext_resource type="Script" uid="uid://cxn6woxhekpe7" path="res://script/workstation.gd" id="5_8j8vy"]
-[ext_resource type="PackedScene" uid="uid://cpmyhm7didfpf" path="res://kitchenmodel_ingame/node_3d.tscn" id="5_pw64f"]
+[ext_resource type="Script" uid="uid://siddnjarcadh" path="res://script/managers/item_pick_manager.gd" id="5_m7eqa"]
+[ext_resource type="PackedScene" path="res://scene/ui/ItemPickUI.tscn" id="6_0je8i"]
+[ext_resource type="NavigationMesh" uid="uid://brewattynm74g" path="res://scene/Test/new_navigation_mesh.res" id="7_gmyc1"]
 [ext_resource type="PackedScene" uid="uid://blrc087prr4v" path="res://scene/Timing_mekanisme.tscn" id="7_itdsq"]
 [ext_resource type="Script" uid="uid://df2u5jepn1dge" path="res://script/managers/CookingSequence_manager.gd" id="7_wyt28"]
 [ext_resource type="Script" uid="uid://di2770pwmbfuc" path="res://script/managers/recipe_step_executor.gd" id="8_aderx"]
+[ext_resource type="PackedScene" uid="uid://2vebttq24dyx" path="res://scene/game/restaurant.tscn" id="8_dyfl7"]
 [ext_resource type="Script" uid="uid://bk4grk6b61gs2" path="res://script/Plating.gd" id="9_kwcmp"]
 [ext_resource type="Script" uid="uid://cifsruuqunj87" path="res://script/camera_controller.gd" id="10_8xanc"]
-
-[sub_resource type="NavigationMesh" id="NavigationMesh_iagvn"]
-vertices = PackedVector3Array(-21.97, 0.44523287, -26.840416, -7.7199993, 0.44523287, -26.590416, -7.4699993, 0.44523287, -28.340416, -5.4699993, 0.44523287, -42.840416, -21.97, 0.44523287, -42.840416, -5.4699993, 0.44523287, -28.340416, 9.030001, 0.44523287, -28.340416, 9.030001, 0.44523287, -42.840416, 11.030001, 0.44523287, -28.340416, 11.280001, 0.44523287, -26.590416, 22.03, 0.44523287, -26.840416, 22.03, 0.44523287, -42.840416, 2.5300007, 0.44523287, -20.590416, 2.7800007, 0.44523287, -21.590416, 1.7800007, 0.44523287, -21.840416, -1.4699993, 0.44523287, -22.090416, -1.7199993, 0.44523287, -19.840416, -1.4699993, 0.44523287, -19.340416, -3.2199993, 0.44523287, -21.590416, -6.2199993, 0.44523287, -21.840416, -6.2199993, 0.44523287, -19.840416, -3.2199993, 0.44523287, -20.090416, -1.4699993, 0.44523287, -25.340416, 1.7800007, 0.44523287, -27.090416, -5.9699993, 0.44523287, -27.090416, -6.2199993, 0.44523287, -25.590416, 5.2800007, 1.9452329, -26.590416, 7.7800007, 1.9452329, -26.590416, 7.5300007, 1.9452329, -27.090416, 4.0300007, 2.1952329, -27.090416, -21.97, 0.44523287, -9.590416, -7.7199993, 0.44523287, -9.840416, 11.280001, 0.44523287, -9.840416, 22.03, 0.44523287, -9.590416, 8.530001, 0.44523287, -21.590416, 8.530001, 0.44523287, -25.840416, 4.0300007, 0.44523287, -25.590416, 3.7800007, 0.44523287, -21.840416, -4.7199993, 1.9452329, -24.590416, -4.7199993, 1.9452329, -22.590416, -3.9699993, 1.9452329, -22.590416, -3.9699993, 1.9452329, -24.590416, 4.7800007, 0.44523287, -9.590416, 5.0300007, 0.69523287, -8.840416, 5.5300007, 0.69523287, -9.090416, 5.7800007, 0.44523287, -9.590416, 7.2800007, 0.69523287, -9.090416, 7.7800007, 0.69523287, -8.840416, 8.030001, 0.44523287, -9.590416, 7.0300007, 0.44523287, -9.590416, -1.4699993, 0.44523287, -13.590416, -1.4699993, 0.44523287, -10.340416, 9.780001, 0.44523287, -9.840416, 9.780001, 0.44523287, -19.340416, 2.7800007, 0.44523287, -19.340416, -6.2199993, 0.44523287, -16.340416, -6.2199993, 0.44523287, -13.840416, -3.2199993, 0.44523287, -14.090416, -1.7199993, 0.44523287, -16.340416, -6.2199993, 0.44523287, -9.840416, -4.7199993, 1.9452329, -19.090416, -4.7199993, 1.9452329, -17.090416, -3.9699993, 1.9452329, -17.090416, -3.9699993, 1.9452329, -19.090416, -4.7199993, 1.9452329, -13.090416, -4.7199993, 1.9452329, -11.090416, -3.9699993, 1.9452329, -11.090416, -3.9699993, 1.9452329, -13.090416, -7.9699993, 0.44523287, 1.159584, -7.7199993, 0.44523287, -8.590416, -21.97, 0.44523287, 1.159584, 11.280001, 0.44523287, -8.590416, 11.530001, 0.44523287, 1.159584, 22.03, 0.44523287, 1.159584, 7.0300007, 0.44523287, -8.340416, 8.030001, 0.44523287, -8.090416, 5.7800007, 0.44523287, -8.340416, 4.7800007, 0.44523287, -8.090416, 11.030001, 0.44523287, -8.090416, -7.4699993, 0.44523287, -8.090416)
-polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 4), PackedInt32Array(2, 4, 3), PackedInt32Array(3, 5, 2), PackedInt32Array(3, 7, 5), PackedInt32Array(5, 7, 6), PackedInt32Array(9, 8, 10), PackedInt32Array(10, 8, 11), PackedInt32Array(11, 8, 7), PackedInt32Array(8, 6, 7), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(15, 12, 16), PackedInt32Array(16, 12, 17), PackedInt32Array(21, 20, 18), PackedInt32Array(18, 20, 19), PackedInt32Array(15, 22, 14), PackedInt32Array(14, 22, 23), PackedInt32Array(21, 18, 16), PackedInt32Array(16, 18, 15), PackedInt32Array(25, 24, 22), PackedInt32Array(22, 24, 23), PackedInt32Array(27, 26, 28), PackedInt32Array(28, 26, 29), PackedInt32Array(31, 30, 1), PackedInt32Array(1, 30, 0), PackedInt32Array(9, 10, 32), PackedInt32Array(32, 10, 33), PackedInt32Array(36, 35, 37), PackedInt32Array(37, 35, 34), PackedInt32Array(41, 40, 38), PackedInt32Array(38, 40, 39), PackedInt32Array(44, 43, 45), PackedInt32Array(45, 43, 42), PackedInt32Array(46, 49, 47), PackedInt32Array(47, 49, 48), PackedInt32Array(51, 50, 42), PackedInt32Array(42, 50, 52), PackedInt32Array(52, 50, 54), PackedInt32Array(52, 54, 53), PackedInt32Array(52, 45, 42), PackedInt32Array(52, 48, 49), PackedInt32Array(56, 55, 57), PackedInt32Array(57, 55, 58), PackedInt32Array(42, 59, 51), PackedInt32Array(50, 57, 58), PackedInt32Array(52, 49, 45), PackedInt32Array(12, 54, 17), PackedInt32Array(17, 54, 58), PackedInt32Array(58, 54, 50), PackedInt32Array(63, 62, 60), PackedInt32Array(60, 62, 61), PackedInt32Array(67, 66, 64), PackedInt32Array(64, 66, 65), PackedInt32Array(69, 68, 31), PackedInt32Array(31, 68, 30), PackedInt32Array(30, 68, 70), PackedInt32Array(71, 32, 72), PackedInt32Array(72, 32, 33), PackedInt32Array(72, 33, 73), PackedInt32Array(46, 47, 74), PackedInt32Array(74, 47, 75), PackedInt32Array(44, 76, 43), PackedInt32Array(43, 76, 77), PackedInt32Array(75, 78, 72), PackedInt32Array(78, 71, 72), PackedInt32Array(74, 75, 76), PackedInt32Array(76, 75, 77), PackedInt32Array(77, 75, 72), PackedInt32Array(79, 77, 68), PackedInt32Array(68, 77, 72), PackedInt32Array(68, 69, 79)]
+[ext_resource type="Script" uid="uid://ba358ao4tyr5t" path="res://script/managers/prep_location_picker.gd" id="16_0je8i"]
+[ext_resource type="Script" uid="uid://7c2tb0c3hfcw" path="res://script/ui/prep_location_ui.gd" id="17_bph5y"]
+[ext_resource type="Script" uid="uid://6j46ht2qcsbx" path="res://script/ui/prep_check_list_ui.gd" id="18_uaaa3"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_36e65"]
 
@@ -48,8 +50,14 @@ script = ExtResource("1_iagvn")
 camera = NodePath("../CameraSystem/GameplayCamera")
 metadata/_edit_use_anchors_ = true
 
+[node name="ItemPickManager" type="Node" parent="." unique_id=1728434696]
+script = ExtResource("5_m7eqa")
+
+[node name="ItemPickUI" parent="." unique_id=1469025725 node_paths=PackedStringArray("item_pick_manager") instance=ExtResource("6_0je8i")]
+item_pick_manager = NodePath("../ItemPickManager")
+
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1092841579]
-navigation_mesh = SubResource("NavigationMesh_iagvn")
+navigation_mesh = ExtResource("7_gmyc1")
 
 [node name="Floor" type="StaticBody3D" parent="NavigationRegion3D" unique_id=1413102075]
 transform = Transform3D(3.745, 0, 0, 0, 3.745, 0, 0, 0, 3.745, 0, 0, -6.6964273)
@@ -62,31 +70,56 @@ mesh = SubResource("PlaneMesh_36e65")
 transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, -3.784777)
 shape = SubResource("ConcavePolygonShape3D_y88tg")
 
-[node name="Node3D" parent="NavigationRegion3D" unique_id=1293282191 instance=ExtResource("5_pw64f")]
+[node name="Restaurant" parent="NavigationRegion3D" unique_id=424843313 instance=ExtResource("8_dyfl7")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.8281035, -0.16430283, -17.92044)
 
-[node name="Refrigerator" type="Node3D" parent="." unique_id=1520171741]
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="NavigationRegion3D" unique_id=753931009]
+height = 2.0
+vertices = PackedVector3Array(2.369, 0, -21.79, 2.369, 0, -27.541, 9.18235, 0, -27.541298, 9.16, 0, -26.3, 3.645, 0, -26.12, 3.645, 0, -21.79)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle3D2" type="NavigationObstacle3D" parent="NavigationRegion3D" unique_id=1637970589]
+height = 2.9
+vertices = PackedVector3Array(9.317704, 0, -19.321499, 9.316, 0, -18.147, 3.2286842, 0, -18.14656, 3.229, 0, -19.321)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="NavigationObstacle3D3" type="NavigationObstacle3D" parent="NavigationRegion3D" unique_id=1167820983]
+height = 4.05
+vertices = PackedVector3Array(10.307838, 0, -25.779373, 9.240186, 0, -25.767826, 9.26555, 0, -23.969296, 10.308, 0, -23.969)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="Refrigerator" type="Node3D" parent="." unique_id=1520171741 node_paths=PackedStringArray("item_pick_manager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.463018, 0.2771932, -24.867065)
 script = ExtResource("5_8j8vy")
 command = "REFRIGERATOR"
+item_pick_manager = NodePath("../ItemPickManager")
 
 [node name="NavigationTarget" type="Marker3D" parent="Refrigerator" unique_id=526064413]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48060513, 0, -0.26745796)
 
 [node name="PromptAnchor" type="Marker3D" parent="Refrigerator" unique_id=886716442]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.98985577, 0, 0)
 
-[node name="RiceStorage" type="Node3D" parent="." unique_id=1859986553]
+[node name="RiceStorage" type="Node3D" parent="." unique_id=1859986553 node_paths=PackedStringArray("item_pick_manager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.52128, 0.2771932, -22.670095)
 script = ExtResource("5_8j8vy")
 command = "RICE_STORAGE"
+item_pick_manager = NodePath("../ItemPickManager")
 
 [node name="NavigationTarget" type="Marker3D" parent="RiceStorage" unique_id=1700461879]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.058279037, 0, 0.22841454)
 
 [node name="PromptAnchor" type="Marker3D" parent="RiceStorage" unique_id=447551802]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9475689, 0, 0.7560692)
 
-[node name="Produce" type="Node3D" parent="." unique_id=911280804]
+[node name="Produce" type="Node3D" parent="." unique_id=911280804 node_paths=PackedStringArray("item_pick_manager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.421, 0.771, -25.592)
 script = ExtResource("5_8j8vy")
 command = "PRODUCE"
+item_pick_manager = NodePath("../ItemPickManager")
 
 [node name="NavigationTarget" type="Marker3D" parent="Produce" unique_id=1437167399]
 
@@ -103,25 +136,29 @@ typing_manager = NodePath("../TypingManager")
 stove_timing_ui = NodePath("Timing_mekanisme")
 
 [node name="NavigationTarget" type="Marker3D" parent="Stove" unique_id=1482941353]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24223948, -0.26513195, -0.24302673)
 
 [node name="PromptAnchor" type="Marker3D" parent="Stove" unique_id=1085717635]
 
 [node name="InteractionCameraAnchor" type="Marker3D" parent="Stove" unique_id=1388993636]
-transform = Transform3D(1, 0, 0, 0, 0.9787827, 0.20490098, 0, -0.20490098, 0.9787827, 0, 1.4691057, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9787827, 0.20490098, 0, -0.20490098, 0.9787827, -0.09489536, 1.4691057, 0)
 
 [node name="Timing_mekanisme" parent="Stove" unique_id=48844692 instance=ExtResource("7_itdsq")]
 
-[node name="Seasoning" type="Node3D" parent="." unique_id=840262863]
+[node name="Seasoning" type="Node3D" parent="." unique_id=840262863 node_paths=PackedStringArray("item_pick_manager")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.463018, 0.2771932, -24.867065)
 script = ExtResource("5_8j8vy")
 command = "SEASONING"
+item_pick_manager = NodePath("../ItemPickManager")
 
 [node name="NavigationTarget" type="Marker3D" parent="Seasoning" unique_id=2146022869]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11136341, 0, -1.4769135)
 
 [node name="PromptAnchor" type="Marker3D" parent="Seasoning" unique_id=1972908901]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.4860287)
 
 [node name="Plating" parent="." unique_id=305849346 node_paths=PackedStringArray("typing_ui", "camera_controller", "typing_manager") instance=ExtResource("2_xox26")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9112206, 0.3636067, -21.844025)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9112206, 0.3636067, -19.86957)
 script = ExtResource("9_kwcmp")
 command = "PLATING"
 typing_ui = NodePath("../TypingUI")
@@ -170,6 +207,29 @@ typing_manager = NodePath("../TypingManager")
 
 [node name="InteractionCameraAnchor" type="Marker3D" parent="CuttingBoard" unique_id=1881930623]
 transform = Transform3D(-0.379705, 0, 0.9251076, 0, 1, 0, -0.9251076, 0, -0.379705, 0, 1.3847647, 0)
+
+[node name="Bun_Storage" parent="." unique_id=659438602 node_paths=PackedStringArray("typing_ui", "camera_controller") instance=ExtResource("2_xox26")]
+command = "BUN_STORAGE"
+typing_ui = NodePath("../TypingUI")
+camera_controller = NodePath("../CameraSystem")
+
+[node name="PrepLocationPicker" type="Node" parent="." unique_id=1765158092 node_paths=PackedStringArray("cooking_sequence_manager")]
+script = ExtResource("16_0je8i")
+cooking_sequence_manager = NodePath("../CookingSequenceManager")
+
+[node name="PrepLocationUI" type="Control" parent="." unique_id=755277674 node_paths=PackedStringArray("prep_location_picker", "camera")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("17_bph5y")
+prep_location_picker = NodePath("../PrepLocationPicker")
+camera = NodePath("../CameraSystem/GameplayCamera")
+
+[node name="PrepCheckListUI" type="CanvasLayer" parent="." unique_id=186903890 node_paths=PackedStringArray("cooking_sequence_manager", "item_pick_manager")]
+script = ExtResource("18_uaaa3")
+cooking_sequence_manager = NodePath("../CookingSequenceManager")
+item_pick_manager = NodePath("../ItemPickManager")
 
 [connection signal="typing_completed" from="TypingManager" to="." method="_on_typing_manager_typing_completed"]
 [connection signal="typing_completed" from="TypingManager" to="TypingUI" method="_on_typing_manager_typing_completed"]

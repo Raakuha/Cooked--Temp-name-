@@ -61,7 +61,6 @@ offset_bottom = 40.0
 layout_mode = 2
 
 [node name="TypingUI" parent="UI" unique_id=1494470883 instance=ExtResource("6_54au1")]
-visible = false
 
 [node name="SpawnPoints" type="Node" parent="." unique_id=237271012]
 
