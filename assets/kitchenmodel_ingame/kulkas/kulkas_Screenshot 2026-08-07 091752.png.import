@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dxue8any3a3r"
-path.s3tc="res://.godot/imported/kulkas_Screenshot 2026-08-07 091752.png-d747a18fdbee52ebbd2ba1eaa41ba64c.s3tc.ctex"
+path.s3tc="res://.godot/imported/kulkas_Screenshot 2026-08-07 091752.png-8b3e75e0d26689d57d3215aad02e0ff8.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://kitchenmodel_ingame/kulkas/kulkas_Screenshot 2026-08-07 091752.png"
-dest_files=["res://.godot/imported/kulkas_Screenshot 2026-08-07 091752.png-d747a18fdbee52ebbd2ba1eaa41ba64c.s3tc.ctex"]
+source_file="res://assets/kitchenmodel_ingame/kulkas/kulkas_Screenshot 2026-08-07 091752.png"
+dest_files=["res://.godot/imported/kulkas_Screenshot 2026-08-07 091752.png-8b3e75e0d26689d57d3215aad02e0ff8.s3tc.ctex"]
 
 [params]
 

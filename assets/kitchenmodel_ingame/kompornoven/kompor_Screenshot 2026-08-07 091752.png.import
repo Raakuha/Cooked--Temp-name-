@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dv8hgb2k55iup"
-path.s3tc="res://.godot/imported/kompor_Screenshot 2026-08-07 091752.png-ea34ad5c9b862c20d973a21a1eb8e3c0.s3tc.ctex"
+path.s3tc="res://.godot/imported/kompor_Screenshot 2026-08-07 091752.png-0d4540fc00a2259a8b3c0f5e9f57c638.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://kitchenmodel_ingame/kompornoven/kompor_Screenshot 2026-08-07 091752.png"
-dest_files=["res://.godot/imported/kompor_Screenshot 2026-08-07 091752.png-ea34ad5c9b862c20d973a21a1eb8e3c0.s3tc.ctex"]
+source_file="res://assets/kitchenmodel_ingame/kompornoven/kompor_Screenshot 2026-08-07 091752.png"
+dest_files=["res://.godot/imported/kompor_Screenshot 2026-08-07 091752.png-0d4540fc00a2259a8b3c0f5e9f57c638.s3tc.ctex"]
 
 [params]
 
