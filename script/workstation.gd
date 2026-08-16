@@ -147,24 +147,45 @@ func run_take_action() -> void:
 		finish_action_after_delay(0.3)
 		return
 
-	var picked: Dictionary = await item_pick_manager.run_pick(candidates)
+	var picked_ids_this_visit: Array = []
 
-	while not required_item_ids.has(picked["item_id"]):
-		wrong_item_picked.emit(self, picked["item_id"], required_item_id)
+	while true:
+		var picked: Dictionary = await item_pick_manager.run_pick(candidates)
 
-		await item_pick_manager.run_return(picked["label"])
+		if picked.get("exit", false):
+			# R-P3-10: player boleh keluar tangan kosong (BACKSPACE tanpa
+			# ambil apa-apa) -- CookingSequenceManager yang nentuin ini
+			# BUKAN "selesai", checklist tetap kosong (lihat
+			# _complete_active_prep_item(), bukan di sini).
+			break
 
-		picked = await item_pick_manager.run_pick(candidates)
+		if not required_item_ids.has(picked["item_id"]):
+			wrong_item_picked.emit(self, picked["item_id"], required_item_id)
 
-	# Barang udah BENAR (salah satu dari required_item_ids -- player bebas
-	# milih yang mana). Catat barang mana yang beneran kepetik, biar
-	# CookingSequenceManager bisa nyocokin checklist_id yang tepat.
-	last_picked_item_id = picked["item_id"]
-	item_picked.emit(self, picked["item_id"])
+			await item_pick_manager.run_return(picked["label"])
 
-	# Player TETAP di workstation ini sampai dia sendiri yang nekan
-	# BACKSPACE -- gak ada auto-keluar begitu ambil barang yang tepat.
-	await item_pick_manager.wait_for_exit(picked["label"])
+			continue
+
+		# Barang udah BENAR (salah satu dari required_item_ids -- player
+		# bebas milih yang mana). Catat SEMUA barang yang kepetik di
+		# kunjungan ini -- R-P3-10 fix: sebelumnya cuma nyimpen yang
+		# TERAKHIR, jadi kalau ambil 2+ barang di 1 kunjungan, yang
+		# pertama gak pernah ke-mark selesai checklist-nya.
+		last_picked_item_id = picked["item_id"]
+		picked_ids_this_visit.append(picked["item_id"])
+		item_picked.emit(self, picked["item_id"])
+
+		var remaining: Array = required_item_ids.filter(
+			func(id): return not picked_ids_this_visit.has(id)
+		)
+
+		if remaining.is_empty():
+			# Gak ada barang lain yang masih eligible di workstation ini --
+			# otomatis keluar, gak perlu nunggu BACKSPACE tambahan.
+			break
+
+		await item_pick_manager.wait_for_exit(picked["label"])
+		# BACKSPACE ditekan di sini -> loop balik ke atas, run_pick() lagi.
 
 	complete_action()
 

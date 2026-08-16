@@ -13,12 +13,22 @@ class_name PrepLocationUI
 @export var prep_location_picker: PrepLocationPicker
 @export var camera: Camera3D
 
+## R-P3-10 fix --- PrepLocationPicker SENGAJA gak nge-clear label pas
+## player mulai 1 prep item (biar gampang muncul lagi begitu kelar, lihat
+## komentar di PrepLocationPicker._pick_location()). Tapi itu artinya
+## prompt lokasi tetap nempel di layar walaupun udah gak bisa diketik --
+## keliatan aneh pas ItemPickUI (daftar barang di workstation) lagi
+## kebuka. Jadi HIDE-nya ditangani di sini, murni lapisan tampilan, gak
+## nyentuh state candidate di PrepLocationPicker sama sekali.
+@export var item_pick_manager: ItemPickManager
+
 var _labels: Dictionary = {}          # workstation -> RichTextLabel
 var _anchors: Dictionary = {}         # workstation -> Node3D
 var _shake_offsets: Dictionary = {}   # workstation -> Vector2
 var _shake_tweens: Dictionary = {}
 var _flash_tweens: Dictionary = {}
 var _active: bool = false
+var _hidden_for_item_pick: bool = false
 
 
 func _ready() -> void:
@@ -28,6 +38,14 @@ func _ready() -> void:
 	prep_location_picker.location_prompt_started.connect(_on_started)
 	prep_location_picker.location_prompt_updated.connect(_on_updated)
 	prep_location_picker.location_prompt_cleared.connect(_on_cleared)
+
+	if item_pick_manager != null:
+		item_pick_manager.pick_started.connect(_on_item_pick_started)
+
+	for workstation in get_tree().get_nodes_in_group("workstations"):
+		if workstation.has_signal("action_completed"):
+			if not workstation.action_completed.is_connected(_on_workstation_action_completed):
+				workstation.action_completed.connect(_on_workstation_action_completed)
 
 
 func _on_started(candidates: Array) -> void:
@@ -58,6 +76,22 @@ func _on_updated(states: Array) -> void:
 func _on_cleared() -> void:
 	_active = false
 	_clear_labels()
+
+
+# ------------------------------------------------------------------
+# R-P3-10 fix: sembunyi sementara pas ItemPickUI (daftar barang di 1
+# workstation) lagi kebuka, muncul lagi begitu action TAKE-nya bener-bener
+# kelar (termasuk kalau sempat salah ambil & harus ditaruh balik dulu --
+# action_completed baru nembak SETELAH semua itu beres, lihat
+# Workstation.run_take_action()).
+# ------------------------------------------------------------------
+
+func _on_item_pick_started(_candidates: Array) -> void:
+	_hidden_for_item_pick = true
+
+
+func _on_workstation_action_completed(_workstation, _action_name: String) -> void:
+	_hidden_for_item_pick = false
 
 
 # R-P3-10 extension: matched_len yang dikirim PrepLocationPicker itu
@@ -126,6 +160,12 @@ func _clear_labels() -> void:
 
 func _process(_delta: float) -> void:
 	if not _active or camera == null:
+		return
+
+	if _hidden_for_item_pick:
+		for workstation in _labels.keys():
+			_labels[workstation].hide()
+
 		return
 
 	for workstation in _labels.keys():

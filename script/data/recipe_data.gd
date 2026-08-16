@@ -1,8 +1,7 @@
 extends RefCounted
 class_name RecipeData
 
-# Workstation command IDs.
-# Sesuaikan string di bawah dengan `command` pada node Workstation masing-masing.
+
 const WS_REFRIGERATOR := "REFRIGERATOR"
 const WS_RICE_STORAGE := "RICE_STORAGE"
 const WS_BUN_STORAGE := "BUN_STORAGE"
@@ -33,34 +32,14 @@ enum ActionType {
 	SERVE
 }
 
-# R-P3-11 --- Opsional: override deadline (detik) per recipe_id.
-# Kalau recipe_id tidak ada di sini, MenuDeadlineTimer pakai
-# default_deadline_seconds. Isi/sesuaikan angkanya sesuai kebutuhan balance.
+
 const DEADLINES: Dictionary = {
-	 "nasgor_goreng": 90.0,
-	# "steak": 120.0,
+	 "nasgor_goreng": 50.0,
+	 "steak": 60,
+	 "salad": 40,
+	"roti_khas_lempuyangan": 70,
 }
 
-# ====================================================================
-# R-P3-10 --- Recipe Checklist / Semi-linear Preparation
-#
-# Tiap recipe sekarang Dictionary dengan 2 bagian:
-#
-#   "prep"    -> Array of prep item. Tiap item:
-#                { "checklist_id": String, "steps": Array of step }
-#                Prep item BEBAS dikerjakan urutan apa saja (lihat
-#                CookingSequenceManager.start_prep_item()).
-#
-#   "cooking" -> Array of step, URUT kayak dulu (heat -> add -> mix ->
-#                plate). Baru mulai jalan setelah SEMUA prep item selesai.
-#
-# Aturan pemisahannya: semua step TAKE di awal resep = prep (checklist,
-# bebas urutan). Begitu ketemu action pertama yang bukan TAKE (ADD/CUT/
-# COOK/dst), itu masuk cooking (tetap terurut). Resep minuman (gak ada
-# proses masak) punya "cooking": [] -- kosong, itu normal.
-#
-# `interaction.prompts` opsional untuk action yang punya rangkaian typing.
-# ====================================================================
 const RECIPES = {
 
 	# ================================================================

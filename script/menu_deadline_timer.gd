@@ -105,7 +105,11 @@ func get_deadline_for(recipe_id: String) -> float:
 
 func is_expired() -> bool:
 	return _expired
+	
 
+
+func is_running() -> bool:
+	return _running
 
 func get_remaining_time() -> float:
 	return _time_left

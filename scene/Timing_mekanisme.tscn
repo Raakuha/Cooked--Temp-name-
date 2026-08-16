@@ -1,17 +1,17 @@
 [gd_scene format=3 uid="uid://blrc087prr4v"]
 
 [ext_resource type="Script" uid="uid://cbym1lr03fatj" path="res://script/ui/stove_timing_ui.gd" id="1_gu47y"]
-[ext_resource type="Texture2D" uid="uid://ol4yk7oyhnj" path="res://assets/UI/Desain tanpa judul (1).png" id="2_avxn5"]
-[ext_resource type="Texture2D" uid="uid://cx2s1qqsjg25i" path="res://assets/UI/good (1).png" id="3_dpqvv"]
-[ext_resource type="Texture2D" uid="uid://cslk0pycnrv4t" path="res://assets/UI/perfect (2).png" id="4_7irog"]
-[ext_resource type="Texture2D" uid="uid://c0hn8w8e8p2nh" path="res://assets/UI/arrow.png" id="5_8kh0w"]
+[ext_resource type="Texture2D" uid="uid://cxckbbaf44unp" path="res://assets/attachment_meteranKompor/putih.png" id="2_7irog"]
+[ext_resource type="Texture2D" uid="uid://cw7f7q2mm6tcy" path="res://assets/attachment_meteranKompor/hijau.png" id="3_8kh0w"]
+[ext_resource type="Texture2D" uid="uid://cjjhd16mqfuq3" path="res://assets/attachment_meteranKompor/merah.png" id="4_7ag2q"]
+[ext_resource type="Texture2D" uid="uid://dwuiph7i7xij" path="res://assets/attachment_meteranKompor/switch.png" id="5_anuqc"]
 
 [node name="Timing_mekanisme" type="CanvasLayer" unique_id=48844692 node_paths=PackedStringArray("needle", "good_zone", "perfect_zone", "label", "result_badge")]
 script = ExtResource("1_gu47y")
 cycle_duration = 1.5
 needle = NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge/Needle")
-needle_min_angle = -90.0
-needle_max_angle = 90.0
+needle_min_angle = -120.0
+needle_max_angle = 120.0
 good_zone = NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge/GoodZone")
 perfect_zone = NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge/PerfectZone")
 label = NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/TemperatureLabel")
@@ -49,6 +49,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="TemperatureLabel" type="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer" unique_id=1520371653]
+visible = false
 layout_mode = 2
 
 [node name="DialGauge" type="Control" parent="Control/PanelContainer/MarginContainer/VBoxContainer" unique_id=672618460]
@@ -59,18 +60,12 @@ size_flags_horizontal = 0
 layout_mode = 0
 offset_left = -243.0
 offset_top = -488.99994
-offset_right = 757.0
-offset_bottom = 11.000061
+offset_right = 734.96716
+offset_bottom = 15.964355
 scale = Vector2(0.5055668, 0.54343796)
 pivot_offset = Vector2(486.56177, 505.04236)
-texture = ExtResource("2_avxn5")
-
-[node name="StopButton" type="TextureRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge" unique_id=683907849]
-layout_mode = 0
-offset_left = 93.0
-offset_top = 21.0
-offset_right = 133.0
-offset_bottom = 61.0
+texture = ExtResource("2_7irog")
+expand_mode = 1
 
 [node name="GoodZone" type="TextureRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge" unique_id=2058245731]
 layout_mode = 0
@@ -79,7 +74,7 @@ offset_top = -256.0
 offset_right = 492.0
 offset_bottom = 20.0
 pivot_offset = Vector2(256, 262)
-texture = ExtResource("3_dpqvv")
+texture = ExtResource("3_8kh0w")
 expand_mode = 1
 
 [node name="PerfectZone" type="TextureRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge" unique_id=1966471458]
@@ -89,18 +84,18 @@ offset_top = -258.0
 offset_right = 494.0
 offset_bottom = 15.0
 pivot_offset = Vector2(255, 270)
-texture = ExtResource("4_7irog")
+texture = ExtResource("4_7ag2q")
 expand_mode = 1
 
 [node name="Needle" type="TextureRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge" unique_id=1074638755]
 layout_mode = 0
-offset_left = 175.00003
-offset_top = -375.0
-offset_right = 313.3632
-offset_bottom = 30.007324
+offset_left = -26.99997
+offset_top = -313.0
+offset_right = 513.5984
+offset_bottom = 56.292725
 scale = Vector2(0.6348767, 0.462645)
-pivot_offset = Vector2(65.14685, 394.8015)
-texture = ExtResource("5_8kh0w")
+pivot_offset = Vector2(264.12036, 229.65295)
+texture = ExtResource("5_anuqc")
 expand_mode = 1
 
 [node name="ResultBadge" type="TextureRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge" unique_id=745649647]

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dpo20gf4jvmeu"]
+
+[ext_resource type="Script" uid="uid://dt7r4d737i7rl" path="res://script/ui/game_hud.gd" id="1_qlrop"]
+
+[node name="GameHUD" type="CanvasLayer" unique_id=549213366 node_paths=PackedStringArray("deadline_label", "menu_deadline_timer")]
+script = ExtResource("1_qlrop")
+deadline_label = NodePath("MarginContainer/Countdown")
+menu_deadline_timer = NodePath("")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=863858493]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ProfitLabel" type="Label" parent="MarginContainer" unique_id=486827494]
+layout_mode = 2
+
+[node name="Countdown" type="Label" parent="MarginContainer" unique_id=877088982]
+layout_mode = 2

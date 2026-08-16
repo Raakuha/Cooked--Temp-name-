@@ -1,16 +1,7 @@
 extends CanvasLayer
 class_name ItemPickUI
 
-## R-P3-10 extension --- Tampilan untuk ItemPickManager. Nunjukkin SEMUA
-## nama barang di workstation sekaligus (mode "pick"), atau 1 target aja
-## waktu naruh balik barang yang salah diambil (mode "return"). Gaya
-## visual disamain sama TypingUI (highlight huruf yang udah diketik,
-## shake + flash merah pas salah) biar konsisten se-game.
-##
-## CATATAN: matched_len yang dikirim ItemPickManager itu posisi di LABEL
-## TANPA SPASI (lihat ItemPickManager.strip_label()). _render_row() yang
-## nerjemahin balik ke posisi di label ASLI (yang ada spasinya) buat
-## ditampilin, lewat _visual_length().
+
 
 @export var item_pick_manager: ItemPickManager
 
@@ -52,7 +43,7 @@ func _ready() -> void:
 # ------------------------------------------------------------------
 
 func _on_pick_started(candidates: Array) -> void:
-	title_label.text = "AMBIL BARANG YANG DIBUTUHKAN (ENTER = konfirmasi)"
+	title_label.text = "AMBIL BARANG (ENTER = konfirmasi, BACKSPACE = selesai & keluar)"
 	_rebuild_rows(candidates)
 	panel.show()
 
@@ -103,7 +94,7 @@ func _on_pick_completed(_result: Dictionary) -> void:
 # ------------------------------------------------------------------
 
 func _on_exit_wait_started(label: String) -> void:
-	title_label.text = "OK: " + label + " -- Tekan BACKSPACE untuk lanjut"
+	title_label.text = "OK: " + label + " -- BACKSPACE = lihat daftar lagi"
 	_rebuild_rows([{"item_id": "_exit", "label": label}])
 	_render_row(
 		_row_labels["_exit"], label, ItemPickManager.strip_label(label).length()

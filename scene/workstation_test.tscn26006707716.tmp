@@ -236,6 +236,7 @@ cooking_sequence_manager = NodePath("../CookingSequenceManager")
 item_pick_manager = NodePath("../ItemPickManager")
 
 [node name="MenuDeadlineTimer" parent="." unique_id=1094849137 node_paths=PackedStringArray("cooking_sequence_manager") instance=ExtResource("21_j4que")]
+default_deadline_seconds = null
 cooking_sequence_manager = NodePath("../CookingSequenceManager")
 
 [node name="GameHUD" type="CanvasLayer" parent="." unique_id=549213366 node_paths=PackedStringArray("deadline_label", "menu_deadline_timer")]

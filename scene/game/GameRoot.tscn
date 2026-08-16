@@ -11,8 +11,9 @@
 [ext_resource type="Script" uid="uid://dvejkl57hqp63" path="res://script/managers/sanity_manager.gd" id="7_8n54l"]
 [ext_resource type="PackedScene" uid="uid://c58ebfvjps2ko" path="res://scene/Mc/Player_Baru.tscn" id="7_m5dmv"]
 [ext_resource type="Script" uid="uid://cdt0nys3j1kdi" path="res://script/managers/horror_manager.gd" id="8_4w345"]
-[ext_resource type="Script" uid="uid://dt7r4d737i7rl" path="res://script/ui/game_hud.gd" id="9_fuybt"]
 [ext_resource type="Script" uid="uid://brc3o4r7a765n" path="res://script/managers/day_manager.gd" id="9_olp7e"]
+[ext_resource type="PackedScene" uid="uid://dqbjh0vmm18vv" path="res://scene/managers/menu_deadline_timer.tscn" id="10_uv8t8"]
+[ext_resource type="PackedScene" uid="uid://dpo20gf4jvmeu" path="res://scene/game/game_hud.tscn" id="12_foydr"]
 [ext_resource type="PackedScene" uid="uid://cpmyhm7didfpf" path="res://kitchenmodel_ingame/node_3d.tscn" id="14_fd77o"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8f85w"]
@@ -46,19 +47,13 @@ script = ExtResource("8_4w345")
 [node name="DayManager" type="Node" parent="Managers" unique_id=8268402]
 script = ExtResource("9_olp7e")
 
+[node name="MenuDeadlineTimer" parent="Managers" unique_id=1094849137 instance=ExtResource("10_uv8t8")]
+
 [node name="UI" type="Node" parent="." unique_id=1624596758]
 
 [node name="DialogueBubble" parent="UI" unique_id=1769872994 instance=ExtResource("4_m5dmv")]
 
-[node name="GameHUD" type="CanvasLayer" parent="UI" unique_id=1268146488]
-script = ExtResource("9_fuybt")
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/GameHUD" unique_id=320749345]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="ProfitLabel" type="Label" parent="UI/GameHUD/MarginContainer" unique_id=1920866351]
-layout_mode = 2
+[node name="GameHUD" parent="UI" unique_id=549213366 instance=ExtResource("12_foydr")]
 
 [node name="TypingUI" parent="UI" unique_id=1494470883 instance=ExtResource("6_54au1")]
 

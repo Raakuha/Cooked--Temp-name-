@@ -37,11 +37,12 @@ var _in_cooking_phase: bool = false
 
 var _typing_manager: TypingManager = null
 
-# R-P3-10 fix: item_id barang yang BENERAN kepetik terakhir kali (bisa beda
-# dari checklist_id yang "aktif" dipanggil start_prep_item(), karena
-# sekarang player boleh milih barang lain yang sama-sama eligible di
-# workstation yang sama).
-var _last_picked_item_id: String = ""
+# R-P3-10 fix: SEMUA item_id yang beneran kepetik BENAR di kunjungan
+# prep yang lagi jalan (bisa lebih dari 1, kalau workstation-nya punya
+# beberapa checklist item eligible sekaligus, mis. daging_cincang DAN
+# telur sama-sama di REFRIGERATOR). Direset tiap kali 1 prep item
+# selesai diproses.
+var _picked_item_ids_this_action: Array = []
 
 
 func _ready() -> void:
@@ -93,7 +94,7 @@ func start_recipe(new_recipe_id: String) -> void:
 
 	_active_prep_index = -1
 	_active_prep_step_idx = 0
-	_last_picked_item_id = ""
+	_picked_item_ids_this_action.clear()
 	_in_cooking_phase = false
 	_cooking_step_idx = 0
 	active = true
@@ -213,44 +214,70 @@ func start_prep_item(checklist_id: String) -> bool:
 
 
 func _complete_active_prep_item() -> void:
-	var checklist_id: String = _resolve_completed_checklist_id()
+	if _picked_item_ids_this_action.is_empty():
+		# R-P3-10 fix: player keluar workstation TANPA ambil barang apapun
+		# -- ini bukan "selesai", checklist TETAP kosong/belum. Cuma reset
+		# state biar PrepLocationPicker bisa nawarin lokasi lagi (termasuk
+		# workstation yang sama, kalau mau dicoba lagi nanti).
+		_active_prep_index = -1
+		_active_prep_step_idx = 0
 
-	_checklist[checklist_id] = true
+		print("[CookingSequenceManager] Prep dibatalkan, keluar tangan kosong.")
+
+		# Reuse sinyal ini cuma buat trigger PrepLocationPicker._refresh()
+		# lagi -- isinya emang gak berubah (checklist tetap sama).
+		checklist_updated.emit(_checklist.duplicate())
+		return
+
+	var checklist_ids: Array = _resolve_completed_checklist_ids()
+
+	for checklist_id in checklist_ids:
+		_checklist[checklist_id] = true
+
 	_active_prep_index = -1
 	_active_prep_step_idx = 0
-	_last_picked_item_id = ""
+	_picked_item_ids_this_action.clear()
 
-	print("[CookingSequenceManager] Prep item selesai: ", checklist_id)
+	for checklist_id in checklist_ids:
+		print("[CookingSequenceManager] Prep item selesai: ", checklist_id)
+		prep_item_completed.emit(checklist_id)
 
-	prep_item_completed.emit(checklist_id)
 	checklist_updated.emit(_checklist.duplicate())
 
 	if _all_prep_complete():
 		_start_cooking_phase()
 
 
-# R-P3-10 fix: cari checklist_id yang beneran cocok sama item_id yang
-# terakhir kepetik BENAR (_last_picked_item_id) -- soalnya sekarang player
-# boleh milih barang lain yang sama-sama eligible di workstation yang
-# sama, jadi checklist_id yang "selesai" belum tentu yang tadinya di-
-# start_prep_item(). Fallback ke checklist_id yang lagi aktif kalau gak
-# ada info item_id (mis. workstation lama tanpa ItemPickManager).
-func _resolve_completed_checklist_id() -> String:
-	if _last_picked_item_id != "":
-		for item in _prep_items:
-			var cid: String = item["checklist_id"]
+# R-P3-10 fix: cari SEMUA checklist_id yang cocok sama barang-barang yang
+# beneran kepetik BENAR di kunjungan ini (_picked_item_ids_this_action) --
+# sebelumnya cuma resolve 1 checklist_id (dari barang TERAKHIR yang
+# kepetik), jadi kalau ambil 2+ barang dalam 1 kunjungan, yang lain gak
+# pernah ke-mark selesai. Fallback ke checklist yang lagi aktif kalau gak
+# ada info item_id sama sekali (mis. workstation lama tanpa ItemPickManager).
+func _resolve_completed_checklist_ids() -> Array:
+	var resolved: Array = []
 
-			if _checklist.get(cid, true):
+	for picked_item_id in _picked_item_ids_this_action:
+		for item in _prep_items:
+			var checklist_id: String = item["checklist_id"]
+
+			if _checklist.get(checklist_id, true):
+				continue
+
+			if resolved.has(checklist_id):
 				continue
 
 			for s in item["steps"]:
 				if s["type"] == RecipeData.StepType.ACTION:
 					var inter: Dictionary = s.get("interaction", {})
 
-					if inter.get("item_id", "") == _last_picked_item_id:
-						return cid
+					if inter.get("item_id", "") == picked_item_id:
+						resolved.append(checklist_id)
 
-	return _prep_items[_active_prep_index]["checklist_id"]
+	if resolved.is_empty():
+		resolved.append(_prep_items[_active_prep_index]["checklist_id"])
+
+	return resolved
 
 
 func _all_prep_complete() -> bool:
@@ -331,7 +358,7 @@ func _emit_prep_step(step: Dictionary) -> void:
 
 
 func _on_item_picked(_workstation: Workstation, item_id: String) -> void:
-	_last_picked_item_id = item_id
+	_picked_item_ids_this_action.append(item_id)
 
 
 # ------------------------------------------------------------------
@@ -364,8 +391,7 @@ func record_timing_result(timing_result: String) -> void:
 		current_result.record_timing_result(timing_result)
 
 
-# R-P3-10 extension: 1 kali salah ambil barang = 1 mistake, sama bobotnya
-# kayak 1x salah ketik (lihat CookingResult.MENTAL_PENALTY_PER_MISTAKE).
+
 func _on_wrong_item_picked(
 	_workstation: Workstation, _picked_item_id: String, _required_item_id: String
 ) -> void:

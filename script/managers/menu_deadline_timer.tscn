@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://bdmiskui3omck"]
-
-[ext_resource type="Script" uid="uid://rje32grn2u4u" path="res://menu_deadline_timer.gd" id="1_mferc"]
-
-[node name="MenuDeadlineTimer" type="Node" unique_id=2138281757]
-script = ExtResource("1_mferc")

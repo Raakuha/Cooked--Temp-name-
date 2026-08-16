@@ -1,17 +1,6 @@
 class_name CookingResult
 extends RefCounted
 
-## R-P3-06 --- Cooking Result / Deadline Contract.
-##
-## Cooking runtime hanya melaporkan fakta dari satu order.
-## Profit dan Sanity/Mental diproses downstream.
-##
-## ATURAN:
-## - Typing mistake tidak mengubah hasil makanan.
-## - Stove timing MISS dapat mengurangi profit sedikit.
-## - Deadline habis membuat order FAILED.
-## - Deadline failure tidak mengubah hasil makanan secara visual/gameplay.
-## - Tidak ada mental/profit calculation di class ini.
 
 var recipe_id: String = ""
 var mistake_count: int = 0
