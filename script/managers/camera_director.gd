@@ -5,7 +5,8 @@ extends Node
 enum CameraMode {
 	GAMEPLAY,
 	FPP,
-	HORROR
+	HORROR,
+	PSYCHIATRIST
 }
 
 @onready var gameplay_camera: Camera3D = $"../../World/Camera3D"
@@ -13,6 +14,7 @@ enum CameraMode {
 @onready var player_controller: PlayerController = $"../../PlayerBaru"
 
 @onready var horror_camera: Camera3D = $"../../World/HorrorCamera"
+@onready var psychiatrist_camera: Camera3D = $"../../World/PsychiatristRoom/PsychiatristCamera"
 
 
 var current_mode: CameraMode = CameraMode.GAMEPLAY
@@ -81,3 +83,19 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		elif event.keycode == KEY_G:
 			switch_to_gameplay()
+
+
+func switch_to_psychiatrist() -> void:
+
+	if psychiatrist_camera == null:
+		print("Psychiatrist Camera tidak ditemukan.")
+		return
+
+	psychiatrist_camera.make_current()
+
+	current_mode = CameraMode.PSYCHIATRIST
+
+	player_controller.set_movement_enabled(false)
+	player_controller.set_mouse_look_enabled(false)
+
+	print("CAMERA MODE -> PSYCHIATRIST")

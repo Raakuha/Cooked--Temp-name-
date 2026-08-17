@@ -8,9 +8,18 @@ signal order_requested(recipe_id)
 @onready var customer_manager : CustomerManager = $"../CustomerManager"
 @onready var typing_manager : TypingManager = $"../TypingManager"
 @onready var profit_manager : ProfitManager = $"../ProfitManager"
+@onready var day_transition_manager : DayTransitionManager = $"../DayTransitionManager"
+@onready var psychiatrist_sequence_manager : PsychiatristSequenceManager = $"../PsychiatristSequenceManager"
+
 
 var fake_typing_active := false
 var fake_typing_recipe := ""
+
+var ending_active: bool = false
+
+var active_customer_dialogue: Array[Dictionary] = []
+var customer_dialogue_index: int = 0
+var customer_dialogue_type: String = ""
 
 @onready var sanity_manager : SanityManager = $"../SanityManager"
 @onready var horror_manager : HorrorManager = $"../HorrorManager"
@@ -18,6 +27,9 @@ var fake_typing_recipe := ""
 
 @onready var player : Node3D = $"../../PlayerBaru"
 @onready var game_hud : GameHUD = $"../../UI/GameHUD"
+
+@onready var horror_sequence_manager : HorrorSequenceManager = $"../HorrorSequenceManager"
+@onready var ending_manager : EndingManager = $"../EndingManager"
 
 func _ready():
 
@@ -46,7 +58,11 @@ func _ready():
 	day_manager.day_started.connect(_on_day_started)
 	day_manager.day_completed.connect(_on_day_completed)
 	#day_manager.game_completed.connect(_on_game_completed)
-
+	
+	horror_sequence_manager.sequence_finished.connect(
+		_on_horror_sequence_finished
+	)
+	
 	call_deferred("start_day")
 	
 
@@ -79,9 +95,12 @@ func _input(event):
 		print("TYPING SELESAI")
 		print("========================")
 
+		# Sementara untuk testing:
+		# setiap typing yang selesai dianggap berhasil
+		profit_manager.customer_success()
+
 		if customer_manager.current_customer != null:
 			customer_manager.current_customer.receive_food()
-
 			customer_manager.send_customer_to_table()
 
 func start_day():
@@ -106,8 +125,7 @@ func _on_day_finished():
 
 func _on_day_completed(day: int) -> void:
 	print("GameManager menerima Day ", day, " selesai")
-
-	day_manager.next_day()
+	day_transition_manager.start_day_transition(day)
 
 func _on_customer_arrived():
 
@@ -127,6 +145,18 @@ func _on_dialog_finished():
 
 	print("Dialogue selesai")
 
+	if ending_active:
+		print("Ending aktif -> EventRunner tidak dilanjutkan")
+		return
+
+	if psychiatrist_sequence_manager.active:
+		print("Psychiatrist sequence aktif -> EventRunner tidak dilanjutkan")
+		return
+
+	if not active_customer_dialogue.is_empty():
+		show_next_customer_dialogue()
+		return
+
 	event_runner.next_event()
 
 func _on_typing_finished():
@@ -142,7 +172,23 @@ func _on_customer_returned_to_cashier():
 
 	print("GameManager menerima: Customer kembali ke kasir")
 
-	event_runner.next_event()
+	if customer_manager.current_customer == null:
+		return
+
+	play_customer_dialogue(
+		customer_manager.current_customer.get_closing_dialogue(),
+		"closing"
+	)
+
+func _on_horror_sequence_finished() -> void:
+
+	print("========================")
+	print("GameManager menerima HORROR SEQUENCE SELESAI")
+	print("========================")
+
+	ending_active = true
+
+	ending_manager.start_ending()
 
 func _on_event_started(event):
 
@@ -164,28 +210,121 @@ func _on_event_started(event):
 			dialogue_manager.start_dialog(event, target)
 
 
+		#"typing":
+#
+			#if customer_manager.current_customer != null:
+				#customer_manager.current_customer.start_waiting()
+#
+			#fake_typing_recipe = event["recipe"]
+			#fake_typing_active = true
+#
+			#print("========================")
+			#print("TYPING DIMULAI")
+			#print("Recipe :", fake_typing_recipe)
+			#print("========================")
+		
 		"typing":
-
 			if customer_manager.current_customer != null:
 				customer_manager.current_customer.start_waiting()
+				var recipe_id = customer_manager.current_customer.get_recipe_id()
+				fake_typing_recipe = recipe_id
+				fake_typing_active = true
 
-			fake_typing_recipe = event["recipe"]
-			fake_typing_active = true
-
-			print("========================")
-			print("TYPING DIMULAI")
-			print("Recipe :", fake_typing_recipe)
-			print("========================")
+				print("========================")
+				print("TYPING DIMULAI")
+				print("Recipe :", fake_typing_recipe)
+				print("========================")
 
 
 
 		"exit":
-
 			print("Customer Exit")
-
 			customer_manager.exit_customer()
 
 
 		"spawn_customer":
+			customer_manager.spawn_customer_by_id(
+				event["customer_id"]
+			)
+		
+		"customer_opening":
+			if customer_manager.current_customer != null:
+				play_customer_dialogue(
+					customer_manager.current_customer.get_opening_dialogue(),
+					"opening"
+				)
 
-			customer_manager.spawn_customer(event["name"])
+#func play_customer_dialogue(
+	#dialogues: Array[Dictionary]
+#) -> void:
+#
+	#if dialogues.is_empty():
+		#print("Tidak ada customer dialogue.")
+		#event_runner.next_event()
+		#return
+#
+	#active_customer_dialogue = dialogues
+	#customer_dialogue_index = 0
+#
+	#show_next_customer_dialogue()
+
+func play_customer_dialogue(
+	dialogues: Array[Dictionary],
+	dialogue_type: String
+) -> void:
+
+	print("========================")
+	print("CUSTOMER DIALOGUE")
+	print("Type :", dialogue_type)
+	print("Jumlah dialogue :", dialogues.size())
+	print("========================")
+
+	if dialogues.is_empty():
+
+		print("Tidak ada customer dialogue.")
+
+		if dialogue_type == "closing":
+			customer_manager.exit_customer()
+		else:
+			event_runner.next_event()
+
+		return
+
+	active_customer_dialogue = dialogues
+	customer_dialogue_index = 0
+	customer_dialogue_type = dialogue_type
+
+	show_next_customer_dialogue()
+
+
+func show_next_customer_dialogue() -> void:
+
+	if customer_dialogue_index >= active_customer_dialogue.size():
+
+		active_customer_dialogue.clear()
+		customer_dialogue_index = 0
+
+		print(
+			"Customer dialogue selesai -> ",
+			customer_dialogue_type
+		)
+
+		if customer_dialogue_type == "closing":
+
+			customer_dialogue_type = ""
+
+			customer_manager.exit_customer()
+
+		else:
+
+			customer_dialogue_type = ""
+
+			event_runner.next_event()
+
+		return
+
+	var dialog = active_customer_dialogue[customer_dialogue_index]
+
+	customer_dialogue_index += 1
+
+	dialogue_manager.start_dialog(dialog)

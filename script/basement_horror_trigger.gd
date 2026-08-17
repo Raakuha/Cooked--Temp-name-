@@ -3,6 +3,7 @@ extends Area3D
 
 @export var camera_director: CameraDirector
 @export var player: PlayerController
+@export var horror_sequence_manager: HorrorSequenceManager
 
 var triggered: bool = false
 
@@ -42,3 +43,6 @@ func trigger_horror() -> void:
 
 	if camera_director != null:
 		camera_director.switch_to_horror()
+
+	if horror_sequence_manager != null:
+		horror_sequence_manager.play_basement_sequence()

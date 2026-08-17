@@ -67,11 +67,11 @@ func fade_from_black(duration: float = 0.5) -> void:
 	await fade_in(duration)
 	
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept"):
-		print("TEST FADE OUT")
-		fade_out()
-
-	if event.is_action_pressed("ui_cancel"):
-		print("TEST FADE IN")
-		fade_in()
+#func _unhandled_input(event: InputEvent) -> void:
+	#if event.is_action_pressed("ui_accept"):
+		#print("TEST FADE OUT")
+		#fade_out()
+#
+	#if event.is_action_pressed("ui_cancel"):
+		#print("TEST FADE IN")
+		#fade_in()
