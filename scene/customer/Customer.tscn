@@ -2,14 +2,21 @@
 
 [ext_resource type="Script" uid="uid://cjd27tfmssv4d" path="res://script/customer/customer.gd" id="1_vcx5p"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8f85w"]
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8f85w"]
 
 [node name="Customer" type="Node3D" unique_id=666160747]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0202575, 4.4748154, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0202575, 0.8590417, 0)
 script = ExtResource("1_vcx5p")
 
 [node name="Marker3D" type="Marker3D" parent="." unique_id=1556275660]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=67807474]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=804224006]
+shape = SubResource("CapsuleShape3D_8f85w")
+
+[node name="Visual" type="Node3D" parent="." unique_id=897441695]
+
+[node name="Placeholder" type="MeshInstance3D" parent="Visual" unique_id=67807474]
 mesh = SubResource("CapsuleMesh_8f85w")

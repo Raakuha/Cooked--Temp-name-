@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CustomerProfile" format=3 uid="uid://b6juxpm1xl2hy"]
+
+[ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="1_qtw0n"]
+
+[resource]
+script = ExtResource("1_qtw0n")
+character_id = "nanda"
+character_name = "Nanda"
+opening_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Ulbar",
+"text": "Permisi.... apakah sudah buka?"
+}])
+recipe_id = "burger"
+metadata/_custom_type_script = "uid://cl423sww4t3q0"
