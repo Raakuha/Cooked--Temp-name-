@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CustomerProfile" format=3 uid="uid://bl4cnubtoxh10"]
+
+[ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="1_ga7a0"]
+[ext_resource type="PackedScene" uid="uid://cef8cxtwwnfd1" path="res://scene/customer/Harlan.tscn" id="1_pklll"]
+
+[resource]
+script = ExtResource("1_ga7a0")
+character_id = "harlan"
+character_name = "Harlan"
+model_scene = ExtResource("1_pklll")
+opening_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Harlan",
+"speaker_type": "customer",
+"text": "Harlan viking Datang"
+}])
+closing_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Harlan",
+"speaker_type": "customer",
+"text": "Harlan viking Ganti pemain"
+}])
+recipe_id = "burger"
+metadata/_custom_type_script = "uid://cl423sww4t3q0"

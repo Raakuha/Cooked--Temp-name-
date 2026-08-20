@@ -19,6 +19,21 @@ var customers_served: int = 0
 @onready var customer_exit : Marker3D = $"../../SpawnPoints/CustomerExit"
 
 @onready var sit_point : Marker3D = $"../../DiningPoints/Table01/SitPoint"
+@onready var customer_database: CustomerDatabase = $"../CustomerDatabase"
+
+func add_customers_served(amount: int) -> void:
+
+	customers_served += amount
+
+	print(
+		"Customers served bertambah : ",
+		amount
+	)
+
+	print(
+		"Customers served : ",
+		customers_served
+	)
 
 func send_customer_to_table():
 	if current_customer == null:
@@ -42,7 +57,8 @@ func _on_customer_arrived():
 
 
 func spawn_customer_by_profile(
-	customer_profile: CustomerProfile
+	customer_profile: CustomerProfile,
+	use_day6_variant: bool = false
 ) -> void:
 
 	if current_customer != null:
@@ -56,6 +72,8 @@ func spawn_customer_by_profile(
 	current_customer.setup_from_profile(
 		customer_profile
 	)
+	
+	current_customer.use_day6_variant = use_day6_variant
 
 	current_customer.global_position = customer_spawn.global_position
 
@@ -79,23 +97,13 @@ func spawn_customer_by_profile(
 
 
 
+
+
 func get_customer_profile(customer_id: String) -> CustomerProfile:
 
-	match customer_id:
+	return customer_database.get_profile(customer_id)
 
-		"ulbar":
-			return load(
-				"res://data/customers/ulbar.tres"
-			) as CustomerProfile
 
-		"nanda":
-			return load(
-				"res://data/customers/nanda.tres"
-			) as CustomerProfile
-
-		_:
-			print("Customer ID tidak dikenal: ", customer_id)
-			return null
 
 func spawn_customer_by_id(customer_id: String) -> void:
 
@@ -146,6 +154,8 @@ func return_customer_to_cashier():
 		cashier_point.global_position
 	)
 
+
+
 func exit_customer():
 
 	if current_customer == null:
@@ -178,3 +188,16 @@ func reset_customer_count() -> void:
 
 func get_customers_served() -> int:
 	return customers_served
+
+
+func spawn_mika_day6() -> void:
+
+	var profile := customer_database.get_profile("mika")
+
+	if profile == null:
+		return
+
+	spawn_customer_by_profile(
+		profile,
+		true
+	)

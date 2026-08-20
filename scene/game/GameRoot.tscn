@@ -20,9 +20,33 @@
 [ext_resource type="PackedScene" uid="uid://cpmyhm7didfpf" path="res://kitchenmodel_ingame/node_3d.tscn" id="14_fd77o"]
 [ext_resource type="Script" uid="uid://d0afasls4j2t4" path="res://script/managers/transition_layer.gd" id="14_foydr"]
 [ext_resource type="Script" uid="uid://qvk6yf1otw6x" path="res://script/managers/psychiatrist_sequence_manager.gd" id="14_o3te2"]
+[ext_resource type="Script" uid="uid://irevklmrhvad" path="res://script/customer/customer_database.gd" id="15_vprn7"]
+[ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="16_3rlmj"]
 [ext_resource type="PackedScene" uid="uid://dko3175p12cb" path="res://scene/game/basement_temp.tscn" id="17_hd2yi"]
+[ext_resource type="Resource" uid="uid://na4mbvmrtfsv" path="res://data/customers/ulbar.tres" id="17_qf78g"]
 [ext_resource type="Script" uid="uid://cgk28uetmun1j" path="res://script/managers/ending_screen.gd" id="17_qwtac"]
+[ext_resource type="Resource" uid="uid://b6juxpm1xl2hy" path="res://data/customers/nanda.tres" id="18_qil7q"]
+[ext_resource type="Resource" uid="uid://cqrlkhiietv2o" path="res://data/customers/andrian.tres" id="19_srw2o"]
 [ext_resource type="Script" uid="uid://cdryuqm1egtsl" path="res://script/day_summary_ui.gd" id="19_vc36r"]
+[ext_resource type="Resource" uid="uid://bemdvi1nhcqrk" path="res://data/customers/gul.tres" id="20_qf78g"]
+[ext_resource type="Resource" uid="uid://7v1afls4hfiv" path="res://data/customers/kala.tres" id="21_qil7q"]
+[ext_resource type="Resource" uid="uid://c3s2womkorkdv" path="res://data/customers/mika.tres" id="22_srw2o"]
+[ext_resource type="Resource" uid="uid://byiybhbo26pfm" path="res://data/customers/pete.tres" id="23_cl4wr"]
+[ext_resource type="Resource" uid="uid://dnxup3dxhauuo" path="res://data/customers/lane.tres" id="24_dxea2"]
+[ext_resource type="Resource" uid="uid://bl4cnubtoxh10" path="res://data/customers/harlan.tres" id="25_4s62g"]
+[ext_resource type="Resource" uid="uid://cfnb6ab7qcah2" path="res://data/customers/james.tres" id="26_1ysa5"]
+[ext_resource type="Resource" uid="uid://kovqdngyijtd" path="res://data/customers/juan.tres" id="27_5oyco"]
+[ext_resource type="Resource" uid="uid://ybyxv7kwc1gn" path="res://data/customers/abel.tres" id="28_2ug3u"]
+[ext_resource type="Resource" uid="uid://cwayhp0e3dvn" path="res://data/customers/mark.tres" id="29_usim7"]
+[ext_resource type="Resource" uid="uid://bil8idvhiu4ep" path="res://data/customers/roy.tres" id="30_x8f3f"]
+[ext_resource type="Resource" uid="uid://d3sq4hqxnfg8e" path="res://data/customers/dion.tres" id="31_f47vc"]
+[ext_resource type="Resource" uid="uid://dbmfcyr1caeu8" path="res://data/customers/mysterious.tres" id="32_hwjsq"]
+[ext_resource type="Script" uid="uid://tegl0opprvwq" path="res://script/customer/customer_group_manager.gd" id="33_vsjyd"]
+[ext_resource type="PackedScene" uid="uid://ieqdf05p2lmp" path="res://scene/customer/Customer.tscn" id="34_y4ce3"]
+[ext_resource type="Script" uid="uid://b8lc5s5aatst6" path="res://script/customer/customer_group.gd" id="35_y6ywc"]
+[ext_resource type="Resource" uid="uid://b6cj16ejqq5t8" path="res://data/groups/juan_abel_mark.tres" id="36_wq1cb"]
+[ext_resource type="Script" uid="uid://dyxs10m52ugva" path="res://script/managers/day7_sequence_manager.gd" id="37_y6ywc"]
+[ext_resource type="PackedScene" uid="uid://bkvk5or8afrro" path="res://scene/customer/Mysterious.tscn" id="38_wq1cb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_thd88"]
 albedo_color = Color(0.17860413, 0.41012383, 1, 1)
@@ -47,6 +71,14 @@ size = Vector3(3.9746094, 1, 4.7860107)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8d8pf"]
 size = Vector3(3.9892578, 1, 4.8012695)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y4ce3"]
+albedo_color = Color(0.3255865, 1, 0.8831188, 1)
+metallic = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pej8m"]
+material = SubResource("StandardMaterial3D_y4ce3")
+height = 0.9433594
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8f85w"]
 
@@ -99,10 +131,29 @@ script = ExtResource("13_ea8ff")
 [node name="PsychiatristSequenceManager" type="Node" parent="Managers" unique_id=1606570348]
 script = ExtResource("14_o3te2")
 
+[node name="CustomerDatabase" type="Node" parent="Managers" unique_id=1109176048]
+script = ExtResource("15_vprn7")
+profiles = Array[ExtResource("16_3rlmj")]([ExtResource("17_qf78g"), ExtResource("18_qil7q"), ExtResource("19_srw2o"), ExtResource("20_qf78g"), ExtResource("21_qil7q"), ExtResource("22_srw2o"), ExtResource("23_cl4wr"), ExtResource("24_dxea2"), ExtResource("25_4s62g"), ExtResource("26_1ysa5"), ExtResource("27_5oyco"), ExtResource("28_2ug3u"), ExtResource("29_usim7"), ExtResource("30_x8f3f"), ExtResource("31_f47vc"), ExtResource("32_hwjsq")])
+
+[node name="CustomerGroupManager" type="Node" parent="Managers" unique_id=610888381]
+script = ExtResource("33_vsjyd")
+customer_scene = ExtResource("34_y4ce3")
+group_profiles = Array[ExtResource("35_y6ywc")]([ExtResource("36_wq1cb")])
+
+[node name="Day7SequenceManager" type="Node" parent="Managers" unique_id=682877525]
+script = ExtResource("37_y6ywc")
+mysterious_scene = ExtResource("38_wq1cb")
+
 [node name="UI" type="Node" parent="." unique_id=1624596758]
 
 [node name="DialogueBubble" parent="UI" unique_id=1769872994 instance=ExtResource("4_m5dmv")]
 layer = 2
+
+[node name="BubbleDialog" parent="UI/DialogueBubble/Control" parent_id_path=PackedInt32Array(1769872994, 707559012) index="0" unique_id=107140475]
+offset_left = 146.0
+offset_top = 66.0
+offset_right = 517.0
+offset_bottom = 188.0
 
 [node name="DialogueLabel" parent="UI/DialogueBubble/Control/FullscreenDialog" parent_id_path=PackedInt32Array(1769872994, 439468625) index="0" unique_id=826763495]
 offset_top = 142.0
@@ -230,6 +281,39 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3317075, 0.9696419, 0.15260
 [node name="CustomerExit" type="Marker3D" parent="SpawnPoints" unique_id=655611525]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.487115, 0.5813918, 5.2881613)
 
+[node name="GroupSpawn1" type="Marker3D" parent="SpawnPoints" unique_id=815694970]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.0894866, 0.64726543, 5.5292525)
+
+[node name="GroupSpawn2" type="Marker3D" parent="SpawnPoints" unique_id=131381193]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2920556, 0.7372842, 6.2533097)
+
+[node name="GroupSpawn3" type="Marker3D" parent="SpawnPoints" unique_id=1676281419]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.8988447, 0.73790705, 6.3228927)
+
+[node name="GroupWait1" type="Marker3D" parent="SpawnPoints" unique_id=1521216954]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.358144, 0.9999374, 0.40623045)
+
+[node name="GroupWait2" type="Marker3D" parent="SpawnPoints" unique_id=1763737907]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.361185, 0.9645598, 1.1067718)
+
+[node name="GroupWait3" type="Marker3D" parent="SpawnPoints" unique_id=1032278589]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.385621, 0.82699406, 1.2849491)
+
+[node name="GroupExit1" type="Marker3D" parent="SpawnPoints" unique_id=869906616]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.055949, 0.7565427, 4.113182)
+
+[node name="GroupExit2" type="Marker3D" parent="SpawnPoints" unique_id=146192805]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.8378577, 0.9075576, 3.4101806)
+
+[node name="GroupExit3" type="Marker3D" parent="SpawnPoints" unique_id=1905377555]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3400393, 0.9102323, 3.3475478)
+
+[node name="BasementPlayerStart" type="Marker3D" parent="SpawnPoints" unique_id=1721307797]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.238777, 0.20493329, -2.8922758)
+
+[node name="MysteriousSpawn" type="Marker3D" parent="SpawnPoints" unique_id=505856605]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2552614, 1.1077995, 1.1251287)
+
 [node name="PlayerBaru" parent="." unique_id=835283696 instance=ExtResource("7_m5dmv")]
 transform = Transform3D(-0.99953204, 0, -0.030587163, 0, 1, 0, 0.030587163, 0, -0.99953204, 7.2927012, 0.95446944, -1.6949128)
 
@@ -245,6 +329,17 @@ transform = Transform3D(0.99943423, 0, -0.0336369, 0, 1, 0, 0.0336369, 0, 0.9994
 
 [node name="SitPoint" type="Marker3D" parent="DiningPoints/Table01" unique_id=800939455]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.549059, 0.8622135, 0.3484348)
+
+[node name="Table02" type="Node3D" parent="DiningPoints" unique_id=1116986469]
+
+[node name="SitPoint1" type="Marker3D" parent="DiningPoints/Table02" unique_id=1597800728]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5802011, 0.5327594, 0.26721305)
+
+[node name="SitPoint2" type="Marker3D" parent="DiningPoints/Table02" unique_id=1814259288]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9564967, 0.5202872, 0)
+
+[node name="SitPoint3" type="Marker3D" parent="DiningPoints/Table02" unique_id=428480357]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.985664, 0.51879853, 0.78047454)
 
 [node name="World" type="Node" parent="." unique_id=886527014]
 
@@ -325,6 +420,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7976131, 2.1697853, 5.6397
 
 [node name="PsychiatristFocusPoint" type="Marker3D" parent="World/PsychiatristRoom" unique_id=900562983]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.941803, 1.9740796, 0)
+
+[node name="FlashbackKitchen" type="Node3D" parent="World" unique_id=1409991252]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8964577, 1.6124504, 14.529396)
+
+[node name="Panci_Sup" type="StaticBody3D" parent="World/FlashbackKitchen" unique_id=1651858947]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.611083, -0.8212875, 1.4305363)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/FlashbackKitchen/Panci_Sup" unique_id=1677588654]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5283203, 0)
+mesh = SubResource("CylinderMesh_pej8m")
+
+[node name="FlashbackCamera" type="Camera3D" parent="World/FlashbackKitchen" unique_id=898608873]
+transform = Transform3D(0.033808265, -0.6185656, 0.7850055, 0.026615426, 0.7857332, 0.61799276, -0.9990739, -5.5931153e-09, 0.04302766, -0.6475949, -0.15083075, 1.4666557)
+
+[node name="Audio" type="Node" parent="World/FlashbackKitchen" unique_id=586142374]
+
+[node name="FlashbackMusic" type="AudioStreamPlayer" parent="World/FlashbackKitchen/Audio" unique_id=1103076901]
+
+[node name="SoupCookingSFX" type="AudioStreamPlayer" parent="World/FlashbackKitchen/Audio" unique_id=576530250]
+
+[node name="KitchenAmbience" type="AudioStreamPlayer" parent="World/FlashbackKitchen/Audio" unique_id=94108014]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="World/FlashbackKitchen" unique_id=1555185777]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=8132546]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4880967, 0)

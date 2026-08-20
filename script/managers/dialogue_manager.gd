@@ -16,15 +16,11 @@ func _ready():
 	print("DialogueBubble:", bubble)
 
 
-func start_dialog(dialog, target : Node3D = null):
+func start_dialog(dialog, target: Node3D = null):
 
 	current_dialog = dialog
 
-
-	if target != null:
-
-		bubble.set_target(target)
-
+	bubble.set_target(target)
 
 	bubble.show_dialog(dialog)
 

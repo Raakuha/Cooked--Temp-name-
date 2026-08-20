@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CustomerProfile" format=3 uid="uid://dbmfcyr1caeu8"]
+
+[ext_resource type="PackedScene" uid="uid://bkvk5or8afrro" path="res://scene/customer/Mysterious.tscn" id="1_1jm7f"]
+[ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="1_xkjoi"]
+
+[resource]
+script = ExtResource("1_xkjoi")
+character_id = "mysterious"
+character_name = "???"
+model_scene = ExtResource("1_1jm7f")
+opening_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "???",
+"speaker_type": "customer",
+"text": "kurasa sudah waktunya kau melihat isi dapurmu lagi"
+}])
+dining_time = 0.0
+metadata/_custom_type_script = "uid://cl423sww4t3q0"

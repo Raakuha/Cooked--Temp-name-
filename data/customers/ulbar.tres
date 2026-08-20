@@ -1,31 +1,59 @@
 [gd_resource type="Resource" script_class="CustomerProfile" format=3 uid="uid://na4mbvmrtfsv"]
 
 [ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="1_lbsn2"]
+[ext_resource type="PackedScene" uid="uid://buu7ohxs07rn0" path="res://scene/customer/Ulbar.tscn" id="1_uhj67"]
 
 [resource]
 script = ExtResource("1_lbsn2")
 character_id = "ulbar"
+character_name = "Ulbar"
+model_scene = ExtResource("1_uhj67")
 opening_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Ulbar",
+"speaker_type": "customer",
 "text": "Permisi.... apakah sudah buka?"
 }, {
 "mode": "bubble",
-"speaker": "Ulbar",
-"text": "Wow, aku kaget restoran ini sudah buka kembali."
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Masih."
 }, {
 "mode": "bubble",
 "speaker": "Ulbar",
+"speaker_type": "customer",
+"text": "Wow, aku kaget restoran ini sudah buka kembali."
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Sudah cukup lama memang."
+}, {
+"mode": "bubble",
+"speaker": "Ulbar",
+"speaker_type": "customer",
 "text": "Rasanya sudah lama sekali aku tidak makan di sini."
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Masih mau yang biasa?"
 }])
 recipe_id = "steak"
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Ulbar",
+"speaker_type": "customer",
 "text": "Wow, rasanya masih seperti dulu."
 }, {
 "mode": "bubble",
 "speaker": "Ulbar",
-"text": "Terima kasih."
+"speaker_type": "customer",
+"text": "Terima Kasih"
+}, {
+"mode": "bubble",
+"speaker": "Mc",
+"speaker_type": "mc",
+"text": "Sama sama"
 }])
 metadata/_custom_type_script = "uid://cl423sww4t3q0"

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CustomerProfile" format=3 uid="uid://cfnb6ab7qcah2"]
+
+[ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="1_bcaqi"]
+[ext_resource type="PackedScene" uid="uid://cycpq7vmoguit" path="res://scene/customer/James.tscn" id="1_ejwa4"]
+
+[resource]
+script = ExtResource("1_bcaqi")
+character_id = "james"
+character_name = "James"
+model_scene = ExtResource("1_ejwa4")
+opening_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "James",
+"speaker_type": "customer",
+"text": "James Bond Datang"
+}])
+closing_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "James",
+"speaker_type": "customer",
+"text": "James Bond Cabuts"
+}])
+recipe_id = "burger"
+metadata/_custom_type_script = "uid://cl423sww4t3q0"

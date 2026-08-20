@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="CustomerProfile" format=3 uid="uid://cqrlkhiietv2o"]
+
+[ext_resource type="PackedScene" uid="uid://bqovtw8te3vr6" path="res://scene/customer/Andrian.tscn" id="1_4n82v"]
+[ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="1_71jln"]
+
+[resource]
+script = ExtResource("1_71jln")
+character_id = "andrian"
+character_name = "Andrian"
+model_scene = ExtResource("1_4n82v")
+opening_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Andrian",
+"speaker_type": "customer",
+"text": "Wajah baru…"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "mwah"
+}])
+recipe_id = "nasi_goreng"
+closing_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Andrian",
+"speaker_type": "customer",
+"text": "Hmmm setidaknya rasa makanannya masih konsisten, mungkin malah seperti ada sentuhan baru?"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "woke"
+}])
+metadata/_custom_type_script = "uid://cl423sww4t3q0"

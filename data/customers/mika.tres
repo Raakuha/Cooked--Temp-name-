@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="CustomerProfile" format=3 uid="uid://c3s2womkorkdv"]
+
+[ext_resource type="PackedScene" uid="uid://bg2cwobi5w8ud" path="res://scene/customer/Mika.tscn" id="1_fbmg5"]
+[ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="1_gowg4"]
+
+[resource]
+script = ExtResource("1_gowg4")
+character_id = "mika"
+character_name = "Mika"
+model_scene = ExtResource("1_fbmg5")
+opening_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Femboy sejati"
+}])
+closing_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Femboy sejati cabuts"
+}])
+recipe_id = "Steak"
+day6_opening_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Femboy sejati Datang untuk kedua kali"
+}])
+day6_recipe_id = "nasgor_goreng"
+day6_closing_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Femboy sejati Cabuts untuk kedua kali"
+}])
+metadata/_custom_type_script = "uid://cl423sww4t3q0"

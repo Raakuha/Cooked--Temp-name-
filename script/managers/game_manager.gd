@@ -10,10 +10,14 @@ signal order_requested(recipe_id)
 @onready var profit_manager : ProfitManager = $"../ProfitManager"
 @onready var day_transition_manager : DayTransitionManager = $"../DayTransitionManager"
 @onready var psychiatrist_sequence_manager : PsychiatristSequenceManager = $"../PsychiatristSequenceManager"
+@onready var customer_group_manager : CustomerGroupManager = $"../CustomerGroupManager"
 
+@onready var day7_sequence_manager : Day7SequenceManager = $"../Day7SequenceManager"
 
 var fake_typing_active := false
 var fake_typing_recipe := ""
+
+var group_active: bool = false
 
 var ending_active: bool = false
 
@@ -53,7 +57,25 @@ func _ready():
 	
 	sanity_manager.horror_threshold_reached.connect(_on_horror_threshold_reached)
 	
-
+	
+	
+	customer_group_manager.group_started.connect(
+		_on_group_started
+	)
+	customer_group_manager.member_arrived.connect(
+		_on_group_member_arrived
+	)
+	customer_group_manager.group_finished.connect(
+		_on_group_finished
+	)
+	
+	customer_group_manager.group_closing_requested.connect(
+		_on_group_closing_requested
+	)
+	
+	day7_sequence_manager.sequence_finished.connect(
+		_on_day7_sequence_finished
+	)
 	
 	day_manager.day_started.connect(_on_day_started)
 	day_manager.day_completed.connect(_on_day_completed)
@@ -66,11 +88,83 @@ func _ready():
 	call_deferred("start_day")
 	
 
+
+func _on_day7_sequence_finished() -> void:
+
+	print("========================")
+	print("GameManager menerima DAY 7 SEQUENCE SELESAI")
+	print("========================")
+
+
+func _on_group_closing_requested(customer: Customer) -> void:
+
+	print("========================")
+	print(
+		"GameManager menerima GROUP CLOSING -> ",
+		customer.customer_name
+	)
+	print("========================")
+
+	play_customer_dialogue(
+		customer.get_closing_dialogue(),
+		"group_closing"
+	)
+
+
+func _on_group_started() -> void:
+
+	group_active = true
+
+	print("========================")
+	print("GameManager menerima: GROUP STARTED")
+	print("========================")
+
+
+func _on_group_member_arrived(customer: Customer) -> void:
+
+	print("========================")
+	print(
+		"GameManager menerima GROUP MEMBER ARRIVED -> ",
+		customer.customer_name
+	)
+	print("========================")
+
+	play_customer_dialogue(
+		customer.get_opening_dialogue(),
+		"group_opening"
+	)
+
+
+func _on_group_finished() -> void:
+
+	group_active = false
+
+	var group_count := customer_group_manager.last_group_member_count
+
+	customer_manager.add_customers_served(
+		group_count
+	)
+
+	print("========================")
+	print("GameManager menerima: GROUP FINISHED")
+	print(
+		"Group customers served : ",
+		group_count
+	)
+	print("========================")
+
+	event_runner.next_event()
+
+
+
+
+
 func _on_horror_threshold_reached(threshold: int) -> void:
 	horror_manager.trigger_horror(threshold)
 
 func _on_profit_changed(value: int) -> void:
 	game_hud.update_profit(value)
+
 
 
 
@@ -95,19 +189,31 @@ func _input(event):
 		print("TYPING SELESAI")
 		print("========================")
 
-		# Sementara untuk testing:
-		# setiap typing yang selesai dianggap berhasil
-		profit_manager.customer_success()
+		if group_active:
 
-		if customer_manager.current_customer != null:
-			customer_manager.current_customer.receive_food()
-			customer_manager.send_customer_to_table()
+			if customer_group_manager.current_customer != null:
+
+				customer_group_manager.current_customer.receive_food()
+
+				profit_manager.customer_success()
+
+				customer_group_manager.send_current_member_to_table()
+
+		else:
+
+			if customer_manager.current_customer != null:
+
+				customer_manager.current_customer.receive_food()
+
+				profit_manager.customer_success()
+
+				customer_manager.send_customer_to_table()
 
 func start_day():
 
 	print("===== DAY START =====")
 
-	day_manager.start_day(1)
+	day_manager.start_day(7)
 
 func _on_day_started(day: int) -> void:
 	print("GameManager memulai Day ", day)
@@ -151,6 +257,14 @@ func _on_dialog_finished():
 
 	if psychiatrist_sequence_manager.active:
 		print("Psychiatrist sequence aktif -> EventRunner tidak dilanjutkan")
+		return
+
+	if day_transition_manager.profit_dialogue_active:
+		print("Profit dialogue aktif -> EventRunner tidak dilanjutkan")
+		return
+
+	if day7_sequence_manager.active:
+		print("Day 7 sequence aktif -> EventRunner tidak dilanjutkan")
 		return
 
 	if not active_customer_dialogue.is_empty():
@@ -224,16 +338,30 @@ func _on_event_started(event):
 			#print("========================")
 		
 		"typing":
-			if customer_manager.current_customer != null:
-				customer_manager.current_customer.start_waiting()
-				var recipe_id = customer_manager.current_customer.get_recipe_id()
-				fake_typing_recipe = recipe_id
-				fake_typing_active = true
+			if group_active:
 
-				print("========================")
-				print("TYPING DIMULAI")
-				print("Recipe :", fake_typing_recipe)
-				print("========================")
+				if customer_group_manager.current_customer != null:
+					customer_group_manager.current_customer.start_waiting()
+					fake_typing_recipe = (
+						customer_group_manager
+						.current_customer
+						.get_recipe_id()
+					)
+
+			else:
+				if customer_manager.current_customer != null:
+					customer_manager.current_customer.start_waiting()
+					fake_typing_recipe = (
+						customer_manager
+						.current_customer
+						.get_recipe_id()
+					)
+
+			fake_typing_active = true
+			print("========================")
+			print("TYPING DIMULAI")
+			print("Recipe :", fake_typing_recipe)
+			print("========================")
 
 
 
@@ -246,6 +374,17 @@ func _on_event_started(event):
 			customer_manager.spawn_customer_by_id(
 				event["customer_id"]
 			)
+		
+		"spawn_group":
+			customer_group_manager.start_group(
+				event["group_id"]
+			)
+		
+		"spawn_mika_day6":
+			customer_manager.spawn_mika_day6()
+		
+		"mysterious_customer":
+			day7_sequence_manager.play_day7_sequence()
 		
 		"customer_opening":
 			if customer_manager.current_customer != null:
@@ -267,6 +406,28 @@ func _on_event_started(event):
 	#customer_dialogue_index = 0
 #
 	#show_next_customer_dialogue()
+
+func show_customer_dialogue_line(dialog: Dictionary) -> void:
+
+	var target: Node3D = null
+
+	if dialog.get("speaker_type", "") == "customer":
+
+		if group_active:
+
+			if customer_group_manager.current_customer != null:
+				target = customer_group_manager.current_customer.get_node("Marker3D")
+
+		else:
+
+			if customer_manager.current_customer != null:
+				target = customer_manager.current_customer.get_node("Marker3D")
+
+	elif dialog.get("speaker_type", "") == "mc":
+
+		target = player.get_node("DialogueMarker")
+
+	dialogue_manager.start_dialog(dialog, target)
 
 func play_customer_dialogue(
 	dialogues: Array[Dictionary],
@@ -312,13 +473,23 @@ func show_next_customer_dialogue() -> void:
 		if customer_dialogue_type == "closing":
 
 			customer_dialogue_type = ""
-
 			customer_manager.exit_customer()
+
+		elif customer_dialogue_type == "group_closing":
+
+			customer_dialogue_type = ""
+
+			customer_group_manager.exit_group()
+
+		elif customer_dialogue_type == "group_opening":
+
+			customer_dialogue_type = ""
+
+			start_group_typing()
 
 		else:
 
 			customer_dialogue_type = ""
-
 			event_runner.next_event()
 
 		return
@@ -327,4 +498,23 @@ func show_next_customer_dialogue() -> void:
 
 	customer_dialogue_index += 1
 
-	dialogue_manager.start_dialog(dialog)
+	show_customer_dialogue_line(dialog)
+
+
+func start_group_typing() -> void:
+
+	if customer_group_manager.current_customer == null:
+		return
+
+	var customer := customer_group_manager.current_customer
+
+	customer.start_waiting()
+
+	fake_typing_recipe = customer.get_recipe_id()
+	fake_typing_active = true
+
+	print("========================")
+	print("GROUP TYPING DIMULAI")
+	print("Customer :", customer.customer_name)
+	print("Recipe :", fake_typing_recipe)
+	print("========================")

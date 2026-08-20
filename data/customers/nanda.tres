@@ -1,15 +1,39 @@
 [gd_resource type="Resource" script_class="CustomerProfile" format=3 uid="uid://b6juxpm1xl2hy"]
 
 [ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="1_qtw0n"]
+[ext_resource type="PackedScene" uid="uid://ye0dxa14jiqv" path="res://scene/customer/Nanda.tscn" id="1_wiyy8"]
 
 [resource]
 script = ExtResource("1_qtw0n")
 character_id = "nanda"
 character_name = "Nanda"
+model_scene = ExtResource("1_wiyy8")
 opening_dialogue = Array[Dictionary]([{
 "mode": "bubble",
-"speaker": "Ulbar",
+"speaker": "Nanda",
+"speaker_type": "customer",
 "text": "Permisi.... apakah sudah buka?"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Masih."
+}, {
+"mode": "bubble",
+"speaker": "Nanda",
+"speaker_type": "customer",
+"text": "Mam"
 }])
 recipe_id = "burger"
+closing_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Nanda",
+"speaker_type": "customer",
+"text": "Enak mantap"
+}, {
+"mode": "bubble",
+"speaker": "Mc",
+"speaker_type": "mc",
+"text": "Sama sama"
+}])
 metadata/_custom_type_script = "uid://cl423sww4t3q0"

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://ye0dxa14jiqv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r13h1"]
+albedo_color = Color(1, 0.8387386, 0.75890183, 1)
+metallic = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8f85w"]
+material = SubResource("StandardMaterial3D_r13h1")
+
+[node name="Nanda" type="Node3D" unique_id=1537882972]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=685677378]
+mesh = SubResource("CapsuleMesh_8f85w")

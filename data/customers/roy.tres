@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CustomerProfile" format=3 uid="uid://bil8idvhiu4ep"]
+
+[ext_resource type="PackedScene" uid="uid://dyn25b3m0wx7w" path="res://scene/customer/Roy.tscn" id="1_31ks2"]
+[ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="1_q6avh"]
+
+[resource]
+script = ExtResource("1_q6avh")
+character_id = "roy"
+character_name = "Roy"
+model_scene = ExtResource("1_31ks2")
+opening_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Roy",
+"speaker_type": "customer",
+"text": "Roy kiyosi Datang"
+}])
+closing_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Roy",
+"speaker_type": "customer",
+"text": "Roy kiyosi Cabuts"
+}])
+recipe_id = "steak"
+metadata/_custom_type_script = "uid://cl423sww4t3q0"

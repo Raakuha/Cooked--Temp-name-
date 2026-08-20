@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CustomerGroup" format=3 uid="uid://b6cj16ejqq5t8"]
+
+[ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="1_8w6w7"]
+[ext_resource type="Script" uid="uid://b8lc5s5aatst6" path="res://script/customer/customer_group.gd" id="2_ocjyd"]
+[ext_resource type="Resource" uid="uid://kovqdngyijtd" path="res://data/customers/juan.tres" id="2_rkmlc"]
+[ext_resource type="Resource" uid="uid://ybyxv7kwc1gn" path="res://data/customers/abel.tres" id="3_flb8i"]
+[ext_resource type="Resource" uid="uid://cwayhp0e3dvn" path="res://data/customers/mark.tres" id="4_sou0l"]
+
+[resource]
+script = ExtResource("2_ocjyd")
+group_id = "juan_abel_mark"
+members = Array[ExtResource("1_8w6w7")]([ExtResource("2_rkmlc"), ExtResource("3_flb8i"), ExtResource("4_sou0l")])
+table_id = "Table02"
+metadata/_custom_type_script = "uid://b8lc5s5aatst6"
