@@ -9,9 +9,9 @@ enum CameraMode {
 	PSYCHIATRIST
 }
 
-@onready var gameplay_camera: Camera3D = $"../../World/Camera3D"
-@onready var fpp_camera: Camera3D = $"../../PlayerBaru/FPPCamera"
-@onready var player_controller: PlayerController = $"../../PlayerBaru"
+@onready var gameplay_camera: Camera3D = $"../../CameraSystem/GameplayCamera"
+@onready var fpp_camera: Camera3D = $"../../Player/FPPCamera"
+@onready var player_controller: Player = $"../../Player"
 
 @onready var horror_camera: Camera3D = $"../../World/HorrorCamera"
 @onready var psychiatrist_camera: Camera3D = $"../../World/PsychiatristRoom/PsychiatristCamera"

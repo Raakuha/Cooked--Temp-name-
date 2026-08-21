@@ -13,8 +13,8 @@ grow_vertical = 2
 [node name="Background_menu" type="Node2D" parent="." unique_id=1026418851]
 
 [node name="Sprite2D" type="Sprite2D" parent="Background_menu" unique_id=971518668]
-position = Vector2(575, 321)
-scale = Vector2(1.4940629, 1.5746408)
+position = Vector2(960.1399, 539.67395)
+scale = Vector2(2.4970312, 2.6518524)
 texture = ExtResource("1_3er1b")
 
 [node name="Start" type="TextureButton" parent="." unique_id=2003418397]

@@ -9,16 +9,19 @@ signal order_requested(recipe_id)
 @onready var typing_manager : TypingManager = $"../TypingManager"
 @onready var profit_manager : ProfitManager = $"../ProfitManager"
 
-@onready var cooking_sequence_manager : CookingSequenceManager = $"../CookingSequenceManager"
 
-@onready var day_transition_manager : DayTransitionManager = $"../DayTransitionManager"
-@onready var psychiatrist_sequence_manager : PsychiatristSequenceManager = $"../PsychiatristSequenceManager"
+
+
+
 @onready var customer_group_manager : CustomerGroupManager = $"../CustomerGroupManager"
 
 @onready var day7_sequence_manager : Day7SequenceManager = $"../Day7SequenceManager"
+@onready var cooking_sequence_manager : CookingSequenceManager = $"../CookingSequenceManager"
+@onready var day_transition_manager : DayTransitionManager = $"../DayTransitionManager"
+@onready var psychiatrist_sequence_manager : PsychiatristSequenceManager = $"../PsychiatristSequenceManager"
+@onready var recipe_step_executor: RecipeStepExecutor = $"../RecipeStepExecutor"
 
 
-var fake_typing_active := false
 var fake_typing_recipe := ""
 
 var group_active: bool = false
@@ -33,24 +36,19 @@ var customer_dialogue_type: String = ""
 @onready var horror_manager : HorrorManager = $"../HorrorManager"
 @onready var day_manager : DayManager = $"../DayManager"
 
-@onready var player : Node3D = $"../../PlayerBaru"
+@onready var player : Node3D = $"../../Player"
 @onready var game_hud : GameHUD = $"../../UI/GameHUD"
 
 @onready var horror_sequence_manager : HorrorSequenceManager = $"../HorrorSequenceManager"
 @onready var ending_manager : EndingManager = $"../EndingManager"
 
 func _ready():
-
 	event_runner.event_started.connect(_on_event_started)
-
 	event_runner.finished.connect(_on_day_finished)
-
 	dialogue_manager.dialogue_finished.connect(_on_dialog_finished)
 
-	
-
 	customer_manager.customer_arrived.connect(_on_customer_arrived)
-
+	
 	customer_manager.customer_returned_to_cashier.connect(
 		_on_customer_returned_to_cashier
 	)
@@ -59,7 +57,8 @@ func _ready():
 	
 	profit_manager.profit_changed.connect(_on_profit_changed)
 	cooking_sequence_manager.recipe_completed.connect(_on_cooking_recipe_completed)
-	
+	cooking_sequence_manager.step_started.connect(recipe_step_executor.execute_step)
+	recipe_step_executor.step_completed.connect(cooking_sequence_manager.next_step)
 	sanity_manager.horror_threshold_reached.connect(_on_horror_threshold_reached)
 	
 	
@@ -180,13 +179,22 @@ func _on_cooking_recipe_completed(result: CookingResult) -> void:
 	var profit_delta := profit_manager.apply_cooking_result(result)
 	sanity_manager.apply_profit_delta(profit_delta)
 
+	if result.is_success():
+		if group_active:
+			if customer_group_manager.current_customer != null:
+				customer_group_manager.current_customer.receive_food()
+				customer_group_manager.send_current_member_to_table()
+		else:
+			if customer_manager.current_customer != null:
+				customer_manager.current_customer.receive_food()
+				customer_manager.send_customer_to_table()
+
 	print(
 		"[GameManager] Order ",
 		result.recipe_id,
 		" -> ",
 		"SUCCESS" if result.is_success() else "FAILED"
 	)
-
 
 
 
@@ -197,39 +205,6 @@ func _on_cooking_recipe_completed(result: CookingResult) -> void:
 #
 	#if event.is_action_pressed("ui_cancel"):
 		#sanity_manager.increase_sanity(10)
-
-func _input(event):
-
-	if not fake_typing_active:
-		return
-
-	if event.is_action_pressed("ui_accept"):
-
-		fake_typing_active = false
-
-		print("========================")
-		print("TYPING SELESAI")
-		print("========================")
-
-		if group_active:
-
-			if customer_group_manager.current_customer != null:
-
-				customer_group_manager.current_customer.receive_food()
-
-				profit_manager.customer_success()
-
-				customer_group_manager.send_current_member_to_table()
-
-		else:
-
-			if customer_manager.current_customer != null:
-
-				customer_manager.current_customer.receive_food()
-
-				profit_manager.customer_success()
-
-				customer_manager.send_customer_to_table()
 
 func start_day():
 
@@ -361,31 +336,27 @@ func _on_event_started(event):
 		
 		"typing":
 			if group_active:
-
 				if customer_group_manager.current_customer != null:
 					customer_group_manager.current_customer.start_waiting()
-					fake_typing_recipe = (
-						customer_group_manager
-						.current_customer
-						.get_recipe_id()
-					)
+
+					var recipe_id = customer_group_manager.current_customer.get_recipe_id()
+					fake_typing_recipe = recipe_id
+
+					cooking_sequence_manager.start_recipe(recipe_id)
 
 			else:
 				if customer_manager.current_customer != null:
 					customer_manager.current_customer.start_waiting()
-					fake_typing_recipe = (
-						customer_manager
-						.current_customer
-						.get_recipe_id()
-					)
 
-			fake_typing_active = true
+					var recipe_id = customer_manager.current_customer.get_recipe_id()
+					fake_typing_recipe = recipe_id
+
+					cooking_sequence_manager.start_recipe(recipe_id)
+
 			print("========================")
 			print("TYPING DIMULAI")
 			print("Recipe :", fake_typing_recipe)
 			print("========================")
-
-
 
 		"exit":
 			print("Customer Exit")
@@ -533,7 +504,8 @@ func start_group_typing() -> void:
 	customer.start_waiting()
 
 	fake_typing_recipe = customer.get_recipe_id()
-	fake_typing_active = true
+
+	cooking_sequence_manager.start_recipe(fake_typing_recipe)
 
 	print("========================")
 	print("GROUP TYPING DIMULAI")

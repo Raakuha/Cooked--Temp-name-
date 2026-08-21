@@ -2,7 +2,6 @@ extends Control
 class_name TypingUI
 
 
-
 enum DisplayMode {
 	WORLD,
 	SCREEN
@@ -19,13 +18,8 @@ func use_screen_mode() -> void:
 
 @onready var prompt_panel: PanelContainer = $PromptPanel
 
-@onready var target_word_label: Label = \
-	$PromptPanel/MarginContainer/VBoxContainer/Target_WordLabel
 
 @onready var fill_word_label: RichTextLabel = $PromptPanel/MarginContainer/VBoxContainer/Fill_wordLabel
-
-@onready var mistake_label: Label = \
-	$PromptPanel/MarginContainer/VBoxContainer/MistakeLabel
 
 
 @export var camera: Camera3D
@@ -47,8 +41,8 @@ func _ready() -> void:
 	fill_word_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 	fill_word_label.custom_minimum_size = Vector2(320, 60)
 
-	target_word_label.hide()
-	mistake_label.hide()
+
+	
 func _on_typing_manager_typing_started(_target_word: String) -> void:
 	typing_active = true
 	prompt_panel.show()
