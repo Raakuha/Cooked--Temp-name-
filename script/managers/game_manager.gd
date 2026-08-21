@@ -235,7 +235,7 @@ func start_day():
 
 	print("===== DAY START =====")
 
-	day_manager.start_day(7)
+	day_manager.start_day(5)
 
 func _on_day_started(day: int) -> void:
 	print("GameManager memulai Day ", day)

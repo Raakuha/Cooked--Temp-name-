@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cji3etv718rs4" path="res://scene/managers/GameManager.tscn" id="3_54au1"]
 [ext_resource type="PackedScene" uid="uid://c0jxrcxp601e" path="res://scene/ui/DialogueBubble.tscn" id="4_m5dmv"]
 [ext_resource type="PackedScene" uid="uid://bf8t3scq2onna" path="res://script/event/EventRunner.tscn" id="5_54au1"]
-[ext_resource type="PackedScene" uid="uid://bxwdn3yvlgi7m" path="res://scene/ui/TypingUI.tscn" id="6_54au1"]
+[ext_resource type="PackedScene" uid="uid://cehb1aohu4fde" path="res://scene/typing_prototype.tscn" id="6_54au1"]
 [ext_resource type="Script" uid="uid://dpxgvr86d2v4b" path="res://script/managers/profit_manager.gd" id="6_f5u50"]
 [ext_resource type="Script" uid="uid://dvejkl57hqp63" path="res://script/managers/sanity_manager.gd" id="7_8n54l"]
 [ext_resource type="PackedScene" uid="uid://c58ebfvjps2ko" path="res://scene/Mc/Player_Baru.tscn" id="7_m5dmv"]
