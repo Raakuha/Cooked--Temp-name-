@@ -146,21 +146,16 @@ func return_customer_to_cashier():
 		cashier_point.global_position
 	)
 
-func exit_customer():
-
+func exit_customer() -> void:
 	if current_customer == null:
-
-		print("Tidak ada customer untuk keluar.")
-
 		return
 
-
-	current_customer.exited.connect(_on_customer_exited)
+	if not current_customer.exited.is_connected(_on_customer_exited):
+		current_customer.exited.connect(_on_customer_exited)
 
 	current_customer.walk_out(
 		customer_exit.global_position
 	)
-
 
 func _on_customer_exited():
 

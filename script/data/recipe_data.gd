@@ -34,10 +34,10 @@ enum ActionType {
 
 
 const DEADLINES: Dictionary = {
-	 "nasgor_goreng": 50.0,
+	 "nasgor_goreng": 60.0,
 	 "steak": 60,
 	 "salad": 40,
-	"roti_khas_lempuyangan": 70,
+	"roti_khas_lempuyangan": 40,
 }
 
 const RECIPES = {
@@ -54,7 +54,7 @@ const RECIPES = {
 						"type": StepType.MOVE,
 						"skip_typing": true,
 						"workstation": WS_RICE_STORAGE,
-						"prompt": "KE TEMPAT NASI",
+						"prompt": "TEMPAT NASI",
 						"action": ActionType.NONE
 					},
 					{
@@ -73,7 +73,7 @@ const RECIPES = {
 						"type": StepType.MOVE,
 						"skip_typing": true,
 						"workstation": WS_REFRIGERATOR,
-						"prompt": "KE KULKAS",
+						"prompt": "KULKAS",
 						"action": ActionType.NONE
 					},
 					{
@@ -92,7 +92,7 @@ const RECIPES = {
 						"type": StepType.MOVE,
 						"skip_typing": true,
 						"workstation": WS_REFRIGERATOR,
-						"prompt": "KE KULKAS",
+						"prompt": "KULKAS",
 						"action": ActionType.COOK
 					},
 					{
@@ -111,7 +111,7 @@ const RECIPES = {
 						"type": StepType.MOVE,
 						"skip_typing": true,
 						"workstation": WS_SEASONING,
-						"prompt": "KE TEMPAT BUMBU",
+						"prompt": "TEMPAT BUMBU",
 						"action": ActionType.NONE
 					},
 					{
@@ -128,7 +128,7 @@ const RECIPES = {
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_STOVE,
-				"prompt": "KE WOK",
+				"prompt": "WOK",
 				"action": ActionType.NONE
 			},
 			{
@@ -173,7 +173,7 @@ const RECIPES = {
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_PLATING,
-				"prompt": "KE TEMPAT PLATING",
+				"prompt": "TEMPAT PLATING",
 				"action": ActionType.NONE
 			},
 			{
@@ -197,7 +197,7 @@ const RECIPES = {
 						"type": StepType.MOVE,
 						"skip_typing": true,
 						"workstation": WS_REFRIGERATOR,
-						"prompt": "KE KULKAS",
+						"prompt": "KULKAS",
 						"action": ActionType.NONE
 					},
 					{
@@ -216,7 +216,7 @@ const RECIPES = {
 						"type": StepType.MOVE,
 						"skip_typing": true,
 						"workstation": WS_REFRIGERATOR,
-						"prompt": "KE KULKAS",
+						"prompt": "KULKAS",
 						"action": ActionType.NONE
 					},
 					{
@@ -233,34 +233,46 @@ const RECIPES = {
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_SEASONING,
-				"prompt": "KE TEMPAT BUMBU",
+				"prompt": "TEMPAT BUMBU",
 				"action": ActionType.NONE
 			},
 			{
 				"type": StepType.ACTION,
 				"workstation": WS_SEASONING,
-				"prompt": "BUMBUHI DAGING",
+				"prompt": "MARINASI DAGING",
 				"action": ActionType.ADD
 			},
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_FLAT_PAN,
-				"prompt": "KE WAJAN DATAR",
+				"prompt": "WAJAN DATAR",
 				"action": ActionType.NONE
+			},
+			{
+				"type": StepType.ACTION,
+				"workstation" : WS_FLAT_PAN,
+				"prompt" : "ATUR SUHU KOMPOR",
+				"action" : ActionType.COOK
+			},
+			{
+				"type": StepType.ACTION,
+				"workstation" : WS_FLAT_PAN,
+				"prompt" : "ATUR SUHU KOMPOR",
+				"action" : ActionType.COOK
 			},
 			{
 				"type": StepType.ACTION,
 				"workstation": WS_FLAT_PAN,
 				"prompt": "MASAK STEAK",
-				"action": ActionType.COOK,
+				"action": ActionType.MIX,
 				"interaction": {
-					"prompts": ["MASAK", "BALIK", "MASAK", "BALIK", "ANGKAT"]
+					"prompts": ["BALIK", "BALIK", "BALIK"]
 				}
 			},
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_PLATING,
-				"prompt": "KE TEMPAT PLATING",
+				"prompt": "TEMPAT PLATING",
 				"action": ActionType.NONE
 			},
 			{
@@ -284,7 +296,7 @@ const RECIPES = {
 						"type": StepType.MOVE,
 						"skip_typing": true,
 						"workstation": WS_PRODUCE,
-						"prompt": "KE TEMPAT BUAH DAN SAYUR",
+						"prompt": "TEMPAT BUAH DAN SAYUR",
 						"action": ActionType.NONE
 					},
 					{
@@ -303,7 +315,7 @@ const RECIPES = {
 						"type": StepType.MOVE,
 						"skip_typing": true,
 						"workstation": WS_PRODUCE,
-						"prompt": "KE TEMPAT BUAH DAN SAYUR",
+						"prompt": "TEMPAT BUAH DAN SAYUR",
 						"action": ActionType.NONE
 					},
 					{
@@ -320,25 +332,25 @@ const RECIPES = {
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_SEASONING,
-				"prompt": "KE TEMPAT BUMBU",
+				"prompt": "TEMPAT BUMBU",
 				"action": ActionType.NONE
 			},
 			{
 				"type": StepType.ACTION,
 				"workstation": WS_SEASONING,
-				"prompt": "BUMBUHI SALAD",
+				"prompt": "DRESSING SALAD",
 				"action": ActionType.ADD
 			},
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_CUTTING_BOARD,
-				"prompt": "KE TALENAN",
+				"prompt": "TALENAN",
 				"action": ActionType.NONE
 			},
 			{
 				"type": StepType.ACTION,
 				"workstation": WS_CUTTING_BOARD,
-				"prompt": "POTONG BAHAN SALAD",
+				"prompt": "POTONG BUAH DAN SAYUR",
 				"action": ActionType.CUT,
 				"interaction": {
 					"prompts": ["POTONG", "POTONG", "CINCANG", "POTONG", "RAPIKAN"]
@@ -347,7 +359,7 @@ const RECIPES = {
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_PLATING,
-				"prompt": "KE TEMPAT PLATING",
+				"prompt": "TEMPAT PLATING",
 				"action": ActionType.NONE
 			},
 			{
@@ -371,7 +383,7 @@ const RECIPES = {
 						"type": StepType.MOVE,
 						"skip_typing": true,
 						"workstation": WS_REFRIGERATOR,
-						"prompt": "KE KULKAS",
+						"prompt": "KULKAS",
 						"action": ActionType.NONE
 					},
 					{
@@ -390,7 +402,7 @@ const RECIPES = {
 						"type": StepType.MOVE,
 						"skip_typing": true,
 						"workstation": WS_REFRIGERATOR,
-						"prompt": "KE KULKAS",
+						"prompt": "KULKAS",
 						"action": ActionType.NONE
 					},
 					{
@@ -407,7 +419,7 @@ const RECIPES = {
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_CUTTING_BOARD,
-				"prompt": "KE TALENAN",
+				"prompt": "TALENAN",
 				"action": ActionType.NONE
 			},
 			{
@@ -422,7 +434,7 @@ const RECIPES = {
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_OVEN,
-				"prompt": "KE OVEN",
+				"prompt": "OVEN",
 				"action": ActionType.NONE
 			},
 			{
@@ -437,7 +449,7 @@ const RECIPES = {
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_PLATING,
-				"prompt": "KE TEMPAT PLATING",
+				"prompt": "TEMPAT PLATING",
 				"action": ActionType.NONE
 			},
 			{
@@ -461,7 +473,7 @@ const RECIPES = {
 						"type": StepType.MOVE,
 						"skip_typing": true,
 						"workstation": WS_BUN_STORAGE,
-						"prompt": "KE TEMPAT BUN",
+						"prompt": "TEMPAT BUN",
 						"action": ActionType.NONE
 					},
 					{
@@ -480,7 +492,7 @@ const RECIPES = {
 						"type": StepType.MOVE,
 						"skip_typing": true,
 						"workstation": WS_REFRIGERATOR,
-						"prompt": "KE KULKAS",
+						"prompt": "KULKAS",
 						"action": ActionType.NONE
 					},
 					{
@@ -497,19 +509,19 @@ const RECIPES = {
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_SEASONING,
-				"prompt": "KE TEMPAT BUMBU",
+				"prompt": "TEMPAT BUMBU",
 				"action": ActionType.NONE
 			},
 			{
 				"type": StepType.ACTION,
 				"workstation": WS_SEASONING,
-				"prompt": "BUMBUHI PATTY",
+				"prompt": "OLESKAN MENTEGA DI PATTY",
 				"action": ActionType.ADD
 			},
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_FLAT_PAN,
-				"prompt": "KE WAJAN DATAR",
+				"prompt": "WAJAN DATAR",
 				"action": ActionType.NONE
 			},
 			{
@@ -524,7 +536,7 @@ const RECIPES = {
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_PLATING,
-				"prompt": "KE TEMPAT PLATING",
+				"prompt": "TEMPAT PLATING",
 				"action": ActionType.NONE
 			},
 			{
@@ -549,7 +561,7 @@ const RECIPES = {
 						"type": StepType.MOVE,
 						"skip_typing": true,
 						"workstation": WS_REFRIGERATOR,
-						"prompt": "KE KULKAS",
+						"prompt": "KULKAS",
 						"action": ActionType.NONE
 					},
 					{
@@ -577,7 +589,7 @@ const RECIPES = {
 						"type": StepType.MOVE,
 						"skip_typing": true,
 						"workstation": WS_REFRIGERATOR,
-						"prompt": "KE KULKAS",
+						"prompt": "KULKAS",
 						"action": ActionType.NONE
 					},
 					{

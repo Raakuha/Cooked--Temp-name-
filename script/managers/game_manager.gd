@@ -11,9 +11,9 @@ signal order_requested(recipe_id)
 @onready var cooking_sequence_manager : CookingSequenceManager = $"../CookingSequenceManager"
 @onready var day_transition_manager : DayTransitionManager = $"../DayTransitionManager"
 @onready var psychiatrist_sequence_manager : PsychiatristSequenceManager = $"../PsychiatristSequenceManager"
+@onready var recipe_step_executor: RecipeStepExecutor = $"../RecipeStepExecutor"
 
 
-var fake_typing_active := false
 var fake_typing_recipe := ""
 
 var ending_active: bool = false
@@ -26,24 +26,19 @@ var customer_dialogue_type: String = ""
 @onready var horror_manager : HorrorManager = $"../HorrorManager"
 @onready var day_manager : DayManager = $"../DayManager"
 
-@onready var player : Node3D = $"../../PlayerBaru"
+@onready var player : Node3D = $"../../Player"
 @onready var game_hud : GameHUD = $"../../UI/GameHUD"
 
 @onready var horror_sequence_manager : HorrorSequenceManager = $"../HorrorSequenceManager"
 @onready var ending_manager : EndingManager = $"../EndingManager"
 
 func _ready():
-
 	event_runner.event_started.connect(_on_event_started)
-
 	event_runner.finished.connect(_on_day_finished)
-
 	dialogue_manager.dialogue_finished.connect(_on_dialog_finished)
 
-	
-
 	customer_manager.customer_arrived.connect(_on_customer_arrived)
-
+	
 	customer_manager.customer_returned_to_cashier.connect(
 		_on_customer_returned_to_cashier
 	)
@@ -52,10 +47,9 @@ func _ready():
 	
 	profit_manager.profit_changed.connect(_on_profit_changed)
 	cooking_sequence_manager.recipe_completed.connect(_on_cooking_recipe_completed)
-	
+	cooking_sequence_manager.step_started.connect(recipe_step_executor.execute_step)
+	recipe_step_executor.step_completed.connect(cooking_sequence_manager.next_step)
 	sanity_manager.horror_threshold_reached.connect(_on_horror_threshold_reached)
-	
-
 	
 	day_manager.day_started.connect(_on_day_started)
 	day_manager.day_completed.connect(_on_day_completed)
@@ -78,12 +72,15 @@ func _on_profit_changed(value: int) -> void:
 func _on_cooking_recipe_completed(result: CookingResult) -> void:
 	if result == null:
 		return
-
+	
 	print("[GameManager] Cooking result: ", result.to_dict())
 
 	var profit_delta := profit_manager.apply_cooking_result(result)
 	sanity_manager.apply_profit_delta(profit_delta)
-
+	if result.is_success() && customer_manager.current_customer != null:
+		customer_manager.current_customer.receive_food()
+		customer_manager.send_customer_to_table()
+		
 	print(
 		"[GameManager] Order ",
 		result.recipe_id,
@@ -100,27 +97,6 @@ func _on_cooking_recipe_completed(result: CookingResult) -> void:
 #
 	#if event.is_action_pressed("ui_cancel"):
 		#sanity_manager.increase_sanity(10)
-
-func _input(event):
-
-	if not fake_typing_active:
-		return
-
-	if event.is_action_pressed("ui_accept"):
-
-		fake_typing_active = false
-
-		print("========================")
-		print("TYPING SELESAI")
-		print("========================")
-
-		# Sementara untuk testing:
-		# setiap typing yang selesai dianggap berhasil
-		profit_manager.customer_success()
-
-		if customer_manager.current_customer != null:
-			customer_manager.current_customer.receive_food()
-			customer_manager.send_customer_to_table()
 
 func start_day():
 
@@ -247,7 +223,8 @@ func _on_event_started(event):
 				customer_manager.current_customer.start_waiting()
 				var recipe_id = customer_manager.current_customer.get_recipe_id()
 				fake_typing_recipe = recipe_id
-				fake_typing_active = true
+				
+				cooking_sequence_manager.start_recipe(customer_manager.current_customer.get_recipe_id())
 
 				print("========================")
 				print("TYPING DIMULAI")

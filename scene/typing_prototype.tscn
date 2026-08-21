@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cehb1aohu4fde"]
 
-[ext_resource type="Script" uid="uid://b1pamygbmlom4" path="res://script/typing_prototype.gd" id="1_i8s1x"]
+[ext_resource type="Script" uid="uid://b1pamygbmlom4" path="res://script/typing_ui.gd" id="1_i8s1x"]
 
 [node name="Typing_prototype" type="Control" unique_id=1494470883]
 layout_mode = 3

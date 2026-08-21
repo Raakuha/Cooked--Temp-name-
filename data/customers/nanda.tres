@@ -8,8 +8,8 @@ character_id = "nanda"
 character_name = "Nanda"
 opening_dialogue = Array[Dictionary]([{
 "mode": "bubble",
-"speaker": "Ulbar",
+"speaker": "Nanda",
 "text": "Permisi.... apakah sudah buka?"
 }])
-recipe_id = "burger"
+recipe_id = "burger_banggor"
 metadata/_custom_type_script = "uid://cl423sww4t3q0"

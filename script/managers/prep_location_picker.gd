@@ -28,6 +28,21 @@ signal location_prompt_cleared()
 # Workstation command -> {"label": String, "anchor": Node3D}. Isi lewat
 # Inspector atau lewat register_location() dari script lain kalau anchor-nya
 # baru ready belakangan.
+
+@export var refrigerator_label: String = "KULKAS"
+@export var refrigerator_anchor: Node3D
+
+@export var rice_storage_label: String = "TEMPAT NASI"
+@export var rice_storage_anchor: Node3D
+
+@export var produce_label: String = "TEMPAT TELUR"
+@export var produce_anchor: Node3D
+
+@export var seasoning_label: String = "TEMPAT BUMBU"
+@export var seasoning_anchor: Node3D
+
+@export var bun_storage_label: String = "TEMPAT ROTI"
+@export var bun_storage_anchor: Node3D
 @export var location_labels: Dictionary = {}
 
 var _candidates: Array = []
@@ -36,14 +51,46 @@ var _listening: bool = false
 
 
 func _ready() -> void:
+	_build_location_labels()
 	if cooking_sequence_manager == null:
 		return
 
 	cooking_sequence_manager.checklist_updated.connect(_on_checklist_changed)
 	cooking_sequence_manager.prep_item_completed.connect(_on_prep_item_completed)
 	cooking_sequence_manager.cooking_unlocked.connect(_on_cooking_unlocked)
+func _build_location_labels() -> void:
+	location_labels.clear()
 
+	if refrigerator_anchor != null:
+		location_labels["REFRIGERATOR"] = {
+			"label": refrigerator_label,
+			"anchor": refrigerator_anchor
+		}
 
+	if rice_storage_anchor != null:
+		location_labels["RICE_STORAGE"] = {
+			"label": rice_storage_label,
+			"anchor": rice_storage_anchor
+		}
+
+	if produce_anchor != null:
+		location_labels["PRODUCE"] = {
+			"label": produce_label,
+			"anchor": produce_anchor
+		}
+
+	if seasoning_anchor != null:
+		location_labels["SEASONING"] = {
+			"label": seasoning_label,
+			"anchor": seasoning_anchor
+		}
+
+	if bun_storage_anchor != null:
+		location_labels["BUN_STORAGE"] = {
+			"label": bun_storage_label,
+			"anchor": bun_storage_anchor
+		}
+		
 func register_location(workstation: String, label: String, anchor: Node3D) -> void:
 	location_labels[workstation] = {"label": label, "anchor": anchor}
 

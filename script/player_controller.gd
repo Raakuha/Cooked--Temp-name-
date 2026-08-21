@@ -36,12 +36,14 @@ func set_mouse_look_enabled(enabled: bool) -> void:
 	print("PLAYER MOUSE LOOK -> ", enabled)
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 
 	if not mouse_look_enabled:
 		return
 
 	if event is InputEventMouseMotion:
+		print("MOUSE MASUK: ", event.relative)
+
 		rotate_y(-event.relative.x * mouse_sensitivity)
 
 		camera.rotation.x -= event.relative.y * mouse_sensitivity

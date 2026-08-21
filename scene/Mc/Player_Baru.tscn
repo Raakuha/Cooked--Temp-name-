@@ -25,3 +25,5 @@ shape = SubResource("CapsuleShape3D_8f85w")
 
 [node name="FPPCamera" type="Camera3D" parent="." unique_id=1399624304]
 transform = Transform3D(-0.026060956, 0, 0.9996604, 0, 1, 0, -0.9996604, 0, -0.026060956, 0, 0.9230728, 0)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1580538434]

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://yir76e5jhl02"]
+
+[ext_resource type="Script" uid="uid://6j46ht2qcsbx" path="res://script/ui/prep_check_list_ui.gd" id="1_8m5pc"]
+
+[node name="PrepCheckListUI" type="Control" unique_id=700987832]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_8m5pc")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1867462978]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 48.0
+offset_right = 56.0
+offset_bottom = 88.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1144790267]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1969623916]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1896705189]
+layout_mode = 2
+
+[node name="ListContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1014807274]
+layout_mode = 2
