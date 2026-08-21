@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cef8cxtwwnfd1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w7fuy"]
+albedo_color = Color(0.35392624, 0.34275094, 0.21144739, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8f85w"]
+material = SubResource("StandardMaterial3D_w7fuy")
+
+[node name="Harlan" type="Node3D" unique_id=1963024145]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=388058221]
+mesh = SubResource("CapsuleMesh_8f85w")

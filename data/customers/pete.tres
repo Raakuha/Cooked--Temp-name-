@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CustomerProfile" format=3 uid="uid://byiybhbo26pfm"]
+
+[ext_resource type="PackedScene" uid="uid://cf7ukjtjfux55" path="res://scene/customer/Pete.tscn" id="1_r0ury"]
+[ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="1_ynj8g"]
+
+[resource]
+script = ExtResource("1_ynj8g")
+character_id = "pete"
+character_name = "Pete"
+model_scene = ExtResource("1_r0ury")
+opening_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Pete",
+"speaker_type": "customer",
+"text": "Pete te Datang"
+}])
+closing_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Pete",
+"speaker_type": "customer",
+"text": "Pete te Cabuts"
+}])
+recipe_id = "salad"
+metadata/_custom_type_script = "uid://cl423sww4t3q0"

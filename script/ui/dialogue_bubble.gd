@@ -47,7 +47,7 @@ func show_dialog(dialog):
 		fullscreen_text.text = dialog["text"]
 
 
-func set_target(new_target : Node3D):
+func set_target(new_target: Node3D):
 
 	target = new_target
 

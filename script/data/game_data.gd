@@ -9,158 +9,51 @@ static func get_day_events(day: int) -> Array:
 		2:
 			return DAY2
 
-		#3:
-			#return DAY3
-#
-		#4:
-			#return DAY4
-#
-		#5:
-			#return DAY5
-#
-		#6:
-			#return DAY6
-#
-		#7:
-			#return DAY7
+		3:
+			return DAY3
+
+		4:
+			return DAY4
+
+		5:
+			return DAY5
+
+		6:
+			return DAY6
+
+		7:
+			return DAY7
 
 		_:
 			return []
 
 const DAY1 = [
 
-	# ========================================
-	# CUSTOMER 1
-	# ========================================
+	{
+		"type": "spawn_customer",
+		"customer_id": "ulbar"
+	},
+
+	{
+		"type": "customer_opening"
+	},
+
+	{
+		"type": "typing"
+	},
 
 	{
 		"type": "spawn_customer",
-		"name": "Pak Budi"
+		"customer_id": "nanda"
 	},
 
 	{
-		"type": "dialog",
-		"mode": "bubble",
-		"speaker": "customer",
-		"text": "Permisi, masih buka?"
+		"type": "customer_opening"
 	},
 
 	{
-		"type": "dialog",
-		"mode": "bubble",
-		"speaker": "mc",
-		"text": "Masih."
+		"type": "typing"
 	},
-
-	{
-		"type": "dialog",
-		"mode": "bubble",
-		"speaker": "customer",
-		"text": "Saya mau nasi goreng."
-	},
-
-	{
-		"type": "typing",
-		"recipe": "nasgor_goreng"
-	},
-
-	{
-		"type": "dialog",
-		"mode": "bubble",
-		"speaker": "customer",
-		"text": "Terima kasih, makanannya enak."
-	},
-
-	{
-		"type": "exit"
-	},
-
-
-	# ========================================
-	# CUSTOMER 2
-	# ========================================
-
-	{
-		"type": "spawn_customer",
-		"name": "Bu Siti"
-	},
-
-	{
-		"type": "dialog",
-		"mode": "bubble",
-		"speaker": "customer",
-		"text": "Permisi, masih buka?"
-	},
-
-	{
-		"type": "dialog",
-		"mode": "bubble",
-		"speaker": "mc",
-		"text": "Masih."
-	},
-
-	{
-		"type": "dialog",
-		"mode": "bubble",
-		"speaker": "customer",
-		"text": "Saya mau mie goreng."
-	},
-
-	{
-		"type": "typing",
-		"recipe": "mie_goreng"
-	},
-
-	{
-		"type": "dialog",
-		"mode": "bubble",
-		"speaker": "customer",
-		"text": "Terima kasih."
-	},
-
-	{
-		"type": "exit"
-	},
-
-
-	# ========================================
-	# CUSTOMER 3
-	# ========================================
-
-	{
-		"type": "spawn_customer",
-		"name": "Pak Joko"
-	},
-
-	{
-		"type": "dialog",
-		"mode": "bubble",
-		"speaker": "customer",
-		"text": "Permisi, masih buka?"
-	},
-
-	{
-		"type": "dialog",
-		"mode": "bubble",
-		"speaker": "mc",
-		"text": "Masih."
-	},
-
-	{
-		"type": "typing",
-		"recipe": "ayam_goreng"
-	},
-
-	{
-		"type": "dialog",
-		"mode": "bubble",
-		"speaker": "customer",
-		"text": "Terima kasih."
-	},
-
-	{
-		"type": "exit"
-	}
 
 ]
 
@@ -170,36 +63,147 @@ const DAY2 = [
 
 	{
 		"type": "spawn_customer",
-		"name": "Pak Test"
+		"customer_id": "andrian"
 	},
 
 	{
-		"type": "dialog",
-		"mode": "bubble",
-		"speaker": "customer",
-		"text": "Permisi."
+		"type": "customer_opening"
 	},
 
 	{
-		"type": "dialog",
-		"mode": "bubble",
-		"speaker": "mc",
-		"text": "Masih."
+		"type": "typing"
+	},
+]
+
+const DAY3 = [
+
+	{
+		"type": "spawn_customer",
+		"customer_id": "mika"
 	},
 
 	{
-		"type": "dialog",
-		"mode": "bubble",
-		"speaker": "customer",
-		"text": "Saya mau makan."
+		"type": "customer_opening"
 	},
 
 	{
-		"type": "typing",
-		"recipe": "nasi_goreng"
+		"type": "typing"
 	},
 
 	{
-		"type": "exit"
+		"type": "spawn_customer",
+		"customer_id": "pete"
+	},
+
+	{
+		"type": "customer_opening"
+	},
+
+	{
+		"type": "typing"
+	},
+
+	{
+		"type": "spawn_customer",
+		"customer_id": "lane"
+	},
+
+	{
+		"type": "customer_opening"
+	},
+
+	{
+		"type": "typing"
+	}
+]
+
+const DAY4 = [
+
+	{
+		"type": "spawn_customer",
+		"customer_id": "harlan"
+	},
+
+	{
+		"type": "customer_opening"
+	},
+
+	{
+		"type": "typing"
+	},
+
+	{
+		"type": "spawn_customer",
+		"customer_id": "james"
+	},
+
+	{
+		"type": "customer_opening"
+	},
+
+	{
+		"type": "typing"
+	}
+]
+
+
+const DAY5 = [
+
+	{
+		"type": "spawn_group",
+		"group_id": "juan_abel_mark"
+	},
+
+	{
+		"type": "spawn_customer",
+		"customer_id": "roy"
+	},
+
+	{
+		"type": "customer_opening"
+	},
+
+	{
+		"type": "typing"
+	}
+]
+
+
+
+
+const DAY6 = [
+
+	{
+		"type": "spawn_customer",
+		"customer_id": "dion"
+	},
+
+	{
+		"type": "customer_opening"
+	},
+
+	{
+		"type": "typing"
+	},
+
+	{
+		"type": "spawn_mika_day6"
+	},
+
+	{
+		"type": "customer_opening"
+	},
+
+	{
+		"type": "typing"
+	}
+]
+
+
+
+const DAY7 = [
+
+	{
+		"type": "mysterious_customer"
 	}
 ]

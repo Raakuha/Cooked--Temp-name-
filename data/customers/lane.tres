@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CustomerProfile" format=3 uid="uid://dnxup3dxhauuo"]
+
+[ext_resource type="PackedScene" uid="uid://0cuca8uuyd5" path="res://scene/customer/Lane.tscn" id="1_p7mkl"]
+[ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="1_t0wbp"]
+
+[resource]
+script = ExtResource("1_t0wbp")
+character_id = "lane"
+character_name = "Lane"
+model_scene = ExtResource("1_p7mkl")
+opening_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Lane",
+"speaker_type": "customer",
+"text": "Lane len Datang"
+}])
+recipe_id = "salad"
+closing_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Lane",
+"speaker_type": "customer",
+"text": "Lane len cabuts"
+}])
+metadata/_custom_type_script = "uid://cl423sww4t3q0"

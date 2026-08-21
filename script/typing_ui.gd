@@ -2,6 +2,7 @@ extends Control
 class_name TypingUI
 
 
+
 enum DisplayMode {
 	WORLD,
 	SCREEN

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CustomerProfile" format=3 uid="uid://ybyxv7kwc1gn"]
+
+[ext_resource type="PackedScene" uid="uid://b62kdxc60pejb" path="res://scene/customer/Abel.tscn" id="1_72cqf"]
+[ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="1_tj416"]
+
+[resource]
+script = ExtResource("1_tj416")
+character_id = "abel"
+character_name = "Abel"
+model_scene = ExtResource("1_72cqf")
+opening_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Abel",
+"speaker_type": "customer",
+"text": "Abel Datang"
+}])
+closing_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Abel",
+"speaker_type": "customer",
+"text": "Abel Cabuts"
+}])
+recipe_id = "steak"
+group_id = "juan_abel_mark"
+group_role = "member"
+metadata/_custom_type_script = "uid://cl423sww4t3q0"

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CustomerProfile" format=3 uid="uid://bemdvi1nhcqrk"]
+
+[ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="1_q02fl"]
+[ext_resource type="PackedScene" uid="uid://bmv1f1b3bi0q4" path="res://scene/customer/Gul.tscn" id="1_wo3hc"]
+
+[resource]
+script = ExtResource("1_q02fl")
+character_id = "gul"
+character_name = "Gul"
+model_scene = ExtResource("1_wo3hc")
+opening_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Gul",
+"speaker_type": "customer",
+"text": "Saya Gul"
+}])
+recipe_id = "Roti"
+closing_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Gul",
+"speaker_type": "customer",
+"text": "Gul Cabut"
+}])
+metadata/_custom_type_script = "uid://cl423sww4t3q0"

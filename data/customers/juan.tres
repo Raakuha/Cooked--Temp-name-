@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CustomerProfile" format=3 uid="uid://kovqdngyijtd"]
+
+[ext_resource type="PackedScene" uid="uid://dml3cii2qett4" path="res://scene/customer/Juan.tscn" id="1_3jjyi"]
+[ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="1_sxp80"]
+
+[resource]
+script = ExtResource("1_sxp80")
+character_id = "juan"
+character_name = "Juan"
+model_scene = ExtResource("1_3jjyi")
+opening_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Juan",
+"speaker_type": "customer",
+"text": "Juan Uma Datang"
+}])
+closing_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Juan",
+"speaker_type": "customer",
+"text": "Juan Uma menang"
+}])
+recipe_id = "nasgor_goreng"
+group_id = "juan_abel_mark"
+group_role = "leader"
+metadata/_custom_type_script = "uid://cl423sww4t3q0"

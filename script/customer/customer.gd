@@ -4,6 +4,9 @@ extends Node3D
 signal arrived
 signal returned_to_cashier
 signal exited
+signal group_move_finished
+signal table_arrived
+signal dining_finished
 
 enum State {
 	SPAWNING,
@@ -19,7 +22,109 @@ enum State {
 
 var customer_name : String = ""
 var state : State = State.SPAWNING
+var profile: CustomerProfile = null
 
+var use_day6_variant: bool = false
+
+func set_day6_variant() -> void:
+
+	use_day6_variant = true
+
+
+func get_day6_opening_dialogue() -> Array[Dictionary]:
+
+	if profile == null:
+		return []
+
+	return profile.day6_opening_dialogue
+
+func get_day6_recipe_id() -> String:
+
+	if profile == null:
+		return ""
+
+	return profile.day6_recipe_id
+
+func get_day6_closing_dialogue() -> Array[Dictionary]:
+
+	if profile == null:
+		return []
+
+	return profile.day6_closing_dialogue
+
+
+
+
+func walk_to_group_wait(target_position: Vector3) -> void:
+
+	set_state(State.MOVING_TO_CASHIER)
+
+	print(
+		customer_name,
+		" berjalan bersama grup"
+	)
+
+	var tween := create_tween()
+
+	tween.tween_property(
+		self,
+		"global_position",
+		target_position,
+		1.5
+	)
+
+	await tween.finished
+
+	print(
+		customer_name,
+		" sampai area tunggu grup"
+	)
+
+	set_state(State.WAITING)
+
+	group_move_finished.emit()
+
+func setup_from_profile(new_profile: CustomerProfile) -> void:
+
+	profile = new_profile
+	customer_name = profile.character_name
+
+	print("========================")
+	print("CUSTOMER PROFILE")
+	print("ID :", profile.character_id)
+	print("Nama :", profile.character_name)
+	print("Recipe :", profile.recipe_id)
+	print("========================")
+
+	setup_visual()
+
+func setup_visual() -> void:
+
+	var visual_root: Node3D = $Visual
+	var placeholder: Node3D = visual_root.get_node_or_null("Placeholder")
+
+	if profile == null:
+		return
+
+	if profile.model_scene == null:
+		print("Model belum tersedia untuk ", customer_name)
+
+		if placeholder != null:
+			placeholder.visible = true
+
+		return
+
+	var model = profile.model_scene.instantiate()
+
+	visual_root.add_child(model)
+
+	if placeholder != null:
+		placeholder.visible = false
+
+	print(
+		"Model customer dipasang : ",
+		model.name
+	)
 
 func set_state(new_state : State):
 	state = new_state
@@ -56,13 +161,15 @@ func walk_to_cashier(target_position : Vector3):
 
 func walk_to_table(
 	target_position: Vector3,
-	cashier_position: Vector3):
+	cashier_position: Vector3,
+	auto_return: bool = true
+) -> void:
 
 	set_state(State.DINING)
 
 	print(customer_name + " berjalan ke meja")
 
-	var tween = create_tween()
+	var tween := create_tween()
 
 	tween.tween_property(
 		self,
@@ -75,13 +182,18 @@ func walk_to_table(
 
 	print(customer_name + " sudah sampai di meja")
 
+	table_arrived.emit()
+
 	print(customer_name + " mulai makan")
 
 	await get_tree().create_timer(5.0).timeout
 
 	print(customer_name + " selesai makan")
-
-	return_to_cashier(cashier_position)
+	
+	dining_finished.emit()
+	
+	if auto_return:
+		return_to_cashier(cashier_position)
 
 
 func start_waiting():
@@ -142,3 +254,43 @@ func walk_out(target_position : Vector3):
 	exited.emit()
 
 	queue_free()
+
+
+func get_opening_dialogue() -> Array[Dictionary]:
+
+	if profile == null:
+		print("Profile customer kosong.")
+		return []
+	
+	
+	if use_day6_variant:
+		return profile.day6_opening_dialogue
+	
+	print(
+		"Opening dialogue ",
+		customer_name,
+		": ",
+		profile.opening_dialogue.size()
+	)
+
+	return profile.opening_dialogue
+
+func get_closing_dialogue() -> Array[Dictionary]:
+
+	if profile == null:
+		return []
+
+	if use_day6_variant:
+		return profile.day6_closing_dialogue
+
+	return profile.closing_dialogue
+
+func get_recipe_id() -> String:
+
+	if profile == null:
+		return ""
+
+	if use_day6_variant:
+		return profile.day6_recipe_id
+
+	return profile.recipe_id

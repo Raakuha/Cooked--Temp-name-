@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CustomerProfile" format=3 uid="uid://7v1afls4hfiv"]
+
+[ext_resource type="PackedScene" uid="uid://dvg6xg6v5ljqv" path="res://scene/customer/Kala.tscn" id="1_8p4to"]
+[ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="1_gjvc4"]
+
+[resource]
+script = ExtResource("1_gjvc4")
+character_id = "kala"
+character_name = "Kala"
+model_scene = ExtResource("1_8p4to")
+opening_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "She Her kala"
+}])
+recipe_id = "Burger"
+closing_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "She Her kala Cabuts"
+}])
+metadata/_custom_type_script = "uid://cl423sww4t3q0"

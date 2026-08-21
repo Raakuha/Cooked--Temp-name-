@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CustomerProfile" format=3 uid="uid://cwayhp0e3dvn"]
+
+[ext_resource type="PackedScene" uid="uid://dcmtrpb5xncle" path="res://scene/customer/Mark.tscn" id="1_d606d"]
+[ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="1_dluxd"]
+
+[resource]
+script = ExtResource("1_dluxd")
+character_id = "mark"
+character_name = "Mark"
+model_scene = ExtResource("1_d606d")
+opening_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Mark",
+"speaker_type": "customer",
+"text": "Mark67 Datang"
+}])
+closing_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Mark",
+"speaker_type": "customer",
+"text": "Mark67 Asembel Pulang"
+}])
+recipe_id = "steak"
+group_id = "juan_abel_mark"
+group_role = "member"
+metadata/_custom_type_script = "uid://cl423sww4t3q0"
