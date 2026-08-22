@@ -17,6 +17,12 @@ signal order_requested(recipe_id)
 
 @onready var day7_sequence_manager : Day7SequenceManager = $"../Day7SequenceManager"
 
+@onready var police_opening_manager : PoliceOpeningManager = $"../PoliceOpeningManager"
+
+@onready var tutorial_sequence_manager : TutorialSequenceManager = $"../TutorialSequenceManager"
+
+var opening_finished: bool = false
+
 
 var fake_typing_active := false
 var fake_typing_recipe := ""
@@ -62,7 +68,13 @@ func _ready():
 	
 	sanity_manager.horror_threshold_reached.connect(_on_horror_threshold_reached)
 	
+	police_opening_manager.sequence_finished.connect(
+		_on_police_opening_finished
+	)
 	
+	tutorial_sequence_manager.tutorial_finished.connect(
+		_on_tutorial_finished
+	)
 	
 	customer_group_manager.group_started.connect(
 		_on_group_started
@@ -90,9 +102,34 @@ func _ready():
 		_on_horror_sequence_finished
 	)
 	
-	call_deferred("start_day")
+	call_deferred("start_opening")
 	
 
+func start_opening() -> void:
+
+	print("========================")
+	print("GAME OPENING")
+	print("========================")
+
+	police_opening_manager.play_opening()
+
+func _on_police_opening_finished() -> void:
+
+	print("========================")
+	print("POLICE OPENING FINISHED")
+	print("========================")
+
+	opening_finished = true
+
+	tutorial_sequence_manager.play_tutorial()
+
+func _on_tutorial_finished() -> void:
+
+	print("========================")
+	print("TUTORIAL FINISHED")
+	print("========================")
+
+	start_day()
 
 func _on_day7_sequence_finished() -> void:
 
@@ -235,7 +272,7 @@ func start_day():
 
 	print("===== DAY START =====")
 
-	day_manager.start_day(5)
+	day_manager.start_day(1)
 
 func _on_day_started(day: int) -> void:
 	print("GameManager memulai Day ", day)
@@ -275,6 +312,14 @@ func _on_dialog_finished():
 
 	if ending_active:
 		print("Ending aktif -> EventRunner tidak dilanjutkan")
+		return
+
+	if police_opening_manager.active:
+		print("Police opening aktif -> EventRunner tidak dilanjutkan")
+		return
+
+	if tutorial_sequence_manager.active:
+		print("Tutorial aktif -> EventRunner tidak dilanjutkan")
 		return
 
 	if psychiatrist_sequence_manager.active:
