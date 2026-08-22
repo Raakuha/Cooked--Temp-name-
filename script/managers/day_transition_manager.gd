@@ -13,7 +13,7 @@ signal transition_finished(day: int)
 
 @onready var camera_director: CameraDirector = $"../CameraDirector"
 @onready var dialogue_manager: DialogueManager = $"../DialogueManager"
-@onready var player: Node3D = $"../../PlayerBaru"
+@onready var player: Node3D =$"../../Player"
 
 var active: bool = false
 var profit_dialogue_active: bool = false

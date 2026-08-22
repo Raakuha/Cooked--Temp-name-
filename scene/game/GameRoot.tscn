@@ -6,12 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://cji3etv718rs4" path="res://scene/managers/GameManager.tscn" id="3_54au1"]
 [ext_resource type="PackedScene" uid="uid://c0jxrcxp601e" path="res://scene/ui/DialogueBubble.tscn" id="4_m5dmv"]
 [ext_resource type="PackedScene" uid="uid://bf8t3scq2onna" path="res://script/event/EventRunner.tscn" id="5_54au1"]
-
 [ext_resource type="Script" uid="uid://dpxgvr86d2v4b" path="res://script/managers/profit_manager.gd" id="6_f5u50"]
 [ext_resource type="Script" uid="uid://dvejkl57hqp63" path="res://script/managers/sanity_manager.gd" id="7_8n54l"]
 [ext_resource type="PackedScene" uid="uid://c58ebfvjps2ko" path="res://scene/Mc/Player_Baru.tscn" id="7_m5dmv"]
 [ext_resource type="Script" uid="uid://cdt0nys3j1kdi" path="res://script/managers/horror_manager.gd" id="8_4w345"]
-[ext_resource type="Script" uid="uid://dt7r4d737i7rl" path="res://script/ui/game_hud.gd" id="9_fuybt"]
 [ext_resource type="Script" uid="uid://brc3o4r7a765n" path="res://script/managers/day_manager.gd" id="9_olp7e"]
 [ext_resource type="PackedScene" uid="uid://dqbjh0vmm18vv" path="res://scene/managers/menu_deadline_timer.tscn" id="10_uv8t8"]
 [ext_resource type="Script" uid="uid://ck7vkw30ccu14" path="res://script/managers/horror_sequence_manager.gd" id="11_thd88"]
@@ -21,7 +19,6 @@
 [ext_resource type="PackedScene" uid="uid://cpmyhm7didfpf" path="res://kitchenmodel_ingame/node_3d.tscn" id="14_fd77o"]
 [ext_resource type="Script" uid="uid://d0afasls4j2t4" path="res://script/managers/transition_layer.gd" id="14_foydr"]
 [ext_resource type="Script" uid="uid://qvk6yf1otw6x" path="res://script/managers/psychiatrist_sequence_manager.gd" id="14_o3te2"]
-
 [ext_resource type="Script" uid="uid://irevklmrhvad" path="res://script/customer/customer_database.gd" id="15_vprn7"]
 [ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="16_3rlmj"]
 [ext_resource type="Script" uid="uid://df2u5jepn1dge" path="res://script/managers/CookingSequence_manager.gd" id="16_d54mb"]
@@ -29,44 +26,42 @@
 [ext_resource type="PackedScene" uid="uid://dko3175p12cb" path="res://scene/game/basement_temp.tscn" id="17_hd2yi"]
 [ext_resource type="Resource" uid="uid://na4mbvmrtfsv" path="res://data/customers/ulbar.tres" id="17_qf78g"]
 [ext_resource type="Script" uid="uid://cgk28uetmun1j" path="res://script/managers/ending_screen.gd" id="17_qwtac"]
+[ext_resource type="Script" uid="uid://siddnjarcadh" path="res://script/managers/item_pick_manager.gd" id="18_1ysa5"]
 [ext_resource type="Resource" uid="uid://b6juxpm1xl2hy" path="res://data/customers/nanda.tres" id="18_qil7q"]
+[ext_resource type="Script" uid="uid://ba358ao4tyr5t" path="res://script/managers/prep_location_picker.gd" id="19_5oyco"]
+[ext_resource type="PackedScene" uid="uid://bxwdn3yvlgi7m" path="res://scene/ui/TypingUI.tscn" id="19_d54mb"]
 [ext_resource type="Resource" uid="uid://cqrlkhiietv2o" path="res://data/customers/andrian.tres" id="19_srw2o"]
-
+[ext_resource type="Script" uid="uid://cdryuqm1egtsl" path="res://script/day_summary_ui.gd" id="19_vc36r"]
+[ext_resource type="Script" uid="uid://cgkhm6twb56ar" path="res://script/managers/camera_director.gd" id="20_cameradirector"]
 [ext_resource type="Resource" uid="uid://bemdvi1nhcqrk" path="res://data/customers/gul.tres" id="20_qf78g"]
 [ext_resource type="Resource" uid="uid://7v1afls4hfiv" path="res://data/customers/kala.tres" id="21_qil7q"]
 [ext_resource type="Resource" uid="uid://c3s2womkorkdv" path="res://data/customers/mika.tres" id="22_srw2o"]
 [ext_resource type="Resource" uid="uid://byiybhbo26pfm" path="res://data/customers/pete.tres" id="23_cl4wr"]
 [ext_resource type="Resource" uid="uid://dnxup3dxhauuo" path="res://data/customers/lane.tres" id="24_dxea2"]
 [ext_resource type="Resource" uid="uid://bl4cnubtoxh10" path="res://data/customers/harlan.tres" id="25_4s62g"]
+[ext_resource type="PackedScene" path="res://scene/ui/ItemPickUI.tscn" id="25_5oyco"]
 [ext_resource type="Resource" uid="uid://cfnb6ab7qcah2" path="res://data/customers/james.tres" id="26_1ysa5"]
+[ext_resource type="Resource" uid="uid://cwayhp0e3dvn" path="res://data/customers/mark.tres" id="26_2mndr"]
 [ext_resource type="Resource" uid="uid://kovqdngyijtd" path="res://data/customers/juan.tres" id="27_5oyco"]
 [ext_resource type="Resource" uid="uid://ybyxv7kwc1gn" path="res://data/customers/abel.tres" id="28_2ug3u"]
-[ext_resource type="Resource" uid="uid://cwayhp0e3dvn" path="res://data/customers/mark.tres" id="29_usim7"]
-[ext_resource type="Resource" uid="uid://bil8idvhiu4ep" path="res://data/customers/roy.tres" id="30_x8f3f"]
-[ext_resource type="Resource" uid="uid://d3sq4hqxnfg8e" path="res://data/customers/dion.tres" id="31_f47vc"]
-[ext_resource type="Resource" uid="uid://dbmfcyr1caeu8" path="res://data/customers/mysterious.tres" id="32_hwjsq"]
-[ext_resource type="Script" uid="uid://tegl0opprvwq" path="res://script/customer/customer_group_manager.gd" id="33_vsjyd"]
-[ext_resource type="PackedScene" uid="uid://ieqdf05p2lmp" path="res://scene/customer/Customer.tscn" id="34_y4ce3"]
-[ext_resource type="Script" uid="uid://b8lc5s5aatst6" path="res://script/customer/customer_group.gd" id="35_y6ywc"]
-[ext_resource type="Resource" uid="uid://b6cj16ejqq5t8" path="res://data/groups/juan_abel_mark.tres" id="36_wq1cb"]
-[ext_resource type="Script" uid="uid://dyxs10m52ugva" path="res://script/managers/day7_sequence_manager.gd" id="37_y6ywc"]
-[ext_resource type="PackedScene" uid="uid://bkvk5or8afrro" path="res://scene/customer/Mysterious.tscn" id="38_wq1cb"]
-
-[ext_resource type="Script" uid="uid://siddnjarcadh" path="res://script/managers/item_pick_manager.gd" id="18_1ysa5"]
-[ext_resource type="Script" uid="uid://ba358ao4tyr5t" path="res://script/managers/prep_location_picker.gd" id="19_5oyco"]
-[ext_resource type="PackedScene" uid="uid://bxwdn3yvlgi7m" path="res://scene/ui/TypingUI.tscn" id="19_d54mb"]
-[ext_resource type="Script" uid="uid://cdryuqm1egtsl" path="res://script/day_summary_ui.gd" id="19_vc36r"]
-[ext_resource type="Script" uid="uid://cgkhm6twb56ar" path="res://script/managers/camera_director.gd" id="20_cameradirector"]
-[ext_resource type="PackedScene" path="res://scene/ui/ItemPickUI.tscn" id="25_5oyco"]
 [ext_resource type="Script" uid="uid://cxn6woxhekpe7" path="res://script/workstation.gd" id="29_2ug3u"]
 [ext_resource type="PackedScene" uid="uid://yir76e5jhl02" path="res://scene/ui/prep_check_list_ui.tscn" id="29_usim7"]
 [ext_resource type="PackedScene" uid="uid://blrc087prr4v" path="res://scene/Timing_mekanisme.tscn" id="30_usim7"]
+[ext_resource type="Resource" uid="uid://bil8idvhiu4ep" path="res://data/customers/roy.tres" id="30_x8f3f"]
+[ext_resource type="Resource" uid="uid://d3sq4hqxnfg8e" path="res://data/customers/dion.tres" id="31_f47vc"]
 [ext_resource type="Script" uid="uid://kqky5gta3jw4" path="res://script/Player.gd" id="31_usim7"]
 [ext_resource type="PackedScene" uid="uid://dco0q4l08t3hw" path="res://scene/workstation.tscn" id="31_x8f3f"]
 [ext_resource type="Script" uid="uid://bk4grk6b61gs2" path="res://script/Plating.gd" id="32_f47vc"]
+[ext_resource type="Resource" uid="uid://dbmfcyr1caeu8" path="res://data/customers/mysterious.tres" id="32_hwjsq"]
 [ext_resource type="Script" uid="uid://cifsruuqunj87" path="res://script/camera_controller.gd" id="33_hwjsq"]
+[ext_resource type="Script" uid="uid://tegl0opprvwq" path="res://script/customer/customer_group_manager.gd" id="33_vsjyd"]
 [ext_resource type="Script" uid="uid://7c2tb0c3hfcw" path="res://script/ui/prep_location_ui.gd" id="34_vsjyd"]
+[ext_resource type="PackedScene" uid="uid://ieqdf05p2lmp" path="res://scene/customer/Customer.tscn" id="34_y4ce3"]
+[ext_resource type="Script" uid="uid://b8lc5s5aatst6" path="res://script/customer/customer_group.gd" id="35_y6ywc"]
+[ext_resource type="Resource" uid="uid://b6cj16ejqq5t8" path="res://data/groups/juan_abel_mark.tres" id="36_wq1cb"]
 [ext_resource type="Script" uid="uid://di2770pwmbfuc" path="res://script/managers/recipe_step_executor.gd" id="37_2ug3u"]
+[ext_resource type="Script" uid="uid://dyxs10m52ugva" path="res://script/managers/day7_sequence_manager.gd" id="37_y6ywc"]
+[ext_resource type="PackedScene" uid="uid://bkvk5or8afrro" path="res://scene/customer/Mysterious.tscn" id="38_wq1cb"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_riqys"]
 vertices = PackedVector3Array(-2.335884, 3.04084, -17.119614, -2.335884, 3.04084, -15.619614, -1.5858841, 3.04084, -15.619614, -1.5858841, 3.04084, -17.119614, -1.3358841, 1.5408399, -15.369614, -1.3358841, 1.5408399, -14.369614, -0.5858841, 1.5408399, -14.369614, -0.5858841, 1.5408399, -15.369614, 3.414116, 0.5408399, -10.119614, 3.414116, 0.5408399, -9.869614, 3.664116, 0.5408399, -9.869614, 4.914116, 0.5408399, -10.869614, 3.664116, 0.5408399, -8.619614, 3.414116, 0.5408399, -8.619614, 3.414116, 0.5408399, -8.369614, 4.914116, 0.5408399, -7.6196136, -1.5858841, 0.5408399, -5.8696136, -1.5858841, 0.5408399, -6.1196136, -1.8358841, 0.5408399, -6.1196136, -2.835884, 0.5408399, -4.8696136, -1.8358841, 0.5408399, -7.3696136, -1.5858841, 0.5408399, -7.3696136, -1.5858841, 0.5408399, -7.6196136, -2.835884, 0.5408399, -8.369614, -1.0858841, 0.5408399, -10.869614, -1.0858841, 0.5408399, -11.119614, -1.3358841, 0.5408399, -11.119614, -2.835884, 0.5408399, -10.119614, -1.3358841, 0.5408399, -12.119614, -1.0858841, 0.5408399, -12.119614, -1.0858841, 0.5408399, -12.369614, 0.6641159, 0.5408399, -13.619614, 0.6641159, 0.5408399, -13.869614, 0.4141159, 0.5408399, -13.869614, -0.085884094, 0.5408399, -13.869614, -0.3358841, 0.5408399, -13.869614, -0.3358841, 0.5408399, -13.619614, 0.4141159, 0.5408399, -15.369614, -0.085884094, 0.5408399, -15.369614, -2.835884, 0.5408399, -13.619614, 4.914116, 0.5408399, -12.369614, 4.914116, 0.5408399, -13.619614, 4.914116, 0.5408399, -4.8696136, 4.914116, 0.5408399, -5.8696136, 0.9141159, 1.5408399, -15.369614, 0.9141159, 1.5408399, -14.369614, 1.6641159, 1.5408399, -14.369614, 1.6641159, 1.5408399, -15.369614, -3.085884, 7.29084, -13.869614, -3.085884, 7.29084, -13.119614, 4.914116, 7.29084, -13.119614, 4.914116, 7.29084, -13.869614, 5.914116, 5.04084, -13.619614, 5.414116, 5.04084, -13.619614, 5.414116, 5.04084, -12.869614, 5.414116, 5.04084, -5.6196136, 5.414116, 5.04084, -4.6196136, 5.914116, 5.04084, -4.6196136, 5.164116, 5.04084, -12.869614, 5.164116, 5.04084, -5.6196136, -3.335884, 5.04084, -12.619614, -3.335884, 5.04084, -5.8696136, -2.585884, 5.04084, -5.8696136, -2.585884, 5.04084, -12.619614, -0.8358841, 3.79084, -11.869614, -0.8358841, 3.79084, -11.369614, 4.664116, 3.79084, -11.369614, 4.664116, 3.79084, -11.869614, -2.085884, 3.79084, -9.619614, -2.085884, 3.79084, -8.869614, 3.164116, 3.79084, -8.869614, 3.164116, 3.79084, -9.619614, -2.835884, 0.5408399, -9.369614, -2.835884, 0.5408399, -9.119614, 2.914116, 0.5408399, -9.119614, 2.914116, 0.5408399, -9.369614, -1.3358841, 3.79084, -7.1196136, -1.3358841, 3.79084, -6.3696136, 4.664116, 3.79084, -6.3696136, 4.664116, 3.79084, -7.1196136, -1.0858841, 0.5408399, -6.8696136, -1.0858841, 0.5408399, -6.6196136, 4.664116, 0.5408399, -6.6196136, 4.664116, 0.5408399, -6.8696136, -3.085884, 7.29084, -5.3696136, -3.085884, 7.29084, -4.6196136, 4.914116, 7.29084, -4.6196136, 4.914116, 7.29084, -5.3696136, 0.9141159, 0.7908399, -3.1196136, 1.1641159, 0.7908399, -3.1196136, 1.1641159, 0.5408399, -3.3696136, 0.9141159, 0.5408399, -4.1196136, 2.914116, 0.5408399, -3.3696136, 2.914116, 0.5408399, -3.1196136, 3.164116, 0.5408399, -3.1196136, 3.414116, 0.5408399, -3.8696136, 3.164116, 0.5408399, -3.8696136, 3.164116, 0.5408399, -1.6196136, 2.914116, 0.5408399, -1.6196136, 2.914116, 0.5408399, -1.3696136, 1.1641159, 0.5408399, -1.3696136, 1.1641159, 0.7908399, -1.6196136, 0.9141159, 0.7908399, -1.6196136, 0.9141159, 0.7908399, -0.36961365, 1.1641159, 0.7908399, -0.36961365, 1.1641159, 0.5408399, -0.61961365, 2.914116, 0.5408399, -0.61961365, 2.914116, 0.5408399, -0.36961365, 3.164116, 0.5408399, -0.36961365, 3.164116, 0.5408399, 1.1303864, 2.914116, 0.5408399, 1.1303864, 2.914116, 0.5408399, 1.3803864, 1.1641159, 0.5408399, 1.3803864, 1.1641159, 0.7908399, 1.1303864, 0.9141159, 0.7908399, 1.1303864, 0.9141159, 0.7908399, 2.6303864, 1.1641159, 0.7908399, 2.6303864, 1.1641159, 0.5408399, 2.3803864, 2.914116, 0.5408399, 2.3803864, 2.914116, 0.5408399, 2.6303864, 3.164116, 0.5408399, 2.6303864, 3.164116, 0.5408399, 4.1303864, 2.914116, 0.5408399, 4.1303864, 2.914116, 0.5408399, 4.3803864, 5.914116, 0.5408399, 4.6303864, 5.914116, 0.5408399, 4.3803864, 1.1641159, 0.5408399, 4.3803864, 1.1641159, 0.7908399, 4.1303864, 0.9141159, 0.7908399, 4.1303864, 0.9141159, 0.5408399, 4.6303864, 2.164116, 0.5408399, 4.3803864, 7.414116, 0.5408399, 4.6303864, 7.414116, 0.5408399, 4.8803864, 7.664116, 0.5408399, 4.8803864, 7.914116, 0.5408399, 4.3803864, 5.414116, 0.5408399, -0.11961365, 5.414116, 0.5408399, -0.36961365, 5.164116, 0.5408399, -0.36961365, 5.164116, 0.5408399, -1.1196136, 5.414116, 0.5408399, -1.1196136, 5.414116, 0.5408399, -1.3696136, 4.914116, 0.5408399, -1.3696136, 4.914116, 0.5408399, -1.6196136, 4.664116, 0.5408399, -1.6196136, 2.164116, 0.5408399, -3.3696136, 2.164116, 0.7908399, -3.1196136, 2.664116, 0.7908399, -3.1196136, 2.664116, 0.5408399, -3.3696136, 3.164116, 0.5408399, -4.1196136, 2.664116, 0.5408399, -1.3696136, 2.664116, 0.7908399, -1.6196136, 2.164116, 0.7908399, -1.6196136, 2.164116, 0.5408399, -1.3696136, 8.164116, 0.5408399, 4.3803864, 8.664116, 0.5408399, -0.11961365, 2.164116, 0.5408399, -0.61961365, 2.164116, 0.7908399, -0.36961365, 2.664116, 0.7908399, -0.36961365, 2.664116, 0.5408399, -0.61961365, 2.664116, 0.5408399, 1.3803864, 2.664116, 0.7908399, 1.1303864, 2.164116, 0.7908399, 1.1303864, 2.164116, 0.5408399, 1.3803864, 2.164116, 0.5408399, 2.3803864, 2.164116, 0.7908399, 2.6303864, 2.664116, 0.7908399, 2.6303864, 2.664116, 0.5408399, 2.3803864, 4.664116, 0.5408399, -3.1196136, 4.414116, 0.5408399, -3.8696136, 4.664116, 0.5408399, -1.8696136, 2.664116, 0.5408399, 4.3803864, 2.664116, 0.7908399, 4.1303864, 2.164116, 0.7908399, 4.1303864, 6.414116, 0.5408399, 4.8803864, 6.914116, 0.5408399, 4.8803864, 6.914116, 0.5408399, 4.6303864, 6.164116, 0.5408399, 4.3803864, 8.164116, 0.5408399, 4.6303864, 8.664116, 0.5408399, 4.6303864, 4.664116, 0.5408399, -3.8696136, 4.414116, 0.5408399, -4.1196136, 3.414116, 0.5408399, -4.1196136, 5.164116, 0.5408399, -2.1196136, 5.164116, 0.5408399, -2.8696136, 5.664116, 0.5408399, -1.1196136, 5.914116, 0.5408399, -1.1196136, 5.914116, 0.5408399, -1.3696136, 5.664116, 0.5408399, -1.6196136, 8.164116, 0.5408399, -1.3696136, 7.914116, 0.5408399, -1.6196136, 5.914116, 0.5408399, -1.6196136, 8.164116, 0.5408399, -1.6196136, 5.914116, 0.5408399, -3.1196136, 5.664116, 0.5408399, -3.1196136, 5.664116, 0.5408399, -1.8696136, 5.914116, 0.5408399, -1.8696136, 7.914116, 0.5408399, -2.1196136, 8.164116, 0.5408399, -2.1196136, 8.164116, 0.5408399, -3.3696136, 5.914116, 0.5408399, -3.3696136, 1.4141159, 1.2908399, -2.8696136, 1.4141159, 1.2908399, -1.8696136, 1.9141159, 1.2908399, -1.8696136, 1.9141159, 1.2908399, -2.8696136, 5.664116, 1.2908399, -0.86961365, 5.664116, 1.2908399, -0.61961365, 8.414116, 1.2908399, -0.61961365, 8.414116, 1.2908399, -0.86961365, 0.4141159, 1.5408399, -0.36961365, 0.4141159, 1.5408399, 0.63038635, 0.6641159, 1.5408399, 0.63038635, 0.6641159, 1.5408399, -0.36961365, 1.4141159, 1.2908399, -0.11961365, 1.4141159, 1.2908399, 0.88038635, 1.9141159, 1.2908399, 0.88038635, 1.9141159, 1.2908399, -0.11961365, 0.4141159, 1.5408399, 2.8803864, 0.4141159, 1.5408399, 4.1303864, 0.6641159, 1.5408399, 4.1303864, 0.6641159, 1.5408399, 2.8803864, 1.4141159, 1.2908399, 2.8803864, 1.4141159, 1.2908399, 3.8803864, 1.9141159, 1.2908399, 3.8803864, 1.9141159, 1.2908399, 2.8803864, -17.085884, 4.54084, 12.380386, -17.085884, 4.54084, 16.630386, -16.585884, 4.54084, 16.630386, -16.585884, 4.54084, 12.380386, -15.585884, 0.7908399, 12.380386, -15.585884, 0.7908399, 16.630386, -12.085884, 0.7908399, 16.630386, -12.085884, 0.7908399, 12.380386, -11.085884, 4.54084, 12.380386, -11.085884, 4.54084, 16.630386, -10.335884, 4.54084, 16.630386, -10.335884, 4.54084, 12.380386)
@@ -162,7 +157,7 @@ script = ExtResource("14_o3te2")
 
 [node name="CustomerDatabase" type="Node" parent="Managers" unique_id=1109176048]
 script = ExtResource("15_vprn7")
-profiles = Array[ExtResource("16_3rlmj")]([ExtResource("17_qf78g"), ExtResource("18_qil7q"), ExtResource("19_srw2o"), ExtResource("20_qf78g"), ExtResource("21_qil7q"), ExtResource("22_srw2o"), ExtResource("23_cl4wr"), ExtResource("24_dxea2"), ExtResource("25_4s62g"), ExtResource("26_1ysa5"), ExtResource("27_5oyco"), ExtResource("28_2ug3u"), ExtResource("29_usim7"), ExtResource("30_x8f3f"), ExtResource("31_f47vc"), ExtResource("32_hwjsq")])
+profiles = Array[ExtResource("16_3rlmj")]([ExtResource("28_2ug3u"), ExtResource("19_srw2o"), ExtResource("31_f47vc"), ExtResource("20_qf78g"), ExtResource("25_4s62g"), ExtResource("26_1ysa5"), ExtResource("27_5oyco"), ExtResource("21_qil7q"), ExtResource("24_dxea2"), ExtResource("26_2mndr"), ExtResource("22_srw2o"), ExtResource("32_hwjsq"), ExtResource("18_qil7q"), ExtResource("23_cl4wr"), ExtResource("30_x8f3f"), ExtResource("17_qf78g")])
 
 [node name="CustomerGroupManager" type="Node" parent="Managers" unique_id=610888381]
 script = ExtResource("33_vsjyd")
@@ -384,7 +379,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.238777, 0.20493329, -2.8922
 [node name="MysteriousSpawn" type="Marker3D" parent="SpawnPoints" unique_id=505856605]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2552614, 1.1077995, 1.1251287)
 
-
 [node name="Player" parent="." unique_id=835283696 instance=ExtResource("7_m5dmv")]
 transform = Transform3D(-0.99953204, 0, -0.030587163, 0, 1, 0, 0.030587163, 0, -0.99953204, 15.407942, 1.3160796, -5.7124176)
 script = ExtResource("31_usim7")
@@ -413,8 +407,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9564967, 0.5202872, 0)
 
 [node name="SitPoint3" type="Marker3D" parent="DiningPoints/Table02" unique_id=428480357]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.985664, 0.51879853, 0.78047454)
-
-
 
 [node name="World" type="NavigationRegion3D" parent="." unique_id=1366203796]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
@@ -517,6 +509,7 @@ transform = Transform3D(0.033808265, -0.6185656, 0.7850055, 0.026615426, 0.78573
 [node name="KitchenAmbience" type="AudioStreamPlayer" parent="World/FlashbackKitchen/Audio" unique_id=94108014]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="World/FlashbackKitchen" unique_id=1555185777]
+
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="World" unique_id=2134641697]
 height = 1.6
 vertices = PackedVector3Array(8.421762, 0, -4.309097, 8.429108, 0, -3.7362583, 5.728, 0, -3.736, 5.728, 0, -4.309)
@@ -554,7 +547,7 @@ typing_manager = NodePath("../../Managers/TypingManager")
 item_pick_manager = NodePath("../../Managers/ItemPickManager")
 
 [node name="NavigationTarget" type="Marker3D" parent="World/RiceStorage" unique_id=730663450]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.058279037, 0, 0.22841454)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5323725, 0, -0.44211888)
 
 [node name="PromptAnchor" type="Marker3D" parent="World/RiceStorage" unique_id=15489662]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9475689, 0, 0.7560692)
@@ -692,6 +685,7 @@ transform = Transform3D(-0.9999298, -0.009525269, 0.00704132, -1.4003764e-08, 0.
 [connection signal="typing_updated" from="Managers/TypingManager" to="UI/TypingUI" method="_on_typing_manager_typing_updated"]
 
 [editable path="UI/DialogueBubble"]
+[editable path="UI/GameHUD"]
 [editable path="Player"]
 [editable path="World/Basement"]
 [editable path="World/Flat_Plan"]

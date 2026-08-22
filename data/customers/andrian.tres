@@ -19,7 +19,6 @@ opening_dialogue = Array[Dictionary]([{
 "speaker_type": "mc",
 "text": "mwah"
 }])
-recipe_id = "nasi_goreng"
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Andrian",
@@ -31,4 +30,5 @@ closing_dialogue = Array[Dictionary]([{
 "speaker_type": "mc",
 "text": "woke"
 }])
+recipe_id = "nasgor_goreng"
 metadata/_custom_type_script = "uid://cl423sww4t3q0"

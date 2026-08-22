@@ -7,7 +7,7 @@ signal sequence_finished
 @onready var dialogue_manager: DialogueManager = $"../DialogueManager"
 @onready var camera_director: CameraDirector = $"../CameraDirector"
 @onready var transition_layer: TransitionLayer = $"../../UI/TransitionLayer"
-@onready var player: PlayerController = $"../../PlayerBaru"
+@onready var player: Player = $"../../Player"
 
 @onready var basement_player_start: Marker3D = $"../../SpawnPoints/BasementPlayerStart"
 

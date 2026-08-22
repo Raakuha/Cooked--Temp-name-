@@ -256,12 +256,6 @@ const RECIPES = {
 			},
 			{
 				"type": StepType.ACTION,
-				"workstation" : WS_FLAT_PAN,
-				"prompt" : "ATUR SUHU KOMPOR",
-				"action" : ActionType.COOK
-			},
-			{
-				"type": StepType.ACTION,
 				"workstation": WS_FLAT_PAN,
 				"prompt": "MASAK STEAK",
 				"action": ActionType.MIX,

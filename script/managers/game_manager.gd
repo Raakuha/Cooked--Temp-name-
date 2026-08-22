@@ -20,9 +20,16 @@ signal order_requested(recipe_id)
 @onready var day_transition_manager : DayTransitionManager = $"../DayTransitionManager"
 @onready var psychiatrist_sequence_manager : PsychiatristSequenceManager = $"../PsychiatristSequenceManager"
 @onready var recipe_step_executor: RecipeStepExecutor = $"../RecipeStepExecutor"
+@onready var plating: Plating = $"../../World/Plating"
 
 
 var fake_typing_recipe := ""
+
+## Sisa recipe_id yang masih harus dimasak buat 1 pesanan customer yang
+## lagi jalan (recipe_id utama + semua additional_orders). Dipop satu-satu
+## tiap kali 1 resep selesai -- customer baru "nerima makanan" & jalan ke
+## meja kalau antrian ini udah bener-bener kosong.
+var current_order_queue: Array[String] = []
 
 var group_active: bool = false
 
@@ -179,15 +186,15 @@ func _on_cooking_recipe_completed(result: CookingResult) -> void:
 	var profit_delta := profit_manager.apply_cooking_result(result)
 	sanity_manager.apply_profit_delta(profit_delta)
 
-	if result.is_success():
-		if group_active:
-			if customer_group_manager.current_customer != null:
-				customer_group_manager.current_customer.receive_food()
-				customer_group_manager.send_current_member_to_table()
-		else:
-			if customer_manager.current_customer != null:
-				customer_manager.current_customer.receive_food()
-				customer_manager.send_customer_to_table()
+	# FIX BUG FATAL: take_recipe() sebelumnya TIDAK PERNAH dipanggil di
+	# manapun, jadi Plating.is_occupied nyangkut true selamanya setelah
+	# customer PERTAMA -- plate_recipe() customer KEDUA dst selalu gagal
+	# (return false) secara diam-diam, bikin RecipeStepExecutor hang tanpa
+	# error. Ini WAJIB dipanggil di sini, di LUAR pengecekan is_success(),
+	# karena plate_recipe() sendiri juga dipanggil terlepas dari sukses/
+	# gagalnya masakan (lihat RecipeStepExecutor baris ~163).
+	if plating != null:
+		plating.take_recipe()
 
 	print(
 		"[GameManager] Order ",
@@ -196,9 +203,34 @@ func _on_cooking_recipe_completed(result: CookingResult) -> void:
 		"SUCCESS" if result.is_success() else "FAILED"
 	)
 
+	_start_next_order_item()
 
 
-	
+## Proses antrian pesanan 1 customer satu per satu. Kalau masih ada
+## recipe_id tersisa, masak itu berikutnya (nunggu recipe_completed lagi).
+## Kalau sudah habis, BARU customer dianggap nerima SEMUA pesanannya dan
+## jalan ke meja -- ini yang bikin pesanan 2 item (mis. "steak dan soda")
+## keduanya benar-benar dimasak, bukan cuma yang pertama.
+func _start_next_order_item() -> void:
+	if not current_order_queue.is_empty():
+		var next_recipe_id: String = current_order_queue.pop_front()
+
+		print("[GameManager] Lanjut masak item berikutnya: ", next_recipe_id)
+
+		cooking_sequence_manager.start_recipe(next_recipe_id)
+		return
+
+	# Antrian kosong -- semua item pesanan customer ini sudah dimasak & di-
+	# plating. Ini menggantikan logic lama yang langsung receive_food()
+	# begitu 1 resep selesai.
+	if group_active:
+		if customer_group_manager.current_customer != null:
+			customer_group_manager.current_customer.receive_food()
+			customer_group_manager.send_current_member_to_table()
+	else:
+		if customer_manager.current_customer != null:
+			customer_manager.current_customer.receive_food()
+			customer_manager.send_customer_to_table()
 #func _input(event):
 	#if event.is_action_pressed("ui_accept"):
 		#sanity_manager.decrease_sanity(10)
@@ -210,7 +242,7 @@ func start_day():
 
 	print("===== DAY START =====")
 
-	day_manager.start_day(5)
+	day_manager.start_day(1)
 
 func _on_day_started(day: int) -> void:
 	print("GameManager memulai Day ", day)
@@ -337,26 +369,35 @@ func _on_event_started(event):
 		"typing":
 			if group_active:
 				if customer_group_manager.current_customer != null:
-					customer_group_manager.current_customer.start_waiting()
+					var customer := customer_group_manager.current_customer
+					customer.start_waiting()
 
-					var recipe_id = customer_group_manager.current_customer.get_recipe_id()
-					fake_typing_recipe = recipe_id
+					current_order_queue = [customer.get_recipe_id()]
+					current_order_queue.append_array(customer.get_additional_orders())
+					fake_typing_recipe = customer.get_recipe_id()
 
-					cooking_sequence_manager.start_recipe(recipe_id)
+					print("========================")
+					print("TYPING DIMULAI")
+					print("Antrian pesanan :", current_order_queue)
+					print("========================")
+
+					_start_next_order_item()
 
 			else:
 				if customer_manager.current_customer != null:
-					customer_manager.current_customer.start_waiting()
+					var customer := customer_manager.current_customer
+					customer.start_waiting()
 
-					var recipe_id = customer_manager.current_customer.get_recipe_id()
-					fake_typing_recipe = recipe_id
+					current_order_queue = [customer.get_recipe_id()]
+					current_order_queue.append_array(customer.get_additional_orders())
+					fake_typing_recipe = customer.get_recipe_id()
 
-					cooking_sequence_manager.start_recipe(recipe_id)
+					print("========================")
+					print("TYPING DIMULAI")
+					print("Antrian pesanan :", current_order_queue)
+					print("========================")
 
-			print("========================")
-			print("TYPING DIMULAI")
-			print("Recipe :", fake_typing_recipe)
-			print("========================")
+					_start_next_order_item()
 
 		"exit":
 			print("Customer Exit")

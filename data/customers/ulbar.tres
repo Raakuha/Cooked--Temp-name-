@@ -39,7 +39,6 @@ opening_dialogue = Array[Dictionary]([{
 "speaker_type": "mc",
 "text": "Masih mau yang biasa?"
 }])
-recipe_id = "steak"
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Ulbar",
@@ -56,4 +55,6 @@ closing_dialogue = Array[Dictionary]([{
 "speaker_type": "mc",
 "text": "Sama sama"
 }])
+recipe_id = "steak"
+additional_orders = Array[String](["soda"])
 metadata/_custom_type_script = "uid://cl423sww4t3q0"

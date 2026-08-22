@@ -294,3 +294,16 @@ func get_recipe_id() -> String:
 		return profile.day6_recipe_id
 
 	return profile.recipe_id
+
+
+## Barang tambahan yang dipesan bareng recipe_id utama (mis. minuman).
+## Dipanggil GameManager buat bikin antrian pesanan lengkap 1 customer.
+func get_additional_orders() -> Array[String]:
+
+	if profile == null:
+		return []
+
+	if use_day6_variant:
+		return profile.day6_additional_orders
+
+	return profile.additional_orders

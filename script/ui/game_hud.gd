@@ -1,7 +1,7 @@
 class_name GameHUD
 extends CanvasLayer
 
-@onready var profit_label : Label = $MarginContainer/ProfitLabel
+@onready var profit_label : Label =$MarginContainer/VBoxContainer/ProfitLabel
 
 ## Drag DeadlineLabel (Label baru) ke sini buat nampilin sisa waktu order.
 @export var deadline_label: Label
