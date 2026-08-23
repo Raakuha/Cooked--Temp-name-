@@ -3,6 +3,7 @@ extends Node
 
 signal tutorial_started
 signal tutorial_finished
+signal tutorial_order_finished
 
 @onready var dialogue_manager: DialogueManager = $"../DialogueManager"
 @onready var transition_layer: TransitionLayer = $"../../UI/TransitionLayer"
@@ -13,13 +14,147 @@ signal tutorial_finished
 
 @onready var tutorial_menu: CanvasLayer = $"../../UI/TutorialMenu"
 
+@onready var game_manager: GameManager = $"../GameManager"
+@export var police_profile: PoliceProfile
+
+@onready var cooking_sequence_manager: CookingSequenceManager = $"../CookingSequenceManager"
 
 var active: bool = false
-var burger_tutorial_active: bool = false
+var tutorial_order_index: int = -1
+
+func _ready() -> void:
+
+	cooking_sequence_manager.recipe_completed.connect(
+		_on_recipe_completed
+	)
+
+func _on_recipe_completed(result: CookingResult) -> void:
+
+	if not active:
+		return
+
+	if police_profile == null:
+		return
+
+	if result == null:
+		return
+
+	print("========================")
+	print("TUTORIAL RECIPE COMPLETED")
+	print("Recipe :", result.recipe_id)
+	print("========================")
 
 
+	# MAIN RECIPE
+	if tutorial_order_index == -1:
+
+		if result.recipe_id != police_profile.recipe_id:
+			return
+
+		print("MAIN RECIPE SELESAI")
+
+		await start_next_additional_order()
+
+		return
 
 
+	# ADDITIONAL ORDER
+	var expected_order := (
+		police_profile.additional_orders[tutorial_order_index]
+	)
+
+	if result.recipe_id != expected_order:
+		return
+
+	print(
+		"ADDITIONAL ORDER SELESAI : ",
+		result.recipe_id
+	)
+
+	await start_next_additional_order()
+
+func start_tutorial_order() -> void:
+
+	if police_profile == null:
+		return
+
+	tutorial_order_index = -1
+
+	hide_tutorial_menu()
+
+	print("========================")
+	print("TUTORIAL ORDER START")
+	print("MAIN RECIPE :", police_profile.recipe_id)
+	print("ADDITIONAL ORDERS :", police_profile.additional_orders)
+	print("========================")
+
+	start_main_recipe()
+
+
+func start_main_recipe() -> void:
+
+	print("========================")
+	print("START MAIN RECIPE")
+	print("Recipe :", police_profile.recipe_id)
+	print("========================")
+
+	tutorial_order_index = -1
+
+	cooking_sequence_manager.start_recipe(
+		police_profile.recipe_id
+	)
+
+func start_next_additional_order() -> void:
+
+	if police_profile.additional_orders.is_empty():
+
+		print("========================")
+		print("NO ADDITIONAL ORDERS")
+		print("========================")
+
+		await finish_tutorial_order()
+		return
+
+
+	var next_index := tutorial_order_index + 1
+
+	if next_index >= police_profile.additional_orders.size():
+
+		print("========================")
+		print("ALL ADDITIONAL ORDERS FINISHED")
+		print("========================")
+
+		await finish_tutorial_order()
+		return
+
+
+	tutorial_order_index = next_index
+
+	var order_id := police_profile.additional_orders[tutorial_order_index]
+
+	print("========================")
+	print("ADDITIONAL ORDER START")
+	print("Order :", order_id)
+	print("========================")
+
+	cooking_sequence_manager.start_recipe(order_id)
+
+func finish_tutorial_order() -> void:
+
+	print("========================")
+	print("TUTORIAL ORDER FINISHED")
+	print("========================")
+
+	if police_profile == null:
+		return
+
+	for dialogue in police_profile.closing_dialogue:
+
+		dialogue_manager.start_dialog(dialogue)
+
+		await dialogue_manager.dialogue_finished
+
+	await police_leave_restaurant()
 
 func play_tutorial() -> void:
 
@@ -95,178 +230,40 @@ func play_restaurant_intro() -> void:
 
 	await enter_restaurant()
 
-	var dialogues := [
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Oke, karena restoran ini ada di pinggir kota maka restoran ini hanya menyediakan makanan-makanan basic tanpa tema tertentu."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Tujuannya memang untuk membuat pelanggan yang sedang berkunjung agar bisa mengisi perut mereka sebelum perjalanan panjang keluar kota."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Di sini ada beberapa menu utama yang bisa kamu sajikan."
-		}
-	]
-
-	for dialogue in dialogues:
-
-		dialogue_manager.start_dialog(dialogue)
-
-		await dialogue_manager.dialogue_finished
-
-	show_tutorial_menu()
-
-	var final_dialogue := [
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Ada beberapa hal yang harus kamu perhatikan di dapur ini."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Waktu untuk menyelesaikan masing-masing menu makanan juga berbeda-beda."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Nasgor goreng dengan maksimal 60 detik."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Steak dengan maksimal 60 detik."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Salad dengan maksimal 40 detik."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Dan roti khas Lempuyangan dengan maksimal 40 detik."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Kemungkinan juga akan ada pelanggan yang memesan lebih dari satu menu."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Saat selesai mengambil bahan untuk membuat sebuah menu, setiap bahannya akan terceklist untuk menandakan progressmu dalam membuat sebuah menu."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Pelanggan adalah raja, kamu harus menjaga kualitas makanan atau minuman yang disajikan."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Mungkin itu saja hal yang harus kamu perhatikan."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Untuk sekarang tolong buatkan burger banggor dan bawakan soda untukku."
-		}
-	]
-
-	for dialogue in final_dialogue:
-
-		dialogue_manager.start_dialog(dialogue)
-
-		await dialogue_manager.dialogue_finished
-
-	await start_burger_tutorial()
-
-func start_burger_tutorial() -> void:
-
-	print("========================")
-	print("BURGER TUTORIAL")
-	print("START")
-	print("========================")
-
-	burger_tutorial_active = true
-
-	hide_tutorial_menu()
-
-	print("========================")
-	print("TYPING BURGER DIMULAI")
-	print("Tekan ENTER untuk menyelesaikan tutorial burger.")
-	print("========================")
-
-func _unhandled_input(event: InputEvent) -> void:
-
-	if not burger_tutorial_active:
+	if police_profile == null:
+		print("Police profile belum dipasang.")
 		return
 
-	if event.is_action_pressed("ui_accept"):
-
-		burger_tutorial_active = false
-
-		print("========================")
-		print("TYPING BURGER SELESAI")
-		print("========================")
-
-		await finish_burger_tutorial()
-
-func finish_burger_tutorial() -> void:
-
 	print("========================")
-	print("BURGER TUTORIAL")
-	print("FINISHED")
+	print("POLICE RESTAURANT DIALOGUE")
+	print(
+		"Jumlah dialogue : ",
+		police_profile.restaurant_dialogue.size()
+	)
 	print("========================")
 
-	var dialogues := [
 
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Hmm, tidak buruk, sepertinya ada gunanya juga menunjukmu sebagai koki untuk restoran ini."
-		},
+	for i in range(police_profile.restaurant_dialogue.size()):
 
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Baiklah aku akan kembali dengan pekerjaanku, untuk sekarang tolong urus tempat ini dengan baik."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "MC",
-			"text": "Baik… Terimakasih"
-		}
-	]
-
-	for dialogue in dialogues:
+		var dialogue = police_profile.restaurant_dialogue[i]
 
 		dialogue_manager.start_dialog(dialogue)
 
 		await dialogue_manager.dialogue_finished
 
-	await police_leave_restaurant()
+		# Setelah polisi selesai menjelaskan menu
+		if i == 2:
+			show_tutorial_menu()
+
+
+	start_tutorial_order()
+
+	await tutorial_order_finished
+
+
+
+
+
 
 
 func police_leave_restaurant() -> void:
@@ -282,6 +279,8 @@ func police_leave_restaurant() -> void:
 	await transition_layer.fade_in(0.7)
 
 	print("POLICE LEFT RESTAURANT")
+
+	tutorial_order_finished.emit()
 
 	active = false
 
