@@ -29,6 +29,12 @@ signal order_requested(recipe_id)
 @onready var horror_sequence_manager: HorrorSequenceManager = $"../HorrorSequenceManager"
 @onready var ending_manager: EndingManager = $"../EndingManager"
 
+@onready var police_opening_manager : PoliceOpeningManager = $"../PoliceOpeningManager"
+
+@onready var tutorial_sequence_manager : TutorialSequenceManager = $"../TutorialSequenceManager"
+
+var opening_finished: bool = false
+
 
 # Recipe yang sedang dijalankan / recipe terakhir yang dijalankan.
 var fake_typing_recipe: String = ""
@@ -77,8 +83,18 @@ func _ready() -> void:
 	)
 	recipe_step_executor.step_cancelled.connect(
 		cooking_sequence_manager.cancel_current_prep
+	cooking_sequence_manager.recipe_completed.connect(_on_cooking_recipe_completed)
+
+	sanity_manager.horror_threshold_reached.connect(_on_horror_threshold_reached)
+
+	police_opening_manager.sequence_finished.connect(
+		_on_police_opening_finished
 	)
-	
+
+	tutorial_sequence_manager.tutorial_finished.connect(
+		_on_tutorial_finished
+	)
+
 	recipe_step_executor.step_cancelled.connect(
 	_on_recipe_step_cancelled
 )
@@ -118,12 +134,34 @@ func _ready() -> void:
 		_on_horror_sequence_finished
 	)
 
-	call_deferred("start_day")
+	call_deferred("start_opening")
 
 
-# =========================================================
-# DAY 7
-# =========================================================
+func start_opening() -> void:
+
+	print("========================")
+	print("GAME OPENING")
+	print("========================")
+
+	police_opening_manager.play_opening()
+
+func _on_police_opening_finished() -> void:
+
+	print("========================")
+	print("POLICE OPENING FINISHED")
+	print("========================")
+
+	opening_finished = true
+
+	tutorial_sequence_manager.play_tutorial()
+
+func _on_tutorial_finished() -> void:
+
+	print("========================")
+	print("TUTORIAL FINISHED")
+	print("========================")
+
+	start_day()
 
 func _on_day7_sequence_finished() -> void:
 	print("========================")
@@ -298,7 +336,6 @@ func start_day() -> void:
 
 	day_manager.start_day(1)
 
-
 func _on_day_started(day: int) -> void:
 	print("GameManager memulai Day ", day)
 
@@ -346,6 +383,14 @@ func _on_dialog_finished() -> void:
 
 	if ending_active:
 		print("Ending aktif -> EventRunner tidak dilanjutkan")
+		return
+
+	if police_opening_manager.active:
+		print("Police opening aktif -> EventRunner tidak dilanjutkan")
+		return
+
+	if tutorial_sequence_manager.active:
+		print("Tutorial aktif -> EventRunner tidak dilanjutkan")
 		return
 
 	if psychiatrist_sequence_manager.active:
