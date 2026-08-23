@@ -83,7 +83,9 @@ func _ready() -> void:
 	)
 	recipe_step_executor.step_cancelled.connect(
 		cooking_sequence_manager.cancel_current_prep
+	)
 	cooking_sequence_manager.recipe_completed.connect(_on_cooking_recipe_completed)
+	
 
 	sanity_manager.horror_threshold_reached.connect(_on_horror_threshold_reached)
 
