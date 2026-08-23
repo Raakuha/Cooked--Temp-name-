@@ -124,15 +124,80 @@ func play_restaurant_intro() -> void:
 
 	show_tutorial_menu()
 
-	var final_dialogue := {
-		"mode": "fullscreen",
-		"speaker": "Polisi",
-		"text": "Untuk sekarang tolong buatkan burger banggor dan bawakan soda untukku."
-	}
+	var final_dialogue := [
 
-	dialogue_manager.start_dialog(final_dialogue)
+		{
+			"mode": "fullscreen",
+			"speaker": "Polisi",
+			"text": "Ada beberapa hal yang harus kamu perhatikan di dapur ini."
+		},
 
-	await dialogue_manager.dialogue_finished
+		{
+			"mode": "fullscreen",
+			"speaker": "Polisi",
+			"text": "Waktu untuk menyelesaikan masing-masing menu makanan juga berbeda-beda."
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Polisi",
+			"text": "Nasgor goreng dengan maksimal 60 detik."
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Polisi",
+			"text": "Steak dengan maksimal 60 detik."
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Polisi",
+			"text": "Salad dengan maksimal 40 detik."
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Polisi",
+			"text": "Dan roti khas Lempuyangan dengan maksimal 40 detik."
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Polisi",
+			"text": "Kemungkinan juga akan ada pelanggan yang memesan lebih dari satu menu."
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Polisi",
+			"text": "Saat selesai mengambil bahan untuk membuat sebuah menu, setiap bahannya akan terceklist untuk menandakan progressmu dalam membuat sebuah menu."
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Polisi",
+			"text": "Pelanggan adalah raja, kamu harus menjaga kualitas makanan atau minuman yang disajikan."
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Polisi",
+			"text": "Mungkin itu saja hal yang harus kamu perhatikan."
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Polisi",
+			"text": "Untuk sekarang tolong buatkan burger banggor dan bawakan soda untukku."
+		}
+	]
+
+	for dialogue in final_dialogue:
+
+		dialogue_manager.start_dialog(dialogue)
+
+		await dialogue_manager.dialogue_finished
 
 	await start_burger_tutorial()
 
