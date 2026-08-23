@@ -38,6 +38,8 @@ const DEADLINES: Dictionary = {
 	 "steak": 60,
 	 "salad": 40,
 	"roti_khas_lempuyangan": 40,
+	"soda" : 10,
+	"air_mineral" : 10
 }
 
 const RECIPES = {
@@ -54,7 +56,7 @@ const RECIPES = {
 						"type": StepType.MOVE,
 						"skip_typing": true,
 						"workstation": WS_RICE_STORAGE,
-						"prompt": "TEMPAT NASI",
+						"prompt": "BASKOM NASI BEKAS",
 						"action": ActionType.NONE
 					},
 					{
@@ -67,7 +69,7 @@ const RECIPES = {
 				]
 			},
 			{
-				"checklist_id": "daging",
+				"checklist_id": "daging cincang",
 				"steps": [
 					{
 						"type": StepType.MOVE,
@@ -167,13 +169,13 @@ const RECIPES = {
 				"prompt": "ADUK NASI GORENG",
 				"action": ActionType.MIX,
 				"interaction": {
-					"prompts": ["MIX", "MIX", "MIX"]
+					"prompts": ["SRENG", "SRONG", "SRENG", "ANGKAT"]
 				}
 			},
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_PLATING,
-				"prompt": "TEMPAT PLATING",
+				"prompt": "PLATING",
 				"action": ActionType.NONE
 			},
 			{
@@ -232,15 +234,15 @@ const RECIPES = {
 		"cooking": [
 			{
 				"type": StepType.MOVE,
-				"workstation": WS_SEASONING,
-				"prompt": "TEMPAT BUMBU",
+				"workstation": WS_CUTTING_BOARD,
+				"prompt": "TALENAN",
 				"action": ActionType.NONE
 			},
 			{
 				"type": StepType.ACTION,
-				"workstation": WS_SEASONING,
-				"prompt": "MARINASI DAGING",
-				"action": ActionType.ADD
+				"workstation": WS_CUTTING_BOARD,
+				"prompt": "POTONG DAGING",
+				"action": ActionType.CUT
 			},
 			{
 				"type": StepType.MOVE,
@@ -256,17 +258,23 @@ const RECIPES = {
 			},
 			{
 				"type": StepType.ACTION,
+				"workstation" : WS_FLAT_PAN,
+				"prompt" : "MASUKKAN MENTEGA",
+				"action" : ActionType.ADD
+			},
+			{
+				"type": StepType.ACTION,
 				"workstation": WS_FLAT_PAN,
 				"prompt": "MASAK STEAK",
 				"action": ActionType.MIX,
 				"interaction": {
-					"prompts": ["BALIK", "BALIK", "BALIK"]
+					"prompts": ["TEKAN", "BALIK", "TEKAN","BALIK", "ANGKAT"]
 				}
 			},
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_PLATING,
-				"prompt": "TEMPAT PLATING",
+				"prompt": "PLATING",
 				"action": ActionType.NONE
 			},
 			{
@@ -325,18 +333,6 @@ const RECIPES = {
 		"cooking": [
 			{
 				"type": StepType.MOVE,
-				"workstation": WS_SEASONING,
-				"prompt": "TEMPAT BUMBU",
-				"action": ActionType.NONE
-			},
-			{
-				"type": StepType.ACTION,
-				"workstation": WS_SEASONING,
-				"prompt": "DRESSING SALAD",
-				"action": ActionType.ADD
-			},
-			{
-				"type": StepType.MOVE,
 				"workstation": WS_CUTTING_BOARD,
 				"prompt": "TALENAN",
 				"action": ActionType.NONE
@@ -352,8 +348,20 @@ const RECIPES = {
 			},
 			{
 				"type": StepType.MOVE,
+				"workstation": WS_SEASONING,
+				"prompt": "TEMPAT BUMBU",
+				"action": ActionType.NONE
+			},
+			{
+				"type": StepType.ACTION,
+				"workstation": WS_SEASONING,
+				"prompt": "DRESSING SALAD",
+				"action": ActionType.ADD
+			},
+			{
+				"type": StepType.MOVE,
 				"workstation": WS_PLATING,
-				"prompt": "TEMPAT PLATING",
+				"prompt": "PLATING",
 				"action": ActionType.NONE
 			},
 			{
@@ -437,13 +445,13 @@ const RECIPES = {
 				"prompt": "PANGGANG ROTI",
 				"action": ActionType.COOK,
 				"interaction": {
-					"prompts": ["PANGGANG", "BALIK", "PANGGANG"]
+					"prompts": ["PANGGANG"]
 				}
 			},
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_PLATING,
-				"prompt": "TEMPAT PLATING",
+				"prompt": "PLATING",
 				"action": ActionType.NONE
 			},
 			{
@@ -497,6 +505,25 @@ const RECIPES = {
 						"interaction": {"item_id": "patty"}
 					}
 				]
+			},
+			{
+				"checklist_id": "mentega",
+				"steps": [
+					{
+						"type": StepType.MOVE,
+						"skip_typing": true,
+						"workstation": WS_REFRIGERATOR,
+						"prompt": "KULKAS",
+						"action": ActionType.NONE
+					},
+					{
+						"type": StepType.ACTION,
+						"workstation": WS_REFRIGERATOR,
+						"prompt": "AMBIL BUTTER",
+						"action": ActionType.TAKE,
+						"interaction": {"item_id": "butter"}
+					}
+				]
 			}
 		],
 		"cooking": [
@@ -509,7 +536,7 @@ const RECIPES = {
 			{
 				"type": StepType.ACTION,
 				"workstation": WS_SEASONING,
-				"prompt": "OLESKAN MENTEGA DI PATTY",
+				"prompt": "OLESKAN MENTEGA DI ROTI",
 				"action": ActionType.ADD
 			},
 			{
@@ -522,7 +549,7 @@ const RECIPES = {
 				"type": StepType.ACTION,
 				"workstation": WS_FLAT_PAN,
 				"prompt": "MASAK BURGER",
-				"action": ActionType.COOK,
+				"action": ActionType.MIX,
 				"interaction": {
 					"prompts": ["MASAK", "BALIK", "MASAK", "BALIK", "ANGKAT"]
 				}
@@ -530,7 +557,7 @@ const RECIPES = {
 			{
 				"type": StepType.MOVE,
 				"workstation": WS_PLATING,
-				"prompt": "TEMPAT PLATING",
+				"prompt": "PLATING",
 				"action": ActionType.NONE
 			},
 			{
@@ -568,7 +595,21 @@ const RECIPES = {
 				]
 			}
 		],
-		"cooking": []
+		"cooking": [
+					{
+						"type": StepType.MOVE,
+						"workstation": WS_PLATING,
+						"prompt": "SERAHKAN KE PELANGGAN",
+						"action": ActionType.NONE
+					},
+					{
+						"type": StepType.ACTION,
+						"workstation": WS_PLATING,
+						"prompt": "BERIKAN AIR MINERAL",
+						"action": ActionType.PLATE,
+						"interaction": {"item_id": "air_mineral"}
+					}
+		]
 	},
 
 	# ================================================================
@@ -592,10 +633,25 @@ const RECIPES = {
 						"prompt": "AMBIL SODA",
 						"action": ActionType.TAKE,
 						"interaction": {"item_id": "soda"}
-					}
+					},
+
 				]
 			}
 		],
-		"cooking": []
+		"cooking": [
+						{
+						"type": StepType.MOVE,
+						"workstation": WS_PLATING,
+						"prompt": "SERRAHKAN KE PELANGGAN",
+						"action": ActionType.NONE
+					},
+					{
+						"type": StepType.ACTION,
+						"workstation": WS_PLATING,
+						"prompt": "BERIKAN SODA",
+						"action": ActionType.PLATE,
+						"interaction": {"item_id": "soda"}
+					},
+				]
 	}
 }

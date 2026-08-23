@@ -3,112 +3,139 @@ extends Node
 
 signal order_requested(recipe_id)
 
-@onready var event_runner : EventRunner = $"../EventRunner"
-@onready var dialogue_manager : DialogueManager = $"../DialogueManager"
-@onready var customer_manager : CustomerManager = $"../CustomerManager"
-@onready var typing_manager : TypingManager = $"../TypingManager"
-@onready var profit_manager : ProfitManager = $"../ProfitManager"
 
+@onready var event_runner: EventRunner = $"../EventRunner"
+@onready var dialogue_manager: DialogueManager = $"../DialogueManager"
+@onready var customer_manager: CustomerManager = $"../CustomerManager"
+@onready var typing_manager: TypingManager = $"../TypingManager"
+@onready var profit_manager: ProfitManager = $"../ProfitManager"
+@onready var menu_deadline_timer: MenuDeadlineTimer = $"../MenuDeadlineTimer"
+@onready var customer_group_manager: CustomerGroupManager = $"../CustomerGroupManager"
 
-
-
-
-@onready var customer_group_manager : CustomerGroupManager = $"../CustomerGroupManager"
-
-@onready var day7_sequence_manager : Day7SequenceManager = $"../Day7SequenceManager"
-@onready var cooking_sequence_manager : CookingSequenceManager = $"../CookingSequenceManager"
-@onready var day_transition_manager : DayTransitionManager = $"../DayTransitionManager"
-@onready var psychiatrist_sequence_manager : PsychiatristSequenceManager = $"../PsychiatristSequenceManager"
+@onready var day7_sequence_manager: Day7SequenceManager = $"../Day7SequenceManager"
+@onready var cooking_sequence_manager: CookingSequenceManager = $"../CookingSequenceManager"
+@onready var day_transition_manager: DayTransitionManager = $"../DayTransitionManager"
+@onready var psychiatrist_sequence_manager: PsychiatristSequenceManager = $"../PsychiatristSequenceManager"
 @onready var recipe_step_executor: RecipeStepExecutor = $"../RecipeStepExecutor"
 @onready var plating: Plating = $"../../World/Plating"
 
+@onready var sanity_manager: SanityManager = $"../SanityManager"
+@onready var horror_manager: HorrorManager = $"../HorrorManager"
+@onready var day_manager: DayManager = $"../DayManager"
 
-var fake_typing_recipe := ""
+@onready var player: Node3D = $"../../Player"
+@onready var game_hud: GameHUD = $"../../UI/GameHUD"
 
-## Sisa recipe_id yang masih harus dimasak buat 1 pesanan customer yang
-## lagi jalan (recipe_id utama + semua additional_orders). Dipop satu-satu
-## tiap kali 1 resep selesai -- customer baru "nerima makanan" & jalan ke
-## meja kalau antrian ini udah bener-bener kosong.
+@onready var horror_sequence_manager: HorrorSequenceManager = $"../HorrorSequenceManager"
+@onready var ending_manager: EndingManager = $"../EndingManager"
+
+
+# Recipe yang sedang dijalankan / recipe terakhir yang dijalankan.
+var fake_typing_recipe: String = ""
+var order_deadline_missed: bool = false
+# Antrean semua pesanan customer aktif.
+# Contoh:
+# ["roti_khas_lempuyangan", "soda", "soda", "steak", "salad"]
 var current_order_queue: Array[String] = []
 
 var group_active: bool = false
-
 var ending_active: bool = false
 
 var active_customer_dialogue: Array[Dictionary] = []
 var customer_dialogue_index: int = 0
 var customer_dialogue_type: String = ""
 
-@onready var sanity_manager : SanityManager = $"../SanityManager"
-@onready var horror_manager : HorrorManager = $"../HorrorManager"
-@onready var day_manager : DayManager = $"../DayManager"
 
-@onready var player : Node3D = $"../../Player"
-@onready var game_hud : GameHUD = $"../../UI/GameHUD"
-
-@onready var horror_sequence_manager : HorrorSequenceManager = $"../HorrorSequenceManager"
-@onready var ending_manager : EndingManager = $"../EndingManager"
-
-func _ready():
+func _ready() -> void:
 	event_runner.event_started.connect(_on_event_started)
 	event_runner.finished.connect(_on_day_finished)
+
 	dialogue_manager.dialogue_finished.connect(_on_dialog_finished)
 
 	customer_manager.customer_arrived.connect(_on_customer_arrived)
-	
 	customer_manager.customer_returned_to_cashier.connect(
 		_on_customer_returned_to_cashier
 	)
-
+	menu_deadline_timer.deadline_expired.connect(
+		_on_order_deadline_expired
+	)
 	customer_manager.customer_exited.connect(_on_customer_exited)
-	
+
 	profit_manager.profit_changed.connect(_on_profit_changed)
-	cooking_sequence_manager.recipe_completed.connect(_on_cooking_recipe_completed)
-	cooking_sequence_manager.step_started.connect(recipe_step_executor.execute_step)
-	recipe_step_executor.step_completed.connect(cooking_sequence_manager.next_step)
-	sanity_manager.horror_threshold_reached.connect(_on_horror_threshold_reached)
+
+	# Cooking flow
+	cooking_sequence_manager.recipe_completed.connect(
+		_on_cooking_recipe_completed
+	)
+
+	cooking_sequence_manager.step_started.connect(
+		recipe_step_executor.execute_step
+	)
+
+	recipe_step_executor.step_completed.connect(
+		cooking_sequence_manager.next_step
+	)
+	recipe_step_executor.step_cancelled.connect(
+		cooking_sequence_manager.cancel_current_prep
+	)
 	
-	
-	
+	recipe_step_executor.step_cancelled.connect(
+	_on_recipe_step_cancelled
+)
+
+	sanity_manager.horror_threshold_reached.connect(
+		_on_horror_threshold_reached
+	)
+
+	# Group customer flow
 	customer_group_manager.group_started.connect(
 		_on_group_started
 	)
+
 	customer_group_manager.member_arrived.connect(
 		_on_group_member_arrived
 	)
+
 	customer_group_manager.group_finished.connect(
 		_on_group_finished
 	)
-	
+
 	customer_group_manager.group_closing_requested.connect(
 		_on_group_closing_requested
 	)
-	
+
+	# Day 7
 	day7_sequence_manager.sequence_finished.connect(
 		_on_day7_sequence_finished
 	)
-	
+
+	# Day flow
 	day_manager.day_started.connect(_on_day_started)
 	day_manager.day_completed.connect(_on_day_completed)
-	#day_manager.game_completed.connect(_on_game_completed)
-	
+
+	# Horror
 	horror_sequence_manager.sequence_finished.connect(
 		_on_horror_sequence_finished
 	)
-	
-	call_deferred("start_day")
-	
 
+	call_deferred("start_day")
+
+
+# =========================================================
+# DAY 7
+# =========================================================
 
 func _on_day7_sequence_finished() -> void:
-
 	print("========================")
 	print("GameManager menerima DAY 7 SEQUENCE SELESAI")
 	print("========================")
 
 
-func _on_group_closing_requested(customer: Customer) -> void:
+# =========================================================
+# GROUP CUSTOMER
+# =========================================================
 
+func _on_group_closing_requested(customer: Customer) -> void:
 	print("========================")
 	print(
 		"GameManager menerima GROUP CLOSING -> ",
@@ -123,7 +150,6 @@ func _on_group_closing_requested(customer: Customer) -> void:
 
 
 func _on_group_started() -> void:
-
 	group_active = true
 
 	print("========================")
@@ -132,7 +158,6 @@ func _on_group_started() -> void:
 
 
 func _on_group_member_arrived(customer: Customer) -> void:
-
 	print("========================")
 	print(
 		"GameManager menerima GROUP MEMBER ARRIVED -> ",
@@ -147,14 +172,11 @@ func _on_group_member_arrived(customer: Customer) -> void:
 
 
 func _on_group_finished() -> void:
-
 	group_active = false
 
 	var group_count := customer_group_manager.last_group_member_count
 
-	customer_manager.add_customers_served(
-		group_count
-	)
+	customer_manager.add_customers_served(group_count)
 
 	print("========================")
 	print("GameManager menerima: GROUP FINISHED")
@@ -167,15 +189,21 @@ func _on_group_finished() -> void:
 	event_runner.next_event()
 
 
-
-
+# =========================================================
+# HORROR / PROFIT
+# =========================================================
 
 func _on_horror_threshold_reached(threshold: int) -> void:
 	horror_manager.trigger_horror(threshold)
 
+
 func _on_profit_changed(value: int) -> void:
 	game_hud.update_profit(value)
 
+
+# =========================================================
+# COOKING COMPLETED
+# =========================================================
 
 func _on_cooking_recipe_completed(result: CookingResult) -> void:
 	if result == null:
@@ -183,16 +211,12 @@ func _on_cooking_recipe_completed(result: CookingResult) -> void:
 
 	print("[GameManager] Cooking result: ", result.to_dict())
 
+	# Tetap proses hasil recipe seperti sebelumnya.
 	var profit_delta := profit_manager.apply_cooking_result(result)
 	sanity_manager.apply_profit_delta(profit_delta)
 
-	# FIX BUG FATAL: take_recipe() sebelumnya TIDAK PERNAH dipanggil di
-	# manapun, jadi Plating.is_occupied nyangkut true selamanya setelah
-	# customer PERTAMA -- plate_recipe() customer KEDUA dst selalu gagal
-	# (return false) secara diam-diam, bikin RecipeStepExecutor hang tanpa
-	# error. Ini WAJIB dipanggil di sini, di LUAR pengecekan is_success(),
-	# karena plate_recipe() sendiri juga dipanggil terlepas dari sukses/
-	# gagalnya masakan (lihat RecipeStepExecutor baris ~163).
+	# Wajib mengambil makanan dari plating setelah recipe selesai.
+	# Ini mencegah Plating.is_occupied tetap true untuk recipe berikutnya.
 	if plating != null:
 		plating.take_recipe()
 
@@ -203,46 +227,77 @@ func _on_cooking_recipe_completed(result: CookingResult) -> void:
 		"SUCCESS" if result.is_success() else "FAILED"
 	)
 
+	# Jangan langsung kirim customer ke meja.
+	# Masih mungkin ada additional_orders.
 	_start_next_order_item()
 
 
-## Proses antrian pesanan 1 customer satu per satu. Kalau masih ada
-## recipe_id tersisa, masak itu berikutnya (nunggu recipe_completed lagi).
-## Kalau sudah habis, BARU customer dianggap nerima SEMUA pesanannya dan
-## jalan ke meja -- ini yang bikin pesanan 2 item (mis. "steak dan soda")
-## keduanya benar-benar dimasak, bukan cuma yang pertama.
+# =========================================================
+# ORDER QUEUE
+# =========================================================
+
 func _start_next_order_item() -> void:
+
+	# =====================================================
+	# MASIH ADA ORDER YANG HARUS DIKERJAKAN
+	# =====================================================
 	if not current_order_queue.is_empty():
+
 		var next_recipe_id: String = current_order_queue.pop_front()
 
-		print("[GameManager] Lanjut masak item berikutnya: ", next_recipe_id)
+		fake_typing_recipe = next_recipe_id
+
+		# Beri tahu RecipeStepExecutor recipe yang sedang dikerjakan.
+		recipe_step_executor.set_recipe_name(next_recipe_id)
+
+		print("========================")
+		print("[GameManager] MULAI ORDER BERIKUTNYA")
+		print("Recipe :", next_recipe_id)
+		print("Sisa antrian :", current_order_queue)
+		print("========================")
+
+		# Kalau deadline sudah terlewat sebelumnya,
+		# recipe berikutnya tetap dikerjakan,
+		# tetapi langsung ditandai gagal.
+		if order_deadline_missed:
+			cooking_sequence_manager.mark_deadline_expired()
 
 		cooking_sequence_manager.start_recipe(next_recipe_id)
+
 		return
 
-	# Antrian kosong -- semua item pesanan customer ini sudah dimasak & di-
-	# plating. Ini menggantikan logic lama yang langsung receive_food()
-	# begitu 1 resep selesai.
+
+	# =====================================================
+	# QUEUE KOSONG
+	# SEMUA ORDER CUSTOMER SUDAH SELESAI
+	# =====================================================
+
+	print("========================")
+	print("[GameManager] SEMUA ORDER SELESAI")
+	print("========================")
+	menu_deadline_timer.stop_order()
+
+
 	if group_active:
+
 		if customer_group_manager.current_customer != null:
 			customer_group_manager.current_customer.receive_food()
 			customer_group_manager.send_current_member_to_table()
+
 	else:
+
 		if customer_manager.current_customer != null:
 			customer_manager.current_customer.receive_food()
 			customer_manager.send_customer_to_table()
-#func _input(event):
-	#if event.is_action_pressed("ui_accept"):
-		#sanity_manager.decrease_sanity(10)
-#
-	#if event.is_action_pressed("ui_cancel"):
-		#sanity_manager.increase_sanity(10)
+# =========================================================
+# DAY FLOW
+# =========================================================
 
-func start_day():
-
+func start_day() -> void:
 	print("===== DAY START =====")
 
 	day_manager.start_day(1)
+
 
 func _on_day_started(day: int) -> void:
 	print("GameManager memulai Day ", day)
@@ -255,29 +310,38 @@ func _on_day_started(day: int) -> void:
 
 	event_runner.start(events)
 
-func _on_day_finished():
+
+func _on_day_finished() -> void:
 	day_manager.complete_day()
+
 
 func _on_day_completed(day: int) -> void:
 	print("GameManager menerima Day ", day, " selesai")
+
 	day_transition_manager.start_day_transition(day)
 
-func _on_customer_arrived():
 
+# =========================================================
+# CUSTOMER FLOW
+# =========================================================
+
+func _on_customer_arrived() -> void:
 	print("GameManager menerima: Customer sampai kasir")
 
 	event_runner.next_event()
 
 
-func _on_customer_exited():
-
+func _on_customer_exited() -> void:
 	print("GameManager menerima: Customer keluar")
 
 	event_runner.next_event()
 
 
-func _on_dialog_finished():
+# =========================================================
+# DIALOGUE
+# =========================================================
 
+func _on_dialog_finished() -> void:
 	print("Dialogue selesai")
 
 	if ending_active:
@@ -302,17 +366,26 @@ func _on_dialog_finished():
 
 	event_runner.next_event()
 
-func _on_typing_finished():
 
-	print("Typing selesai")
+# =========================================================
+# TYPING FINISHED
+# =========================================================
+# Logic lama receive_food() sengaja tidak dipakai lagi.
+# Penyelesaian customer sekarang ditangani oleh
+# _start_next_order_item() ketika queue benar-benar kosong.
+#
+# Fungsi dibiarkan supaya aman apabila masih ada koneksi lama.
+# =========================================================
 
-	if customer_manager.current_customer != null:
-		customer_manager.current_customer.receive_food()
+func _on_typing_finished() -> void:
+	print("Typing selesai -> penyelesaian customer ditangani oleh order queue")
 
-	customer_manager.send_customer_to_table()
 
-func _on_customer_returned_to_cashier():
+# =========================================================
+# CUSTOMER RETURNING TO CASHIER
+# =========================================================
 
+func _on_customer_returned_to_cashier() -> void:
 	print("GameManager menerima: Customer kembali ke kasir")
 
 	if customer_manager.current_customer == null:
@@ -323,8 +396,12 @@ func _on_customer_returned_to_cashier():
 		"closing"
 	)
 
-func _on_horror_sequence_finished() -> void:
 
+# =========================================================
+# HORROR SEQUENCE
+# =========================================================
+
+func _on_horror_sequence_finished() -> void:
 	print("========================")
 	print("GameManager menerima HORROR SEQUENCE SELESAI")
 	print("========================")
@@ -333,18 +410,27 @@ func _on_horror_sequence_finished() -> void:
 
 	ending_manager.start_ending()
 
-func _on_event_started(event):
+
+# =========================================================
+# EVENT STARTED
+# =========================================================
+
+func _on_event_started(event) -> void:
 
 	match event["type"]:
 
+		# ---------------------------------------------------
+		# DIALOG
+		# ---------------------------------------------------
 		"dialog":
-
-			var target : Node3D = null
+			var target: Node3D = null
 
 			if event["speaker"] == "customer":
 
 				if customer_manager.current_customer != null:
-					target = customer_manager.current_customer.get_node("Marker3D")
+					target = customer_manager.current_customer.get_node(
+						"Marker3D"
+					)
 
 			elif event["speaker"] == "mc":
 
@@ -353,93 +439,137 @@ func _on_event_started(event):
 			dialogue_manager.start_dialog(event, target)
 
 
-		#"typing":
-#
-			#if customer_manager.current_customer != null:
-				#customer_manager.current_customer.start_waiting()
-#
-			#fake_typing_recipe = event["recipe"]
-			#fake_typing_active = true
-#
-			#print("========================")
-			#print("TYPING DIMULAI")
-			#print("Recipe :", fake_typing_recipe)
-			#print("========================")
-		
+		# ---------------------------------------------------
+		# TYPING / COOKING
+		# ---------------------------------------------------
 		"typing":
+
+			# ===============================================
+			# GROUP CUSTOMER
+			# ===============================================
+
 			if group_active:
+
 				if customer_group_manager.current_customer != null:
-					var customer := customer_group_manager.current_customer
+					var customer: Customer = (
+						customer_group_manager.current_customer
+					)
+
 					customer.start_waiting()
 
-					current_order_queue = [customer.get_recipe_id()]
-					current_order_queue.append_array(customer.get_additional_orders())
-					fake_typing_recipe = customer.get_recipe_id()
+					current_order_queue.clear()
+
+					current_order_queue.append(
+						customer.get_recipe_id()
+					)
+
+					current_order_queue.append_array(
+						customer.get_additional_orders()
+					)
 
 					print("========================")
-					print("TYPING DIMULAI")
-					print("Antrian pesanan :", current_order_queue)
+					print("GROUP TYPING DIMULAI")
+					print("Customer :", customer.customer_name)
+					print(
+						"Antrian pesanan : ",
+						current_order_queue
+					)
 					print("========================")
 
 					_start_next_order_item()
+
+
+			# ===============================================
+			# NORMAL CUSTOMER
+			# ===============================================
 
 			else:
 				if customer_manager.current_customer != null:
-					var customer := customer_manager.current_customer
+					var customer: Customer = (
+						customer_manager.current_customer
+					)
+
 					customer.start_waiting()
 
-					current_order_queue = [customer.get_recipe_id()]
-					current_order_queue.append_array(customer.get_additional_orders())
-					fake_typing_recipe = customer.get_recipe_id()
+					current_order_queue.clear()
+					current_order_queue.append(
+						customer.get_recipe_id()
+					)
+
+					current_order_queue.append_array(
+						customer.get_additional_orders()
+					)
+
+					order_deadline_missed = false
+
+					var total_deadline := _calculate_order_deadline()
 
 					print("========================")
 					print("TYPING DIMULAI")
-					print("Antrian pesanan :", current_order_queue)
+					print("Customer :", customer.customer_name)
+					print("Antrian pesanan : ", current_order_queue)
+					print("Total deadline : ", total_deadline)
 					print("========================")
 
-					_start_next_order_item()
+					menu_deadline_timer.start_order(total_deadline)
 
+					_start_next_order_item()
+		# ---------------------------------------------------
+		# EXIT
+		# ---------------------------------------------------
 		"exit":
 			print("Customer Exit")
+
 			customer_manager.exit_customer()
 
 
+		# ---------------------------------------------------
+		# SPAWN CUSTOMER
+		# ---------------------------------------------------
 		"spawn_customer":
 			customer_manager.spawn_customer_by_id(
 				event["customer_id"]
 			)
-		
+
+
+		# ---------------------------------------------------
+		# SPAWN GROUP
+		# ---------------------------------------------------
 		"spawn_group":
 			customer_group_manager.start_group(
 				event["group_id"]
 			)
-		
+
+
+		# ---------------------------------------------------
+		# MIKA DAY 6
+		# ---------------------------------------------------
 		"spawn_mika_day6":
 			customer_manager.spawn_mika_day6()
-		
+
+
+		# ---------------------------------------------------
+		# MYSTERIOUS CUSTOMER
+		# ---------------------------------------------------
 		"mysterious_customer":
 			day7_sequence_manager.play_day7_sequence()
-		
+
+
+		# ---------------------------------------------------
+		# CUSTOMER OPENING
+		# ---------------------------------------------------
 		"customer_opening":
+
 			if customer_manager.current_customer != null:
 				play_customer_dialogue(
 					customer_manager.current_customer.get_opening_dialogue(),
 					"opening"
 				)
 
-#func play_customer_dialogue(
-	#dialogues: Array[Dictionary]
-#) -> void:
-#
-	#if dialogues.is_empty():
-		#print("Tidak ada customer dialogue.")
-		#event_runner.next_event()
-		#return
-#
-	#active_customer_dialogue = dialogues
-	#customer_dialogue_index = 0
-#
-	#show_next_customer_dialogue()
+
+# =========================================================
+# CUSTOMER DIALOGUE
+# =========================================================
 
 func show_customer_dialogue_line(dialog: Dictionary) -> void:
 
@@ -450,18 +580,23 @@ func show_customer_dialogue_line(dialog: Dictionary) -> void:
 		if group_active:
 
 			if customer_group_manager.current_customer != null:
-				target = customer_group_manager.current_customer.get_node("Marker3D")
+				target = customer_group_manager.current_customer.get_node(
+					"Marker3D"
+				)
 
 		else:
 
 			if customer_manager.current_customer != null:
-				target = customer_manager.current_customer.get_node("Marker3D")
+				target = customer_manager.current_customer.get_node(
+					"Marker3D"
+				)
 
 	elif dialog.get("speaker_type", "") == "mc":
 
 		target = player.get_node("DialogueMarker")
 
 	dialogue_manager.start_dialog(dialog, target)
+
 
 func play_customer_dialogue(
 	dialogues: Array[Dictionary],
@@ -507,7 +642,9 @@ func show_next_customer_dialogue() -> void:
 		if customer_dialogue_type == "closing":
 
 			customer_dialogue_type = ""
+
 			customer_manager.exit_customer()
+
 
 		elif customer_dialogue_type == "group_closing":
 
@@ -515,15 +652,18 @@ func show_next_customer_dialogue() -> void:
 
 			customer_group_manager.exit_group()
 
+
 		elif customer_dialogue_type == "group_opening":
 
 			customer_dialogue_type = ""
 
 			start_group_typing()
 
+
 		else:
 
 			customer_dialogue_type = ""
+
 			event_runner.next_event()
 
 		return
@@ -535,21 +675,65 @@ func show_next_customer_dialogue() -> void:
 	show_customer_dialogue_line(dialog)
 
 
+# =========================================================
+# GROUP TYPING
+# =========================================================
+
 func start_group_typing() -> void:
 
 	if customer_group_manager.current_customer == null:
 		return
 
-	var customer := customer_group_manager.current_customer
+	var customer: Customer = (
+		customer_group_manager.current_customer
+	)
 
 	customer.start_waiting()
 
-	fake_typing_recipe = customer.get_recipe_id()
+	current_order_queue.clear()
 
-	cooking_sequence_manager.start_recipe(fake_typing_recipe)
+	current_order_queue.append(
+		customer.get_recipe_id()
+	)
+
+	current_order_queue.append_array(
+		customer.get_additional_orders()
+	)
+
+	# ==========================================
+	# MULAI DEADLINE UNTUK SELURUH ORDER
+	# ==========================================
+	order_deadline_missed = false
+
+	var total_deadline := _calculate_order_deadline()
 
 	print("========================")
 	print("GROUP TYPING DIMULAI")
 	print("Customer :", customer.customer_name)
-	print("Recipe :", fake_typing_recipe)
+	print("Antrian pesanan :", current_order_queue)
+	print("Total deadline :", total_deadline, " detik")
 	print("========================")
+
+	menu_deadline_timer.start_order(total_deadline)
+
+	_start_next_order_item()
+func _on_recipe_step_cancelled() -> void:
+	print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+	print("[GM] STEP CANCELLED DITERIMA")
+	print("[GM] memanggil cancel_current_prep()")
+	print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
+	cooking_sequence_manager.cancel_current_prep()
+func _on_order_deadline_expired() -> void:
+	print("[GameManager] SIGNAL DEADLINE DITERIMA")
+
+	order_deadline_missed = true
+
+	cooking_sequence_manager.mark_deadline_expired()
+func _calculate_order_deadline() -> float:
+	var total: float = 0.0
+
+	for recipe_id in current_order_queue:
+		total += menu_deadline_timer.get_deadline_for(recipe_id)
+
+	return total

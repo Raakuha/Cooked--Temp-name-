@@ -38,12 +38,18 @@ func _on_deadline_started(_recipe_id: String, _duration: float) -> void:
 		deadline_label.visible = true
 		deadline_label.remove_theme_color_override("font_color")
 
+func _on_deadline_expired() -> void:
+	print("[GameHUD] SIGNAL DEADLINE DITERIMA")
 
-func _on_deadline_expired(_recipe_id: String) -> void:
+	_watching_deadline = true
+
 	if deadline_label != null:
+		deadline_label.visible = true
 		deadline_label.text = "WAKTU HABIS!"
-
-
+		deadline_label.add_theme_color_override(
+			"font_color",
+			Color.RED
+		)
 func _process(_delta: float) -> void:
 	if not _watching_deadline or deadline_label == null:
 		return

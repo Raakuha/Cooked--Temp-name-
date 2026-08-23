@@ -36,6 +36,7 @@ func _ready() -> void:
 
 	if item_pick_manager != null:
 		item_pick_manager.pick_started.connect(_on_item_pick_started)
+		item_pick_manager.pick_completed.connect(_on_item_pick_completed)
 
 	for workstation in get_tree().get_nodes_in_group("workstations"):
 		if workstation.has_signal("action_completed"):
@@ -101,6 +102,16 @@ func _render_row(checklist_id: String, done: bool) -> void:
 
 func _on_item_pick_started(_candidates: Array) -> void:
 	panel.hide()
+
+
+# Nyala buat DUA-DUANYA: berhasil ambil barang ATAU keluar tangan kosong
+# ({"exit": true}). Ini yang bikin checklist balik muncul walau player
+# gak jadi ambil apa-apa -- action_completed di bawah TIDAK nyala buat
+# kasus keluar tangan kosong (sengaja, sejak fix "jangan mark selesai
+# kalau kosong"), jadi checklist butuh sinyal terpisah yang lebih awal.
+func _on_item_pick_completed(_result: Dictionary) -> void:
+	if _has_active_checklist:
+		panel.show()
 
 
 func _on_workstation_action_completed(_workstation, _action_name: String) -> void:

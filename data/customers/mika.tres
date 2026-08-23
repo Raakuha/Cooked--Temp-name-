@@ -21,6 +21,7 @@ closing_dialogue = Array[Dictionary]([{
 "text": "Femboy sejati cabuts"
 }])
 recipe_id = "steak"
+additional_orders = Array[String](["roti_khas_lempuyangan", "soda", "soda"])
 day6_opening_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Mika",
@@ -28,6 +29,7 @@ day6_opening_dialogue = Array[Dictionary]([{
 "text": "Femboy sejati Datang untuk kedua kali"
 }])
 day6_recipe_id = "nasgor_goreng"
+day6_additional_orders = Array[String](["roti_khas_lempuyangan", "soda"])
 day6_closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Mika",

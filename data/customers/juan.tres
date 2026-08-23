@@ -21,6 +21,7 @@ closing_dialogue = Array[Dictionary]([{
 "text": "Juan Uma menang"
 }])
 recipe_id = "nasgor_goreng"
+additional_orders = Array[String](["burger"])
 group_id = "juan_abel_mark"
 group_role = "leader"
 metadata/_custom_type_script = "uid://cl423sww4t3q0"

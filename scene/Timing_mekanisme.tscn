@@ -22,10 +22,10 @@ texture_filter = 1
 texture_repeat = 1
 layout_mode = 3
 anchors_preset = 0
-offset_left = 737.0
-offset_top = 438.0
-offset_right = 777.0
-offset_bottom = 478.0
+offset_left = 1010.0
+offset_top = 469.0
+offset_right = 1050.0
+offset_bottom = 509.0
 
 [node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=627425509]
 texture_filter = 1

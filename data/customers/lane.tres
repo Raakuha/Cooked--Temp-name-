@@ -14,11 +14,12 @@ opening_dialogue = Array[Dictionary]([{
 "speaker_type": "customer",
 "text": "Lane len Datang"
 }])
-recipe_id = "salad"
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Lane",
 "speaker_type": "customer",
 "text": "Lane len cabuts"
 }])
+recipe_id = "steak"
+additional_orders = Array[String](["burger_banggor", "soda", "soda", "soda"])
 metadata/_custom_type_script = "uid://cl423sww4t3q0"

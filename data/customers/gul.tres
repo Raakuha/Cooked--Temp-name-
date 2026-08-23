@@ -21,4 +21,5 @@ closing_dialogue = Array[Dictionary]([{
 "text": "Gul Cabut"
 }])
 recipe_id = "roti_khas_lempuyangan"
+additional_orders = Array[String](["soda", "soda", "steak", "salad"])
 metadata/_custom_type_script = "uid://cl423sww4t3q0"

@@ -21,10 +21,7 @@ class_name MenuDeadlineTimer
 ## Menyala saat deadline mulai berjalan untuk sebuah order/recipe.
 signal deadline_started(recipe_id: String, duration: float)
 
-## Menyala PERSIS SEKALI kalau waktu habis sebelum recipe selesai.
-## Tidak pernah meng-hard-fail recipe -- cuma informasi buat konsumen
-## di luar (nanti R-P3-06 / Profit-Sanity flow) yang memutuskan efeknya.
-signal deadline_expired(recipe_id: String)
+signal deadline_expired
 
 ## Menyala setiap kali timer direset untuk order baru.
 signal deadline_reset(recipe_id: String)
@@ -52,24 +49,28 @@ func _ready() -> void:
 		)
 		return
 
-	cooking_sequence_manager.recipe_started.connect(_on_recipe_started)
-	cooking_sequence_manager.recipe_completed.connect(_on_recipe_completed)
 
-
-func _on_recipe_started(recipe_id: String) -> void:
-	_recipe_id = recipe_id
-	_time_left = get_deadline_for(recipe_id)
+func start_order(total_duration: float) -> void:
+	_time_left = total_duration
 	_running = true
 	_expired = false
+	_recipe_id = ""
+
 	set_process(true)
 
-	deadline_reset.emit(recipe_id)
-	deadline_started.emit(recipe_id, _time_left)
+	print(
+		"[MenuDeadlineTimer] ORDER TIMER START: ",
+		total_duration,
+		" detik"
+	)
 
+	deadline_started.emit("", _time_left)
 
-func _on_recipe_completed(_result) -> void:
+func stop_order() -> void:
 	_running = false
 	set_process(false)
+
+	print("[MenuDeadlineTimer] ORDER TIMER STOP")
 
 
 func _process(delta: float) -> void:
@@ -83,20 +84,9 @@ func _process(delta: float) -> void:
 		_expired = true
 		_running = false
 		set_process(false)
-
-		print(
-			"[MenuDeadlineTimer] Deadline habis untuk: ",
-			_recipe_id
-		)
-
-		# R-P3-06 --- laporkan ke CookingResult lewat hook yang CSM sediain.
-		# MenuDeadlineTimer TIDAK menyentuh Profit/Sanity langsung.
-		if cooking_sequence_manager != null:
-			cooking_sequence_manager.mark_deadline_expired()
-
-		deadline_expired.emit(_recipe_id)
-
-
+		print("[MenuDeadlineTimer] DEADLINE ORDER HABIS")
+		deadline_expired.emit()
+		
 ## Ambil deadline (detik) untuk recipe_id tertentu. Kalau tidak ada
 ## override di RecipeData.DEADLINES, pakai default_deadline_seconds.
 func get_deadline_for(recipe_id: String) -> float:

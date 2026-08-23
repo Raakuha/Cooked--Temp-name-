@@ -1,7 +1,10 @@
 class_name RecipeStepExecutor
 extends Node
 
+
 signal step_completed
+signal step_cancelled
+var carried_item_id: String = ""
 
 @export var player: Player
 @export var typing_manager: TypingManager
@@ -13,6 +16,14 @@ var current_step: Dictionary = {}
 var current_recipe_name: String = ""
 
 var current_workstation: Workstation = null
+
+func set_recipe_name(recipe_name: String) -> void:
+	current_recipe_name = recipe_name
+
+	print(
+		"[RecipeStepExecutor] Recipe aktif: ",
+		current_recipe_name
+	)
 var pending_workstation: Workstation = null
 
 var waiting_for_action: bool = false
@@ -109,18 +120,33 @@ func start_move_step() -> void:
 
 
 func _on_player_arrived() -> void:
-	if pending_workstation == null:
+	if current_step.is_empty():
+		return
+
+	if current_step.get("type") != RecipeData.StepType.MOVE:
+		print(
+			"[RecipeStepExecutor] Arrival diabaikan karena current step bukan MOVE: ",
+			current_step.get("prompt", "")
+		)
 		return
 
 	current_workstation = pending_workstation
 	pending_workstation = null
 
 	if not current_workstation.action_completed.is_connected(
-		_on_action_completed):
-			current_workstation.action_completed.connect(_on_action_completed)
-	current_workstation.start_interaction()
-	step_completed.emit()
+		_on_action_completed
+	):
+		current_workstation.action_completed.connect(
+			_on_action_completed
+	)
 
+	current_workstation.start_interaction()
+
+	print(
+		"[RecipeStepExecutor] MOVE selesai -> lanjut ke step berikutnya"
+	)
+
+	step_completed.emit()
 
 func run_action_step() -> void:
 	if current_workstation == null:
@@ -147,9 +173,30 @@ func run_action_step() -> void:
 		return
 
 	# ============================================================
-	# KHUSUS PLATING
+	# VALIDASI ITEM UNTUK PLATING
 	# ============================================================
 	if action_value == RecipeData.ActionType.PLATE:
+		var required_item_id: String = current_step.get(
+			"interaction",
+			{}
+		).get("item_id", "")
+
+		if not required_item_id.is_empty():
+			if carried_item_id.is_empty():
+				push_warning(
+					"[RecipeStepExecutor] Tidak bisa PLATE. " +
+					"Player belum membawa item."
+				)
+				return
+
+			if carried_item_id != required_item_id:
+				push_warning(
+					"[RecipeStepExecutor] Item salah. " +
+					"Dibawa: " + carried_item_id +
+					" | Dibutuhkan: " + required_item_id
+				)
+				return
+
 		var plating := current_workstation as Plating
 
 		if plating == null:
@@ -186,6 +233,14 @@ func _on_action_completed(
 	workstation: Workstation,
 	action_name: String
 ) -> void:
+	print("================================")
+	print("[RSE] ACTION COMPLETED")
+	print("[RSE] workstation =", workstation.command)
+	print("[RSE] action =", action_name)
+	print("[RSE] current_step =", current_step)
+	print("[RSE] waiting_for_action =", waiting_for_action)
+	print("================================")
+
 	if not waiting_for_action:
 		return
 
@@ -193,6 +248,54 @@ func _on_action_completed(
 		return
 
 	waiting_for_action = false
+
+	if action_name == "TAKE":
+
+		var picked_item_id: String = workstation.current_picked_item_id
+
+		if picked_item_id.is_empty():
+
+			print(
+				"[RecipeStepExecutor] TAKE dibatalkan. "
+				+ "Tidak ada item yang diambil."
+			)
+
+			current_step.clear()
+			pending_workstation = null
+
+			if current_workstation != null:
+				if current_workstation.action_completed.is_connected(
+					_on_action_completed
+				):
+					current_workstation.action_completed.disconnect(
+						_on_action_completed
+					)
+
+				current_workstation.finish_interaction()
+				current_workstation = null
+
+			step_cancelled.emit()
+			return
+
+		carried_item_id = picked_item_id
+
+		print(
+			"[RecipeStepExecutor] Player membawa: ",
+			carried_item_id
+		)
+		print(
+			"[RecipeStepExecutor] Player membawa: ",
+			carried_item_id
+		)
+
+	elif action_name == "PLATE":
+
+		print(
+			"[RecipeStepExecutor] Item diserahkan: ",
+			carried_item_id
+		)
+
+		carried_item_id = ""
 
 	print(
 		"[RecipeStepExecutor] Action selesai: ",

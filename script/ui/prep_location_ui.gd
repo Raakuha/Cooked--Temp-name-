@@ -159,6 +159,10 @@ func _ready() -> void:
 		item_pick_manager.pick_started.connect(
 			_on_item_pick_started
 		)
+
+		item_pick_manager.pick_completed.connect(
+			_on_item_pick_completed
+		)
 	else:
 		push_warning(
 			"[PrepLocationUI] ItemPickManager belum dipasang."
@@ -248,6 +252,17 @@ func _on_item_pick_started(_candidates: Array) -> void:
 	# Prompt lokasi tetap ada di state PrepLocationPicker,
 	# tetapi disembunyikan sementara secara visual.
 	_hidden_for_item_pick = true
+
+
+# ----------------------------------------------------------------
+# ITEM PICK COMPLETED (berhasil ambil ATAU keluar tangan kosong)
+# ----------------------------------------------------------------
+## action_completed (di bawah) TIDAK nyala kalau player keluar tangan
+## kosong (sengaja, sejak fix "jangan mark selesai kalau kosong") -- jadi
+## prompt lokasi butuh sinyal ini juga supaya gak nyangkut ke-hide
+## selamanya kalau player belum sempat ambil apa-apa.
+func _on_item_pick_completed(_result: Dictionary) -> void:
+	_hidden_for_item_pick = false
 
 
 # ----------------------------------------------------------------

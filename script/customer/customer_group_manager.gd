@@ -3,7 +3,6 @@ extends Node
 
 signal group_started
 signal member_arrived(customer)
-signal member_finished(customer)
 signal group_closing_requested(customer)
 signal group_finished
 

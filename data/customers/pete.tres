@@ -20,5 +20,6 @@ closing_dialogue = Array[Dictionary]([{
 "speaker_type": "customer",
 "text": "Pete te Cabuts"
 }])
-recipe_id = "salad"
+recipe_id = "steak"
+additional_orders = Array[String](["burger_banggor", "nasgor_goreng", "air_mineral"])
 metadata/_custom_type_script = "uid://cl423sww4t3q0"

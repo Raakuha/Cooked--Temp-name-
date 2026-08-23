@@ -31,4 +31,5 @@ closing_dialogue = Array[Dictionary]([{
 "text": "woke"
 }])
 recipe_id = "nasgor_goreng"
+additional_orders = Array[String](["roti_khas_lempuyangan"])
 metadata/_custom_type_script = "uid://cl423sww4t3q0"

@@ -21,4 +21,5 @@ closing_dialogue = Array[Dictionary]([{
 "text": "Harlan viking Ganti pemain"
 }])
 recipe_id = "burger_banggor"
+additional_orders = Array[String](["steak", "burger_banggor", "steak", "soda", "soda"])
 metadata/_custom_type_script = "uid://cl423sww4t3q0"

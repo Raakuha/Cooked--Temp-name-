@@ -311,6 +311,13 @@ func _start_cooking_phase() -> void:
 # Dipanggil RecipeStepExecutor lewat step_completed, persis kayak dulu --
 # fungsi ini yang nentuin "lanjut ke mana" tergantung fase saat ini.
 func next_step() -> void:
+	print("================================")
+	print("[CSM] next_step() DIPANGGIL")
+	print("[CSM] active_prep_index =", _active_prep_index)
+	print("[CSM] active_prep_step_idx =", _active_prep_step_idx)
+	print("[CSM] in_cooking_phase =", _in_cooking_phase)
+	print("[CSM] current recipe =", recipe_id)
+	print("================================")
 	if not active:
 		return
 
@@ -405,3 +412,15 @@ func _on_wrong_item_picked(
 func mark_deadline_expired() -> void:
 	if current_result != null:
 		current_result.mark_deadline_expired()
+
+func cancel_current_prep() -> void:
+	if not active:
+		return
+
+	if _active_prep_index == -1:
+		return
+	_active_prep_index = -1
+	_active_prep_step_idx = 0
+	_picked_item_ids_this_action.clear()
+
+	checklist_updated.emit(_checklist.duplicate())

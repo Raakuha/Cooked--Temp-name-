@@ -44,7 +44,7 @@ signal item_picked(workstation: Workstation, item_id: String)
 
 
 var last_picked_item_id: String = ""
-
+var current_picked_item_id: String = ""
 func get_navigation_position() -> Vector3 :
 	return navigation_target.global_position
 	
@@ -104,8 +104,11 @@ func run_take_action() -> void:
 	if required_item_ids.is_empty() and required_item_id != "":
 		required_item_ids = [required_item_id]
 
+	# RESET TOTAL untuk action TAKE baru
+	last_picked_item_id = ""
+	current_picked_item_id = ""
+
 	if required_item_ids.is_empty() or item_pick_manager == null:
-		
 		finish_action_after_delay(0.3)
 		return
 
@@ -144,7 +147,9 @@ func run_take_action() -> void:
 		# TERAKHIR, jadi kalau ambil 2+ barang di 1 kunjungan, yang
 		# pertama gak pernah ke-mark selesai checklist-nya.
 		
-		last_picked_item_id = picked["item_id"]
+		current_picked_item_id = picked["item_id"]
+		last_picked_item_id = current_picked_item_id
+		
 		picked_ids_this_visit.append(picked["item_id"])
 		item_picked.emit(self, picked["item_id"])
 
@@ -353,12 +358,14 @@ func complete_action() -> void:
 	action_in_progress = false
 	current_action = ""
 	current_action_data = {}
-	
+
 	print(
 		"[Workstation] ",
 		command,
 		" selesai action: ",
-		finished_action
+		finished_action,
+		" | item = ",
+		current_picked_item_id
 	)
 
 	action_finished.emit(finished_action)
