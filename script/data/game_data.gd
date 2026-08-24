@@ -173,19 +173,7 @@ const DAY5 = [
 
 const DAY6 = [
 
-	{
-		"type": "spawn_customer",
-		"customer_id": "dion"
-	},
-
-	{
-		"type": "customer_opening"
-	},
-
-	{
-		"type": "typing"
-	},
-
+	
 	{
 		"type": "spawn_mika_day6"
 	},

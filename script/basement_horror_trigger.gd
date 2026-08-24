@@ -2,7 +2,7 @@ class_name BasementHorrorTrigger
 extends Area3D
 
 @export var camera_director: CameraDirector
-@export var player: PlayerController
+@export var player: Player
 @export var horror_sequence_manager: HorrorSequenceManager
 
 var triggered: bool = false

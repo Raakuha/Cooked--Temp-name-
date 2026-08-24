@@ -642,7 +642,7 @@ const RECIPES = {
 						{
 						"type": StepType.MOVE,
 						"workstation": WS_PLATING,
-						"prompt": "SERRAHKAN KE PELANGGAN",
+						"prompt": "SERAHKAN KE PELANGGAN",
 						"action": ActionType.NONE
 					},
 					{
