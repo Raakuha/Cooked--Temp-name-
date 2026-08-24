@@ -8,7 +8,6 @@ class_name PrepChecklistUI
 @onready var title: Label = $PanelContainer/MarginContainer/VBoxContainer/Title
 @onready var list_container: VBoxContainer = $PanelContainer/MarginContainer/VBoxContainer/ListContainer
 
-# checklist_id -> nama tampilan, mis. {"daging": "Daging Cincang"}.
 @export var item_labels: Dictionary = {}
 @export var  title_text : String = "PREPARATION"
 @export_range (12,8, 1) var title_font_size : int = 22
@@ -96,19 +95,10 @@ func _render_row(checklist_id: String, done: bool) -> void:
 	else:
 		row.modulate = pending_color
 
-# ------------------------------------------------------------------
-# Sembunyi pas ItemPickUI nongol, muncul lagi pas action-nya kelar.
-# ------------------------------------------------------------------
 
 func _on_item_pick_started(_candidates: Array) -> void:
 	panel.hide()
 
-
-# Nyala buat DUA-DUANYA: berhasil ambil barang ATAU keluar tangan kosong
-# ({"exit": true}). Ini yang bikin checklist balik muncul walau player
-# gak jadi ambil apa-apa -- action_completed di bawah TIDAK nyala buat
-# kasus keluar tangan kosong (sengaja, sejak fix "jangan mark selesai
-# kalau kosong"), jadi checklist butuh sinyal terpisah yang lebih awal.
 func _on_item_pick_completed(_result: Dictionary) -> void:
 	if _has_active_checklist:
 		panel.show()

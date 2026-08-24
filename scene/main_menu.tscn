@@ -143,6 +143,9 @@ layout_mode = 2
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
 theme_override_font_sizes/font_size = 64
 text = "Today's Special"
 vertical_alignment = 1
@@ -155,8 +158,9 @@ layout_mode = 2
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.5372549, 0.38039216, 0.29803923, 1)
-theme_override_colors/font_hover_color = Color(0.2652908, 0.2652908, 0.2652908, 1)
+theme_override_colors/font_hover_color = Color(0.26666668, 0.26666668, 0.26666668, 0.26666668)
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxEmpty_bhunq")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_riqys")
@@ -169,30 +173,13 @@ text = "Story mode"
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Exit" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=1777572657]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 8
-theme_override_colors/font_hover_color = Color(0.5372549, 0.38039216, 0.29803923, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.26666668, 0.26666668, 0.26666668, 1)
-theme_override_font_sizes/font_size = 34
-theme_override_styles/normal = SubResource("StyleBoxEmpty_c0dwe")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_x5kjr")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_pxpx2")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_moq8s")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_3im1c")
-text = "Exit"
-
-[node name="MarginContainer4" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer" unique_id=335018168]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-
 [node name="Credit" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=1210003871]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 8
-theme_override_colors/font_hover_color = Color(0.5372549, 0.38039216, 0.29803923, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.26666668, 0.26666668, 0.26666668, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.5372549, 0.38039216, 0.29803923, 1)
+theme_override_colors/font_hover_color = Color(0.26666668, 0.26666668, 0.26666668, 0.26666668)
 theme_override_font_sizes/font_size = 34
 theme_override_styles/normal = SubResource("StyleBoxEmpty_c0dwe")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_x5kjr")
@@ -200,6 +187,25 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_pxpx2")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_moq8s")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_3im1c")
 text = "Credit"
+
+[node name="MarginContainer4" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer" unique_id=335018168]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Exit" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=1777572657]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.5372549, 0.38039216, 0.29803923, 1)
+theme_override_colors/font_hover_color = Color(0.26666668, 0.26666668, 0.26666668, 0.26666668)
+theme_override_font_sizes/font_size = 34
+theme_override_styles/normal = SubResource("StyleBoxEmpty_c0dwe")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_x5kjr")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pxpx2")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_moq8s")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3im1c")
+text = "Exit"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=812548603]
 transform = Transform3D(0.9962743, -0.08289781, 0.023781009, 0.018261256, 0.47227454, 0.88126236, -0.084285885, -0.8775447, 0.47202882, -6.4932528, 5.9683833, 13.17595)
@@ -214,7 +220,7 @@ autoplay = &"camera_new"
 speed_scale = 0.3
 
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Story" to="." method="_on_story_pressed"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Credit" to="." method="_on_credit_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
 
 [editable path="Background/Restaurant"]

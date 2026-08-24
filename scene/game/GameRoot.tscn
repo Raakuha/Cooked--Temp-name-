@@ -21,7 +21,6 @@
 [ext_resource type="Script" uid="uid://qvk6yf1otw6x" path="res://script/managers/psychiatrist_sequence_manager.gd" id="14_o3te2"]
 [ext_resource type="Script" uid="uid://irevklmrhvad" path="res://script/customer/customer_database.gd" id="15_vprn7"]
 [ext_resource type="Script" uid="uid://cl423sww4t3q0" path="res://script/customer/customer_profile.gd" id="16_3rlmj"]
-[ext_resource type="Script" uid="uid://df2u5jepn1dge" path="res://script/managers/CookingSequence_manager.gd" id="16_d54mb"]
 [ext_resource type="PackedScene" uid="uid://cdg5gj08rmyys" path="res://scene/workstation_registry.tscn" id="16_nqm02"]
 [ext_resource type="PackedScene" uid="uid://dko3175p12cb" path="res://scene/game/basement_temp.tscn" id="17_hd2yi"]
 [ext_resource type="Resource" uid="uid://na4mbvmrtfsv" path="res://data/customers/ulbar.tres" id="17_qf78g"]
@@ -73,9 +72,6 @@ geometry_parsed_geometry_type = 0
 agent_height = 0.5
 agent_radius = 0.25
 edge_max_error = 0.5
-
-
-
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_thd88"]
 albedo_color = Color(0.17860413, 0.41012383, 1, 1)
@@ -249,6 +245,7 @@ metallic = 1.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ucjqn"]
 material = SubResource("StandardMaterial3D_y8wd6")
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_riqys"]
 size = Vector3(0.5107422, 1.6810303, 0.9510498)
 
@@ -369,7 +366,7 @@ script = ExtResource("37_y6ywc")
 mysterious_scene = ExtResource("38_wq1cb")
 
 [node name="CookingSequenceManager" type="Node" parent="Managers" unique_id=33992674]
-script = ExtResource("16_d54mb")
+script = ExtResource("40_o7h24")
 
 [node name="WorkstationRegistry" parent="Managers" unique_id=1002319064 instance=ExtResource("16_nqm02")]
 
@@ -544,6 +541,7 @@ prompt_shadow_color = Color(0, 0, 0, 1)
 [node name="PrepCheckListUI" parent="UI" unique_id=2144214878 node_paths=PackedStringArray("cooking_sequence_manager", "item_pick_manager") instance=ExtResource("29_usim7")]
 cooking_sequence_manager = NodePath("../../Managers/CookingSequenceManager")
 item_pick_manager = NodePath("../../Managers/ItemPickManager")
+
 [node name="TutorialMenu" type="CanvasLayer" parent="UI" unique_id=632985895]
 visible = false
 
@@ -614,18 +612,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.238777, 0.20493329, -2.8922
 [node name="MysteriousSpawn" type="Marker3D" parent="SpawnPoints" unique_id=505856605]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2552614, 1.1077995, 1.1251287)
 
-
-[node name="Player" parent="." unique_id=835283696 instance=ExtResource("7_m5dmv")]
-transform = Transform3D(-0.99953204, 0, -0.030587163, 0, 1, 0, 0.030587163, 0, -0.99953204, 15.407942, 1.3160796, -5.7124176)
-script = ExtResource("31_usim7")
-
 [node name="TutorialPolicePoint" type="Marker3D" parent="SpawnPoints" unique_id=1248771850]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.350202, 1.2878685, 1.0835726)
 
 [node name="TutorialPoliceExit" type="Marker3D" parent="SpawnPoints" unique_id=1393585412]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3265176, 0.8337264, 5.211712)
 
-
+[node name="Player" parent="." unique_id=835283696 instance=ExtResource("7_m5dmv")]
+transform = Transform3D(-0.99953204, 0, -0.030587163, 0, 1, 0, 0.030587163, 0, -0.99953204, 15.407942, 1.3160796, -5.7124176)
+script = ExtResource("31_usim7")
 
 [node name="DialogueMarker" parent="Player" index="0" unique_id=1648197195]
 transform = Transform3D(1, 0, -7.450581e-09, 0, 1, 0, 7.450581e-09, 0, 1, -0.02500534, 2, 1.0890944)
@@ -931,6 +926,7 @@ item_pick_manager = NodePath("../../Managers/ItemPickManager")
 
 [node name="NavigationTarget" parent="World/Oven" index="0" unique_id=526064413]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.38705873)
+
 [node name="PoliceCarSequence" type="Node3D" parent="World" unique_id=2096176667]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.133283, 0, 41.868774)
 
@@ -1157,34 +1153,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5760617, 0.5815096, -10.674
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/StaticBody3D4" unique_id=908340246]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9015827, 1.1952515, 1.6835327)
 shape = SubResource("BoxShape3D_5whnb")
-
-[node name="Main_Menu" type="Node3D" parent="World" unique_id=1473635847]
-
-[node name="Control" type="Control" parent="World/Main_Menu" unique_id=19059128]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Start" type="TextureButton" parent="World/Main_Menu/Control" unique_id=1413886499]
-layout_mode = 0
-offset_left = 484.0
-offset_top = 364.0
-offset_right = 524.0
-offset_bottom = 404.0
-
-[node name="Settings" type="TextureButton" parent="World/Main_Menu/Control" unique_id=1684663101]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Quit" type="TextureButton" parent="World/Main_Menu/Control" unique_id=1304221772]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Camera3D" type="Camera3D" parent="World/Main_Menu" unique_id=290856645]
-transform = Transform3D(0.49876422, 0, -0.035132475, 0, 0.5, 0, 0.035132475, 0, 0.49876422, 1.6625643, 2.2670832, 6.1452937)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=8132546]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.4880967, 0)
