@@ -1,8 +1,118 @@
 [gd_scene format=3 uid="uid://41jgmjivqtya"]
 
-[ext_resource type="Texture2D" uid="uid://irim7j8o883i" path="res://Screenshot 2026-07-22 200509.png" id="1_3er1b"]
+[ext_resource type="PackedScene" uid="uid://2vebttq24dyx" path="res://scene/game/restaurant.tscn" id="1_3er1b"]
+[ext_resource type="Script" uid="uid://dmbcdn2j4r00s" path="res://script/ui/main_menu.gd" id="1_hxu56"]
 
-[node name="Main_Menu" type="Control" unique_id=1657926106]
+[sub_resource type="CylinderMesh" id="CylinderMesh_bhunq"]
+top_radius = 1.402832
+bottom_radius = 1.402832
+height = 0.4744873
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bhunq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_riqys"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sn0t7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6f8o3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qr0ht"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c0dwe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x5kjr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pxpx2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_moq8s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3im1c"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3er1b"]
+sky_top_color = Color(0.5417775, 0.830462, 1, 1)
+sky_horizon_color = Color(0.9467867, 0.90635526, 0.8549783, 1)
+sky_curve = 0.20490597
+ground_bottom_color = Color(0.085058875, 0.057866305, 0.04686211, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_curve = 0.03482203
+
+[sub_resource type="Sky" id="Sky_1fxwu"]
+sky_material = SubResource("ProceduralSkyMaterial_3er1b")
+
+[sub_resource type="Environment" id="Environment_hxu56"]
+background_mode = 2
+sky = SubResource("Sky_1fxwu")
+glow_enabled = true
+
+[sub_resource type="Animation" id="Animation_3er1b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/SubViewportContainer/SubViewport/Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-6.4328327, 5.6574316, 12.37367)]
+}
+
+[sub_resource type="Animation" id="Animation_hxu56"]
+resource_name = "camera_new"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/SubViewportContainer/SubViewport/Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2.0666666, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-6.433, 5.657, 12.229), Vector3(-6.35, 5.7, 12.229), Vector3(-6.433, 5.657, 12.229), Vector3(-6.35, 5.7, 12.229), Vector3(-6.433, 5.657, 12.229)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2fwvj"]
+_data = {
+&"RESET": SubResource("Animation_3er1b"),
+&"camera_new": SubResource("Animation_hxu56")
+}
+
+[node name="Main_Menu" type="CanvasLayer" unique_id=7612923]
+script = ExtResource("1_hxu56")
+
+[node name="Background" type="Node3D" parent="." unique_id=574786683]
+
+[node name="Restaurant" parent="Background" unique_id=424843313 instance=ExtResource("1_3er1b")]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Background" unique_id=1563866964]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="Background/SubViewportContainer" unique_id=635601636]
+handle_input_locally = false
+msaa_3d = 3
+use_taa = true
+use_debanding = true
+use_occlusion_culling = true
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Background/SubViewportContainer/SubViewport" unique_id=1308228093]
+transform = Transform3D(0.9999898, 0, 0.0045083687, 0, 1, 0, -0.0045083687, 0, 0.9999898, -6.4328327, 5.6574316, 12.37367)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Background/SubViewportContainer/SubViewport" unique_id=665378138]
+transform = Transform3D(1, 0, 0, 0, 0.04018293, -0.99919236, 0, 0.99919236, 0.04018293, -7.718188, 5.511933, 9.265716)
+mesh = SubResource("CylinderMesh_bhunq")
+
+[node name="Control" type="Control" parent="." unique_id=594961328]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,26 +120,101 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background_menu" type="Node2D" parent="." unique_id=1026418851]
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=1959044662]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 80
 
-[node name="Sprite2D" type="Sprite2D" parent="Background_menu" unique_id=971518668]
-position = Vector2(960.1399, 539.67395)
-scale = Vector2(2.4970312, 2.6518524)
-texture = ExtResource("1_3er1b")
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer" unique_id=1316371572]
+layout_mode = 2
 
-[node name="Start" type="TextureButton" parent="." unique_id=2003418397]
-layout_mode = 0
-offset_left = 484.0
-offset_top = 364.0
-offset_right = 524.0
-offset_bottom = 404.0
+[node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer" unique_id=1282687646]
+custom_minimum_size = Vector2(0, -15.13)
+layout_mode = 2
 
-[node name="Settings" type="TextureButton" parent="." unique_id=1332293569]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Title" type="Label" parent="Control/MarginContainer/VBoxContainer" unique_id=854219672]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 64
+text = "Today's Special"
+vertical_alignment = 1
 
-[node name="Quit" type="TextureButton" parent="." unique_id=1300333057]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer" unique_id=683448074]
+custom_minimum_size = Vector2(0, 189.34)
+layout_mode = 2
+
+[node name="Story" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=819655698]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_pressed_color = Color(0.5372549, 0.38039216, 0.29803923, 1)
+theme_override_colors/font_hover_color = Color(0.2652908, 0.2652908, 0.2652908, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_bhunq")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_riqys")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_sn0t7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_6f8o3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qr0ht")
+text = "Story mode"
+
+[node name="MarginContainer3" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer" unique_id=290288584]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Exit" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=1777572657]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_hover_color = Color(0.5372549, 0.38039216, 0.29803923, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.26666668, 0.26666668, 0.26666668, 1)
+theme_override_font_sizes/font_size = 34
+theme_override_styles/normal = SubResource("StyleBoxEmpty_c0dwe")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_x5kjr")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pxpx2")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_moq8s")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3im1c")
+text = "Exit"
+
+[node name="MarginContainer4" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer" unique_id=335018168]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Credit" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=1210003871]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_hover_color = Color(0.5372549, 0.38039216, 0.29803923, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.26666668, 0.26666668, 0.26666668, 1)
+theme_override_font_sizes/font_size = 34
+theme_override_styles/normal = SubResource("StyleBoxEmpty_c0dwe")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_x5kjr")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pxpx2")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_moq8s")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3im1c")
+text = "Credit"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=812548603]
+transform = Transform3D(0.9962743, -0.08289781, 0.023781009, 0.018261256, 0.47227454, 0.88126236, -0.084285885, -0.8775447, 0.47202882, -6.4932528, 5.9683833, 13.17595)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1234986193]
+environment = SubResource("Environment_hxu56")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1594101959]
+libraries/ = SubResource("AnimationLibrary_2fwvj")
+autoplay = &"camera_new"
+speed_scale = 0.3
+
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Story" to="." method="_on_story_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Credit" to="." method="_on_credit_pressed"]
+
+[editable path="Background/Restaurant"]
