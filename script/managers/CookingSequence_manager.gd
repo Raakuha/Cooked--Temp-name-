@@ -3,6 +3,7 @@ class_name CookingSequenceManager
 
 signal recipe_started(recipe_id: String)
 signal step_started(step: Dictionary)
+@onready var menu_deadline_timer: MenuDeadlineTimer = $"../MenuDeadlineTimer"
 
 # R-P3-10: checklist state, dipancarkan tiap kali berubah (termasuk saat
 # start_recipe, biar UI/orkestrasi selalu punya state awal yang benar).
@@ -153,12 +154,7 @@ func get_first_eligible_at(workstation: String) -> String:
 	return ""
 
 
-# R-P3-10 fix: semua item_id yang SAH diambil sekarang di 1 workstation --
-# bisa lebih dari 1 kalau ada beberapa checklist item yang kebetulan
-# nunjuk ke workstation yang sama (mis. daging & telur sama-sama di
-# REFRIGERATOR). Dipakai buat ngasih tau Workstation "barang mana aja
-# yang boleh diterima sekarang", bukan cuma 1 yang "seharusnya" menurut
-# urutan data.
+
 func _get_eligible_item_ids_at(workstation: String) -> Array:
 	var ids: Array = []
 
@@ -424,3 +420,34 @@ func cancel_current_prep() -> void:
 	_picked_item_ids_this_action.clear()
 
 	checklist_updated.emit(_checklist.duplicate())
+
+func restart_current_recipe() -> void:
+	if recipe_id.is_empty():
+		return
+	var  recipe_step_executor := $"../RecipeStepExecutor"
+	
+	if recipe_step_executor != null:
+		recipe_step_executor.cancel_current_step()
+	_checklist.clear()
+	for  item in _prep_items:
+		_checklist[item["checklist_id"]] = false
+		
+	_active_prep_index = -1
+	_active_prep_step_idx = 0
+	_picked_item_ids_this_action.clear()
+	
+	_in_cooking_phase = false
+	_cooking_step_idx = 0
+	
+	current_result = CookingResult.new()
+	current_result.reset(recipe_id)
+	active = true
+	
+	if recipe_step_executor != null:
+		recipe_step_executor.set_recipe_name(recipe_id)
+		
+	recipe_started.emit(recipe_id)
+	checklist_updated.emit(_checklist.duplicate())
+	
+	if _prep_items.is_empty():
+		_start_cooking_phase()

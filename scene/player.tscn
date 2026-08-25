@@ -2,8 +2,6 @@
 
 [ext_resource type="Script" uid="uid://kqky5gta3jw4" path="res://script/Player.gd" id="1_xo3ru"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_xo3ru"]
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bhunq"]
 radius = 0.4
 
@@ -111,10 +109,6 @@ shadow_mesh = SubResource("ArrayMesh_kcyvn")
 script = ExtResource("1_xo3ru")
 
 [node name="karakterTest" type="Node3D" parent="." unique_id=1041359132]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1564992471]
-visible = false
-mesh = SubResource("CapsuleMesh_xo3ru")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1468989090]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7311915, 0)

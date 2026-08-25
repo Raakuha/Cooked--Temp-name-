@@ -64,6 +64,7 @@
 [ext_resource type="Script" uid="uid://df2u5jepn1dge" path="res://script/managers/CookingSequence_manager.gd" id="40_o7h24"]
 [ext_resource type="Script" uid="uid://cmtyyvc0dq0au" path="res://script/managers/police_opening_manager.gd" id="41_qtc76"]
 [ext_resource type="Script" uid="uid://c5qp3eh338108" path="res://script/managers/tutorial_sequence_manager.gd" id="42_x3618"]
+[ext_resource type="Script" uid="uid://djx83dpr3200y" path="res://script/ui/pause_menu.gd" id="65_61jv0"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_riqys"]
 vertices = PackedVector3Array(-2.335884, 3.04084, -17.119614, -2.335884, 3.04084, -15.619614, -1.5858841, 3.04084, -15.619614, -1.5858841, 3.04084, -17.119614, -1.3358841, 1.5408399, -15.369614, -1.3358841, 1.5408399, -14.369614, -0.5858841, 1.5408399, -14.369614, -0.5858841, 1.5408399, -15.369614, 3.414116, 0.5408399, -10.119614, 3.414116, 0.5408399, -9.869614, 3.664116, 0.5408399, -9.869614, 4.914116, 0.5408399, -10.869614, 3.664116, 0.5408399, -8.619614, 3.414116, 0.5408399, -8.619614, 3.414116, 0.5408399, -8.369614, 4.914116, 0.5408399, -7.6196136, -1.5858841, 0.5408399, -5.8696136, -1.5858841, 0.5408399, -6.1196136, -1.8358841, 0.5408399, -6.1196136, -2.835884, 0.5408399, -4.8696136, -1.8358841, 0.5408399, -7.3696136, -1.5858841, 0.5408399, -7.3696136, -1.5858841, 0.5408399, -7.6196136, -2.835884, 0.5408399, -8.369614, -1.0858841, 0.5408399, -10.869614, -1.0858841, 0.5408399, -11.119614, -1.3358841, 0.5408399, -11.119614, -2.835884, 0.5408399, -10.119614, -1.3358841, 0.5408399, -12.119614, -1.0858841, 0.5408399, -12.119614, -1.0858841, 0.5408399, -12.369614, 0.6641159, 0.5408399, -13.619614, 0.6641159, 0.5408399, -13.869614, 0.4141159, 0.5408399, -13.869614, -0.085884094, 0.5408399, -13.869614, -0.3358841, 0.5408399, -13.869614, -0.3358841, 0.5408399, -13.619614, 0.4141159, 0.5408399, -15.369614, -0.085884094, 0.5408399, -15.369614, -2.835884, 0.5408399, -13.619614, 4.914116, 0.5408399, -12.369614, 4.914116, 0.5408399, -13.619614, 4.914116, 0.5408399, -4.8696136, 4.914116, 0.5408399, -5.8696136, 0.9141159, 1.5408399, -15.369614, 0.9141159, 1.5408399, -14.369614, 1.6641159, 1.5408399, -14.369614, 1.6641159, 1.5408399, -15.369614, -3.085884, 7.29084, -13.869614, -3.085884, 7.29084, -13.119614, 4.914116, 7.29084, -13.119614, 4.914116, 7.29084, -13.869614, 5.914116, 5.04084, -13.619614, 5.414116, 5.04084, -13.619614, 5.414116, 5.04084, -12.869614, 5.414116, 5.04084, -5.6196136, 5.414116, 5.04084, -4.6196136, 5.914116, 5.04084, -4.6196136, 5.164116, 5.04084, -12.869614, 5.164116, 5.04084, -5.6196136, -3.335884, 5.04084, -12.619614, -3.335884, 5.04084, -5.8696136, -2.585884, 5.04084, -5.8696136, -2.585884, 5.04084, -12.619614, -0.8358841, 3.79084, -11.869614, -0.8358841, 3.79084, -11.369614, 4.664116, 3.79084, -11.369614, 4.664116, 3.79084, -11.869614, -2.085884, 3.79084, -9.619614, -2.085884, 3.79084, -8.869614, 3.164116, 3.79084, -8.869614, 3.164116, 3.79084, -9.619614, -2.835884, 0.5408399, -9.369614, -2.835884, 0.5408399, -9.119614, 2.914116, 0.5408399, -9.119614, 2.914116, 0.5408399, -9.369614, -1.3358841, 3.79084, -7.1196136, -1.3358841, 3.79084, -6.3696136, 4.664116, 3.79084, -6.3696136, 4.664116, 3.79084, -7.1196136, -1.0858841, 0.5408399, -6.8696136, -1.0858841, 0.5408399, -6.6196136, 4.664116, 0.5408399, -6.6196136, 4.664116, 0.5408399, -6.8696136, -3.085884, 7.29084, -5.3696136, -3.085884, 7.29084, -4.6196136, 4.914116, 7.29084, -4.6196136, 4.914116, 7.29084, -5.3696136, 0.9141159, 0.7908399, -3.1196136, 1.1641159, 0.7908399, -3.1196136, 1.1641159, 0.5408399, -3.3696136, 0.9141159, 0.5408399, -4.1196136, 2.914116, 0.5408399, -3.3696136, 2.914116, 0.5408399, -3.1196136, 3.164116, 0.5408399, -3.1196136, 3.414116, 0.5408399, -3.8696136, 3.164116, 0.5408399, -3.8696136, 3.164116, 0.5408399, -1.6196136, 2.914116, 0.5408399, -1.6196136, 2.914116, 0.5408399, -1.3696136, 1.1641159, 0.5408399, -1.3696136, 1.1641159, 0.7908399, -1.6196136, 0.9141159, 0.7908399, -1.6196136, 0.9141159, 0.7908399, -0.36961365, 1.1641159, 0.7908399, -0.36961365, 1.1641159, 0.5408399, -0.61961365, 2.914116, 0.5408399, -0.61961365, 2.914116, 0.5408399, -0.36961365, 3.164116, 0.5408399, -0.36961365, 3.164116, 0.5408399, 1.1303864, 2.914116, 0.5408399, 1.1303864, 2.914116, 0.5408399, 1.3803864, 1.1641159, 0.5408399, 1.3803864, 1.1641159, 0.7908399, 1.1303864, 0.9141159, 0.7908399, 1.1303864, 0.9141159, 0.7908399, 2.6303864, 1.1641159, 0.7908399, 2.6303864, 1.1641159, 0.5408399, 2.3803864, 2.914116, 0.5408399, 2.3803864, 2.914116, 0.5408399, 2.6303864, 3.164116, 0.5408399, 2.6303864, 3.164116, 0.5408399, 4.1303864, 2.914116, 0.5408399, 4.1303864, 2.914116, 0.5408399, 4.3803864, 5.914116, 0.5408399, 4.6303864, 5.914116, 0.5408399, 4.3803864, 1.1641159, 0.5408399, 4.3803864, 1.1641159, 0.7908399, 4.1303864, 0.9141159, 0.7908399, 4.1303864, 0.9141159, 0.5408399, 4.6303864, 2.164116, 0.5408399, 4.3803864, 7.414116, 0.5408399, 4.6303864, 7.414116, 0.5408399, 4.8803864, 7.664116, 0.5408399, 4.8803864, 7.914116, 0.5408399, 4.3803864, 5.414116, 0.5408399, -0.11961365, 5.414116, 0.5408399, -0.36961365, 5.164116, 0.5408399, -0.36961365, 5.164116, 0.5408399, -1.1196136, 5.414116, 0.5408399, -1.1196136, 5.414116, 0.5408399, -1.3696136, 4.914116, 0.5408399, -1.3696136, 4.914116, 0.5408399, -1.6196136, 4.664116, 0.5408399, -1.6196136, 2.164116, 0.5408399, -3.3696136, 2.164116, 0.7908399, -3.1196136, 2.664116, 0.7908399, -3.1196136, 2.664116, 0.5408399, -3.3696136, 3.164116, 0.5408399, -4.1196136, 2.664116, 0.5408399, -1.3696136, 2.664116, 0.7908399, -1.6196136, 2.164116, 0.7908399, -1.6196136, 2.164116, 0.5408399, -1.3696136, 8.164116, 0.5408399, 4.3803864, 8.664116, 0.5408399, -0.11961365, 2.164116, 0.5408399, -0.61961365, 2.164116, 0.7908399, -0.36961365, 2.664116, 0.7908399, -0.36961365, 2.664116, 0.5408399, -0.61961365, 2.664116, 0.5408399, 1.3803864, 2.664116, 0.7908399, 1.1303864, 2.164116, 0.7908399, 1.1303864, 2.164116, 0.5408399, 1.3803864, 2.164116, 0.5408399, 2.3803864, 2.164116, 0.7908399, 2.6303864, 2.664116, 0.7908399, 2.6303864, 2.664116, 0.5408399, 2.3803864, 4.664116, 0.5408399, -3.1196136, 4.414116, 0.5408399, -3.8696136, 4.664116, 0.5408399, -1.8696136, 2.664116, 0.5408399, 4.3803864, 2.664116, 0.7908399, 4.1303864, 2.164116, 0.7908399, 4.1303864, 6.414116, 0.5408399, 4.8803864, 6.914116, 0.5408399, 4.8803864, 6.914116, 0.5408399, 4.6303864, 6.164116, 0.5408399, 4.3803864, 8.164116, 0.5408399, 4.6303864, 8.664116, 0.5408399, 4.6303864, 4.664116, 0.5408399, -3.8696136, 4.414116, 0.5408399, -4.1196136, 3.414116, 0.5408399, -4.1196136, 5.164116, 0.5408399, -2.1196136, 5.164116, 0.5408399, -2.8696136, 5.664116, 0.5408399, -1.1196136, 5.914116, 0.5408399, -1.1196136, 5.914116, 0.5408399, -1.3696136, 5.664116, 0.5408399, -1.6196136, 8.164116, 0.5408399, -1.3696136, 7.914116, 0.5408399, -1.6196136, 5.914116, 0.5408399, -1.6196136, 8.164116, 0.5408399, -1.6196136, 5.914116, 0.5408399, -3.1196136, 5.664116, 0.5408399, -3.1196136, 5.664116, 0.5408399, -1.8696136, 5.914116, 0.5408399, -1.8696136, 7.914116, 0.5408399, -2.1196136, 8.164116, 0.5408399, -2.1196136, 8.164116, 0.5408399, -3.3696136, 5.914116, 0.5408399, -3.3696136, 1.4141159, 1.2908399, -2.8696136, 1.4141159, 1.2908399, -1.8696136, 1.9141159, 1.2908399, -1.8696136, 1.9141159, 1.2908399, -2.8696136, 0.4141159, 1.5408399, -0.36961365, 0.4141159, 1.5408399, 0.63038635, 0.6641159, 1.5408399, 0.63038635, 0.6641159, 1.5408399, -0.36961365, 1.4141159, 1.2908399, -0.11961365, 1.4141159, 1.2908399, 0.88038635, 1.9141159, 1.2908399, 0.88038635, 1.9141159, 1.2908399, -0.11961365, 0.4141159, 1.5408399, 2.8803864, 0.4141159, 1.5408399, 4.1303864, 0.6641159, 1.5408399, 4.1303864, 0.6641159, 1.5408399, 2.8803864, 1.4141159, 1.2908399, 2.8803864, 1.4141159, 1.2908399, 3.8803864, 1.9141159, 1.2908399, 3.8803864, 1.9141159, 1.2908399, 2.8803864, -17.085884, 4.54084, 12.380386, -17.085884, 4.54084, 16.630386, -16.585884, 4.54084, 16.630386, -16.585884, 4.54084, 12.380386, -15.585884, 0.7908399, 12.380386, -15.585884, 0.7908399, 16.630386, -12.085884, 0.7908399, 16.630386, -12.085884, 0.7908399, 12.380386, -11.085884, 4.54084, 12.380386, -11.085884, 4.54084, 16.630386, -10.335884, 4.54084, 16.630386, -10.335884, 4.54084, 12.380386, -6.835884, 1.0408399, 15.630386, -6.835884, 1.0408399, 16.380386, -6.085884, 1.0408399, 16.380386, -6.085884, 1.0408399, 15.630386)
@@ -437,29 +438,39 @@ script = ExtResource("17_qwtac")
 
 [node name="Control" type="Control" parent="UI/EndingScreen" unique_id=1690230869]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 6.0
-offset_top = 6.0
-offset_right = 956.0
-offset_bottom = 542.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="GameTitle" type="Label" parent="UI/EndingScreen/Control" unique_id=1787125660]
-layout_mode = 0
-offset_left = 345.0
-offset_top = 142.0
-offset_right = 699.0
-offset_bottom = 234.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -177.0
+offset_right = 177.0
+offset_bottom = 92.0
+grow_horizontal = 2
 theme_override_font_sizes/font_size = 40
 text = "COOKED!!!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Credits" type="Label" parent="UI/EndingScreen/Control" unique_id=1433242302]
-layout_mode = 0
-offset_left = 195.0
-offset_top = 150.0
-offset_right = 813.0
-offset_bottom = 499.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -309.0
+offset_top = -174.5
+offset_right = 324.0
+offset_bottom = 163.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "A GAME BY
 
 Bambang
@@ -494,28 +505,28 @@ grow_vertical = 2
 
 [node name="DayLabel" type="Label" parent="UI/DaySummaryUI/Control" unique_id=859200205]
 layout_mode = 0
-offset_left = 595.0
-offset_top = 90.0
-offset_right = 953.0
-offset_bottom = 530.0
+offset_left = 426.0
+offset_top = 176.0
+offset_right = 784.0
+offset_bottom = 616.0
 theme_override_font_sizes/font_size = 30
 text = "Day 1 Complete"
 
 [node name="CustomerLabel" type="Label" parent="UI/DaySummaryUI/Control" unique_id=127724704]
 layout_mode = 0
-offset_left = 598.0
-offset_top = 125.0
-offset_right = 957.0
-offset_bottom = 538.0
+offset_left = 429.0
+offset_top = 211.0
+offset_right = 788.0
+offset_bottom = 624.0
 theme_override_font_sizes/font_size = 30
 text = "Customers Served : 0"
 
 [node name="ProfitLabel" type="Label" parent="UI/DaySummaryUI/Control" unique_id=1627118263]
 layout_mode = 0
-offset_left = 604.0
-offset_top = 168.0
-offset_right = 961.0
-offset_bottom = 535.0
+offset_left = 435.0
+offset_top = 254.0
+offset_right = 792.0
+offset_bottom = 621.0
 theme_override_font_sizes/font_size = 30
 text = "Profit : Rp 0"
 
@@ -547,19 +558,27 @@ visible = false
 
 [node name="Control" type="Control" parent="UI/TutorialMenu" unique_id=130338459]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 957.0
-offset_bottom = 543.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="UI/TutorialMenu/Control" unique_id=2056456065]
-layout_mode = 0
-offset_right = 964.0
-offset_bottom = 544.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/TutorialMenu/Control/Panel" unique_id=1298702429]
-layout_mode = 0
-offset_right = 961.0
-offset_bottom = 540.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label" type="Label" parent="UI/TutorialMenu/Control/Panel/VBoxContainer" unique_id=218369569]
 layout_mode = 2
@@ -567,6 +586,62 @@ text = "Title:
 MENU RESTORAN"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PauseMenu" type="CanvasLayer" parent="UI" unique_id=335926113]
+process_mode = 3
+layer = 100
+
+[node name="PauseMenu" type="Control" parent="UI/PauseMenu" unique_id=1326864250]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("65_61jv0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseMenu/PauseMenu" unique_id=2058643897]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -139.0
+offset_top = -150.0
+offset_right = 145.0
+offset_bottom = 221.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Paused" type="Label" parent="UI/PauseMenu/PauseMenu/VBoxContainer" unique_id=1699053706]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.87697905, 0.55019224, 2.5027991e-06, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 5
+theme_override_font_sizes/font_size = 79
+text = "Paused"
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PauseMenu/PauseMenu/VBoxContainer" unique_id=479381334]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Restart" type="Button" parent="UI/PauseMenu/PauseMenu/VBoxContainer" unique_id=2021691851]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Restart"
+
+[node name="Resume" type="Button" parent="UI/PauseMenu/PauseMenu/VBoxContainer" unique_id=1143915651]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Resume"
+
+[node name="Quit" type="Button" parent="UI/PauseMenu/PauseMenu/VBoxContainer" unique_id=1254988176]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Quit"
 
 [node name="SpawnPoints" type="Node" parent="." unique_id=237271012]
 
@@ -913,6 +988,9 @@ interaction_camera_anchor = NodePath("InteractionCameraAnchor")
 typing_manager = NodePath("../../Managers/TypingManager")
 item_pick_manager = NodePath("../../Managers/ItemPickManager")
 
+[node name="NavigationTarget" parent="World/Cutting_Board" index="0" unique_id=526064413]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25673056, -0.2740487, 0)
+
 [node name="InteractionCameraAnchor" parent="World/Cutting_Board" index="2" unique_id=1388993636]
 transform = Transform3D(-3.4273334e-08, -0.561565, 0.8274327, -2.7129756e-08, 0.8274327, 0.561565, -1, -3.201345e-09, -4.3594e-08, 0.2260518, 0.24478096, 0)
 
@@ -1179,6 +1257,9 @@ environment = SubResource("Environment_0wo8s")
 [connection signal="typing_completed" from="Managers/TypingManager" to="UI/TypingUI" method="_on_typing_manager_typing_completed"]
 [connection signal="typing_started" from="Managers/TypingManager" to="UI/TypingUI" method="_on_typing_manager_typing_started"]
 [connection signal="typing_updated" from="Managers/TypingManager" to="UI/TypingUI" method="_on_typing_manager_typing_updated"]
+[connection signal="pressed" from="UI/PauseMenu/PauseMenu/VBoxContainer/Restart" to="UI/PauseMenu/PauseMenu" method="_on_restart_pressed"]
+[connection signal="pressed" from="UI/PauseMenu/PauseMenu/VBoxContainer/Resume" to="UI/PauseMenu/PauseMenu" method="_on_resume_pressed"]
+[connection signal="pressed" from="UI/PauseMenu/PauseMenu/VBoxContainer/Quit" to="UI/PauseMenu/PauseMenu" method="_on_quit_pressed"]
 
 [editable path="UI/DialogueBubble"]
 [editable path="UI/GameHUD"]

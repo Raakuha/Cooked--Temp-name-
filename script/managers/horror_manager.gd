@@ -3,7 +3,7 @@ extends Node
 
 var triggered_events: Array[int] = []
 
-@onready var main_light: DirectionalLight3D = $"../../World/DirectionalLight3D"
+@onready var main_light: DirectionalLight3D = $"../../DirectionalLight3D"
 
 var original_energy: float = 1.0
 

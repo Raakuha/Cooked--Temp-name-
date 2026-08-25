@@ -126,12 +126,16 @@ func run_take_action() -> void:
 
 	while true:
 		var picked: Dictionary = await item_pick_manager.run_pick(candidates)
+		if picked.get("cancelled", false):
+			print("[Workstation] TAKE dibatalkan karena restart.")
 
+			action_in_progress = false
+			current_action = ""
+			current_action_data = {}
+
+			return
 		if picked.get("exit", false):
-			# R-P3-10: player boleh keluar tangan kosong (BACKSPACE tanpa
-			# ambil apa-apa) -- CookingSequenceManager yang nentuin ini
-			# BUKAN "selesai", checklist tetap kosong (lihat
-			# _complete_active_prep_item(), bukan di sini).
+	
 			break
 
 		if not required_item_ids.has(picked["item_id"]):
@@ -319,7 +323,13 @@ func run_stove_timing_sequence() -> void:
 
 	for prompt in prompts:
 		var result: String = await stove_timing_ui.run_timing(String(prompt))
-
+		
+		if result == "CANCELED":
+			action_in_progress = false
+			current_action = ""
+			current_action_data = {}
+			return
+		
 		results.append(result)
 
 		print(
@@ -395,3 +405,16 @@ func finish_interaction() -> void:
 func finish_action_after_delay(duration: float) -> void:
 	var timer := get_tree().create_timer(duration)
 	timer.timeout.connect(complete_action)
+	
+func cancel_current_action() -> void:
+	if not action_in_progress:
+		return
+	if item_pick_manager != null:
+		item_pick_manager.cancel()
+	
+	if stove_timing_ui != null:
+		stove_timing_ui.cancel()
+		
+	action_in_progress = false
+	current_action = ""
+	current_action_data = {}

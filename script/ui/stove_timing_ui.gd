@@ -32,14 +32,7 @@ const MAX_VALUE := 100.0
 ## memutuskan cara memakainya.
 @export var suggested_miss_penalty: float = 5.0
 
-# ------------------------------------------------------------------
-# Visual: DIAL (jarum muter). Ini yang dipakai kalau desain gambar
-# kamu berbentuk lengkung/dial, bukan bar lurus.
-# ------------------------------------------------------------------
 
-## Node jarum (TextureRect). Pivot_offset-nya HARUS udah di-set di editor
-## ke titik poros dial (lihat instruksi terpisah). Kalau kosong, dial
-## rotary gak aktif -- fallback ke `bar` (linear) di bawah kalau itu ada.
 @export var needle: Control
 
 ## Sudut (derajat) jarum saat value = 0.
@@ -48,19 +41,12 @@ const MAX_VALUE := 100.0
 ## Sudut (derajat) jarum saat value = 100.
 @export var needle_max_angle: float = 60.0
 
-## Node gambar segmen zona GOOD (TextureRect, pivot_offset udah di-set
-## sama kayak needle). Diputer SEKALI ke posisi target_center, gak
-## di-resize/animate tiap frame kayak needle.
+
 @export var good_zone: Control
 
 ## Sama kayak good_zone, tapi buat segmen PERFECT.
 @export var perfect_zone: Control
 
-# ------------------------------------------------------------------
-# Visual: BAR (linear, sistem lama). Opsional, tetap didukung buat yang
-# masih pakai TextureProgressBar/ProgressBar biasa -- boleh dikosongin
-# kalau kamu udah full pindah ke dial di atas.
-# ------------------------------------------------------------------
 
 @export var bar: Range
 
@@ -77,6 +63,7 @@ var _elapsed: float = 0.0
 var _needle_value: float = 0.0
 var _round_label: String = "MASAK"
 
+var _timing_session_id : int = 0
 
 func _ready() -> void:
 	visible = false
@@ -103,6 +90,7 @@ func run_timing(round_label: String = "") -> String:
 
 
 func start_timing(round_label: String = "") -> void:
+	_timing_session_id += 1
 	if round_label != "":
 		_round_label = round_label
 
@@ -157,7 +145,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func _confirm(value: float) -> void:
 	_active = false
 	set_process(false)
-
+	
+	var  session_id := _timing_session_id
 	var result := evaluate(
 		value,
 		target_center,
@@ -169,7 +158,9 @@ func _confirm(value: float) -> void:
 
 	# Jeda singkat biar player sempat lihat hasilnya sebelum UI hilang.
 	await get_tree().create_timer(0.35).timeout
-
+	if session_id != _timing_session_id:
+		return
+	
 	visible = false
 	timing_completed.emit(result)
 
@@ -199,8 +190,7 @@ func _update_label(result: String) -> void:
 			result_badge.texture = miss_texture
 
 
-## Konversi value (skala 0-100) ke sudut jarum (derajat), dipakai buat
-## needle DAN buat naruh good_zone/perfect_zone di posisi target_center.
+
 func _angle_for_value(value: float) -> float:
 	var t: float = value / MAX_VALUE
 	return lerp(needle_min_angle, needle_max_angle, t)
@@ -237,3 +227,15 @@ static func evaluate(
 		return RESULT_GOOD
 
 	return RESULT_MISS
+
+func cancel() -> void:
+	if not _active:
+		return
+	_timing_session_id += 1
+	_active = false
+	set_process(false)
+	visible = false
+	
+	if result_badge != null:
+		result_badge.visible = false
+	timing_completed.emit("CANCELED")

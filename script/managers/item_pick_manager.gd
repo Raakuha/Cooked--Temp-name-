@@ -40,6 +40,18 @@ func run_pick(candidates: Array) -> Dictionary:
 	var result: Dictionary = await pick_completed
 	return result
 
+func cancel() -> void:
+	if not _picking:
+		return
+
+	print("[ItemPickManager] PICK CANCELLED")
+
+	_picking = false
+	_buffer = ""
+
+	pick_completed.emit({
+		"cancelled": true
+	})
 
 
 func run_return(label: String) -> void:

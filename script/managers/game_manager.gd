@@ -329,9 +329,6 @@ func _start_next_order_item() -> void:
 		if customer_manager.current_customer != null:
 			customer_manager.current_customer.receive_food()
 			customer_manager.send_customer_to_table()
-# =========================================================
-# DAY FLOW
-# =========================================================
 
 func start_day() -> void:
 	print("===== DAY START =====")
@@ -650,11 +647,7 @@ func play_customer_dialogue(
 	dialogue_type: String
 ) -> void:
 
-	print("========================")
-	print("CUSTOMER DIALOGUE")
-	print("Type :", dialogue_type)
-	print("Jumlah dialogue :", dialogues.size())
-	print("========================")
+
 
 	if dialogues.is_empty():
 
@@ -765,18 +758,16 @@ func start_group_typing() -> void:
 
 	_start_next_order_item()
 func _on_recipe_step_cancelled() -> void:
-	print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-	print("[GM] STEP CANCELLED DITERIMA")
-	print("[GM] memanggil cancel_current_prep()")
-	print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+	
 
 	cooking_sequence_manager.cancel_current_prep()
 func _on_order_deadline_expired() -> void:
-	print("[GameManager] SIGNAL DEADLINE DITERIMA")
+	
 
 	order_deadline_missed = true
 
 	cooking_sequence_manager.mark_deadline_expired()
+	
 func _calculate_order_deadline() -> float:
 	var total: float = 0.0
 
@@ -784,3 +775,19 @@ func _calculate_order_deadline() -> float:
 		total += menu_deadline_timer.get_deadline_for(recipe_id)
 
 	return total
+	
+func restart_current_order_timer() -> void:
+
+	var current_recipe_deadline := menu_deadline_timer.get_deadline_for(
+		cooking_sequence_manager.recipe_id
+	)
+
+	var total_deadline := current_recipe_deadline + _calculate_order_deadline()
+
+	print("========================")
+	print("[GameManager] RESTART ORDER TIMER")
+	print("Recipe aktif :", cooking_sequence_manager.recipe_id)
+	print("Total deadline baru :", total_deadline)
+	print("========================")
+
+	menu_deadline_timer.start_order(total_deadline)

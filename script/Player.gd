@@ -20,7 +20,8 @@ var mouse_look_enabled: bool = false
 func _ready() -> void:
 	navigation_agent_3d.path_desired_distance = ARRIVAL
 	navigation_agent_3d.target_desired_distance = ARRIVAL
-
+	
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	print("========================")
 	print("PLAYER READY")
 	print("========================")

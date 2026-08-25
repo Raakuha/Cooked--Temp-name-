@@ -83,3 +83,7 @@ func hide_dialog():
 func is_open() -> bool:
 
 	return visible
+	
+func hide_all_dialogue() -> void:
+	$Control/BubbleDialog.hide()
+	$Control/FullscreenDialog.hide()

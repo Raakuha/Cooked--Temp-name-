@@ -1,37 +1,16 @@
 extends Node
 class_name MenuDeadlineTimer
 
-## R-P3-11 --- Menu Cooking Deadline Timer.
-##
-## CATATAN PENTING: Bagian isi R-P3-11 di dokumen roadmap REV5 kosong --
-## judulnya ada, tapi Scope/DoD-nya tidak sengaja tidak tertulis di
-## dokumennya (loncat langsung ke bagian 3). Implementasi di bawah ini
-## disusun dari referensi silang yang ADA di dokumen yang sama:
-##   - Final Master Issue Order: "Per-menu deadline; late result feeds
-##     the existing negative-profit flow without changing the dish."
-##   - R-P3-06 scope: "menu-timer expiry" jadi salah satu input result
-##     contract; deadline TIDAK PERNAH mengubah hasil masakan.
-##   - Updated Execution Plan: "Deadline state ... reset per order."
-## Kalau asumsi ini meleset dari maksud aslinya, kasih tau -- struktur
-## file ini sengaja dibikin kecil & berdiri sendiri (cuma dengar sinyal
-## publik CookingSequenceManager, tidak mengubah isi CSM sama sekali,
-## sesuai Ownership Lock: CSM = contract milik Teammate) supaya gampang
-## disesuaikan tanpa bongkar banyak kode lain.
 
-## Menyala saat deadline mulai berjalan untuk sebuah order/recipe.
 signal deadline_started(recipe_id: String, duration: float)
 
 signal deadline_expired
 
-## Menyala setiap kali timer direset untuk order baru.
-signal deadline_reset(recipe_id: String)
+
 
 ## Deadline default (detik) kalau recipe_id tidak ada di RecipeData.DEADLINES.
-@export var default_deadline_seconds: float = 90.0
 
-## Hubungkan ke CookingSequenceManager yang sudah ada di scene (drag di
-## Inspector). Timer ini CUMA MENDENGARKAN sinyal publik CSM
-## (recipe_started/recipe_completed) -- tidak pernah memodifikasi CSM.
+
 @export var cooking_sequence_manager: CookingSequenceManager
 
 var _time_left: float = 0.0
@@ -55,15 +34,7 @@ func start_order(total_duration: float) -> void:
 	_running = true
 	_expired = false
 	_recipe_id = ""
-
 	set_process(true)
-
-	print(
-		"[MenuDeadlineTimer] ORDER TIMER START: ",
-		total_duration,
-		" detik"
-	)
-
 	deadline_started.emit("", _time_left)
 
 func stop_order() -> void:
@@ -87,10 +58,9 @@ func _process(delta: float) -> void:
 		print("[MenuDeadlineTimer] DEADLINE ORDER HABIS")
 		deadline_expired.emit()
 		
-## Ambil deadline (detik) untuk recipe_id tertentu. Kalau tidak ada
-## override di RecipeData.DEADLINES, pakai default_deadline_seconds.
+
 func get_deadline_for(recipe_id: String) -> float:
-	return RecipeData.DEADLINES.get(recipe_id, default_deadline_seconds)
+	return RecipeData.DEADLINES.get(recipe_id)
 
 
 func is_expired() -> bool:

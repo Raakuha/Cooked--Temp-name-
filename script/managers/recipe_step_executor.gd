@@ -303,3 +303,13 @@ func _on_action_completed(
 	)
 
 	step_completed.emit()
+func cancel_current_step() -> void:
+	current_step.clear()
+	waiting_for_action = false
+	pending_workstation = null
+	
+	if current_workstation != null:
+		if current_workstation.action_completed.is_connected(_on_action_completed):
+			current_workstation.action_completed.disconnect(_on_action_completed)
+		current_workstation.finish_interaction()
+		current_workstation = null
