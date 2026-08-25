@@ -107,3 +107,7 @@ func _on_item_pick_completed(_result: Dictionary) -> void:
 func _on_workstation_action_completed(_workstation, _action_name: String) -> void:
 	if _has_active_checklist:
 		panel.show()
+
+func hide_all_checklist()-> void:
+	
+	pass

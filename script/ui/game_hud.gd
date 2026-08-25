@@ -75,6 +75,7 @@ func _process(_delta: float) -> void:
 
 func _format_time(seconds: float) -> String:
 	var whole: int = int(ceil(seconds))
+	@warning_ignore("integer_division")
 	var minutes: int = whole / 60
 	var secs: int = whole % 60
 

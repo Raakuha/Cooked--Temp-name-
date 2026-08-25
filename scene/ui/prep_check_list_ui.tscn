@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://yir76e5jhl02"]
 
 [ext_resource type="Script" uid="uid://6j46ht2qcsbx" path="res://script/ui/prep_check_list_ui.gd" id="1_8m5pc"]
+[ext_resource type="FontFile" uid="uid://bcnauk8avrvvg" path="res://scene/ui/Super Mellow.ttf" id="2_26p1n"]
 
 [node name="PrepCheckListUI" type="Control" unique_id=700987832]
 layout_mode = 3
@@ -11,8 +12,8 @@ script = ExtResource("1_8m5pc")
 layout_mode = 0
 offset_left = 16.0
 offset_top = 48.0
-offset_right = 56.0
-offset_bottom = 88.0
+offset_right = 224.0
+offset_bottom = 238.0
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1144790267]
 layout_mode = 2
@@ -22,6 +23,7 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1896705189]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_26p1n")
 
 [node name="ListContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1014807274]
 layout_mode = 2

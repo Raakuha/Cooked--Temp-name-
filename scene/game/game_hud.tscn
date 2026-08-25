@@ -4,17 +4,22 @@
 
 [node name="GameHUD" type="CanvasLayer" unique_id=549213366 node_paths=PackedStringArray("deadline_label")]
 script = ExtResource("1_qlrop")
-deadline_label = NodePath("MarginContainer/VBoxContainer/Countdown")
+deadline_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Countdown")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=863858493]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=528066982]
+offset_left = 17.0
+offset_top = 13.0
+offset_right = 57.0
+offset_bottom = 63.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=408184155]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=863858493]
 layout_mode = 2
 
-[node name="ProfitLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=486827494]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=408184155]
 layout_mode = 2
 
-[node name="Countdown" type="Label" parent="MarginContainer/VBoxContainer" unique_id=877088982]
+[node name="ProfitLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=486827494]
+layout_mode = 2
+
+[node name="Countdown" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=877088982]
 layout_mode = 2

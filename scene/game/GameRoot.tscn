@@ -38,7 +38,7 @@
 [ext_resource type="Resource" uid="uid://byiybhbo26pfm" path="res://data/customers/pete.tres" id="23_cl4wr"]
 [ext_resource type="Resource" uid="uid://dnxup3dxhauuo" path="res://data/customers/lane.tres" id="24_dxea2"]
 [ext_resource type="Resource" uid="uid://bl4cnubtoxh10" path="res://data/customers/harlan.tres" id="25_4s62g"]
-[ext_resource type="PackedScene" path="res://scene/ui/ItemPickUI.tscn" id="25_5oyco"]
+[ext_resource type="PackedScene" uid="uid://cof3cms6w5g0y" path="res://scene/ui/ItemPickUI.tscn" id="25_5oyco"]
 [ext_resource type="Resource" uid="uid://cfnb6ab7qcah2" path="res://data/customers/james.tres" id="26_1ysa5"]
 [ext_resource type="Resource" uid="uid://cwayhp0e3dvn" path="res://data/customers/mark.tres" id="26_2mndr"]
 [ext_resource type="Resource" uid="uid://kovqdngyijtd" path="res://data/customers/juan.tres" id="27_5oyco"]

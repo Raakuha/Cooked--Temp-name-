@@ -17,6 +17,9 @@ var current_action_data: Dictionary = {}
 @export var camera_controller : CameraController
 @export var interaction_camera_anchor : Marker3D
 @export var typing_manager: TypingManager
+@export var animation_player: AnimationPlayer
+@export var start_animations: Dictionary = {}
+@export var complete_animations: Dictionary = {}
 
 
 @export var stove_timing_ui: StoveTimingUI
@@ -54,13 +57,23 @@ func get_prompt_position() -> Vector3:
 func _enter_tree() -> void:
 	add_to_group("workstations")
 
+func _try_play_animation(clip_name: String) -> void:
+	if clip_name == "" or animation_player == null:
+		return
+
+	if not animation_player.has_animation(clip_name):
+		return
+
+	animation_player.play(clip_name)
+
 func perform_action( action_name: String, interaction_data: Dictionary = {}) -> void:
 	action_in_progress = true
 	current_action = action_name
 	current_action_data = interaction_data
 
 	action_started.emit(action_name)
-
+	_try_play_animation(start_animations.get(action_name, ""))
+	
 	match action_name:
 		"TAKE":
 			run_take_action()
@@ -377,7 +390,8 @@ func complete_action() -> void:
 		" | item = ",
 		current_picked_item_id
 	)
-
+	_try_play_animation(complete_animations.get(finished_action, ""))
+	
 	action_finished.emit(finished_action)
 
 	action_completed.emit(
@@ -418,3 +432,5 @@ func cancel_current_action() -> void:
 	action_in_progress = false
 	current_action = ""
 	current_action_data = {}
+	
+	

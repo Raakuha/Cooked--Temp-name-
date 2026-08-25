@@ -7,11 +7,14 @@ var  pause_toggle := false
 @onready var resume: Button = $VBoxContainer/Resume
 @onready var quit: Button = $VBoxContainer/Quit
 @onready var dialogue_bubble: DialogueBubble = $"../../DialogueBubble"
+@onready var item_pick_ui: ItemPickUI = $"../../ItemPickUI"
+
 
 var dialogue_bubble_was_visible := false
 var bubble_dialog_was_visible := false
 var fullscreen_dialog_was_visible := false
-
+var item_pick_ui_was_visible := false
+	
 func _ready() -> void:
 	self.visible = false
 	z_index = 100
@@ -36,12 +39,15 @@ func pause_and_unpause():
 			fullscreen_dialog_was_visible = (
 				dialogue_bubble.get_node("Control/FullscreenDialog").visible
 			)
-
-			# Sembunyikan sementara selama pause.
+			
 			dialogue_bubble.get_node("Control/BubbleDialog").hide()
 			dialogue_bubble.get_node("Control/FullscreenDialog").hide()
+		if item_pick_ui != null:
+			item_pick_ui_was_visible = item_pick_ui.panel.visible
+			item_pick_ui.panel.hide()
 
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		
 	else:
 		if dialogue_bubble != null:
 			dialogue_bubble.get_node(
@@ -51,6 +57,8 @@ func pause_and_unpause():
 			dialogue_bubble.get_node(
 				"Control/FullscreenDialog"
 			).visible = fullscreen_dialog_was_visible
+		if item_pick_ui != null:
+			item_pick_ui.panel.visible = item_pick_ui_was_visible
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _on_restart_pressed() -> void:
