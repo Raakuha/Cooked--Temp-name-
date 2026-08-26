@@ -38,7 +38,7 @@
 [ext_resource type="Resource" uid="uid://byiybhbo26pfm" path="res://data/customers/pete.tres" id="23_cl4wr"]
 [ext_resource type="Resource" uid="uid://dnxup3dxhauuo" path="res://data/customers/lane.tres" id="24_dxea2"]
 [ext_resource type="Resource" uid="uid://bl4cnubtoxh10" path="res://data/customers/harlan.tres" id="25_4s62g"]
-[ext_resource type="PackedScene" uid="uid://cof3cms6w5g0y" path="res://scene/ui/ItemPickUI.tscn" id="25_5oyco"]
+[ext_resource type="PackedScene" path="res://scene/ui/ItemPickUI.tscn" id="25_5oyco"]
 [ext_resource type="Resource" uid="uid://cfnb6ab7qcah2" path="res://data/customers/james.tres" id="26_1ysa5"]
 [ext_resource type="Resource" uid="uid://cwayhp0e3dvn" path="res://data/customers/mark.tres" id="26_2mndr"]
 [ext_resource type="Resource" uid="uid://kovqdngyijtd" path="res://data/customers/juan.tres" id="27_5oyco"]
@@ -64,8 +64,8 @@
 [ext_resource type="Script" uid="uid://df2u5jepn1dge" path="res://script/managers/CookingSequence_manager.gd" id="40_o7h24"]
 [ext_resource type="Script" uid="uid://cmtyyvc0dq0au" path="res://script/managers/police_opening_manager.gd" id="41_qtc76"]
 [ext_resource type="Script" uid="uid://c5qp3eh338108" path="res://script/managers/tutorial_sequence_manager.gd" id="42_x3618"]
-[ext_resource type="Script" uid="uid://djx83dpr3200y" path="res://script/ui/pause_menu.gd" id="65_61jv0"]
 [ext_resource type="Resource" uid="uid://cn3fryreycebp" path="res://data/customers/police.tres" id="46_61jv0"]
+[ext_resource type="Script" uid="uid://djx83dpr3200y" path="res://script/ui/pause_menu.gd" id="65_61jv0"]
 [ext_resource type="PackedScene" uid="uid://s1g7aayex6ba" path="res://scene/customer/Tutorial_Police.tscn" id="65_66wm3"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_riqys"]
@@ -710,13 +710,13 @@ navigation_mesh = SubResource("NavigationMesh_riqys")
 [node name="Restaurant" parent="World" unique_id=1293282191 instance=ExtResource("14_fd77o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2947865, 0, 0.45060158)
 
-[node name="Cube_035" parent="World/Restaurant/door2" parent_id_path=PackedInt32Array(1293282191, 893266216) index="0" unique_id=1595962607]
+[node name="Cube_035" parent="World/Restaurant/door2" parent_id_path=PackedInt32Array(1293282191, 893266216) index="0" unique_id=1869402280]
 transform = Transform3D(-0.22884804, -5.4278924e-08, 0.03303441, -9.224368e-08, 0.9596015, 2.03547e-17, 0.56641877, 1.3434506e-07, 0.013346768, -1.8814273, 1.136609, -4.0340667)
 
-[node name="frame_001" parent="World/Restaurant/door2" parent_id_path=PackedInt32Array(1293282191, 893266216) index="1" unique_id=1742338716]
+[node name="frame_001" parent="World/Restaurant/door2" parent_id_path=PackedInt32Array(1293282191, 893266216) index="1" unique_id=398964970]
 transform = Transform3D(-0.23882578, 0, -0.0525026, 0, 0.99785656, 0, 0.5911145, 0, -0.021212427, -1.8813758, 1.1521235, -4.022926)
 
-[node name="Door_kulkas" parent="World/Restaurant/kulkas" parent_id_path=PackedInt32Array(1293282191, 763844842) index="1" unique_id=568307363]
+[node name="Door_kulkas" parent="World/Restaurant/kulkas" parent_id_path=PackedInt32Array(1293282191, 763844842) index="1" unique_id=1532875523]
 transform = Transform3D(0.008222813, 0, 0, 0, 0.79652077, 0, 0, 0, 0.4451763, 3.7108603, 0.97326714, -3.450365)
 
 [node name="HorrorFocusPoint" type="Marker3D" parent="World" unique_id=1911894409]
@@ -1106,7 +1106,7 @@ volume_db = 3.426
 [node name="TutorialPolice" parent="World" unique_id=714693068 instance=ExtResource("65_66wm3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.412072, 0.80310965, 0.9557705)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/TutorialPolice" unique_id=699342476]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="World/TutorialPolice" unique_id=699342476]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.31313157, 0.3376093)
 mesh = SubResource("CapsuleMesh_ucjqn")
 
@@ -1229,7 +1229,7 @@ script = ExtResource("33_hwjsq")
 transform = Transform3D(-0.9999984, 0.0011047173, 0.0013686904, 0.0017509607, 0.55140805, 0.834234, 0.00016688564, 0.8342351, -0.551409, -1.3776474, 6.2887683, -0.9544592)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1016756547]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, 1, 4.371139e-08, 20.24487, 1.9347258)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, 1, 4.371139e-08, 0, 20.24487, 1.9347258)
 light_energy = 0.3
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=869069344]
