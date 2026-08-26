@@ -52,6 +52,10 @@ var customer_dialogue_index: int = 0
 var customer_dialogue_type: String = ""
 
 
+
+
+
+
 func _ready() -> void:
 	event_runner.event_started.connect(_on_event_started)
 	event_runner.finished.connect(_on_day_finished)
@@ -84,8 +88,7 @@ func _ready() -> void:
 	recipe_step_executor.step_cancelled.connect(
 		cooking_sequence_manager.cancel_current_prep
 	)
-	cooking_sequence_manager.recipe_completed.connect(_on_cooking_recipe_completed)
-	
+
 
 	sanity_manager.horror_threshold_reached.connect(_on_horror_threshold_reached)
 
@@ -146,6 +149,9 @@ func start_opening() -> void:
 	print("========================")
 
 	police_opening_manager.play_opening()
+
+
+
 
 func _on_police_opening_finished() -> void:
 
@@ -246,17 +252,36 @@ func _on_profit_changed(value: int) -> void:
 # =========================================================
 
 func _on_cooking_recipe_completed(result: CookingResult) -> void:
+
 	if result == null:
 		return
 
+	# =========================================
+	# TUTORIAL POLISI
+	# =========================================
+
+	if tutorial_sequence_manager.active:
+
+		print("========================")
+		print("[GameManager] Recipe selesai saat tutorial.")
+		print("Recipe :", result.recipe_id)
+		print("========================")
+
+		if plating != null:
+			plating.take_recipe()
+
+		return
+
+
+	# =========================================
+	# CUSTOMER COOKING
+	# =========================================
+
 	print("[GameManager] Cooking result: ", result.to_dict())
 
-	# Tetap proses hasil recipe seperti sebelumnya.
 	var profit_delta := profit_manager.apply_cooking_result(result)
 	sanity_manager.apply_profit_delta(profit_delta)
 
-	# Wajib mengambil makanan dari plating setelah recipe selesai.
-	# Ini mencegah Plating.is_occupied tetap true untuk recipe berikutnya.
 	if plating != null:
 		plating.take_recipe()
 
@@ -267,10 +292,7 @@ func _on_cooking_recipe_completed(result: CookingResult) -> void:
 		"SUCCESS" if result.is_success() else "FAILED"
 	)
 
-	# Jangan langsung kirim customer ke meja.
-	# Masih mungkin ada additional_orders.
 	_start_next_order_item()
-
 
 # =========================================================
 # ORDER QUEUE
@@ -321,13 +343,25 @@ func _start_next_order_item() -> void:
 	if group_active:
 
 		if customer_group_manager.current_customer != null:
-			customer_group_manager.current_customer.receive_food()
+
+			var customer: Customer = (
+				customer_group_manager.current_customer
+			)
+
+			await customer.receive_food()
+
 			customer_group_manager.send_current_member_to_table()
 
 	else:
 
 		if customer_manager.current_customer != null:
-			customer_manager.current_customer.receive_food()
+
+			var customer: Customer = (
+				customer_manager.current_customer
+			)
+
+			await customer.receive_food()
+
 			customer_manager.send_customer_to_table()
 
 func start_day() -> void:

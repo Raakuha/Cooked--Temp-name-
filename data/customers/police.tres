@@ -1,0 +1,127 @@
+[gd_resource type="Resource" script_class="PoliceProfile" format=3 uid="uid://cn3fryreycebp"]
+
+[ext_resource type="PackedScene" uid="uid://s1g7aayex6ba" path="res://scene/customer/Tutorial_Police.tscn" id="1_5en1o"]
+[ext_resource type="Script" uid="uid://0rv0feamwaf4" path="res://script/customer/police_profile.gd" id="1_a4qpu"]
+
+[resource]
+script = ExtResource("1_a4qpu")
+character_id = "police"
+character_name = "Polisi"
+model_scene = ExtResource("1_5en1o")
+opening_dialogue = Array[Dictionary]([{
+"mode": "fullscreen",
+"speaker": "Polisi",
+"text": "Mau bagaimanapun juga, setidaknya kamu memang ahli dalam bidang ini dan aku tidak akan pernah menyetujui rencana ini."
+}, {
+"mode": "fullscreen",
+"speaker": "Polisi",
+"text": "Mau Akan aku ingatkan, restoran itu adalah milik Irjen. Beberapa bulan yang lalu sang koki utama telah meninggal dunia sehingga membuatnya tidak beroperasi dalam kurun waktu tersebut. juga, setidaknya kamu memang ahli dalam bidang ini dan aku tidak akan pernah menyetujui rencana ini."
+}, {
+"mode": "fullscreen",
+"speaker": "Polisi",
+"text": "Rumor mengatakan kalau katanya koki tersebut meninggal dunia karena sakit jantung, melihat dari usianya yang sudah cukup tua."
+}, {
+"mode": "fullscreen",
+"speaker": "Polisi",
+"text": "Entah apa yang dipikirkan oleh Irjen, namun bagaimanapun juga dia ingin restoran itu tetap beroperasi dan selama kami mencari koki lain yang lebih layak, Irjen memilihmu sebagai koki utama."
+}, {
+"mode": "fullscreen",
+"speaker": "Polisi",
+"text": "......"
+}, {
+"mode": "fullscreen",
+"speaker": "Polisi",
+"text": "Restorannya sudah selesai dirapikan dan bahkan semua bahan juga ada untuk beberapa hari, jadi kamu setelah datang ke sana kamu bisa memulai pekerjaanmu."
+}, {
+"mode": "fullscreen",
+"speaker": "Polisi",
+"text": "Dan aku akan peringati kamu agar tidak mengacau di dapur tersebut sampai membuat pelanggan kecewa. Ini adalah satu-satunya kesempatanmu untuk meringankan beban hingga kamu bisa bebas dari penjara."
+}, {
+"mode": "fullscreen",
+"speaker": "Polisi",
+"text": "Jadi aku ingin kamu untuk bisa melayani semua pelanggan sebaik mungkin. Jika kami menerima keluhan yang buruk atau pencatatan uang yang menurun secara tidak masuk akal, maka kami akan menambahkan masa penjaramu."
+}, {
+"mode": "fullscreen",
+"speaker": "Polisi",
+"text": "......"
+}, {
+"mode": "fullscreen",
+"speaker": "Polisi",
+"text": "Apakah kau dengar?"
+}, {
+"mode": "fullscreen",
+"speaker": "Polisi",
+"text": "Ya"
+}])
+restaurant_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Oke, karena restoran ini ada di pinggir kota maka restoran ini hanya menyediakan makanan-makanan basic tanpa tema tertentu."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Tujuannya memang untuk membuat pelanggan yang sedang berkunjung agar bisa mengisi perut mereka sebelum perjalanan panjang keluar kota."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Di sini ada beberapa menu utama yang bisa kamu sajikan."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Ada beberapa hal yang harus kamu perhatikan di dapur ini."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Waktu untuk menyelesaikan masing-masing menu makanan juga berbeda-beda."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Nasgor goreng dengan maksimal 60 detik."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Steak dengan maksimal 60 detik."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Salad dengan maksimal 40 detik."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Dan roti khas Lempuyangan dengan maksimal 40 detik."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Kemungkinan juga akan ada pelanggan yang memesan lebih dari satu menu."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Saat selesai mengambil bahan untuk membuat sebuah menu, setiap bahannya akan terceklist untuk menandakan progressmu dalam membuat sebuah menu."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Pelanggan adalah raja, kamu harus menjaga kualitas makanan atau minuman yang disajikan."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Mungkin itu saja hal yang harus kamu perhatikan."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Untuk sekarang tolong buatkan burger banggor dan bawakan soda untukku."
+}])
+recipe_id = "soda"
+closing_dialogue = Array[Dictionary]([{
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Hmm, tidak buruk, sepertinya ada gunanya juga menunjukmu sebagai koki untuk restoran ini."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "\"Baiklah aku akan kembali dengan pekerjaanku, untuk sekarang tolong urus tempat ini dengan baik."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Baik… Terimakasih"
+}])
+metadata/_custom_type_script = "uid://0rv0feamwaf4"

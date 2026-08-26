@@ -2,6 +2,37 @@
 
 [ext_resource type="Script" uid="uid://dxl2x4ksbq4mt" path="res://script/ui/dialogue_bubble.gd" id="1_e5dkq"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mt73b"]
+bg_color = Color(0.98039216, 0.9490196, 0.91764706, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5649616, 0.5649617, 0.5649613, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 8
+shadow_offset = Vector2(0.3, 0.3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8f85w"]
+bg_color = Color(0.6666667, 0.6313726, 0.5176471, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jfi5f"]
+bg_color = Color(0.92941177, 0.9098039, 0.84705883, 0.7372549)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.30980393, 0.34901962, 0.21960784, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
 [node name="DialogueBubble" type="CanvasLayer" unique_id=1769872994]
 script = ExtResource("1_e5dkq")
 
@@ -15,39 +46,112 @@ grow_vertical = 2
 offset_transform_enabled = true
 
 [node name="BubbleDialog" type="Panel" parent="Control" unique_id=107140475]
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 0
-offset_left = 25.0
-offset_top = 25.0
-offset_right = 375.0
-offset_bottom = 125.0
+offset_left = 125.0
+offset_top = 82.0
+offset_right = 563.0
+offset_bottom = 251.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mt73b")
 
 [node name="DialogueLabel" type="Label" parent="Control/BubbleDialog" unique_id=1552590124]
+custom_minimum_size = Vector2(308.27, 0)
 layout_mode = 0
-offset_top = 52.0
-offset_right = 356.0
-offset_bottom = 100.0
+offset_left = 36.0
+offset_right = 283.0
+offset_bottom = 171.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+vertical_alignment = 1
+autowrap_mode = 2
 
-[node name="SpeakerLabel" type="Label" parent="Control/BubbleDialog" unique_id=1451720276]
+[node name="SpeakerTag" type="PanelContainer" parent="Control/BubbleDialog" unique_id=370211689]
 layout_mode = 0
-offset_right = 351.0
-offset_bottom = 49.0
-text = "
-"
+offset_left = 31.0
+offset_top = -50.0
+offset_right = 175.0
+offset_bottom = -4.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8f85w")
+
+[node name="SpeakerLabel" type="Label" parent="Control/BubbleDialog/SpeakerTag" unique_id=1598521261]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContinueIcon" type="Label" parent="Control/BubbleDialog" unique_id=1263814885]
+z_index = 2
+layout_mode = 0
+offset_left = 395.0
+offset_top = 124.0
+offset_right = 416.13
+offset_bottom = 149.0
+theme_override_colors/font_color = Color(0.26666668, 0.26666668, 0.26666668, 1)
+theme_override_font_sizes/font_size = 20
+text = "▶"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="FullscreenDialog" type="Panel" parent="Control" unique_id=439468625]
-layout_mode = 0
-offset_top = 293.0
-offset_right = 1152.0
-offset_bottom = 640.0
+visibility_layer = 4
+layout_mode = 1
+offset_top = 528.0
+offset_right = 2399.0
+offset_bottom = 1082.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jfi5f")
 
 [node name="DialogueLabel" type="Label" parent="Control/FullscreenDialog" unique_id=826763495]
 layout_mode = 0
-offset_right = 1146.0
-offset_bottom = 640.0
+offset_left = 45.0
+offset_top = 206.0
+offset_right = 996.0
+offset_bottom = 467.0
+theme_override_colors/font_color = Color(0.09411765, 0.09411765, 0.09411765, 1)
+theme_override_constants/line_spacing = 6
+theme_override_font_sizes/font_size = 34
+text = "test maumakan test maumakan test maumakan test maumakan test maumakan test maumakan test maumakan test maumakan test maumakan test maumakan "
+autowrap_mode = 2
 
 [node name="SpeakerLabel" type="Label" parent="Control/FullscreenDialog" unique_id=1472393983]
 layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 653.0
+offset_left = 45.0
+offset_top = 40.0
+offset_right = 345.0
+offset_bottom = 140.0
+theme_override_colors/font_color = Color(0.09019608, 0.09019608, 0.09019608, 1)
+theme_override_font_sizes/font_size = 38
 text = "
-"
+Psikiater"
+vertical_alignment = 1
+
+[node name="SpeakerLine" type="ColorRect" parent="Control/FullscreenDialog" unique_id=2117038012]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 158.0
+offset_right = 415.0
+offset_bottom = 161.0
+color = Color(0.3254902, 0.3764706, 0.22745098, 1)
+
+[node name="SpeakerDotLeft" type="ColorRect" parent="Control/FullscreenDialog" unique_id=1474032324]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 156.0
+offset_right = 45.0
+offset_bottom = 164.0
+color = Color(0.3254902, 0.3764706, 0.22745098, 1)
+
+[node name="SpeakerDotRight" type="ColorRect" parent="Control/FullscreenDialog" unique_id=1190491514]
+layout_mode = 0
+offset_left = 415.0
+offset_top = 156.0
+offset_right = 423.0
+offset_bottom = 164.0
+color = Color(0.3254902, 0.3764706, 0.22745098, 1)
+
+[node name="ContinueIcon" type="Label" parent="Control/FullscreenDialog" unique_id=119017498]
+layout_mode = 0
+offset_left = 2280.0
+offset_top = 448.0
+offset_right = 2320.0
+offset_bottom = 493.0
+theme_override_colors/font_color = Color(0.20392157, 0.20392157, 0.20392157, 1)
+theme_override_font_sizes/font_size = 32
+text = "▶"

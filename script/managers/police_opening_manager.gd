@@ -4,6 +4,8 @@ extends Node
 signal sequence_started
 signal sequence_finished
 
+@export var police_profile: PoliceProfile
+
 @onready var camera_director: CameraDirector = $"../CameraDirector"
 @onready var dialogue_manager: DialogueManager = $"../DialogueManager"
 @onready var transition_layer: TransitionLayer = $"../../UI/TransitionLayer"
@@ -82,76 +84,16 @@ func play_opening() -> void:
 
 func play_police_dialogue() -> void:
 
-	var dialogues := [
+	if police_profile == null:
+		print("Police profile belum dipasang.")
+		return
 
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Mau bagaimanapun juga, setidaknya kamu memang ahli dalam bidang ini dan aku tidak akan pernah menyetujui rencana ini."
-		},
+	print("========================")
+	print("POLICE OPENING DIALOGUE")
+	print("Jumlah dialogue :", police_profile.opening_dialogue.size())
+	print("========================")
 
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Akan aku ingatkan, restoran itu adalah milik Irjen. Beberapa bulan yang lalu sang koki utama telah meninggal dunia sehingga membuatnya tidak beroperasi dalam kurun waktu tersebut."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Rumor mengatakan kalau katanya koki tersebut meninggal dunia karena sakit jantung, melihat dari usianya yang sudah cukup tua."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Entah apa yang dipikirkan oleh Irjen, namun bagaimanapun juga dia ingin restoran itu tetap beroperasi dan selama kami mencari koki lain yang lebih layak, Irjen memilihmu sebagai koki utama."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "MC",
-			"text": "......"
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Restorannya sudah selesai dirapikan dan bahkan semua bahan juga ada untuk beberapa hari, jadi kamu setelah datang ke sana kamu bisa memulai pekerjaanmu."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Dan aku akan peringati kamu agar tidak mengacau di dapur tersebut sampai membuat pelanggan kecewa. Ini adalah satu-satunya kesempatanmu untuk meringankan beban hingga kamu bisa bebas dari penjara."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Jadi aku ingin kamu untuk bisa melayani semua pelanggan sebaik mungkin. Jika kami menerima keluhan yang buruk atau pencatatan uang yang menurun secara tidak masuk akal, maka kami akan menambahkan masa penjaramu."
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "MC",
-			"text": "......"
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Polisi",
-			"text": "Apakah kau dengar?"
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "MC",
-			"text": "Ya"
-		}
-	]
-
-	for dialogue in dialogues:
+	for dialogue in police_profile.opening_dialogue:
 
 		dialogue_manager.start_dialog(dialogue)
 
