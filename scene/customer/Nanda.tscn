@@ -7,7 +7,28 @@ metallic = 1.0
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8f85w"]
 material = SubResource("StandardMaterial3D_r13h1")
 
+[sub_resource type="Animation" id="Animation_6ngql"]
+resource_name = "Celebrate"
+
+[sub_resource type="Animation" id="Animation_t8jic"]
+resource_name = "Idle"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_kgyhf"]
+resource_name = "Walk"
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_psi34"]
+_data = {
+&"Celebrate": SubResource("Animation_6ngql"),
+&"Idle": SubResource("Animation_t8jic"),
+&"Walk": SubResource("Animation_kgyhf")
+}
+
 [node name="Nanda" type="Node3D" unique_id=1537882972]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=685677378]
 mesh = SubResource("CapsuleMesh_8f85w")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1610158086]
+libraries/ = SubResource("AnimationLibrary_psi34")

@@ -343,13 +343,25 @@ func _start_next_order_item() -> void:
 	if group_active:
 
 		if customer_group_manager.current_customer != null:
-			customer_group_manager.current_customer.receive_food()
+
+			var customer: Customer = (
+				customer_group_manager.current_customer
+			)
+
+			await customer.receive_food()
+
 			customer_group_manager.send_current_member_to_table()
 
 	else:
 
 		if customer_manager.current_customer != null:
-			customer_manager.current_customer.receive_food()
+
+			var customer: Customer = (
+				customer_manager.current_customer
+			)
+
+			await customer.receive_food()
+
 			customer_manager.send_customer_to_table()
 # =========================================================
 # DAY FLOW

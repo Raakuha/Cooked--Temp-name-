@@ -6,7 +6,28 @@ albedo_color = Color(0.4, 0.007843138, 0.19607843, 1)
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8f85w"]
 material = SubResource("StandardMaterial3D_6i2qm")
 
+[sub_resource type="Animation" id="Animation_6i2qm"]
+resource_name = "Celebrate"
+
+[sub_resource type="Animation" id="Animation_tx7ps"]
+resource_name = "Idle"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_o18n2"]
+resource_name = "Walk"
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_keg7i"]
+_data = {
+&"Celebrate": SubResource("Animation_6i2qm"),
+&"Idle": SubResource("Animation_tx7ps"),
+&"Walk": SubResource("Animation_o18n2")
+}
+
 [node name="Dion" type="Node3D" unique_id=28108143]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1072565024]
 mesh = SubResource("CapsuleMesh_8f85w")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=855819268]
+libraries/ = SubResource("AnimationLibrary_keg7i")

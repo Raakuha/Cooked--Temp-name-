@@ -54,74 +54,73 @@ opening_dialogue = Array[Dictionary]([{
 "text": "Ya"
 }])
 restaurant_dialogue = Array[Dictionary]([{
-"mode": "fullscreen",
+"mode": "bubble",
 "speaker": "Polisi",
 "text": "Oke, karena restoran ini ada di pinggir kota maka restoran ini hanya menyediakan makanan-makanan basic tanpa tema tertentu."
 }, {
-"mode": "fullscreen",
+"mode": "bubble",
 "speaker": "Polisi",
 "text": "Tujuannya memang untuk membuat pelanggan yang sedang berkunjung agar bisa mengisi perut mereka sebelum perjalanan panjang keluar kota."
 }, {
-"mode": "fullscreen",
+"mode": "bubble",
 "speaker": "Polisi",
 "text": "Di sini ada beberapa menu utama yang bisa kamu sajikan."
 }, {
-"mode": "fullscreen",
+"mode": "bubble",
 "speaker": "Polisi",
 "text": "Ada beberapa hal yang harus kamu perhatikan di dapur ini."
 }, {
-"mode": "fullscreen",
+"mode": "bubble",
 "speaker": "Polisi",
 "text": "Waktu untuk menyelesaikan masing-masing menu makanan juga berbeda-beda."
 }, {
-"mode": "fullscreen",
+"mode": "bubble",
 "speaker": "Polisi",
 "text": "Nasgor goreng dengan maksimal 60 detik."
 }, {
-"mode": "fullscreen",
+"mode": "bubble",
 "speaker": "Polisi",
 "text": "Steak dengan maksimal 60 detik."
 }, {
-"mode": "fullscreen",
+"mode": "bubble",
 "speaker": "Polisi",
 "text": "Salad dengan maksimal 40 detik."
 }, {
-"mode": "fullscreen",
+"mode": "bubble",
 "speaker": "Polisi",
 "text": "Dan roti khas Lempuyangan dengan maksimal 40 detik."
 }, {
-"mode": "fullscreen",
+"mode": "bubble",
 "speaker": "Polisi",
 "text": "Kemungkinan juga akan ada pelanggan yang memesan lebih dari satu menu."
 }, {
-"mode": "fullscreen",
+"mode": "bubble",
 "speaker": "Polisi",
 "text": "Saat selesai mengambil bahan untuk membuat sebuah menu, setiap bahannya akan terceklist untuk menandakan progressmu dalam membuat sebuah menu."
 }, {
-"mode": "fullscreen",
+"mode": "bubble",
 "speaker": "Polisi",
 "text": "Pelanggan adalah raja, kamu harus menjaga kualitas makanan atau minuman yang disajikan."
 }, {
-"mode": "fullscreen",
+"mode": "bubble",
 "speaker": "Polisi",
 "text": "Mungkin itu saja hal yang harus kamu perhatikan."
 }, {
-"mode": "fullscreen",
+"mode": "bubble",
 "speaker": "Polisi",
 "text": "Untuk sekarang tolong buatkan burger banggor dan bawakan soda untukku."
 }])
-recipe_id = "burger_banggor"
-additional_orders = Array[String](["soda"])
+recipe_id = "soda"
 closing_dialogue = Array[Dictionary]([{
-"mode": "fullscreen",
+"mode": "bubble",
 "speaker": "Polisi",
 "text": "Hmm, tidak buruk, sepertinya ada gunanya juga menunjukmu sebagai koki untuk restoran ini."
 }, {
-"mode": "fullscreen",
+"mode": "bubble",
 "speaker": "Polisi",
 "text": "\"Baiklah aku akan kembali dengan pekerjaanku, untuk sekarang tolong urus tempat ini dengan baik."
 }, {
-"mode": "fullscreen",
+"mode": "bubble",
 "speaker": "Polisi",
 "text": "Baik… Terimakasih"
 }])

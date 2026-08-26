@@ -346,28 +346,6 @@ police_profile = ExtResource("46_61jv0")
 [node name="DialogueBubble" parent="UI" unique_id=1769872994 instance=ExtResource("4_m5dmv")]
 layer = 2
 
-[node name="BubbleDialog" parent="UI/DialogueBubble/Control" parent_id_path=PackedInt32Array(1769872994, 707559012) index="0" unique_id=107140475]
-offset_left = 146.0
-offset_top = 66.0
-offset_right = 517.0
-offset_bottom = 188.0
-
-[node name="FullscreenDialog" parent="UI/DialogueBubble/Control" parent_id_path=PackedInt32Array(1769872994, 707559012) index="1" unique_id=439468625]
-offset_right = 959.0
-offset_bottom = 535.0
-
-[node name="DialogueLabel" parent="UI/DialogueBubble/Control/FullscreenDialog" index="0" unique_id=826763495]
-offset_top = 63.0
-offset_right = 952.0
-offset_bottom = 170.0
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="SpeakerLabel" parent="UI/DialogueBubble/Control/FullscreenDialog" index="1" unique_id=1472393983]
-offset_right = 957.0
-offset_bottom = 81.0
-horizontal_alignment = 1
-
 [node name="GameHUD" parent="UI" unique_id=549213366 node_paths=PackedStringArray("menu_deadline_timer") instance=ExtResource("12_foydr")]
 menu_deadline_timer = NodePath("../../Managers/MenuDeadlineTimer")
 
@@ -405,8 +383,7 @@ offset_right = 813.0
 offset_bottom = 499.0
 text = "A GAME BY
 
-Bambang
-[Anggota Tim Lain]
+2 Kalimantan & kebuman
 
 Powered by Godot Engine"
 horizontal_alignment = 1
@@ -556,7 +533,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.238777, 0.20493329, -2.8922
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2552614, 1.1077995, 1.1251287)
 
 [node name="TutorialPolicePoint" type="Marker3D" parent="SpawnPoints" unique_id=1248771850]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.350202, 1.2878685, 1.0835726)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.194687, 1.2878685, 1.0835726)
 
 [node name="TutorialPoliceExit" type="Marker3D" parent="SpawnPoints" unique_id=1393585412]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3265176, 0.8337264, 5.211712)
@@ -998,13 +975,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.036709, 0, -7.614705)
 script = ExtResource("33_hwjsq")
 
 [node name="GameplayCamera" type="Camera3D" parent="CameraSystem" unique_id=759886662]
-transform = Transform3D(-0.9999298, -0.009525269, 0.00704132, -1.4003764e-08, 0.59443855, 0.8041411, -0.011845276, 0.8040848, -0.5943969, 0.7223053, 6.1873817, -0.7841339)
+transform = Transform3D(-0.9999984, 0.0011047173, 0.0013686904, 0.0017509607, 0.55140805, 0.834234, 0.00016688564, 0.8342351, -0.551409, -1.3776474, 6.2887683, -0.9544592)
 
 [connection signal="typing_completed" from="Managers/TypingManager" to="UI/TypingUI" method="_on_typing_manager_typing_completed"]
 [connection signal="typing_started" from="Managers/TypingManager" to="UI/TypingUI" method="_on_typing_manager_typing_started"]
 [connection signal="typing_updated" from="Managers/TypingManager" to="UI/TypingUI" method="_on_typing_manager_typing_updated"]
 
-[editable path="UI/DialogueBubble"]
 [editable path="UI/GameHUD"]
 [editable path="Player"]
 [editable path="World/Basement"]

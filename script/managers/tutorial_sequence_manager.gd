@@ -11,6 +11,9 @@ signal tutorial_order_finished
 
 @onready var tutorial_police: Node3D = $"../../World/TutorialPolice"
 @onready var tutorial_police_point: Marker3D = $"../../SpawnPoints/TutorialPolicePoint"
+@onready var tutorial_police_dialogue_marker: Marker3D = (
+	$"../../World/TutorialPolice/DialogueMarker"
+)
 
 @onready var tutorial_menu: CanvasLayer = $"../../UI/TutorialMenu"
 
@@ -247,11 +250,13 @@ func play_restaurant_intro() -> void:
 
 		var dialogue = police_profile.restaurant_dialogue[i]
 
-		dialogue_manager.start_dialog(dialogue)
+		dialogue_manager.start_dialog(
+			dialogue,
+			tutorial_police_dialogue_marker
+		)
 
 		await dialogue_manager.dialogue_finished
 
-		# Setelah polisi selesai menjelaskan menu
 		if i == 2:
 			show_tutorial_menu()
 
