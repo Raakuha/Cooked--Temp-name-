@@ -8,8 +8,11 @@ var  pause_toggle := false
 @onready var quit: Button = $VBoxContainer/Quit
 @onready var dialogue_bubble: DialogueBubble = $"../../DialogueBubble"
 @onready var item_pick_ui: ItemPickUI = $"../../ItemPickUI"
+@onready var game_hud: GameHUD = $"../../GameHUD"
+@onready var prep_checklist_ui: PrepChecklistUI = $"../../PrepCheckListUI"
 
-
+var game_hud_was_visible := false
+var prep_checklist_was_visible := false
 var dialogue_bubble_was_visible := false
 var bubble_dialog_was_visible := false
 var fullscreen_dialog_was_visible := false
@@ -18,7 +21,7 @@ var item_pick_ui_was_visible := false
 func _ready() -> void:
 	self.visible = false
 	z_index = 100
-	self.visible = false
+	
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -31,6 +34,16 @@ func pause_and_unpause():
 	
 	if pause_toggle:
 		restart.disabled = not cooking_sequence_manager.active
+		
+		
+		if game_hud != null:
+			game_hud_was_visible = game_hud.visible
+			game_hud.hide()
+			
+		if prep_checklist_ui != null:
+			prep_checklist_was_visible = prep_checklist_ui.visible
+			prep_checklist_ui.hide()
+		
 		if dialogue_bubble != null:
 			bubble_dialog_was_visible = (
 				dialogue_bubble.get_node("Control/BubbleDialog").visible
@@ -49,6 +62,13 @@ func pause_and_unpause():
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		
 	else:
+		
+		if game_hud != null:
+			game_hud.visible = game_hud_was_visible
+		
+		if prep_checklist_ui != null:
+			prep_checklist_ui.visible = prep_checklist_was_visible
+
 		if dialogue_bubble != null:
 			dialogue_bubble.get_node(
 				"Control/BubbleDialog"
@@ -59,12 +79,16 @@ func pause_and_unpause():
 			).visible = fullscreen_dialog_was_visible
 		if item_pick_ui != null:
 			item_pick_ui.panel.visible = item_pick_ui_was_visible
+			
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _on_restart_pressed() -> void:
 	if cooking_sequence_manager.active == false:
 		return
-	
+	if item_pick_ui != null:
+		item_pick_ui_was_visible = item_pick_ui.panel.visible
+		item_pick_ui.panel.hide()
+
 	pause_and_unpause()
 	if cooking_sequence_manager.active == true:
 		cooking_sequence_manager.restart_current_recipe()

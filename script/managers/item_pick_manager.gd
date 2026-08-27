@@ -16,6 +16,7 @@ signal exit_wait_completed()
 var _candidates: Array = []
 var _buffer: String = ""
 var _picking: bool = false
+var _cancel_requested: bool = false
 
 var _return_target: String = ""
 var _return_fill: String = ""
@@ -33,6 +34,7 @@ func run_pick(candidates: Array) -> Dictionary:
 	_candidates = candidates.duplicate(true)
 	_buffer = ""
 	_picking = true
+	_cancel_requested = false
 
 	pick_started.emit(_candidates.duplicate(true))
 	_emit_pick_state()
@@ -41,37 +43,65 @@ func run_pick(candidates: Array) -> Dictionary:
 	return result
 
 func cancel() -> void:
-	if not _picking:
-		return
+	print("[ItemPickManager] CANCEL REQUEST")
 
-	print("[ItemPickManager] PICK CANCELLED")
+	_cancel_requested = true
 
-	_picking = false
-	_buffer = ""
+	if _picking:
+		print("[ItemPickManager] PICK CANCELLED")
 
-	pick_completed.emit({
-		"cancelled": true
-	})
+		_picking = false
+		_buffer = ""
+
+		pick_completed.emit({
+			"cancelled": true
+		})
 
 
-func run_return(label: String) -> void:
+	elif _returning:
+		print("[ItemPickManager] RETURN CANCELLED")
+
+		_returning = false
+		_return_fill = ""
+
+		return_completed.emit(_return_target)
+	elif _waiting_exit:
+		print("[ItemPickManager] EXIT WAIT CANCELLED")
+
+		_waiting_exit = false
+
+		exit_wait_completed.emit()
+
+func run_return(label: String) -> bool:
 	_return_target = label
 	_return_fill = ""
 	_returning = true
+	_cancel_requested = false
 
 	return_started.emit(label)
 	return_updated.emit(0, _return_target, false)
 
 	await return_completed
+	
+	var was_cancelled: bool = _cancel_requested
+
+	_returning = false
+	return was_cancelled
 
 
-func wait_for_exit(label: String) -> void:
+func wait_for_exit(label: String) -> bool:
 	_waiting_exit = true
+	_cancel_requested = false
 
 	exit_wait_started.emit(label)
 
 	await exit_wait_completed
 
+	var was_cancelled: bool = _cancel_requested
+
+	_waiting_exit = false
+
+	return was_cancelled
 
 func _confirm_exit() -> void:
 	_waiting_exit = false

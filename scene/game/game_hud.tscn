@@ -1,25 +1,97 @@
 [gd_scene format=3 uid="uid://dpo20gf4jvmeu"]
 
 [ext_resource type="Script" uid="uid://dt7r4d737i7rl" path="res://script/ui/game_hud.gd" id="1_qlrop"]
+[ext_resource type="FontFile" uid="uid://bcnauk8avrvvg" path="res://scene/ui/Super Mellow.ttf" id="2_3erh7"]
+[ext_resource type="Script" uid="uid://n0c3soiham15" path="res://script/ui/radial_timer.gd" id="3_mo3ws"]
 
-[node name="GameHUD" type="CanvasLayer" unique_id=549213366 node_paths=PackedStringArray("deadline_label")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlrop"]
+bg_color = Color(0.16470589, 0.14117648, 0.11372549, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_osblx"]
+font = ExtResource("2_3erh7")
+font_size = 20
+font_color = Color(0.90588236, 0.8901961, 0.84313726, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bhunq"]
+font = ExtResource("2_3erh7")
+font_size = 32
+font_color = Color(0.90588236, 0.8901961, 0.84313726, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_riqys"]
+font = ExtResource("2_3erh7")
+font_size = 28
+font_color = Color(0.90588236, 0.8901961, 0.84313726, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="GameHUD" type="CanvasLayer" unique_id=549213366]
 script = ExtResource("1_qlrop")
-deadline_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Countdown")
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=528066982]
-offset_left = 17.0
-offset_top = 13.0
-offset_right = 57.0
-offset_bottom = 63.0
+[node name="HudRoot" type="Control" parent="." unique_id=683931799]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=863858493]
+[node name="ProfitChip" type="PanelContainer" parent="HudRoot" unique_id=1013818329]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 0
+offset_left = 1115.4
+offset_top = 20.775
+offset_right = 1265.4009
+offset_bottom = 60.77504
+theme_override_styles/panel = SubResource("StyleBoxFlat_qlrop")
+
+[node name="ProfitLabel" type="Label" parent="HudRoot/ProfitChip" unique_id=1219647685]
+layout_mode = 2
+text = "Rp 0 ,."
+label_settings = SubResource("LabelSettings_osblx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DialArea" type="Control" parent="HudRoot" unique_id=273397901]
+custom_minimum_size = Vector2(140, 140)
+anchors_preset = 0
+offset_left = 1118.01
+offset_top = 72.29
+offset_right = 1258.01
+offset_bottom = 212.29001
+
+[node name="Dial" type="Control" parent="HudRoot/DialArea" unique_id=108605579]
+custom_minimum_size = Vector2(140, 140)
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_mo3ws")
+
+[node name="TextCenter" type="CenterContainer" parent="HudRoot/DialArea" unique_id=138666702]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextCol" type="VBoxContainer" parent="HudRoot/DialArea/TextCenter" unique_id=984951585]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=408184155]
+[node name="CaptionLabel" type="Label" parent="HudRoot/DialArea/TextCenter/TextCol" unique_id=173859654]
 layout_mode = 2
+text = "ORDER"
+label_settings = SubResource("LabelSettings_bhunq")
 
-[node name="ProfitLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=486827494]
+[node name="TimeLabel" type="Label" parent="HudRoot/DialArea/TextCenter/TextCol" unique_id=1619549020]
 layout_mode = 2
-
-[node name="Countdown" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=877088982]
-layout_mode = 2
+text = "1:42"
+label_settings = SubResource("LabelSettings_riqys")
+horizontal_alignment = 1

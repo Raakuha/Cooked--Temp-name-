@@ -82,3 +82,13 @@ func finish_typing() -> void:
 
 	typing_result.emit(target, mistake_count)
 	typing_completed.emit(target)
+
+func cancel() -> void:
+	if not active:
+		return
+
+	print("[TypingManager] TYPING CANCELED")
+
+	active = false
+
+	typing_completed.emit("CANCELED")

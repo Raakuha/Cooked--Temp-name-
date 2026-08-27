@@ -22,10 +22,10 @@ texture_filter = 1
 texture_repeat = 1
 layout_mode = 3
 anchors_preset = 0
-offset_left = 1010.0
-offset_top = 469.0
-offset_right = 1050.0
-offset_bottom = 509.0
+offset_left = 349.0
+offset_top = 104.0
+offset_right = 861.0
+offset_bottom = 595.0
 
 [node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=627425509]
 texture_filter = 1
@@ -58,10 +58,10 @@ size_flags_horizontal = 0
 
 [node name="Track" type="TextureRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge" unique_id=1590899939]
 layout_mode = 0
-offset_left = -243.0
-offset_top = -488.99994
-offset_right = 734.96716
-offset_bottom = 15.964355
+offset_left = -225.0
+offset_top = -419.58316
+offset_right = 752.96716
+offset_bottom = 85.381134
 scale = Vector2(0.5055668, 0.54343796)
 pivot_offset = Vector2(486.56177, 505.04236)
 texture = ExtResource("2_7irog")
@@ -69,30 +69,30 @@ expand_mode = 1
 
 [node name="GoodZone" type="TextureRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge" unique_id=2058245731]
 layout_mode = 0
-offset_left = -7.0
-offset_top = -256.0
-offset_right = 492.0
-offset_bottom = 20.0
+offset_left = 11.0
+offset_top = -186.58322
+offset_right = 510.0
+offset_bottom = 89.41678
 pivot_offset = Vector2(256, 262)
 texture = ExtResource("3_8kh0w")
 expand_mode = 1
 
 [node name="PerfectZone" type="TextureRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge" unique_id=1966471458]
 layout_mode = 0
-offset_left = -6.0
-offset_top = -258.0
-offset_right = 494.0
-offset_bottom = 15.0
+offset_left = 12.0
+offset_top = -188.58322
+offset_right = 512.0
+offset_bottom = 84.41678
 pivot_offset = Vector2(255, 270)
 texture = ExtResource("4_7ag2q")
 expand_mode = 1
 
 [node name="Needle" type="TextureRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge" unique_id=1074638755]
 layout_mode = 0
-offset_left = -26.99997
-offset_top = -313.0
-offset_right = 513.5984
-offset_bottom = 56.292725
+offset_left = -8.9999695
+offset_top = -243.58322
+offset_right = 531.5984
+offset_bottom = 125.7095
 scale = Vector2(0.6348767, 0.462645)
 pivot_offset = Vector2(264.12036, 229.65295)
 texture = ExtResource("5_anuqc")
@@ -100,8 +100,8 @@ expand_mode = 1
 
 [node name="ResultBadge" type="TextureRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/DialGauge" unique_id=745649647]
 layout_mode = 0
-offset_left = 7.9999847
-offset_top = -225.0
-offset_right = 7.9999847
-offset_bottom = -225.0
+offset_left = 25.999987
+offset_top = -155.58322
+offset_right = 25.999987
+offset_bottom = -155.58322
 scale = Vector2(0.5953233, 0.5596518)

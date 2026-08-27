@@ -27,7 +27,6 @@ enum ActionType {
 	CUT,
 	MIX,
 	COOK,
-	FRY,
 	PLATE,
 	SERVE
 }
@@ -69,7 +68,7 @@ const RECIPES = {
 				]
 			},
 			{
-				"checklist_id": "daging cincang",
+				"checklist_id": "daging_cincang",
 				"steps": [
 					{
 						"type": StepType.MOVE,
@@ -536,7 +535,7 @@ const RECIPES = {
 			{
 				"type": StepType.ACTION,
 				"workstation": WS_SEASONING,
-				"prompt": "OLESKAN MENTEGA DI ROTI",
+				"prompt": "OLESKAN BUTTER DI ROTI",
 				"action": ActionType.ADD
 			},
 			{

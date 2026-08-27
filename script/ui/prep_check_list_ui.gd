@@ -5,14 +5,14 @@ class_name PrepChecklistUI
 @export var item_pick_manager: ItemPickManager
 
 @onready var panel: PanelContainer = $PanelContainer
-@onready var title: Label = $PanelContainer/MarginContainer/VBoxContainer/Title
+@onready var title: Label = $PanelContainer/MarginContainer/VBoxContainer/Header/Title
 @onready var list_container: VBoxContainer = $PanelContainer/MarginContainer/VBoxContainer/ListContainer
-
+@export var row_scene: PackedScene
 @export var item_labels: Dictionary = {}
 @export var  title_text : String = "PREPARATION"
 @export_range (12,8, 1) var title_font_size : int = 22
 @export var completed_color :Color = Color(0.6, 1.0, 0.6, 1.0)
-var pending_color : Color = Color.ALICE_BLUE
+var pending_color : Color 
 @export_range(0, 20, 1) var item_separation: int = 6
 
 var _row_labels: Dictionary = {}  # checklist_id -> Label
@@ -73,11 +73,15 @@ func _rebuild_rows(checklist: Dictionary) -> void:
 	_row_labels.clear()
 
 	for checklist_id in checklist.keys():
-		var row := Label.new()
-		row.add_theme_font_size_override("font_size", 16)
+		var row := row_scene.instantiate()
 		list_container.add_child(row)
 		_row_labels[checklist_id] = row
-		_render_row(checklist_id, checklist[checklist_id])
+		
+		row.setup(
+			checklist_id,
+			item_labels.get(checklist_id, checklist_id),
+			checklist[checklist_id]
+		)
 
 
 func _render_row(checklist_id: String, done: bool) -> void:

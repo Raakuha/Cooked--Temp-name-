@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://bxwdn3yvlgi7m"]
 
 [ext_resource type="Script" uid="uid://b1pamygbmlom4" path="res://script/typing_ui.gd" id="1_i8s1x"]
+[ext_resource type="FontFile" uid="uid://bcnauk8avrvvg" path="res://scene/ui/Super Mellow.ttf" id="2_sy37m"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhunq"]
-bg_color = Color(0, 0, 0, 0.16470589)
+bg_color = Color(0, 0, 0, 0)
 shadow_color = Color(0, 0, 0, 0)
 
 [node name="TypingUI" type="Control" unique_id=1494470883]
@@ -33,6 +34,7 @@ layout_mode = 2
 
 [node name="Fill_wordLabel" type="RichTextLabel" parent="PromptPanel/MarginContainer/VBoxContainer" unique_id=871554601]
 layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_sy37m")
 theme_override_font_sizes/normal_font_size = 22
 theme_override_font_sizes/bold_font_size = 24
 text = "Type: "

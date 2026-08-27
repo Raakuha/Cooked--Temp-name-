@@ -304,12 +304,37 @@ func _on_action_completed(
 
 	step_completed.emit()
 func cancel_current_step() -> void:
+	print("================================")
+	print("[RSE] CANCEL CURRENT STEP")
+	print("[RSE] current_step =", current_step)
+	print("[RSE] current_workstation =", current_workstation)
+	print("================================")
+
+	# Hentikan movement lama
+	if player != null:
+		player.is_moving = false
+		player.velocity = Vector3.ZERO
+
+	# Paksa TypingUI hilang sekarang juga
+	if typing_ui != null:
+		typing_ui.cancel()
+
+	# Batalkan action yang masih hidup di workstation
+	if current_workstation != null:
+		current_workstation.cancel_current_action()
+
+		if current_workstation.action_completed.is_connected(
+			_on_action_completed
+		):
+			current_workstation.action_completed.disconnect(
+				_on_action_completed
+			)
+
+	# Reset state RSE
 	current_step.clear()
 	waiting_for_action = false
 	pending_workstation = null
-	
-	if current_workstation != null:
-		if current_workstation.action_completed.is_connected(_on_action_completed):
-			current_workstation.action_completed.disconnect(_on_action_completed)
-		current_workstation.finish_interaction()
-		current_workstation = null
+	current_workstation = null
+	carried_item_id = ""
+
+	print("[RSE] Current step berhasil dibatalkan.")
