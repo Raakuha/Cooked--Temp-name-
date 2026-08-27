@@ -2,28 +2,89 @@
 
 [ext_resource type="Script" uid="uid://6j46ht2qcsbx" path="res://script/ui/prep_check_list_ui.gd" id="1_8m5pc"]
 [ext_resource type="FontFile" uid="uid://bcnauk8avrvvg" path="res://scene/ui/Super Mellow.ttf" id="2_26p1n"]
+[ext_resource type="PackedScene" uid="uid://cvodc6ee526sa" path="res://scene/ui/prep_checklist_row.tscn" id="2_w825u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhunq"]
+bg_color = Color(0.9411765, 0.9019608, 0.8235294, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_riqys"]
+bg_color = Color(0.16470589, 0.14509805, 0.12156863, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_w825u"]
+font_size = 28
 
 [node name="PrepCheckListUI" type="Control" unique_id=700987832]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_8m5pc")
+row_scene = ExtResource("2_w825u")
+item_labels = {
+"adonan": "Adonan",
+"air_mineral": "Air Mineral",
+"buah": "Buah",
+"bumbu": "Bumbu",
+"bun": "Bun",
+"butter": "Butter",
+"daging": "Daging",
+"daging_cincang": "Daging Cincang",
+"daging_wagyu": "Daging Wagyu",
+"nasi": "Nasi",
+"patty": "Patty",
+"sayur": "Sayur",
+"telur": "Telur"
+}
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1867462978]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 48.0
-offset_right = 224.0
-offset_bottom = 238.0
+offset_left = 13.155
+offset_top = 19.58
+offset_right = 290.72
+offset_bottom = 314.72
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhunq")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1144790267]
 layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1969623916]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1896705189]
+[node name="Header" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1363321898]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 47)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_riqys")
+
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Header" unique_id=1896705189]
+layout_mode = 0
+offset_left = 22.845001
+offset_top = 9.42
+offset_right = 230.845
+offset_bottom = 53.42
 theme_override_fonts/font = ExtResource("2_26p1n")
+theme_override_font_sizes/font_size = 28
+text = "PREPARATION"
+label_settings = SubResource("LabelSettings_w825u")
+horizontal_alignment = 1
+
+[node name="Pemisah" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1097847306]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0.7411765, 0.6666667, 0.54901963, 1)
 
 [node name="ListContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1014807274]
+texture_filter = 1
 layout_mode = 2

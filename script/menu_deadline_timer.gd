@@ -7,10 +7,6 @@ signal deadline_started(recipe_id: String, duration: float)
 signal deadline_expired
 
 
-
-## Deadline default (detik) kalau recipe_id tidak ada di RecipeData.DEADLINES.
-
-
 @export var cooking_sequence_manager: CookingSequenceManager
 
 var _time_left: float = 0.0

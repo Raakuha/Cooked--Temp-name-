@@ -146,6 +146,16 @@ func _on_typing_manager_typing_completed(_command: String) -> void:
 	typing_active = false
 	prompt_panel.hide()
 
+func cancel() -> void:
+	typing_active = false
+	prompt_panel.hide()
+	shake_offset = Vector2.ZERO
+
+	if shake_tween != null:
+		shake_tween.kill()
+
+	if error_color_tween != null:
+		error_color_tween.kill()
 
 func set_world_target(target_position: Vector3) -> void:
 	world_target = target_position

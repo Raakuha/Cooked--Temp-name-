@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cvodc6ee526sa"]
+
+[ext_resource type="Script" uid="uid://cvlftli2d7lbp" path="res://script/ui/prep_checklist_row.gd" id="1_7u7dw"]
+[ext_resource type="Texture2D" uid="uid://lqaxl1mc4i51" path="res://assets/UI/uncomplete.png" id="2_j62il"]
+[ext_resource type="FontFile" uid="uid://bcnauk8avrvvg" path="res://scene/ui/Super Mellow.ttf" id="2_ki5lr"]
+[ext_resource type="Texture2D" uid="uid://cssc7idsu5bj8" path="res://assets/UI/Desain tanpa judul (3).png" id="3_j62il"]
+
+[node name="PrepChecklistRow" type="HBoxContainer" unique_id=1916622818]
+texture_filter = 1
+texture_repeat = 2
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 16
+script = ExtResource("1_7u7dw")
+empty_texture = ExtResource("2_j62il")
+completed_texture = ExtResource("3_j62il")
+pending_color = Color(1, 0.6505201, 0.557464, 1)
+
+[node name="CheckIcon" type="TextureRect" parent="." unique_id=1668330750]
+texture_filter = 1
+texture_repeat = 2
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 1
+
+[node name="ItemLabel" type="Label" parent="." unique_id=1711849458]
+layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_ki5lr")
+theme_override_font_sizes/font_size = 24
+vertical_alignment = 1

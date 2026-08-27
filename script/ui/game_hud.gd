@@ -1,82 +1,124 @@
-class_name GameHUD
 extends CanvasLayer
+class_name GameHUD
 
-@onready var profit_label : Label =$MarginContainer/VBoxContainer/ProfitLabel
 
-## Drag DeadlineLabel (Label baru) ke sini buat nampilin sisa waktu order.
-@export var deadline_label: Label
-
-## Drag node MenuDeadlineTimer ke sini biar HUD tau kapan mulai/berhenti
-## nge-countdown. Kalau kosong, countdown-nya cuma gak aktif (gak error).
 @export var menu_deadline_timer: MenuDeadlineTimer
-
-## Ambang batas (detik) buat mulai kasih warning visual (teks jadi merah).
 @export var deadline_warning_seconds: float = 15.0
 
+
+@onready var profit_label: Label = (
+	$HudRoot/ProfitChip/ProfitLabel
+)
+
+@onready var dial: RadialTimer = (
+	$HudRoot/DialArea/Dial
+)
+
+@onready var caption_label: Label = (
+	$HudRoot/DialArea/TextCenter/TextCol/CaptionLabel
+)
+
+@onready var time_label: Label = (
+	$HudRoot/DialArea/TextCenter/TextCol/TimeLabel
+)
+
+
 var _watching_deadline: bool = false
+var _order_total_duration: float = 1.0
 
 
 func _ready() -> void:
-	if deadline_label != null:
-		deadline_label.visible = false
+	visible = false
+	if menu_deadline_timer == null:
+		push_warning(
+			"[GameHUD] MenuDeadlineTimer belum dipasang."
+		)
+		return
 
-	if menu_deadline_timer != null:
-		menu_deadline_timer.deadline_started.connect(_on_deadline_started)
-		menu_deadline_timer.deadline_expired.connect(_on_deadline_expired)
+	menu_deadline_timer.deadline_started.connect(
+		_on_deadline_started
+	)
 
-	set_process(menu_deadline_timer != null)
+	menu_deadline_timer.deadline_expired.connect(
+		_on_deadline_expired
+	)
+
+	dial.visible = false
+	time_label.text = "0:00"
+	caption_label.text = "ORDER"
+
+	set_process(true)
 
 
 func update_profit(value: int) -> void:
-	profit_label.text = "Profit : Rp " + str(value)
+	profit_label.text = "Rp " + str(value)
 
 
-func _on_deadline_started(_recipe_id: String, _duration: float) -> void:
+func _on_deadline_started(
+	_unused_recipe_id: String,
+	duration: float
+) -> void:
+
+	_order_total_duration = max(duration, 0.01)
 	_watching_deadline = true
 
-	if deadline_label != null:
-		deadline_label.visible = true
-		deadline_label.remove_theme_color_override("font_color")
+	dial.visible = true
+
+	caption_label.text = "ORDER"
+	time_label.text = _format_time(duration)
+
+	dial.set_timer(
+		duration,
+		_order_total_duration
+	)
+
 
 func _on_deadline_expired() -> void:
-	print("[GameHUD] SIGNAL DEADLINE DITERIMA")
+	_watching_deadline = false
 
-	_watching_deadline = true
+	dial.visible = true
 
-	if deadline_label != null:
-		deadline_label.visible = true
-		deadline_label.text = "WAKTU HABIS!"
-		deadline_label.add_theme_color_override(
-			"font_color",
-			Color.RED
-		)
+	caption_label.text = "ORDER"
+	time_label.text = "0:00"
+
+	dial.set_timer(
+		0.0,
+		_order_total_duration
+	)
+
+
 func _process(_delta: float) -> void:
-	if not _watching_deadline or deadline_label == null:
+	if not _watching_deadline:
 		return
 
-	# Order gagal karena telat -- biarin "WAKTU HABIS!" nempel di layar
-	# sampai order berikutnya mulai (deadline_started bakal reset ini).
-	if menu_deadline_timer.is_expired():
+	if menu_deadline_timer == null:
 		return
+
+	var remaining := (
+		menu_deadline_timer.get_remaining_time()
+	)
 
 	if not menu_deadline_timer.is_running():
-		# Order selesai duluan sebelum deadline -- gak perlu nampilin apa2.
-		_watching_deadline = false
-		deadline_label.visible = false
 		return
 
-	var remaining: float = menu_deadline_timer.get_remaining_time()
+	time_label.text = _format_time(remaining)
 
-	deadline_label.text = _format_time(remaining)
-
-	if remaining <= deadline_warning_seconds:
-		deadline_label.add_theme_color_override("font_color", Color.RED)
+	dial.set_timer(
+		remaining,
+		_order_total_duration
+	)
 
 
 func _format_time(seconds: float) -> String:
-	var whole: int = int(ceil(seconds))
-	@warning_ignore("integer_division")
-	var minutes: int = whole / 60
-	var secs: int = whole % 60
+	var whole := int(ceil(max(seconds, 0.0)))
+
+	var minutes := whole / 60
+	var secs := whole % 60
 
 	return "%d:%02d" % [minutes, secs]
+func show_game_hud() -> void:
+	visible = true
+
+
+func hide_game_hud() -> void:
+	visible = false

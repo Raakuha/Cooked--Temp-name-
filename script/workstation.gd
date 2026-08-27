@@ -111,8 +111,15 @@ func perform_action( action_name: String, interaction_data: Dictionary = {}) -> 
 			)
 			complete_action()
 func run_take_action() -> void:
-	var required_item_id: String = current_action_data.get("item_id", "")
-	var required_item_ids: Array = current_action_data.get("item_ids", [])
+	var required_item_id: String = current_action_data.get(
+		"item_id",
+		""
+	)
+
+	var required_item_ids: Array = current_action_data.get(
+		"item_ids",
+		[]
+	)
 
 	if required_item_ids.is_empty() and required_item_id != "":
 		required_item_ids = [required_item_id]
@@ -129,62 +136,104 @@ func run_take_action() -> void:
 
 	if candidates.is_empty():
 		push_warning(
-			"WorkstationInventory kosong untuk: " + command
+			"WorkstationInventory kosong untuk: "
+			+ command
 			+ " -- fallback ke delay biasa."
 		)
+
 		finish_action_after_delay(0.3)
 		return
 
 	var picked_ids_this_visit: Array = []
 
 	while true:
-		var picked: Dictionary = await item_pick_manager.run_pick(candidates)
+
+
+		var picked: Dictionary = await item_pick_manager.run_pick(
+			candidates
+		)
+
 		if picked.get("cancelled", false):
-			print("[Workstation] TAKE dibatalkan karena restart.")
+			print(
+				"[Workstation] TAKE dibatalkan karena restart."
+			)
 
 			action_in_progress = false
 			current_action = ""
 			current_action_data = {}
-
 			return
+
 		if picked.get("exit", false):
-	
 			break
 
+	
 		if not required_item_ids.has(picked["item_id"]):
-			wrong_item_picked.emit(self, picked["item_id"], required_item_id)
 
-			await item_pick_manager.run_return(picked["label"])
+			wrong_item_picked.emit(
+				self,
+				picked["item_id"],
+				required_item_id
+			)
+
+
+			var return_cancelled: bool = (
+				await item_pick_manager.run_return(
+					picked["label"]
+				)
+			)
+
+			if return_cancelled:
+				print(
+					"[Workstation] RETURN dibatalkan karena restart."
+				)
+
+				action_in_progress = false
+				current_action = ""
+				current_action_data = {}
+				return
 
 			continue
 
-		# Barang udah BENAR (salah satu dari required_item_ids -- player
-		# bebas milih yang mana). Catat SEMUA barang yang kepetik di
-		# kunjungan ini -- R-P3-10 fix: sebelumnya cuma nyimpen yang
-		# TERAKHIR, jadi kalau ambil 2+ barang di 1 kunjungan, yang
-		# pertama gak pernah ke-mark selesai checklist-nya.
-		
+
 		current_picked_item_id = picked["item_id"]
 		last_picked_item_id = current_picked_item_id
-		
-		picked_ids_this_visit.append(picked["item_id"])
-		item_picked.emit(self, picked["item_id"])
+
+		picked_ids_this_visit.append(
+			picked["item_id"]
+		)
+
+		item_picked.emit(
+			self,
+			picked["item_id"]
+		)
 
 		var remaining: Array = required_item_ids.filter(
-			func(id): return not picked_ids_this_visit.has(id)
+			func(id):
+				return not picked_ids_this_visit.has(id)
 		)
 
 		if remaining.is_empty():
-			# Gak ada barang lain yang masih eligible di workstation ini --
-			# otomatis keluar, gak perlu nunggu BACKSPACE tambahan.
+			# Semua item yang dibutuhkan sudah diambil.
 			break
 
-		await item_pick_manager.wait_for_exit(picked["label"])
-		# BACKSPACE ditekan di sini -> loop balik ke atas, run_pick() lagi.
+
+		var exit_cancelled: bool = (
+			await item_pick_manager.wait_for_exit(
+				picked["label"]
+			)
+		)
+
+		if exit_cancelled:
+			print(
+				"[Workstation] EXIT WAIT dibatalkan karena restart."
+			)
+
+			action_in_progress = false
+			current_action = ""
+			current_action_data = {}
+			return
 
 	complete_action()
-
-
 func run_add_action() -> void:
 	
 
@@ -238,8 +287,23 @@ func run_cut_action() -> void:
 			String(prompt)
 		)
 
-		await typing_manager.typing_completed
+		var result = await typing_manager.typing_completed
 
+		if result == "CANCELED":
+			print(
+				"[Workstation] CUT dibatalkan karena restart."
+			)
+
+			camera_controller.exit_interaction()
+			typing_ui.use_world_mode()
+
+			await camera_controller.transition_finished
+
+			action_in_progress = false
+			current_action = ""
+			current_action_data = {}
+
+			return
 	camera_controller.exit_interaction()
 
 	typing_ui.use_world_mode()
@@ -288,13 +352,23 @@ func run_mix_action() -> void:
 			String(prompt)
 		)
 
-		await typing_manager.typing_completed
+		var result = await typing_manager.typing_completed
 
-		print(
-			"[CookingAction] Prompt selesai: ",
-			prompt
-		)
+		if result == "CANCELED":
+			print(
+				"[Workstation] MIX dibatalkan karena restart."
+			)
 
+			camera_controller.exit_interaction()
+			typing_ui.use_world_mode()
+
+			await camera_controller.transition_finished
+
+			action_in_progress = false
+			current_action = ""
+			current_action_data = {}
+
+			return
 
 	camera_controller.exit_interaction()
 	typing_ui.use_world_mode()
@@ -338,11 +412,21 @@ func run_stove_timing_sequence() -> void:
 		var result: String = await stove_timing_ui.run_timing(String(prompt))
 		
 		if result == "CANCELED":
+			print(
+				"[Workstation] ",
+				command,
+				" timing dibatalkan karena restart."
+			)
+
+			if camera_controller != null and interaction_camera_anchor != null:
+				camera_controller.exit_interaction()
+				await camera_controller.transition_finished
+
 			action_in_progress = false
 			current_action = ""
 			current_action_data = {}
+
 			return
-		
 		results.append(result)
 
 		print(
@@ -423,14 +507,22 @@ func finish_action_after_delay(duration: float) -> void:
 func cancel_current_action() -> void:
 	if not action_in_progress:
 		return
+
+	print(
+		"[Workstation] REQUEST CANCEL ACTION: ",
+		command,
+		" / ",
+		current_action
+	)
+
 	if item_pick_manager != null:
 		item_pick_manager.cancel()
-	
+
 	if stove_timing_ui != null:
 		stove_timing_ui.cancel()
-		
-	action_in_progress = false
-	current_action = ""
-	current_action_data = {}
-	
-	
+
+	if typing_manager != null:
+		typing_manager.cancel()
+
+	if typing_ui != null:
+		typing_ui.cancel()

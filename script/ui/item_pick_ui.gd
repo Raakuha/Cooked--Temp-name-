@@ -2,17 +2,16 @@ extends CanvasLayer
 class_name ItemPickUI
 
 
-
+@export var row_scene: PackedScene
 @export var item_pick_manager: ItemPickManager
 
 @onready var panel: PanelContainer = $PanelContainer
-@onready var title_label: Label = \
-	$PanelContainer/MarginContainer/VBoxContainer/TitleLabel
+@onready var title_label: Label = $PanelContainer/MarginContainer/VBoxContainer/Header/TitleLabel
 @onready var list_container: VBoxContainer = \
 	$PanelContainer/MarginContainer/VBoxContainer/ListContainer
-
+var _picked_item_ids: Dictionary = {}
 var _row_labels: Dictionary = {}  # item_id -> RichTextLabel
-
+var _current_candidates: Array = []
 var shake_tween: Tween
 var error_color_tween: Tween
 var _panel_base_position: Vector2
@@ -43,7 +42,8 @@ func _ready() -> void:
 # ------------------------------------------------------------------
 
 func _on_pick_started(candidates: Array) -> void:
-	title_label.text = "AMBIL BARANG (ENTER = konfirmasi, BACKSPACE = selesai & keluar)"
+	_picked_item_ids.clear()
+	_current_candidates = candidates.duplicate(true)
 	_rebuild_rows(candidates)
 	panel.show()
 
@@ -51,7 +51,7 @@ func _on_pick_started(candidates: Array) -> void:
 func _on_pick_confirm_rejected() -> void:
 	# ENTER ditekan tapi ketikan belum PAS sama barang manapun -- ini
 	# tetap dianggap kesalahan, kasih feedback yang sama kayak salah ketik.
-	title_label.text = "BELUM LENGKAP -- lanjut ketik atau ENTER lagi"
+	title_label.text = "BELUM LENGKAP "
 	play_error_feedback()
 
 
@@ -62,21 +62,28 @@ func _rebuild_rows(candidates: Array) -> void:
 	_row_labels.clear()
 
 	for candidate in candidates:
-		var row := _make_row()
+		var row : ItemPickRow = row_scene.instantiate()
 		list_container.add_child(row)
 		_row_labels[candidate["item_id"]] = row
+		row.set_pending()
+		row.set_item_label(candidate["label"], 0)
 
 
 func _on_pick_updated(states: Array) -> void:
 	var any_mistake := false
 
 	for state in states:
-		var row: RichTextLabel = _row_labels.get(state["item_id"])
+		var row: ItemPickRow = _row_labels.get(
+			state["item_id"]
+		)
 
 		if row == null:
 			continue
 
-		_render_row(row, state["label"], state["matched_len"])
+		row.set_item_label(
+			state["label"],
+			state["matched_len"]
+		)
 
 		if state["had_mistake"]:
 			any_mistake = true
@@ -84,24 +91,32 @@ func _on_pick_updated(states: Array) -> void:
 	if any_mistake:
 		play_error_feedback()
 
+func _on_pick_completed(result: Dictionary) -> void:
+	var  item_id : String = result.get("item_id", "")
+	var row: ItemPickRow = _row_labels.get(item_id)
+	if item_id != "":
+		_picked_item_ids[item_id] = true
 
-func _on_pick_completed(_result: Dictionary) -> void:
+	if row != null:
+		row.set_completed()
+
 	panel.hide()
-
-
 # ------------------------------------------------------------------
 # Mode EXIT WAIT -- barang udah benar, nunggu BACKSPACE buat lanjut.
 # ------------------------------------------------------------------
 
-func _on_exit_wait_started(label: String) -> void:
-	title_label.text = "OK: " + label + " -- BACKSPACE = lihat daftar lagi"
-	_rebuild_rows([{"item_id": "_exit", "label": label}])
-	_render_row(
-		_row_labels["_exit"], label, ItemPickManager.strip_label(label).length()
-	)
+func _on_exit_wait_started(_label: String) -> void:
+	title_label.text = "AMBIL BARANG"
+
+	_rebuild_rows(_current_candidates)
+
+	for item_id in _picked_item_ids:
+		var row: ItemPickRow = _row_labels.get(item_id)
+
+		if row != null:
+			row.set_completed()
+
 	panel.show()
-
-
 func _on_exit_wait_completed() -> void:
 	panel.hide()
 
@@ -117,16 +132,18 @@ func _on_return_started(label: String) -> void:
 
 
 func _on_return_updated(matched_len: int, target: String, had_mistake: bool) -> void:
-	var row: RichTextLabel = _row_labels.get("_return")
+	var row: ItemPickRow = _row_labels.get("_return")
 
 	if row == null:
 		return
 
-	_render_row(row, target, matched_len)
+	row.set_item_label(
+		target,
+		matched_len
+	)
 
 	if had_mistake:
 		play_error_feedback()
-
 
 func _on_return_completed(_label: String) -> void:
 	panel.hide()
@@ -177,54 +194,4 @@ func play_error_feedback() -> void:
 
 	shake_tween.tween_property(
 		panel, "position:x", _panel_base_position.x, 0.04
-	)
-
-
-# ------------------------------------------------------------------
-# Helper
-# ------------------------------------------------------------------
-
-func _make_row() -> RichTextLabel:
-	var row := RichTextLabel.new()
-	row.bbcode_enabled = true
-	row.fit_content = true
-	row.scroll_active = false
-	row.autowrap_mode = TextServer.AUTOWRAP_OFF
-	row.custom_minimum_size = Vector2(340, 28)
-	return row
-
-
-## stripped_matched_len = posisi di label TANPA SPASI (dari
-## ItemPickManager). Fungsi ini nerjemahin balik ke posisi di label ASLI
-## (yang ada spasinya) -- spasi otomatis ikut "selesai" begitu huruf
-## sebelum & sesudahnya udah kena, jadi highlight-nya tetep mulus.
-static func _visual_length(label: String, stripped_matched_len: int) -> int:
-	if stripped_matched_len <= 0:
-		return 0
-
-	var seen := 0
-
-	for i in label.length():
-		if label[i] != " ":
-			seen += 1
-
-			if seen == stripped_matched_len:
-				return i + 1
-
-	return label.length()
-
-
-func _render_row(row: RichTextLabel, label: String, stripped_matched_len: int) -> void:
-	var visual_len: int = _visual_length(label, stripped_matched_len)
-	var clamped_len: int = clamp(visual_len, 0, label.length())
-	var completed := label.substr(0, clamped_len)
-	var remaining := label.substr(clamped_len)
-
-	row.text = (
-		"[color=#FFFFFFFF][b]"
-		+ completed
-		+ "[/b][/color]"
-		+ "[color=#FFFFFF55]"
-		+ remaining
-		+ "[/color]"
 	)

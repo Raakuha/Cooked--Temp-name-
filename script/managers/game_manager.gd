@@ -89,8 +89,10 @@ func _ready() -> void:
 		cooking_sequence_manager.cancel_current_prep
 	)
 
+	
+	
 
-	sanity_manager.horror_threshold_reached.connect(_on_horror_threshold_reached)
+	
 
 	police_opening_manager.sequence_finished.connect(
 		_on_police_opening_finished
@@ -328,18 +330,11 @@ func _start_next_order_item() -> void:
 
 		return
 
-
-	# =====================================================
-	# QUEUE KOSONG
-	# SEMUA ORDER CUSTOMER SUDAH SELESAI
-	# =====================================================
-
 	print("========================")
 	print("[GameManager] SEMUA ORDER SELESAI")
 	print("========================")
 	menu_deadline_timer.stop_order()
-
-
+	game_hud.hide_game_hud()
 	if group_active:
 
 		if customer_group_manager.current_customer != null:
@@ -412,8 +407,7 @@ func _on_customer_exited() -> void:
 # =========================================================
 
 func _on_dialog_finished() -> void:
-	print("Dialogue selesai")
-
+	
 	if ending_active:
 		print("Ending aktif -> EventRunner tidak dilanjutkan")
 		return
@@ -502,7 +496,8 @@ func _on_event_started(event) -> void:
 		# ---------------------------------------------------
 		"dialog":
 			var target: Node3D = null
-
+			set_game_hud_visible(false)
+			
 			if event["speaker"] == "customer":
 
 				if customer_manager.current_customer != null:
@@ -590,7 +585,7 @@ func _on_event_started(event) -> void:
 					print("========================")
 
 					menu_deadline_timer.start_order(total_deadline)
-
+					game_hud.show_game_hud()
 					_start_next_order_item()
 		# ---------------------------------------------------
 		# EXIT
@@ -680,12 +675,12 @@ func play_customer_dialogue(
 	dialogues: Array[Dictionary],
 	dialogue_type: String
 ) -> void:
-
-
-
+	set_game_hud_visible(false)
+	if game_hud != null:
+		game_hud.hide_game_hud()
 	if dialogues.is_empty():
-
-		print("Tidak ada customer dialogue.")
+	
+	
 
 		if dialogue_type == "closing":
 			customer_manager.exit_customer()
@@ -789,7 +784,7 @@ func start_group_typing() -> void:
 	print("========================")
 
 	menu_deadline_timer.start_order(total_deadline)
-
+	game_hud.show_game_hud()
 	_start_next_order_item()
 func _on_recipe_step_cancelled() -> void:
 	
@@ -825,3 +820,9 @@ func restart_current_order_timer() -> void:
 	print("========================")
 
 	menu_deadline_timer.start_order(total_deadline)
+
+func set_game_hud_visible(visible_state: bool) -> void:
+	if game_hud == null:
+		return
+
+	game_hud.visible = visible_state
