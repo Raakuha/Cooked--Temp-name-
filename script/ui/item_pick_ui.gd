@@ -42,6 +42,7 @@ func _ready() -> void:
 # ------------------------------------------------------------------
 
 func _on_pick_started(candidates: Array) -> void:
+	title_label.text = "AMBIL BARANG"
 	_picked_item_ids.clear()
 	_current_candidates = candidates.duplicate(true)
 	_rebuild_rows(candidates)

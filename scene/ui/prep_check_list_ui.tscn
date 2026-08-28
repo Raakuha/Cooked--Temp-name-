@@ -46,10 +46,10 @@ item_labels = {
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1867462978]
 layout_mode = 0
-offset_left = 13.155
-offset_top = 19.58
-offset_right = 290.72
-offset_bottom = 314.72
+offset_left = 30.5
+offset_top = 85.63
+offset_right = 308.065
+offset_bottom = 380.77002
 theme_override_styles/panel = SubResource("StyleBoxFlat_bhunq")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1144790267]

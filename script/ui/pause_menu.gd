@@ -10,25 +10,32 @@ var  pause_toggle := false
 @onready var item_pick_ui: ItemPickUI = $"../../ItemPickUI"
 @onready var game_hud: GameHUD = $"../../GameHUD"
 @onready var prep_checklist_ui: PrepChecklistUI = $"../../PrepCheckListUI"
-
+@onready var texture_button: TextureButton = $"../Pause_button/TextureButton"
+var button_tween: Tween
 var game_hud_was_visible := false
 var prep_checklist_was_visible := false
 var dialogue_bubble_was_visible := false
 var bubble_dialog_was_visible := false
 var fullscreen_dialog_was_visible := false
 var item_pick_ui_was_visible := false
-	
+var  textbutton_was_visible := false
 func _ready() -> void:
 	self.visible = false
 	z_index = 100
-	
+	texture_button.visible = true
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	texture_button.pivot_offset = texture_button.size / 2.0
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		pause_and_unpause()
+		
 
 func pause_and_unpause():
 	pause_toggle = !pause_toggle
+	
+	texture_button.button_pressed = pause_toggle
+	animate_pause_button()
 	get_tree().paused = pause_toggle
 	self.visible = pause_toggle
 	
@@ -95,10 +102,44 @@ func _on_restart_pressed() -> void:
 		game_manager.restart_current_order_timer()
 	
 
+func animate_pause_button() -> void:
+	if texture_button == null:
+		return
 
+	if button_tween != null:
+		button_tween.kill()
+
+	button_tween = create_tween()
+
+	texture_button.scale = Vector2.ONE
+
+	button_tween.tween_property(
+		texture_button,
+		"scale",
+		Vector2(0.85, 0.85),
+		0.06
+	)
+
+	button_tween.tween_property(
+		texture_button,
+		"scale",
+		Vector2(1.05, 1.05),
+		0.08
+	)
+
+	button_tween.tween_property(
+		texture_button,
+		"scale",
+		Vector2.ONE,
+		0.06
+	)
 func _on_resume_pressed() -> void:
 	pause_and_unpause()
 
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_texture_button_pressed() -> void:
+	pause_and_unpause()

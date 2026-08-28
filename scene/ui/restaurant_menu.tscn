@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bbxtxjkmt6bx3"]
+
+[ext_resource type="PackedScene" uid="uid://1g8haud7pr0q" path="res://kitchenmodel_ingame/tablenchair/tablenchair.glb" id="3_40v2q"]
+[ext_resource type="PackedScene" uid="uid://dikaxutcibtnj" path="res://kitchenmodel_ingame/door2/door2.glb" id="3_q25fx"]
+[ext_resource type="PackedScene" uid="uid://dtcx5tycdsvjr" path="res://kitchenmodel_ingame/tembok/temboknframe.glb" id="14_gvgqn"]
+
+[node name="Restaurant" type="Node3D" unique_id=424843313]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="door2" parent="." unique_id=171617519 instance=ExtResource("3_q25fx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.48635602, 0, -0.16165924)
+
+[node name="temboknframe" parent="." unique_id=447339091 instance=ExtResource("14_gvgqn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49881792, 0, -0.16719937)
+
+[node name="tablenchair" parent="." unique_id=2003708780 instance=ExtResource("3_40v2q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0676897, 0, -0.07415581)

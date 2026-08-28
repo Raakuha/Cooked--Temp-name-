@@ -43,12 +43,9 @@ func run_pick(candidates: Array) -> Dictionary:
 	return result
 
 func cancel() -> void:
-	print("[ItemPickManager] CANCEL REQUEST")
-
 	_cancel_requested = true
 
 	if _picking:
-		print("[ItemPickManager] PICK CANCELLED")
 
 		_picking = false
 		_buffer = ""
@@ -59,14 +56,12 @@ func cancel() -> void:
 
 
 	elif _returning:
-		print("[ItemPickManager] RETURN CANCELLED")
 
 		_returning = false
 		_return_fill = ""
 
 		return_completed.emit(_return_target)
 	elif _waiting_exit:
-		print("[ItemPickManager] EXIT WAIT CANCELLED")
 
 		_waiting_exit = false
 
@@ -149,8 +144,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 	var input := String.chr(key.unicode).to_upper()
 
-	# Spasi SENGAJA tidak ada di daftar ini -- nekan spasi diabaikan total,
-	# bukan dianggap salah ketik ataupun bagian dari kata.
 	if not "ABCDEFGHIJKLMNOPQRSTUVWXYZ".contains(input):
 		return
 
@@ -175,8 +168,7 @@ func _check_pick(input: String) -> void:
 			still_matching.append(candidate)
 
 	if still_matching.is_empty():
-		# Gak ada barang yang cocok sama sekali -- typo biasa, buffer gak
-		# maju, cuma kasih feedback error.
+
 		_emit_pick_state(true)
 		return
 
