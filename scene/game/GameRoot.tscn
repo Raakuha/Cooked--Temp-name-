@@ -64,20 +64,16 @@
 [ext_resource type="Script" uid="uid://cmtyyvc0dq0au" path="res://script/managers/police_opening_manager.gd" id="41_qtc76"]
 [ext_resource type="Script" uid="uid://c5qp3eh338108" path="res://script/managers/tutorial_sequence_manager.gd" id="42_x3618"]
 [ext_resource type="Resource" uid="uid://cn3fryreycebp" path="res://data/customers/police.tres" id="46_61jv0"]
-
+[ext_resource type="PackedScene" uid="uid://v11epxajdnyt" path="res://scene/ui/day_summary_ui.tscn" id="53_svhq0"]
 [ext_resource type="FontFile" uid="uid://bcnauk8avrvvg" path="res://scene/ui/Super Mellow.ttf" id="54_66wm3"]
 [ext_resource type="PackedScene" uid="uid://3fne6jm5xd1p" path="res://scene/ui/pause_menu.tscn" id="56_61jv0"]
-[ext_resource type="PackedScene" uid="uid://s1g7aayex6ba" path="res://scene/customer/Tutorial_Police.tscn" id="65_66wm3"]
-
-[ext_resource type="PackedScene" uid="uid://v11epxajdnyt" path="res://scene/ui/day_summary_ui.tscn" id="53_svhq0"]
-
-
+[ext_resource type="PackedScene" uid="uid://b4asr81thln0c" path="res://scene/ui/tutorial_menu.tscn" id="58_k60xw"]
 [ext_resource type="PackedScene" uid="uid://dydhaulhw44x4" path="res://scene/game/psychiatrist_room.tscn" id="63_cq5hq"]
 [ext_resource type="PackedScene" uid="uid://d3jtltt0s5gwc" path="res://assets/PsikiaterRoom/meat.glb" id="63_ktxk6"]
+[ext_resource type="PackedScene" uid="uid://r30i04y42y0m" path="res://assets/Basement/Mayad.tscn" id="63_yeytm"]
 [ext_resource type="PackedScene" uid="uid://bsmcuveov7hlc" path="res://scene/game/flashback_kitchen.tscn" id="64_tlx3c"]
-
+[ext_resource type="PackedScene" uid="uid://s1g7aayex6ba" path="res://scene/customer/Tutorial_Police.tscn" id="65_66wm3"]
 [ext_resource type="PackedScene" uid="uid://cf7j1aw8l11x4" path="res://scene/game/flashback_day_4.tscn" id="65_svhq0"]
-
 
 [sub_resource type="Theme" id="Theme_7c5yd"]
 default_font = ExtResource("54_66wm3")
@@ -493,39 +489,7 @@ prompt_shadow_color = Color(0, 0, 0, 1)
 cooking_sequence_manager = NodePath("../../Managers/CookingSequenceManager")
 item_pick_manager = NodePath("../../Managers/ItemPickManager")
 
-[node name="TutorialMenu" type="CanvasLayer" parent="UI" unique_id=632985895]
-visible = false
-
-[node name="Control" type="Control" parent="UI/TutorialMenu" unique_id=130338459]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="UI/TutorialMenu/Control" unique_id=2056456065]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/TutorialMenu/Control/Panel" unique_id=1298702429]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="UI/TutorialMenu/Control/Panel/VBoxContainer" unique_id=218369569]
-layout_mode = 2
-text = "Title:
-MENU RESTORAN"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="TutorialMenu" parent="UI" unique_id=770103702 instance=ExtResource("58_k60xw")]
 
 [node name="PauseMenu" parent="UI" unique_id=589749025 instance=ExtResource("56_61jv0")]
 
@@ -615,13 +579,13 @@ navigation_mesh = SubResource("NavigationMesh_riqys")
 [node name="Restaurant" parent="World" unique_id=1293282191 instance=ExtResource("14_fd77o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2947865, 0, 0.45060158)
 
-[node name="Cube_035" parent="World/Restaurant/door2" parent_id_path=PackedInt32Array(1293282191, 893266216) index="0" unique_id=1595962607]
+[node name="Cube_035" parent="World/Restaurant/door2" parent_id_path=PackedInt32Array(1293282191, 893266216) index="0" unique_id=1869402280]
 transform = Transform3D(-0.22884804, -5.4278924e-08, 0.03303441, -9.224368e-08, 0.9596015, 2.03547e-17, 0.56641877, 1.3434506e-07, 0.013346768, -1.8814273, 1.136609, -4.0340667)
 
-[node name="frame_001" parent="World/Restaurant/door2" parent_id_path=PackedInt32Array(1293282191, 893266216) index="1" unique_id=1742338716]
+[node name="frame_001" parent="World/Restaurant/door2" parent_id_path=PackedInt32Array(1293282191, 893266216) index="1" unique_id=398964970]
 transform = Transform3D(-0.23882578, 0, -0.0525026, 0, 0.99785656, 0, 0.5911145, 0, -0.021212427, -1.8813758, 1.1521235, -4.022926)
 
-[node name="Door_kulkas" parent="World/Restaurant/kulkas" parent_id_path=PackedInt32Array(1293282191, 763844842) index="1" unique_id=568307363]
+[node name="Door_kulkas" parent="World/Restaurant/kulkas" parent_id_path=PackedInt32Array(1293282191, 763844842) index="1" unique_id=1532875523]
 transform = Transform3D(0.008222813, 0, 0, 0, 0.79652077, 0, 0, 0, 0.4451763, 3.7108603, 0.97326714, -3.450365)
 
 [node name="HorrorFocusPoint" type="Marker3D" parent="World" unique_id=1911894409]
@@ -653,8 +617,8 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -2.4
 [node name="HumanHangingMeat" type="Node3D" parent="World/Fridge" unique_id=163419330]
 visible = false
 
-[node name="meat" parent="World/Fridge/HumanHangingMeat" unique_id=1889879661 instance=ExtResource("63_ktxk6")]
-transform = Transform3D(2.5, 0, 0, 0, -1.09278474e-07, -2.5, 0, 2.5, -1.09278474e-07, -6.1494937, -1.6896658, -1.6231537)
+[node name="Mayad" parent="World/Fridge/HumanHangingMeat" unique_id=2018627691 instance=ExtResource("63_yeytm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4463711, 0.42935848, 1.6348839)
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="World" unique_id=2134641697]
 height = 1.6

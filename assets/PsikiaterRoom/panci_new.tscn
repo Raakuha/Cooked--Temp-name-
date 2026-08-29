@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://ifn2w8fdtnu2"]
+
+[ext_resource type="PackedScene" uid="uid://cpayp6qgo5fvn" path="res://assets/PsikiaterRoom/PanciNew.glb" id="1_s58bo"]
+
+[node name="PanciNew" unique_id=2024367951 instance=ExtResource("1_s58bo")]
+
+[node name="Cube" parent="." index="0" unique_id=798633969]
+visible = false
+
+[node name="Cube_001" parent="." index="1" unique_id=2046738693]
+visible = false
+
+[node name="Cube_002" parent="." index="2" unique_id=1487030983]
+visible = false
+
+[node name="Cube_003" parent="." index="3" unique_id=940953640]
+visible = false
+
+[node name="Cube_004" parent="." index="4" unique_id=909420847]
+visible = false
+
+[node name="Cube_005" parent="." index="5" unique_id=552848387]
+visible = false
+
+[node name="Cube_006" parent="." index="6" unique_id=2001306321]
+visible = false
+
+[node name="Cube_017" parent="." index="11" unique_id=1547907217]
+visible = false
+
+[node name="Cube_018" parent="." index="12" unique_id=207357145]
+visible = false
+
+[node name="Cylinder" parent="." index="13" unique_id=1806746980]
+visible = false
+
+[node name="Cylinder_001" parent="." index="14" unique_id=1233246858]
+visible = false
+
+[node name="Sphere" parent="." index="20" unique_id=727013343]
+visible = false

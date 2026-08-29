@@ -14,7 +14,15 @@ extends Node
 @onready var dialogue_manager: DialogueManager = $"../DialogueManager"
 @onready var transition_layer: TransitionLayer = $"../../UI/TransitionLayer"
 
-@onready var psychiatrist_room: Node3D = $"../../World/PsychiatristRoom"
+var psychiatrist_animation_player: AnimationPlayer = null
+
+@onready var psychiatrist_room: Node3D = (
+	$"../../World/PsychiatristRoom"
+)
+
+@onready var psychiatrist: Node3D = (
+	$"../../World/PsychiatristRoom/Psychiatrist"
+)
 
 @onready var memory_objects: Node3D = (
 	$"../../World/PsychiatristRoom/MemoryObjects"
@@ -69,6 +77,40 @@ func _ready() -> void:
 
 	day4_flashback.hide()
 
+	if psychiatrist != null:
+
+		psychiatrist_animation_player = psychiatrist.find_child(
+			"AnimationPlayer",
+			true,
+			false
+		) as AnimationPlayer
+
+		if psychiatrist_animation_player != null:
+
+			print(
+				"Psychiatrist AnimationPlayer ditemukan"
+			)
+
+		else:
+
+			print(
+				"Psychiatrist AnimationPlayer tidak ditemukan"
+			)
+
+func play_psychiatrist_idle() -> void:
+
+	if psychiatrist_animation_player == null:
+		return
+
+	print("PSYCHIATRIST IDLE START")
+
+	if psychiatrist_animation_player.has_animation("Duduk"):
+		psychiatrist_animation_player.play("Duduk")
+		return
+
+	print(
+		"Animasi Duduk tidak ditemukan."
+	)
 
 
 func play_day4_flashback() -> void:

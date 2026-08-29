@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dsp3bx3m4138l" path="res://assets/PsikiaterRoom/apel.glb" id="2_y4l10"]
 [ext_resource type="PackedScene" uid="uid://c3anc00hy58xx" path="res://assets/PsikiaterRoom/piso.glb" id="3_5pxsf"]
 [ext_resource type="PackedScene" uid="uid://d3jtltt0s5gwc" path="res://assets/PsikiaterRoom/meat.glb" id="4_jwaup"]
+[ext_resource type="PackedScene" uid="uid://djy6bw7t3lggr" path="res://assets/PsikiaterRoom/Psychiatrist.tscn" id="5_5pxsf"]
 
 [node name="PsychiatristRoom" type="Node3D" unique_id=1966621890]
 
@@ -41,3 +42,6 @@ visible = false
 
 [node name="meat" parent="MemoryObjects/Meat" unique_id=843283631 instance=ExtResource("4_jwaup")]
 transform = Transform3D(0.84179187, -0.53980243, 0, 0.53980243, 0.84179187, 0, 0, 0, 1, -1.333473, -1.8682208, 0.85462093)
+
+[node name="Psikiater" parent="." unique_id=587070155 instance=ExtResource("5_5pxsf")]
+transform = Transform3D(-0.0013504594, 0.087907396, -0.9961277, 0.00011917676, 0.9961288, 0.087907344, 0.99999905, -1.4355217e-11, -0.0013557076, 0.2571588, 0.048226178, 4.470441)

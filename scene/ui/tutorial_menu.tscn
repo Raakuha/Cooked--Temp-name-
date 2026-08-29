@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://b4asr81thln0c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8bxm0"]
+bg_color = Color(0.3491902, 0.3491902, 0.3133042, 0.88000005)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.827222, 0.8077228, 0.7373294, 0.5)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0, 0, 0, 0.25)
+shadow_size = 8
+
+[node name="TutorialMenu" type="CanvasLayer" unique_id=770103702]
+visible = false
+
+[node name="Control" type="Control" parent="." unique_id=1258421828]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 150.0
+offset_top = -205.0
+offset_right = 430.0
+offset_bottom = 195.0
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Control" unique_id=391020106]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8bxm0")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/Panel" unique_id=2145366227]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 22
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Panel/MarginContainer" unique_id=1960721244]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer" unique_id=2082493697]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9137255, 0.8627451, 0.7607843, 1)
+theme_override_font_sizes/font_size = 20
+text = "MENU RESTORAN"
+horizontal_alignment = 1
+
+[node name="Divider" type="ColorRect" parent="Control/Panel/MarginContainer/VBoxContainer" unique_id=695533386]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+
+[node name="TitleSpacer" type="Control" parent="Control/Panel/MarginContainer/VBoxContainer" unique_id=1669569633]
+layout_mode = 2
+
+[node name="Nasgor" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer" unique_id=202144562]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "nasgor goreng"
+horizontal_alignment = 1
+
+[node name="Steak" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer" unique_id=149905013]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "steak"
+horizontal_alignment = 1
+
+[node name="Salad" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer" unique_id=1649654705]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "salad"
+horizontal_alignment = 1
+
+[node name="Roti" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer" unique_id=625293826]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "roti khas lempuyangan"
+horizontal_alignment = 1
+
+[node name="Soda" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer" unique_id=596317458]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "soda"
+horizontal_alignment = 1
+
+[node name="Air" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer" unique_id=185638427]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "air mineral"
+horizontal_alignment = 1
+
+[node name="Burger" type="Label" parent="Control/Panel/MarginContainer/VBoxContainer" unique_id=1514273658]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "burger banggor"
+horizontal_alignment = 1
