@@ -8,6 +8,7 @@ signal arrived_at_target
 
 const SPEED := 5.0
 const ARRIVAL := 1.0
+const GRAVITY := 20.0
 
 @export var move_speed: float = 4.0
 @export var mouse_sensitivity: float = 0.002
@@ -72,7 +73,16 @@ func _input(event: InputEvent) -> void:
 		)
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+
+	# --------------------------------------------------
+	# GRAVITY
+	# --------------------------------------------------
+	if not is_on_floor():
+		velocity.y -= GRAVITY * delta
+	else:
+		velocity.y = 0.0
+
 
 	# --------------------------------------------------
 	# 1. Navigation / automatic movement
@@ -80,10 +90,11 @@ func _physics_process(_delta: float) -> void:
 	if is_moving:
 
 		if navigation_agent_3d.is_navigation_finished():
+
 			is_moving = false
 
-			velocity.x = 0
-			velocity.z = 0
+			velocity.x = 0.0
+			velocity.z = 0.0
 
 			arrived_at_target.emit()
 
@@ -91,14 +102,23 @@ func _physics_process(_delta: float) -> void:
 
 			return
 
-		var next_position := navigation_agent_3d.get_next_path_position()
+		var next_position := (
+			navigation_agent_3d.get_next_path_position()
+		)
 
-		var arah_target: Vector3 = next_position - global_position
-		arah_target.y = 0
-		arah_target = arah_target.normalized()
+		var arah_target: Vector3 = (
+			next_position - global_position
+		)
 
-		velocity.x = SPEED * arah_target.x
-		velocity.z = SPEED * arah_target.z
+		# Kita hanya gunakan X/Z untuk arah gerak.
+		# Y tetap ditangani oleh gravity.
+		arah_target.y = 0.0
+
+		if arah_target.length() > 0.01:
+			arah_target = arah_target.normalized()
+
+			velocity.x = SPEED * arah_target.x
+			velocity.z = SPEED * arah_target.z
 
 		move_and_slide()
 
@@ -109,7 +129,9 @@ func _physics_process(_delta: float) -> void:
 	# 2. Player manual movement
 	# --------------------------------------------------
 	if not movement_enabled:
+		move_and_slide()
 		return
+
 
 	var input_dir := Input.get_vector(
 		"move_left",
@@ -121,25 +143,30 @@ func _physics_process(_delta: float) -> void:
 	var direction := (
 		transform.basis * Vector3(
 			input_dir.x,
-			0,
+			0.0,
 			input_dir.y
 		)
 	).normalized()
 
+
 	if direction:
+
 		velocity.x = direction.x * move_speed
 		velocity.z = direction.z * move_speed
+
 	else:
+
 		velocity.x = move_toward(
 			velocity.x,
-			0,
+			0.0,
 			move_speed
 		)
 
 		velocity.z = move_toward(
 			velocity.z,
-			0,
+			0.0,
 			move_speed
 		)
+
 
 	move_and_slide()

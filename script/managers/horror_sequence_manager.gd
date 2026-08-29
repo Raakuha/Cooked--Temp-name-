@@ -6,7 +6,9 @@ signal sequence_finished
 
 @export var horror_camera: Camera3D
 @export var horror_focus_point: Marker3D
-@export var hanging_meat: Node3D
+
+@export var normal_hanging_meat: Node3D
+@export var human_hanging_meat: Node3D
 
 @export var reveal_zoom_distance: float = 2.0
 @export var reveal_zoom_duration: float = 3.0
@@ -15,6 +17,16 @@ signal sequence_finished
 
 
 var active: bool = false
+
+
+func _ready() -> void:
+
+	if normal_hanging_meat != null:
+		normal_hanging_meat.show()
+
+	if human_hanging_meat != null:
+		human_hanging_meat.hide()
+
 
 
 func play_basement_sequence() -> void:
@@ -97,17 +109,21 @@ func look_camera_at_focus() -> void:
 
 func reveal_horror_visual() -> void:
 
-	if hanging_meat == null:
-		print("Hanging Meat tidak ditemukan.")
-		return
-
-	hanging_meat.visible = true
-
 	print("========================")
 	print("HORROR VISUAL REVEALED")
-	print("HANGING MEAT VISIBLE")
 	print("========================")
 
+	if normal_hanging_meat == null:
+		print("Normal Hanging Meat tidak ditemukan.")
+	else:
+		normal_hanging_meat.hide()
+		print("NORMAL MEAT HIDDEN")
+
+	if human_hanging_meat == null:
+		print("Human Hanging Meat tidak ditemukan.")
+	else:
+		human_hanging_meat.show()
+		print("HUMAN MEAT VISIBLE")
 
 
 
