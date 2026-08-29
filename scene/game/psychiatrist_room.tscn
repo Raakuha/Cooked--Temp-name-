@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://dydhaulhw44x4"]
+
+[ext_resource type="PackedScene" uid="uid://dh0hiihnsbryg" path="res://assets/PsikiaterRoom/psikiaterRoom_base.glb" id="1_q8rm1"]
+[ext_resource type="PackedScene" uid="uid://dsp3bx3m4138l" path="res://assets/PsikiaterRoom/apel.glb" id="2_y4l10"]
+[ext_resource type="PackedScene" uid="uid://c3anc00hy58xx" path="res://assets/PsikiaterRoom/piso.glb" id="3_5pxsf"]
+[ext_resource type="PackedScene" uid="uid://d3jtltt0s5gwc" path="res://assets/PsikiaterRoom/meat.glb" id="4_jwaup"]
+
+[node name="PsychiatristRoom" type="Node3D" unique_id=1966621890]
+
+[node name="PsychiatristCamera" type="Camera3D" parent="." unique_id=1185209209]
+transform = Transform3D(0.30758196, 0, -0.9515217, 0, 1, 0, 0.9515217, 0, 0.30758196, -2.2709308, 1.2119868, 4.5709977)
+
+[node name="PsychiatristFocusPoint" type="Marker3D" parent="." unique_id=1826343233]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120768815, 0.97045535, 4.4749928)
+
+[node name="psikiaterRoom_base" parent="." unique_id=1654100396 instance=ExtResource("1_q8rm1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1224957, 0, 4.235799)
+
+[node name="apel" parent="." unique_id=1455099651 instance=ExtResource("2_y4l10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.411144, -4.7683716e-07, 10.227004)
+
+[node name="MemoryObjects" type="Node3D" parent="." unique_id=954906819]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8718162, 1.1348568, 4.5004916)
+
+[node name="Apple" type="Node3D" parent="MemoryObjects" unique_id=1708009424]
+transform = Transform3D(0.55145115, -0.20849648, -0.807732, 0.35365358, 0.93537635, 1.6969729e-08, 0.75553346, -0.28565735, 0.58955, -0.1723957, 0.0694437, -0.063586235)
+visible = false
+
+[node name="apel" parent="MemoryObjects/Apple" unique_id=1767645811 instance=ExtResource("2_y4l10")]
+transform = Transform3D(0.91039556, 0.033878267, 0.41234976, 0.033878304, 0.98719114, -0.15590402, -0.4123498, 0.15590404, 0.89758664, 0.0717082, 2.3841858e-07, 4.7683716e-07)
+
+[node name="Knife" type="Node3D" parent="MemoryObjects" unique_id=817339485]
+transform = Transform3D(-0.5280727, 0.84912217, -0.011430635, -0.8475772, -0.527848, -0.054673128, -0.05245783, -0.019183053, 0.9984388, -0.1456852, 0.10298979, -0.010400772)
+visible = false
+
+[node name="piso" parent="MemoryObjects/Knife" unique_id=816442248 instance=ExtResource("3_5pxsf")]
+
+[node name="Meat" type="Node3D" parent="MemoryObjects" unique_id=1069073632]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29297543, 0, 0)
+visible = false
+
+[node name="meat" parent="MemoryObjects/Meat" unique_id=843283631 instance=ExtResource("4_jwaup")]
+transform = Transform3D(0.84179187, -0.53980243, 0, 0.53980243, 0.84179187, 0, 0, 0, 1, -1.333473, -1.8682208, 0.85462093)

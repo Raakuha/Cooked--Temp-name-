@@ -15,6 +15,8 @@ signal transition_finished(day: int)
 @onready var dialogue_manager: DialogueManager = $"../DialogueManager"
 @onready var player: Node3D =$"../../Player"
 
+@onready var game_manager: GameManager = $"../GameManager"
+
 var active: bool = false
 var profit_dialogue_active: bool = false
 
@@ -34,12 +36,14 @@ func start_day_transition(completed_day: int) -> void:
 
 	await transition_layer.fade_out(0.7)
 
-	var customers := customer_manager.get_customers_served()
-	var profit := profit_manager.get_profit()
+	var customers: int = customer_manager.get_customers_served()
+	var orders: int = game_manager.get_orders_completed_today()
+	var profit: int = profit_manager.get_profit()
 
 	summary_ui.show_summary(
 		completed_day,
 		customers,
+		orders,
 		profit
 	)
 

@@ -1,3 +1,4 @@
+
 class_name GameManager
 extends Node
 
@@ -34,7 +35,7 @@ signal order_requested(recipe_id)
 @onready var tutorial_sequence_manager : TutorialSequenceManager = $"../TutorialSequenceManager"
 
 var opening_finished: bool = false
-
+var orders_completed_today: int = 0
 
 # Recipe yang sedang dijalankan / recipe terakhir yang dijalankan.
 var fake_typing_recipe: String = ""
@@ -152,6 +153,9 @@ func start_opening() -> void:
 
 	police_opening_manager.play_opening()
 
+
+func get_orders_completed_today() -> int:
+	return orders_completed_today
 
 
 
@@ -279,7 +283,17 @@ func _on_cooking_recipe_completed(result: CookingResult) -> void:
 	# CUSTOMER COOKING
 	# =========================================
 
-	print("[GameManager] Cooking result: ", result.to_dict())
+	orders_completed_today += 1
+
+	print(
+		"[GameManager] Orders completed hari ini : ",
+		orders_completed_today
+	)
+
+	print(
+		"[GameManager] Cooking result: ",
+		result.to_dict()
+	)
 
 	var profit_delta := profit_manager.apply_cooking_result(result)
 	sanity_manager.apply_profit_delta(profit_delta)
@@ -360,9 +374,17 @@ func _start_next_order_item() -> void:
 			customer_manager.send_customer_to_table()
 
 func start_day() -> void:
+
 	print("===== DAY START =====")
 
-	day_manager.start_day(1)
+	orders_completed_today = 0
+
+	print(
+		"Orders completed di-reset : ",
+		orders_completed_today
+	)
+
+	day_manager.start_day(4)
 
 func _on_day_started(day: int) -> void:
 	print("GameManager memulai Day ", day)

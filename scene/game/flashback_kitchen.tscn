@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bsmcuveov7hlc"]
+
+[ext_resource type="PackedScene" uid="uid://c2cxv4b675pyb" path="res://assets/PsikiaterRoom/panci.glb" id="1_07ckh"]
+[ext_resource type="PackedScene" uid="uid://buu7x5ogwdq40" path="res://scene/game/table_DapurFlashback.tscn" id="2_b4ase"]
+[ext_resource type="PackedScene" uid="uid://d0c4plmubyb01" path="res://scene/game/tembokFlashback.tscn" id="3_ia3ja"]
+
+[node name="FlashbackKitchen" type="Node3D" unique_id=1882899235]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3609836, 0)
+
+[node name="FlashbackCamera" type="Camera3D" parent="." unique_id=1942558503]
+transform = Transform3D(-4.371139e-08, -0.61840844, 0.7858569, 0, 0.7858569, 0.61840844, -1, 2.7031492e-08, -3.4350897e-08, -0.6475949, -0.15083075, 1.4666557)
+
+[node name="Audio" type="Node" parent="." unique_id=781638537]
+
+[node name="FlashbackMusic" type="AudioStreamPlayer" parent="Audio" unique_id=1863712799]
+
+[node name="SoupCookingSFX" type="AudioStreamPlayer" parent="Audio" unique_id=950148993]
+
+[node name="KitchenAmbience" type="AudioStreamPlayer" parent="Audio" unique_id=17081981]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=988934012]
+
+[node name="panci" parent="." unique_id=248108466 instance=ExtResource("1_07ckh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0448769, -0.5099604, 1.4342047)
+
+[node name="tableinkitchen2" parent="." unique_id=1002744361 instance=ExtResource("2_b4ase")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.447147, -1.7438583, 2.3236954)
+
+[node name="temboknframe" parent="." unique_id=638734889 instance=ExtResource("3_ia3ja")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 1.0550883, -1.3537779, 1.4093843)

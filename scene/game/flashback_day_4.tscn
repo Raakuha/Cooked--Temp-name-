@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cf7j1aw8l11x4"]
+
+[ext_resource type="PackedScene" uid="uid://buu7x5ogwdq40" path="res://scene/game/table_DapurFlashback.tscn" id="1_iicjq"]
+[ext_resource type="PackedScene" uid="uid://d0c4plmubyb01" path="res://scene/game/tembokFlashback.tscn" id="2_hurth"]
+[ext_resource type="PackedScene" uid="uid://cbc75dv6odkf3" path="res://kitchenmodel_ingame/peripheral/tempatpotong.glb" id="3_hurth"]
+[ext_resource type="PackedScene" uid="uid://d3jtltt0s5gwc" path="res://assets/PsikiaterRoom/meat.glb" id="4_w4ptp"]
+[ext_resource type="PackedScene" uid="uid://b0bbb1jtp3e2o" path="res://kitchenmodel_ingame/peripheral/piso.glb" id="5_2k2vr"]
+
+[node name="FlashbackDay4" type="Node3D" unique_id=242163797]
+
+[node name="FlashbackCamera" type="Camera3D" parent="." unique_id=1983279510]
+transform = Transform3D(1, 0, 0, 0, 0.7660445, 0.64278764, 0, -0.64278764, 0.7660445, 0, 1.631676, -0.30910796)
+
+[node name="Audio" type="Node" parent="." unique_id=1914837270]
+
+[node name="FlashbackMusic" type="AudioStreamPlayer" parent="Audio" unique_id=1267978122]
+
+[node name="KitchenAmbience" type="AudioStreamPlayer" parent="Audio" unique_id=1948446585]
+
+[node name="tableinkitchen2" parent="." unique_id=1002744361 instance=ExtResource("1_iicjq")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.96847177, 0, -0.35317314)
+
+[node name="temboknframe" parent="." unique_id=638734889 instance=ExtResource("2_hurth")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, -0.07432747, -0.16956365, 2.7426758)
+
+[node name="tempatpotong" parent="." unique_id=183766030 instance=ExtResource("3_hurth")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.09477675, 0.94468915, -0.7801758)
+
+[node name="meat" parent="." unique_id=843283631 instance=ExtResource("4_w4ptp")]
+transform = Transform3D(0.7755774, 0, -0.19616245, 0, 0.8, 0, 0.19616245, 0, 0.7755774, -2.0860872, 0.4021845, -0.52549845)
+
+[node name="piso" parent="." unique_id=2080793520 instance=ExtResource("5_2k2vr")]
+transform = Transform3D(-4.371139e-08, -8.742278e-08, 1, 0, -1, -8.742278e-08, 1, -3.821371e-15, 4.371139e-08, 0.3909595, 0.99948037, -0.70456445)

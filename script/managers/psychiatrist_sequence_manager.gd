@@ -16,8 +16,140 @@ extends Node
 
 @onready var psychiatrist_room: Node3D = $"../../World/PsychiatristRoom"
 
+@onready var memory_objects: Node3D = (
+	$"../../World/PsychiatristRoom/MemoryObjects"
+)
+
+@onready var memory_apple: Node3D = (
+	$"../../World/PsychiatristRoom/MemoryObjects/Apple"
+)
+
+@onready var memory_knife: Node3D = (
+	$"../../World/PsychiatristRoom/MemoryObjects/Knife"
+)
+
+@onready var memory_meat: Node3D = (
+	$"../../World/PsychiatristRoom/MemoryObjects/Meat"
+)
+
+
+
+@onready var day4_flashback: Node3D = (
+	$"../../World/FlashbackDay4"
+)
+
+@onready var day4_flashback_camera: Camera3D = (
+	$"../../World/FlashbackDay4/FlashbackCamera"
+)
+
+@onready var day4_flashback_music: AudioStreamPlayer = (
+	$"../../World/FlashbackDay4/Audio/FlashbackMusic"
+)
+
+@onready var day4_kitchen_ambience: AudioStreamPlayer = (
+	$"../../World/FlashbackDay4/Audio/KitchenAmbience"
+)
+
+
 
 var active: bool = false
+
+var memory_apple_scale: Vector3
+var memory_knife_scale: Vector3
+var memory_meat_scale: Vector3
+
+
+func _ready() -> void:
+
+	memory_apple_scale = memory_apple.scale
+	memory_knife_scale = memory_knife.scale
+	memory_meat_scale = memory_meat.scale
+
+	hide_memory_objects()
+
+	day4_flashback.hide()
+
+
+
+func play_day4_flashback() -> void:
+
+	print("========================")
+	print("DAY 4 FLASHBACK")
+	print("FLASHBACK START")
+	print("========================")
+
+	await transition_layer.fade_out(0.7)
+
+	day4_flashback.show()
+
+	day4_flashback_camera.make_current()
+
+	print("CAMERA MODE -> DAY 4 FLASHBACK")
+
+	if day4_flashback_music != null:
+		day4_flashback_music.play()
+
+	if day4_kitchen_ambience != null:
+		day4_kitchen_ambience.play()
+
+	await transition_layer.fade_in(0.7)
+
+	print("DAY 4 FLASHBACK VISUAL ACTIVE")
+
+	await play_day4_flashback_dialogue()
+
+	await transition_layer.fade_out(0.7)
+
+	if day4_flashback_music != null:
+		day4_flashback_music.stop()
+
+	if day4_kitchen_ambience != null:
+		day4_kitchen_ambience.stop()
+
+	day4_flashback.hide()
+
+	psychiatrist_room.show()
+	camera_director.switch_to_psychiatrist()
+
+	await transition_layer.fade_in(0.7)
+
+	print("========================")
+	print("DAY 4 FLASHBACK")
+	print("FLASHBACK FINISHED")
+	print("========================")
+
+
+
+func play_day4_flashback_dialogue() -> void:
+
+	var dialogues := [
+
+		{
+			"mode": "fullscreen",
+			"speaker": "MC",
+			"text": "..."
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "MC",
+			"text": "Aku sedang memasak"
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "MC",
+			"text": "..."
+		}
+	]
+
+	for dialog in dialogues:
+
+		dialogue_manager.start_dialog(dialog)
+
+		await dialogue_manager.dialogue_finished
+
+
 
 func play_flashback() -> void:
 
@@ -69,6 +201,35 @@ func play_flashback() -> void:
 	print("DAY 6 FLASHBACK")
 	print("FLASHBACK FINISHED")
 	print("========================")
+
+
+
+func hide_memory_objects() -> void:
+
+	memory_apple.hide()
+	memory_knife.hide()
+	memory_meat.hide()
+
+
+func show_memory_object(object: Node3D) -> void:
+
+	hide_memory_objects()
+
+	var original_scale := object.scale
+
+	object.show()
+	object.scale = Vector3.ZERO
+
+	var tween := create_tween()
+
+	tween.tween_property(
+		object,
+		"scale",
+		original_scale,
+		0.25
+	)
+
+
 
 
 
@@ -183,8 +344,8 @@ func play_day_sequence(day: int) -> void:
 		2:
 			await play_day_2()
 
-		#4:
-			#await play_day_4()
+		4:
+			await play_day_4()
 
 		6:
 			await play_day_6()
@@ -220,8 +381,7 @@ func play_day_2() -> void:
 	print("PSYCHIATRIST DAY 2")
 	print("========================")
 
-
-	var dialogues = [
+	var dialogues := [
 
 		{
 			"mode": "fullscreen",
@@ -313,8 +473,142 @@ func play_day_2() -> void:
 			"text": "Mereka tidak hadir, atau bahkan tidak ada dan itu tidak masalah"
 		}
 	]
-	
+
 	await play_dialogues(dialogues)
+
+func play_day4_dialogue() -> void:
+
+	var dialogues := [
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Psikiater",
+			"text": "Hari ini kita coba menggunakan pendekatan yang berbeda."
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Psikiater",
+			"text": "Kita tidak akan membahas dirimu."
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Psikiater",
+			"text": "Tapi kita akan membahas \"Mereka\"."
+		}
+	]
+
+	await play_dialogues(dialogues)
+
+func play_day_4() -> void:
+
+	print("========================")
+	print("PSYCHIATRIST DAY 4")
+	print("SEQUENCE START")
+	print("========================")
+
+	camera_director.switch_to_psychiatrist()
+
+	await transition_layer.fade_in(0.7)
+
+	# Dialog awal psikiater
+	await play_day4_dialogue()
+
+	# Flashback MC
+	await play_day4_flashback()
+
+	# Kembali ke ruang psikiater
+	await play_day4_return_dialogue()
+
+	print("========================")
+	print("PSYCHIATRIST DAY 4")
+	print("SEQUENCE FINISHED")
+	print("========================")
+
+
+func play_day4_return_dialogue() -> void:
+
+	print("========================")
+	print("DAY 4 RETURN DIALOGUE")
+	print("SEQUENCE START")
+	print("========================")
+
+	var dialogues := [
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Psikiater",
+			"text": "Apa yang barusan kamu ingat?"
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "MC",
+			"text": "Aku sedang memasak"
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Psikiater",
+			"text": "Coba ingat lagi"
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "MC",
+			"text": "Aku...."
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "MC",
+			"text": "Sedang...."
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "MC",
+			"text": "Membersihkan dapur"
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Psikiater",
+			"text": "Ceritamu berubah lagi"
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Psikiater",
+			"text": "Sebelumnya kau bilang makan malam"
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Psikiater",
+			"text": "Sekarang kau bilang memasak"
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "Psikiater",
+			"text": "Lalu membersihkan dapur"
+		},
+
+		{
+			"mode": "fullscreen",
+			"speaker": "MC",
+			"text": "Aku tidak mengerti"
+		}
+	]
+
+	await play_dialogues(dialogues)
+
+	print("========================")
+	print("DAY 4 RETURN DIALOGUE")
+	print("SEQUENCE FINISHED")
+	print("========================")
 
 
 func play_day_6() -> void:
@@ -339,9 +633,12 @@ func play_day_6() -> void:
 	print("========================")
 
 
+
+
+
 func play_day6_dialogue() -> void:
 
-	var dialogues := [
+	var intro_dialogues := [
 
 		{
 			"mode": "fullscreen",
@@ -365,50 +662,88 @@ func play_day6_dialogue() -> void:
 			"mode": "fullscreen",
 			"speaker": "Psikiater",
 			"text": "Tidak ada jawaban salah, aku hanya ingin kau menceritakan apa yang kau lihat"
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Psikiater",
-			"text": "Apa yang kamu lihat?"
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "MC",
-			"text": "Apel?"
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Psikiater",
-			"text": "Sekarang?"
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "MC",
-			"text": "Pisau?"
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "Psikiater",
-			"text": "Sekarang apa yang kau lihat?"
-		},
-
-		{
-			"mode": "fullscreen",
-			"speaker": "MC",
-			"text": "Bagian daging sapi?"
 		}
 	]
 
-	for dialog in dialogues:
+	await play_dialogues(intro_dialogues)
 
-		dialogue_manager.start_dialog(dialog)
 
-		await dialogue_manager.dialogue_finished
+
+
+
+	var question_1 := {
+		"mode": "fullscreen",
+		"speaker": "Psikiater",
+		"text": "Apa yang kamu lihat?"
+	}
+
+	dialogue_manager.start_dialog(question_1)
+
+	await dialogue_manager.dialogue_finished
+
+	show_memory_object(memory_apple)
+
+	var answer_1 := {
+		"mode": "fullscreen",
+		"speaker": "MC",
+		"text": "Apel?"
+	}
+
+	dialogue_manager.start_dialog(answer_1)
+
+	await dialogue_manager.dialogue_finished
+
+
+
+
+	show_memory_object(memory_knife)
+
+	var question_2 := {
+		"mode": "fullscreen",
+		"speaker": "Psikiater",
+		"text": "Sekarang?"
+	}
+
+	dialogue_manager.start_dialog(question_2)
+
+	await dialogue_manager.dialogue_finished
+
+	var answer_2 := {
+		"mode": "fullscreen",
+		"speaker": "MC",
+		"text": "Pisau?"
+	}
+
+	dialogue_manager.start_dialog(answer_2)
+
+	await dialogue_manager.dialogue_finished
+
+
+
+
+	show_memory_object(memory_meat)
+
+	var question_3 := {
+		"mode": "fullscreen",
+		"speaker": "Psikiater",
+		"text": "Sekarang apa yang kau lihat?"
+	}
+
+	dialogue_manager.start_dialog(question_3)
+
+	await dialogue_manager.dialogue_finished
+
+	var answer_3 := {
+		"mode": "fullscreen",
+		"speaker": "MC",
+		"text": "Bagian daging sapi?"
+	}
+
+	dialogue_manager.start_dialog(answer_3)
+
+	await dialogue_manager.dialogue_finished
+
+	hide_memory_objects()
 
 	await play_flashback()
 
@@ -421,6 +756,9 @@ func play_day6_dialogue() -> void:
 	dialogue_manager.start_dialog(final_dialogue)
 
 	await dialogue_manager.dialogue_finished
+
+
+
 
 
 func play_dialogues(dialogues: Array) -> void:

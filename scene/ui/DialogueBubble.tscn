@@ -93,65 +93,65 @@ vertical_alignment = 1
 [node name="FullscreenDialog" type="Panel" parent="Control" unique_id=439468625]
 visibility_layer = 4
 layout_mode = 1
-offset_top = 528.0
-offset_right = 2399.0
-offset_bottom = 1082.0
+offset_top = 382.0
+offset_right = 1281.0
+offset_bottom = 718.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_jfi5f")
 
 [node name="DialogueLabel" type="Label" parent="Control/FullscreenDialog" unique_id=826763495]
 layout_mode = 0
-offset_left = 45.0
-offset_top = 206.0
-offset_right = 996.0
-offset_bottom = 467.0
+offset_left = 36.0
+offset_top = 143.0
+offset_right = 984.0
+offset_bottom = 285.0
 theme_override_colors/font_color = Color(0.09411765, 0.09411765, 0.09411765, 1)
 theme_override_constants/line_spacing = 6
-theme_override_font_sizes/font_size = 34
+theme_override_font_sizes/font_size = 22
 text = "test maumakan test maumakan test maumakan test maumakan test maumakan test maumakan test maumakan test maumakan test maumakan test maumakan "
 autowrap_mode = 2
 
 [node name="SpeakerLabel" type="Label" parent="Control/FullscreenDialog" unique_id=1472393983]
 layout_mode = 0
-offset_left = 45.0
-offset_top = 40.0
-offset_right = 345.0
-offset_bottom = 140.0
+offset_left = 37.0
+offset_top = 19.0
+offset_right = 337.0
+offset_bottom = 100.0
 theme_override_colors/font_color = Color(0.09019608, 0.09019608, 0.09019608, 1)
-theme_override_font_sizes/font_size = 38
+theme_override_font_sizes/font_size = 26
 text = "
 Psikiater"
 vertical_alignment = 1
 
 [node name="SpeakerLine" type="ColorRect" parent="Control/FullscreenDialog" unique_id=2117038012]
 layout_mode = 0
-offset_left = 45.0
-offset_top = 158.0
-offset_right = 415.0
-offset_bottom = 161.0
+offset_left = 40.0
+offset_top = 105.0
+offset_right = 410.0
+offset_bottom = 108.0
 color = Color(0.3254902, 0.3764706, 0.22745098, 1)
 
 [node name="SpeakerDotLeft" type="ColorRect" parent="Control/FullscreenDialog" unique_id=1474032324]
 layout_mode = 0
-offset_left = 37.0
-offset_top = 156.0
-offset_right = 45.0
-offset_bottom = 164.0
+offset_left = 32.0
+offset_top = 103.0
+offset_right = 40.0
+offset_bottom = 111.0
 color = Color(0.3254902, 0.3764706, 0.22745098, 1)
 
 [node name="SpeakerDotRight" type="ColorRect" parent="Control/FullscreenDialog" unique_id=1190491514]
 layout_mode = 0
-offset_left = 415.0
-offset_top = 156.0
-offset_right = 423.0
-offset_bottom = 164.0
+offset_left = 410.0
+offset_top = 103.0
+offset_right = 418.0
+offset_bottom = 111.0
 color = Color(0.3254902, 0.3764706, 0.22745098, 1)
 
 [node name="ContinueIcon" type="Label" parent="Control/FullscreenDialog" unique_id=119017498]
 layout_mode = 0
-offset_left = 2280.0
-offset_top = 448.0
-offset_right = 2320.0
-offset_bottom = 493.0
+offset_left = 1200.0
+offset_top = 244.0
+offset_right = 1240.0
+offset_bottom = 289.0
 theme_override_colors/font_color = Color(0.20392157, 0.20392157, 0.20392157, 1)
 theme_override_font_sizes/font_size = 32
 text = "▶"
