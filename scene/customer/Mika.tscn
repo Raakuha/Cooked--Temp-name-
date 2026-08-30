@@ -1,33 +1,36 @@
 [gd_scene format=3 uid="uid://bg2cwobi5w8ud"]
 
+[ext_resource type="PackedScene" uid="uid://b0n8wx7jddhdh" path="res://assets/karakter/Karakter&Animasi/Mika/MikaNew1.glb" id="1_476y3"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r48yp"]
 albedo_color = Color(0, 0.5769639, 0.9314097, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8f85w"]
 material = SubResource("StandardMaterial3D_r48yp")
 
-[sub_resource type="Animation" id="Animation_06end"]
-resource_name = "Celebrate"
-
-[sub_resource type="Animation" id="Animation_r48yp"]
-resource_name = "Idle"
-loop_mode = 1
-
-[sub_resource type="Animation" id="Animation_476y3"]
-resource_name = "Walk"
-loop_mode = 1
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_476y3"]
-_data = {
-&"Celebrate": SubResource("Animation_06end"),
-&"Idle": SubResource("Animation_r48yp"),
-&"Walk": SubResource("Animation_476y3")
-}
-
 [node name="Mika" type="Node3D" unique_id=894389238]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1283678660]
+visible = false
 mesh = SubResource("CapsuleMesh_8f85w")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=57109831]
-libraries/ = SubResource("AnimationLibrary_476y3")
+[node name="Model" parent="." unique_id=479680025 instance=ExtResource("1_476y3")]
+
+[node name="Skeleton3D" parent="Model/Armature_021" parent_id_path=PackedInt32Array(479680025, 188917654) index="0" unique_id=282056578]
+bones/0/position = Vector3(0, -0.003761015, 0)
+bones/0/rotation = Quaternion(0, -0.017089916, 0, 0.99985397)
+bones/1/rotation = Quaternion(6.7266804e-08, -2.050358e-08, 0.0043552774, 0.9999905)
+bones/4/rotation = Quaternion(0.00024671917, -1.1879431e-05, 0.011176301, 0.99993753)
+bones/6/rotation = Quaternion(0.5043321, 0.49588028, 0.5040822, -0.495634)
+bones/7/rotation = Quaternion(-0.47040254, -0.0029416222, 0.018761855, 0.8822475)
+bones/8/rotation = Quaternion(-0.16233231, -0.01672495, -0.019087873, 0.9864097)
+bones/9/rotation = Quaternion(0.5037732, -0.49619812, -0.50377315, -0.49619812)
+bones/10/rotation = Quaternion(-0.48178864, 0.013222739, -0.0027379228, 0.8761835)
+bones/11/rotation = Quaternion(-0.12485769, -0.025389502, -0.013291165, 0.99176073)
+bones/12/position = Vector3(0, 0, 0)
+bones/13/rotation = Quaternion(-0.7208305, -0.0036934675, -0.00352636, 0.69309264)
+bones/15/position = Vector3(0, 0, 0)
+bones/16/rotation = Quaternion(-0.69913435, 0.00034933674, 0.00035483256, 0.7149902)
+
+[editable path="Model"]

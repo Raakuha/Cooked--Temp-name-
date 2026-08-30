@@ -26,6 +26,9 @@ var profile: CustomerProfile = null
 
 var animation_player: AnimationPlayer = null
 
+@export var move_speed: float = 3.5
+
+
 var use_day6_variant: bool = false
 
 func set_day6_variant() -> void:
@@ -55,7 +58,62 @@ func get_day6_closing_dialogue() -> Array[Dictionary]:
 	return profile.day6_closing_dialogue
 
 
+func move_to_position(target_position: Vector3) -> void:
 
+	var distance: float = global_position.distance_to(target_position)
+
+	if distance <= 0.01:
+		play_idle_animation()
+		return
+
+	face_target(target_position)
+
+	var duration: float = distance / move_speed
+
+	play_walk_animation()
+
+	var tween := create_tween()
+
+	tween.tween_property(
+		self,
+		"global_position",
+		target_position,
+		duration
+	)
+
+	await tween.finished
+
+	play_idle_animation()
+
+
+
+func face_target(target_position: Vector3) -> void:
+
+	var direction: Vector3 = target_position - global_position
+	direction.y = 0.0
+
+	if direction.length_squared() <= 0.0001:
+		return
+
+	rotation.y = atan2(
+		-direction.x,
+		-direction.z
+	)
+
+func set_animation_loop(animation_name: String, should_loop: bool) -> void:
+
+	if animation_player == null:
+		return
+
+	if not animation_player.has_animation(animation_name):
+		return
+
+	var animation := animation_player.get_animation(animation_name)
+
+	if should_loop:
+		animation.loop_mode = Animation.LOOP_LINEAR
+	else:
+		animation.loop_mode = Animation.LOOP_NONE
 
 func walk_to_group_wait(target_position: Vector3) -> void:
 
@@ -66,20 +124,7 @@ func walk_to_group_wait(target_position: Vector3) -> void:
 		" berjalan bersama grup"
 	)
 
-	play_walk_animation()
-
-	var tween := create_tween()
-
-	tween.tween_property(
-		self,
-		"global_position",
-		target_position,
-		1.5
-	)
-
-	await tween.finished
-
-	play_idle_animation()
+	await move_to_position(target_position)
 
 	print(
 		customer_name,
@@ -151,10 +196,20 @@ func setup_visual() -> void:
 			customer_name
 		)
 
+		print(
+			"Animasi tersedia untuk ",
+			customer_name,
+			": ",
+			animation_player.get_animation_list()
+		)
+
+		play_idle_animation()
+
 	else:
 
 		print(
-			"AnimationPlayer belum tersedia untuk ",
+			customer_name,
+			": AnimationPlayer belum tersedia untuk ",
 			customer_name
 		)
 
@@ -168,38 +223,65 @@ func set_state(new_state : State):
 	)
 
 
-func play_animation(animation_name: String) -> void:
+func play_animation(animation_name: String) -> bool:
 
 	if animation_player == null:
-
 		print(
 			customer_name,
 			": AnimationPlayer tidak ditemukan."
 		)
+		return false
 
-		return
+	print(
+		customer_name,
+		": Request animasi -> ",
+		animation_name
+	)
 
 	if not animation_player.has_animation(animation_name):
-
 		print(
 			customer_name,
 			": Animasi tidak ditemukan -> ",
 			animation_name
 		)
+		return false
 
-		return
+	var should_loop := (
+		animation_name == "Idle"
+		or animation_name == "idle"
+		or animation_name == "Walk"
+		or animation_name == "walk"
+	)
+
+	var animation := animation_player.get_animation(animation_name)
+
+	if should_loop:
+		animation.loop_mode = Animation.LOOP_LINEAR
+	else:
+		animation.loop_mode = Animation.LOOP_NONE
+
+	if animation_player.current_animation == animation_name:
+		return true
 
 	animation_player.play(animation_name)
+
+	return true
 
 
 func play_idle_animation() -> void:
 
-	play_animation("Idle")
+	if play_animation("Idle"):
+		return
+
+	play_animation("idle")
 
 
 func play_walk_animation() -> void:
 
-	play_animation("Walk")
+	if play_animation("Walk"):
+		return
+
+	play_animation("walk")
 
 
 func play_celebrate_animation() -> void:
@@ -243,7 +325,6 @@ func play_celebration() -> void:
 	)
 
 
-
 func walk_to_cashier(target_position: Vector3) -> void:
 
 	set_state(State.MOVING_TO_CASHIER)
@@ -253,20 +334,7 @@ func walk_to_cashier(target_position: Vector3) -> void:
 		" berjalan ke kasir"
 	)
 
-	play_walk_animation()
-
-	var tween := create_tween()
-
-	tween.tween_property(
-		self,
-		"global_position",
-		target_position,
-		1.5
-	)
-
-	await tween.finished
-
-	play_idle_animation()
+	await move_to_position(target_position)
 
 	print(
 		customer_name,
@@ -292,20 +360,7 @@ func walk_to_table(
 		" berjalan ke meja"
 	)
 
-	play_walk_animation()
-
-	var tween := create_tween()
-
-	tween.tween_property(
-		self,
-		"global_position",
-		target_position,
-		1.5
-	)
-
-	await tween.finished
-
-	play_idle_animation()
+	await move_to_position(target_position)
 
 	print(
 		customer_name,
@@ -337,6 +392,7 @@ func walk_to_table(
 func start_waiting():
 
 	set_state(State.WAITING)
+	play_idle_animation()
 
 	print(customer_name + " sedang menunggu makanan")
 
@@ -350,14 +406,28 @@ func receive_food() -> void:
 		" menerima makanan"
 	)
 
-	await play_celebration()
+	var approved_played := play_approved_animation()
 
-	set_state(State.RECEIVING)
+	if approved_played and animation_player != null:
+		await animation_player.animation_finished
+
+	play_idle_animation()
 
 	print(
 		customer_name,
 		" selesai menerima makanan"
 	)
+
+
+func play_approved_animation() -> bool:
+
+	if play_animation("AnimasiApproved_1"):
+		return true
+
+	if play_animation("Celebrate"):
+		return true
+
+	return false
 
 func return_to_cashier(target_position: Vector3) -> void:
 
@@ -368,20 +438,7 @@ func return_to_cashier(target_position: Vector3) -> void:
 		" kembali ke kasir"
 	)
 
-	play_walk_animation()
-
-	var tween := create_tween()
-
-	tween.tween_property(
-		self,
-		"global_position",
-		target_position,
-		1.5
-	)
-
-	await tween.finished
-
-	play_idle_animation()
+	await move_to_position(target_position)
 
 	print(
 		customer_name,
@@ -389,7 +446,6 @@ func return_to_cashier(target_position: Vector3) -> void:
 	)
 
 	returned_to_cashier.emit()
-
 
 
 func walk_out(target_position: Vector3) -> void:
@@ -401,20 +457,7 @@ func walk_out(target_position: Vector3) -> void:
 		" keluar restoran"
 	)
 
-	play_walk_animation()
-
-	var tween := create_tween()
-
-	tween.tween_property(
-		self,
-		"global_position",
-		target_position,
-		1.5
-	)
-
-	await tween.finished
-
-	play_idle_animation()
+	await move_to_position(target_position)
 
 	print(
 		customer_name,
