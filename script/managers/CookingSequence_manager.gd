@@ -20,6 +20,8 @@ signal cooking_unlocked
 # Profit/Sanity yang baca datanya di luar sini.
 signal recipe_completed(result: CookingResult)
 
+
+signal food_ready_to_carry(recipe_id: String)
 var recipe_id: String = ""
 var active: bool = false
 
@@ -287,7 +289,6 @@ func _all_prep_complete() -> bool:
 # ------------------------------------------------------------------
 # COOKING (tetap terurut, sama seperti sebelumnya)
 # ------------------------------------------------------------------
-
 func _start_cooking_phase() -> void:
 	_in_cooking_phase = true
 	_cooking_step_idx = 0
@@ -297,12 +298,14 @@ func _start_cooking_phase() -> void:
 	cooking_unlocked.emit()
 
 	if _cooking_steps.size() > 0:
-		step_started.emit(_cooking_steps[0])
+		var first_step: Dictionary = _cooking_steps[0]
+
+		_emit_food_ready_if_needed(first_step)
+
+		step_started.emit(first_step)
 	else:
-		# Resep tanpa fase cooking (minuman) -- langsung selesai.
 		active = false
 		recipe_completed.emit(current_result)
-
 
 # Dipanggil RecipeStepExecutor lewat step_completed, persis kayak dulu --
 # fungsi ini yang nentuin "lanjut ke mana" tergantung fase saat ini.
@@ -333,12 +336,14 @@ func next_step() -> void:
 		_cooking_step_idx += 1
 
 		if _cooking_step_idx < _cooking_steps.size():
-			step_started.emit(_cooking_steps[_cooking_step_idx])
+			var next_step: Dictionary = _cooking_steps[_cooking_step_idx]
+
+			_emit_food_ready_if_needed(next_step)
+
+			step_started.emit(next_step)
 		else:
 			active = false
 			recipe_completed.emit(current_result)
-
-
 # R-P3-10 fix: kalau step ini TAKE dan punya interaction.item_id, expand
 # dulu jadi "item_ids" (jamak) berisi SEMUA barang yang sah diambil
 # sekarang di workstation itu -- bukan cuma 1 item_id spesifik dari data.
@@ -451,3 +456,10 @@ func restart_current_recipe() -> void:
 	
 	if _prep_items.is_empty():
 		_start_cooking_phase()
+		
+func _emit_food_ready_if_needed(step: Dictionary) -> void:
+	if (
+		step.get("type") == RecipeData.StepType.MOVE
+		and step.get("workstation") == RecipeData.WS_PLATING
+	):
+		food_ready_to_carry.emit(recipe_id)

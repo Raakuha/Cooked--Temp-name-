@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://dqbjh0vmm18vv"]
 
 [ext_resource type="Script" uid="uid://rje32grn2u4u" path="res://script/menu_deadline_timer.gd" id="1_83yi6"]
+[ext_resource type="AudioStream" uid="uid://ccwvb1q8dhriw" path="res://assets/Sound/effect/dragon-studio-slow-cinematic-clock-ticking-357979.mp3" id="2_pylv2"]
 
 [node name="MenuDeadlineTimer" type="Node" unique_id=1094849137]
 script = ExtResource("1_83yi6")
+
+[node name="TickSound" type="AudioStreamPlayer" parent="." unique_id=631708412]
+stream = ExtResource("2_pylv2")
+volume_db = 1.0

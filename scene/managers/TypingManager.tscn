@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://c1mp6x6pnko1f"]
 
 [ext_resource type="Script" uid="uid://cmso7pp8y5sto" path="res://script/managers/typing_manager.gd" id="1_w3i0g"]
+[ext_resource type="AudioStream" uid="uid://ulyuvgeu2qjt" path="res://assets/Sound/effect/ncprime-keyboard-typing-one-short-1-292590.mp3" id="2_tggb4"]
 
 [node name="TypingManager" type="Node" unique_id=176999645]
 script = ExtResource("1_w3i0g")
+
+[node name="TypeSound" type="AudioStreamPlayer" parent="." unique_id=1894422883]
+stream = ExtResource("2_tggb4")
+volume_db = -0.5

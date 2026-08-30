@@ -24,6 +24,8 @@ signal location_prompt_updated(states: Array)  # [{workstation,label,matched_len
 signal location_prompt_cleared()
 
 @export var cooking_sequence_manager: CookingSequenceManager
+@onready var type_sound: AudioStreamPlayer = $TypeSound
+@onready var error_sound: AudioStreamPlayer = $ErrorSound
 
 # Workstation command -> {"label": String, "anchor": Node3D}. Isi lewat
 # Inspector atau lewat register_location() dari script lain kalau anchor-nya
@@ -206,10 +208,14 @@ func _check_input(input: String) -> void:
 				full_match = candidate
 
 	if still_matching.is_empty():
+		if error_sound != null:
+					error_sound.play()
 		_emit_state(true)
 		return
 
 	_buffer = next_buffer
+	if type_sound != null:
+		type_sound.play()
 	_emit_state(false)
 
 	if not full_match.is_empty():

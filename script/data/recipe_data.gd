@@ -34,11 +34,11 @@ enum ActionType {
 
 const DEADLINES: Dictionary = {
 	 "nasgor_goreng": 65.0,
-	 "steak": 66.0,
+	 "steak": 65.0,
 	 "salad": 45.0,
 	"roti_khas_lempuyangan": 60.0,
-	"soda" : 15.0,
-	"air_mineral" : 15.0,
+	"soda" : 20.0,
+	"air_mineral" : 20.0,
 	"burger_banggor" : 65.0
 }
 

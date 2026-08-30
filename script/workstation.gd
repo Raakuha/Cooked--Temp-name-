@@ -51,12 +51,6 @@ var current_picked_item_id: String = ""
 func get_navigation_position() -> Vector3 :
 	return navigation_target.global_position
 func get_navigation_rotation() -> float:
-	print(
-		"[Navigation] ",
-		command,
-		" | Global Rotation Y = ",
-		rad_to_deg(navigation_target.global_rotation.y)
-	)
 	return navigation_target.global_rotation.y
 	
 func get_prompt_position() -> Vector3:
@@ -68,10 +62,7 @@ func _enter_tree() -> void:
 func _try_play_animation(clip_name: String) -> void:
 	if clip_name == "" or animation_player == null:
 		return
-
-	# Kata kunci khusus -- hentikan animasi yang lagi jalan, tanpa perlu
-	# clip "idle" tersendiri. Dipakai kalau workstation itu belum (atau
-	# gak akan pernah) punya clip idle/rest pose spesifik.
+		
 	if clip_name == "STOP":
 		animation_player.stop()
 		return
@@ -399,10 +390,6 @@ func run_fry_action() -> void:
 	await run_stove_timing_sequence()
 
 
-## R-P3-09 --- Dipakai oleh COOK dan FRY. Menjalankan 1 ronde timing per
-## item di interaction.prompts (kalau tidak ada, default 1 ronde "COOK"),
-## persis pola perulangan yang sama seperti run_cut_action/run_mix_action
-## tapi memakai StoveTimingUI, bukan TypingManager.
 func run_stove_timing_sequence() -> void:
 	if stove_timing_ui == null:
 		push_warning(
@@ -522,13 +509,6 @@ func finish_action_after_delay(duration: float) -> void:
 func cancel_current_action() -> void:
 	if not action_in_progress:
 		return
-
-	print(
-		"[Workstation] REQUEST CANCEL ACTION: ",
-		command,
-		" / ",
-		current_action
-	)
 
 	if item_pick_manager != null:
 		item_pick_manager.cancel()

@@ -8,16 +8,16 @@
 [ext_resource type="Animation" uid="uid://c7qrplx5vsfid" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/Duduk.res" id="6_uuddx"]
 [ext_resource type="Animation" uid="uid://cif00uhpg4vcy" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/Makan.res" id="7_shg6u"]
 [ext_resource type="Animation" uid="uid://b56aoqfxi5grg" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/MesenMakan_1.res" id="8_p3erw"]
-[ext_resource type="Animation" uid="uid://uw0wf2kv1yxp" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/MesenMakan_2.res" id="9_ktyi4"]
-[ext_resource type="Animation" uid="uid://0sty7fr0d7r1" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/Motong.res" id="10_167ad"]
+[ext_resource type="Animation" uid="uid://do1scbjunn5fn" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/MesenMakan_2.res" id="9_ktyi4"]
+[ext_resource type="Animation" uid="uid://dletky0wioabl" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/Motong.res" id="10_167ad"]
 [ext_resource type="Animation" uid="uid://dwhsiurlbhk24" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/TurunKursi.res" id="11_ixphe"]
 [ext_resource type="Animation" uid="uid://dwks51xdw82dc" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/idle.res" id="13_ydald"]
-[ext_resource type="Animation" uid="uid://dkbpbr03fw2li" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/idle_001.res" id="14_h12pk"]
-[ext_resource type="Animation" uid="uid://dxmvircah2moq" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/idle_002.res" id="15_56mof"]
+[ext_resource type="Animation" uid="uid://dg310xkufe1nk" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/idle_001.res" id="14_h12pk"]
+[ext_resource type="Animation" uid="uid://d2jouordcmo1w" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/idle_002.res" id="15_56mof"]
 [ext_resource type="Animation" uid="uid://d3w5nofeeb2ul" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/idle_003.res" id="16_e71tw"]
-[ext_resource type="Animation" uid="uid://wthcdcw6c2hn" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/ngambil.res" id="18_ocgbr"]
-[ext_resource type="Animation" uid="uid://blgt7o8fypunt" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/walk.res" id="20_vxgfw"]
-[ext_resource type="Animation" uid="uid://c0nkeqnhfwrtj" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/walk_withNampan.res" id="21_d2boo"]
+[ext_resource type="Animation" uid="uid://c8k81njq0cvbk" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/ngambil.res" id="18_ocgbr"]
+[ext_resource type="Animation" uid="uid://b5whr745rjtip" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/walk.res" id="20_vxgfw"]
+[ext_resource type="Animation" uid="uid://c7v807wdp8687" path="res://assets/karakter/Karakter&Animasi/Chef_outfitChef/animasi/walk_withNampan.res" id="21_d2boo"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8f85w"]
 radius = 0.8388672
@@ -449,19 +449,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2, 0)
 shape = SubResource("CapsuleShape3D_8f85w")
 
 [node name="FPPCamera" type="Camera3D" parent="." unique_id=1399624304]
-transform = Transform3D(-0.026060956, 0, 0.9996604, 0, 1, 0, -0.9996604, 0, -0.026060956, 0, 0.9230728, 0)
+transform = Transform3D(-0.99983746, 0, 0.018032137, 0, 1, 0, -0.018032137, 0, -0.99983746, 0, 0.71220744, 0.26010275)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1580538434]
 
 [node name="Armature_023" type="Node3D" parent="." unique_id=1344262950]
-transform = Transform3D(0.31027797, 0, 0, 0, 0.31027797, 0, 0, 0, 0.31027797, 0.0056194067, -0.57795095, 0)
+transform = Transform3D(0.31027797, 0, 0, 0, 0.31027797, 0, 0, 0, 0.31027797, 0.0056194067, -0.56358254, 0)
 
 [node name="Skeleton3D" type="Skeleton3D" parent="Armature_023" unique_id=2016782906]
 bones/0/name = "Bone"
 bones/0/parent = -1
 bones/0/rest = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, -1.1920929e-07, 0)
 bones/0/enabled = true
-bones/0/position = Vector3(0, 0.043111876, 0)
+bones/0/position = Vector3(0, 0.043202844, 0)
 bones/0/rotation = Quaternion(0, 0, 0, 1)
 bones/0/scale = Vector3(0.99999994, 0.99999994, 0.99999994)
 bones/1/name = "Bone.001"
@@ -613,6 +613,11 @@ skeleton = NodePath("..")
 mesh = SubResource("ArrayMesh_uvgxc")
 skin = SubResource("Skin_ejchx")
 skeleton = NodePath("..")
+
+[node name="FoodAttachment" type="BoneAttachment3D" parent="Armature_023/Skeleton3D" unique_id=489823450]
+transform = Transform3D(0.037122883, -0.13551098, -0.99007964, 0.043273382, -0.98961556, 0.13707002, -0.9983729, -0.047932636, -0.030873328, -1.0245103, 1.0031219, 0.009566358)
+bone_name = "lowerArm.r"
+bone_idx = 11
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=182599635]
 libraries/ChefAseli = SubResource("AnimationLibrary_b6hlc")

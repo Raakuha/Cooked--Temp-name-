@@ -7,6 +7,7 @@ class_name Player
 @onready var character_model: Node3D = $Armature_023
 
 signal arrived_at_target
+signal tray_pickup_finished
 
 const SPEED := 2.00
 const ARRIVAL := 1.0
@@ -18,7 +19,6 @@ const ARRIVAL := 1.0
 )
 var model_y_offset: float = 0.0
 const GRAVITY := 20.0
-
 
 
 @export var move_speed: float = 2.0
@@ -33,7 +33,9 @@ var is_moving: bool = false
 var movement_enabled: bool = false
 var mouse_look_enabled: bool = false
 var target_rotation_y: float = 0.0
-
+var is_carrying_tray: bool = false
+@export var pickup_tray_animation: String = "ChefAseli/AmbilNampan"
+@export var carrying_walk_animation: String = "ChefAseli/walk_withNampan"
 ## Placeholder-safe: kalau animation_player kosong, clip-nya belum ada,
 ## atau animasi yang diminta udah lagi jalan -- diem aja, gak restart
 ## animasi tiap frame (yang bikin kedutan/stutter).
@@ -41,9 +43,15 @@ func _play_movement_animation(is_currently_moving: bool) -> void:
 	if animation_player == null:
 		return
 
-	var target_anim: String = (
-		walk_animation if is_currently_moving else idle_animation
-	)
+	var target_anim: String = ""
+
+	if is_currently_moving:
+		if is_carrying_tray:
+			target_anim = carrying_walk_animation
+		else:
+			target_anim = walk_animation
+	else:
+		target_anim = idle_animation
 
 	if target_anim == "":
 		return
@@ -55,8 +63,6 @@ func _play_movement_animation(is_currently_moving: bool) -> void:
 		return
 
 	animation_player.play(target_anim)
-
-
 func _ready() -> void:
 	navigation_agent_3d.path_desired_distance = ARRIVAL
 	navigation_agent_3d.target_desired_distance = ARRIVAL
@@ -233,3 +239,27 @@ func _rotate_model_toward(direction: Vector3) -> void:
 	character_model.rotate_y(PI)
 	character_model.rotation.x = 0.0
 	character_model.rotation.z = 0.0
+	
+func play_tray_pickup_animation() -> void:
+	if animation_player == null:
+		tray_pickup_finished.emit()
+		return
+
+	if pickup_tray_animation == "":
+		tray_pickup_finished.emit()
+		return
+
+	if not animation_player.has_animation(pickup_tray_animation):
+		push_warning(
+			"[Player] Animation tidak ditemukan: "
+			+ pickup_tray_animation
+		)
+		tray_pickup_finished.emit()
+		return
+
+	animation_player.play(pickup_tray_animation)
+
+	var finished_animation: String = await animation_player.animation_finished
+
+	if finished_animation == pickup_tray_animation:
+		tray_pickup_finished.emit()

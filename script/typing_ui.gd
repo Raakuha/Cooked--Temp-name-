@@ -17,6 +17,7 @@ func use_screen_mode() -> void:
 	display_mode = DisplayMode.SCREEN
 
 @onready var prompt_panel: PanelContainer = $PromptPanel
+@onready var error_sound: AudioStreamPlayer = $ErrorSound
 
 
 @onready var fill_word_label: RichTextLabel = $PromptPanel/MarginContainer/VBoxContainer/Fill_wordLabel
@@ -78,6 +79,8 @@ func _on_typing_manager_typing_updated(
 	if not last_input_correct:
 		play_error_feedback()
 func play_error_feedback(target_control: Control = self) -> void:
+	if error_sound != null:
+		error_sound.play()
 	if shake_tween != null:
 		shake_tween.kill()
 	if error_color_tween != null:

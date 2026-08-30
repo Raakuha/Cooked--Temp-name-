@@ -8,7 +8,7 @@ signal tutorial_order_finished
 @onready var dialogue_manager: DialogueManager = $"../DialogueManager"
 @onready var transition_layer: TransitionLayer = $"../../UI/TransitionLayer"
 @onready var camera_director: CameraDirector = $"../CameraDirector"
-
+@onready var music_manager: MusicManager =$"../Music_Manager"
 @onready var tutorial_police: Node3D = $"../../World/TutorialPolice"
 @onready var tutorial_police_point: Marker3D = $"../../SpawnPoints/TutorialPolicePoint"
 @onready var tutorial_police_dialogue_marker: Marker3D = (
@@ -165,7 +165,8 @@ func play_tutorial() -> void:
 		return
 
 	active = true
-
+	if music_manager != null:
+		music_manager.play_tutorial_music()
 	print("========================")
 	print("RESTAURANT TUTORIAL")
 	print("TUTORIAL START")
@@ -284,7 +285,10 @@ func police_leave_restaurant() -> void:
 	await transition_layer.fade_in(0.7)
 
 	print("POLICE LEFT RESTAURANT")
-
+	
+	if music_manager != null:
+		music_manager.stop_tutorial_music()
+		
 	tutorial_order_finished.emit()
 
 	active = false

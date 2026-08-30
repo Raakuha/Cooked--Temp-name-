@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://r6u6pcmoumcr"]
+
+[ext_resource type="Script" uid="uid://siddnjarcadh" path="res://script/managers/item_pick_manager.gd" id="1_y4byb"]
+[ext_resource type="AudioStream" uid="uid://ulyuvgeu2qjt" path="res://assets/Sound/effect/ncprime-keyboard-typing-one-short-1-292590.mp3" id="2_idx2w"]
+[ext_resource type="AudioStream" uid="uid://df8icghg34g4o" path="res://assets/Sound/effect/salah.mp3" id="3_t2ke8"]
+
+[node name="ItemPickManager" type="Node" unique_id=274412129]
+script = ExtResource("1_y4byb")
+
+[node name="TypeSound" type="AudioStreamPlayer" parent="." unique_id=1490982332]
+stream = ExtResource("2_idx2w")
+volume_db = -0.5
+
+[node name="ErrorSound" type="AudioStreamPlayer" parent="." unique_id=2047273774]
+stream = ExtResource("3_t2ke8")
+volume_db = -0.5

@@ -8,10 +8,15 @@ signal game_completed
 var current_day: int = 1
 var total_days: int = 7
 
-
+@export var music_manager: MusicManager
 func start_day(day: int) -> void:
 	current_day = day
-
+	print("[DAY] music_manager = ", music_manager)
+	if music_manager != null:
+		if current_day == 7:
+			music_manager.stop_music()
+		else:
+			music_manager.play_day_music()
 	print("========================")
 	print("DAY ", current_day, " START")
 	print("========================")

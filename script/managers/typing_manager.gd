@@ -12,6 +12,9 @@ signal typing_updated(
 )
 signal typing_completed (command : String)
 
+@onready var type_sound: AudioStreamPlayer = $TypeSound
+
+
 var target : String = ""
 var fill : String = ""
 var mistake_count: int = 0
@@ -57,6 +60,8 @@ func check(input: String) -> void:
 
 	if input == expected_char:
 		fill += input
+		if type_sound != null:
+			type_sound.play()
 
 		typing_updated.emit(
 			target,

@@ -5,6 +5,8 @@ signal pick_started(candidates: Array)
 signal pick_updated(states: Array)  # Array of {item_id,label,matched_len,had_mistake}
 signal pick_completed(result: Dictionary)  # {"item_id":String,"label":String}
 signal pick_confirm_rejected()  # ENTER ditekan tapi buffer belum PAS 1 barang
+@onready var type_sound: AudioStreamPlayer = $TypeSound
+@onready var error_sound: AudioStreamPlayer = $ErrorSound
 
 signal return_started(label: String)
 signal return_updated(matched_len: int, target: String, had_mistake: bool)
@@ -102,8 +104,6 @@ func _confirm_exit() -> void:
 	_waiting_exit = false
 	exit_wait_completed.emit()
 
-
-
 func _exit_while_picking() -> void:
 	_picking = false
 
@@ -116,7 +116,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 	if not event is InputEventKey:
 		return
-
+	
 
 	if event.is_action_pressed("item_pick_exit"):
 		if _waiting_exit:
@@ -168,11 +168,14 @@ func _check_pick(input: String) -> void:
 			still_matching.append(candidate)
 
 	if still_matching.is_empty():
-
+		if error_sound != null:
+			error_sound.play()
 		_emit_pick_state(true)
 		return
 
 	_buffer = next_buffer
+	if type_sound != null:
+		type_sound.play()
 	_emit_pick_state(false)
 
 
@@ -223,6 +226,8 @@ func _check_return(input: String) -> void:
 	if next_len <= stripped_target.length() \
 		and stripped_target.substr(next_len - 1, 1) == input:
 		_return_fill += input
+		if type_sound != null:
+			type_sound.play()
 		return_updated.emit(_return_fill.length(), _return_target, false)
 
 		if _return_fill.length() == stripped_target.length():
@@ -230,4 +235,6 @@ func _check_return(input: String) -> void:
 			var finished := _return_target
 			return_completed.emit(finished)
 	else:
+		if error_sound != null:
+			error_sound.play()
 		return_updated.emit(_return_fill.length(), _return_target, true)

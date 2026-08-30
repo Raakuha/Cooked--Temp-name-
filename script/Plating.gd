@@ -6,7 +6,7 @@ signal food_taken(recipe_name: String)
 
 var current_recipe: String = ""
 var is_occupied: bool = false
-
+@onready var menu_complete_sound: AudioStreamPlayer = $MenuCompleteSound
 
 func plate_recipe(recipe_name: String) -> bool:
 	if is_occupied:
@@ -20,7 +20,8 @@ func plate_recipe(recipe_name: String) -> bool:
 	is_occupied = true
 
 	print("[Plating] Makanan dihidangkan: ", current_recipe)
-
+	if menu_complete_sound != null:
+		menu_complete_sound.play()
 	food_plated.emit(current_recipe)
 
 	return true
