@@ -15,6 +15,9 @@ signal sequence_finished
 
 @onready var transition_layer: TransitionLayer = $"../../UI/TransitionLayer"
 
+@onready var day7_backsound: AudioStreamPlayer = (
+	$"../../Audio/Day7FPPBackSound"
+)
 
 var active: bool = false
 
@@ -27,6 +30,20 @@ func _ready() -> void:
 	if human_hanging_meat != null:
 		human_hanging_meat.hide()
 
+
+func stop_day7_backsound() -> void:
+
+	if day7_backsound == null:
+		return
+
+	if not day7_backsound.playing:
+		return
+
+	print("========================")
+	print("DAY 7 BACKSOUND STOP")
+	print("========================")
+
+	day7_backsound.stop()
 
 
 func play_basement_sequence() -> void:
@@ -78,6 +95,8 @@ func play_basement_sequence() -> void:
 	print("========================")
 	print("HORROR REVEAL SELESAI")
 	print("========================")
+
+	stop_day7_backsound()
 
 	await transition_layer.fade_out(1.0)
 
