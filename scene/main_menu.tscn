@@ -1,19 +1,15 @@
 [gd_scene format=3 uid="uid://41jgmjivqtya"]
 
-[ext_resource type="PackedScene" uid="uid://2vebttq24dyx" path="res://scene/game/restaurant.tscn" id="1_3er1b"]
 [ext_resource type="Script" uid="uid://dmbcdn2j4r00s" path="res://script/ui/main_menu.gd" id="1_hxu56"]
-[ext_resource type="Texture2D" uid="uid://6d414sehigd2" path="res://assets/UI/Desain tanpa judul (2).png" id="3_2fwvj"]
+[ext_resource type="PackedScene" uid="uid://hoa3axjyatl3" path="res://assets/kitchenmodel_ingame/Frame_Restaurant.glb" id="4_0iwki"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_bhunq"]
-top_radius = 1.402832
-bottom_radius = 1.402832
-height = 0.4744873
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3gngh"]
+emission_enabled = true
+emission = Color(0.9367016, 0.9367016, 0.93670154, 1)
+emission_energy_multiplier = 2.05
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_61jv0"]
-albedo_texture = ExtResource("3_2fwvj")
-uv1_scale = Vector3(0.15, 0.15, 0.15)
-uv1_offset = Vector3(0.485, 0.91, 0.45)
-uv1_triplanar = true
+[sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
+material = SubResource("StandardMaterial3D_3gngh")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bhunq"]
 
@@ -48,6 +44,8 @@ sky_material = SubResource("ProceduralSkyMaterial_3er1b")
 
 [sub_resource type="Environment" id="Environment_hxu56"]
 background_mode = 2
+background_energy_multiplier = 0.14
+background_canvas_max_layer = 2
 sky = SubResource("Sky_1fxwu")
 glow_enabled = true
 
@@ -94,7 +92,8 @@ script = ExtResource("1_hxu56")
 
 [node name="Background" type="Node3D" parent="." unique_id=574786683]
 
-[node name="Restaurant" parent="Background" unique_id=424843313 instance=ExtResource("1_3er1b")]
+[node name="Frame_Restaurant" parent="Background" unique_id=806011994 instance=ExtResource("4_0iwki")]
+transform = Transform3D(2.1140745, 0, 0, 0, 2.1140745, 0, 0, 0, 1, -2.2907124, -0.061223507, 2.640339)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Background" unique_id=1563866964]
 anchors_preset = 15
@@ -115,10 +114,9 @@ render_target_update_mode = 4
 [node name="Camera3D" type="Camera3D" parent="Background/SubViewportContainer/SubViewport" unique_id=1308228093]
 transform = Transform3D(0.9999898, 0, 0.0045083687, 0, 1, 0, -0.0045083687, 0, 0.9999898, -6.4328327, 5.6574316, 12.37367)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Background/SubViewportContainer/SubViewport" unique_id=665378138]
-transform = Transform3D(1, 0, 0, 0, 0.04018293, -0.99919236, 0, 0.99919236, 0.04018293, -7.718188, 5.511933, 9.265716)
-mesh = SubResource("CylinderMesh_bhunq")
-surface_material_override/0 = SubResource("StandardMaterial3D_61jv0")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Background" unique_id=630627881]
+transform = Transform3D(8.720608, 0, 0, 0, 2.4294338, 0, 0, 0, 1, -5.7705617, 3.1751518, 6.812929)
+mesh = SubResource("BoxMesh_g4v7s")
 
 [node name="Control" type="Control" parent="." unique_id=594961328]
 layout_mode = 3
@@ -230,5 +228,3 @@ speed_scale = 0.9
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Story" to="." method="_on_story_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Credit" to="." method="_on_credit_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
-
-[editable path="Background/Restaurant"]
