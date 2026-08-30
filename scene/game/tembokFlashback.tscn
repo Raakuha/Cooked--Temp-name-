@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://d0c4plmubyb01"]
+
+[ext_resource type="PackedScene" uid="uid://dtcx5tycdsvjr" path="res://kitchenmodel_ingame/tembok/temboknframe.glb" id="1_jkkcv"]
+
+[node name="temboknframe" unique_id=638734889 instance=ExtResource("1_jkkcv")]
+
+[node name="list1" parent="." index="1" unique_id=772149411]
+visible = false
+
+[node name="list3" parent="." index="3" unique_id=337906808]
+visible = false
+
+[node name="list4" parent="." index="4" unique_id=2124491885]
+visible = false
+
+[node name="list5" parent="." index="5" unique_id=1830162862]
+visible = false
+
+[node name="list6" parent="." index="6" unique_id=2047527581]
+visible = false
+
+[node name="wall_2" parent="." index="7" unique_id=2012228630]
+visible = false
+
+[node name="wall_2_002" parent="." index="9" unique_id=286336499]
+visible = false
+
+[node name="wall_2_003" parent="." index="10" unique_id=1620846296]
+visible = false

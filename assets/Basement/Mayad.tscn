@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://r30i04y42y0m"]
+
+[ext_resource type="PackedScene" uid="uid://mkwvc1cq45fa" path="res://assets/Basement/RuangFreezer.glb" id="1_vbfeq"]
+
+[node name="RuangFreezer" unique_id=2018627691 instance=ExtResource("1_vbfeq")]
+
+[node name="body_014" parent="." index="0" unique_id=980437612]
+transform = Transform3D(0.36487994, 0, 0, 0, 0.36487994, 0, 0, 0, 0.36487994, 0, -0.51694965, -1.7818334)
+
+[node name="Cube_045" parent="." index="1" unique_id=202256451]
+transform = Transform3D(1.9568871, 0, 0, 0, 1.7832003, 0, 0, 0, 1.6069754, -0.9943886, 0.39837742, -0.366405)
+visible = false
+
+[node name="Cube_054" parent="." index="2" unique_id=953685433]
+transform = Transform3D(0.47143966, 0, 0.004117608, 0, 0.44886672, 0, -0.0019002985, 0, 1.0215257, -2.3244672, -0.9425049, -0.48253584)
+visible = false
+
+[node name="Cylinder_001" parent="." index="3" unique_id=252793446]
+transform = Transform3D(-0.00362011, 0, -0.041699845, 0, 0.26965684, 0, 0.023401614, 0, -0.006450753, -1.3315456, 0.4499178, -1.8054044)
+visible = false
+
+[node name="Cylinder_006" parent="." index="4" unique_id=1054866251]
+transform = Transform3D(-0.00362011, 0, -0.041699845, 0, 0.26965684, 0, 0.023401614, 0, -0.006450753, -0.67187667, 0.4499178, -1.8054044)
+visible = false
+
+[node name="Cylinder_007" parent="." index="5" unique_id=1221243476]
+transform = Transform3D(-0.00362011, 0, -0.041699845, 0, 0.26965684, 0, 0.023401614, 0, -0.006450753, 0.0027761161, 0.4499178, -1.8054044)
+visible = false
+
+[node name="Cylinder_008" parent="." index="6" unique_id=1491936070]
+transform = Transform3D(-0.00362011, 0, -0.041699845, 0, 0.26965684, 0, 0.023401614, 0, -0.006450753, 0.67754817, 0.4499178, -1.8054044)
+visible = false
+
+[node name="Cylinder_009" parent="." index="7" unique_id=64699601]
+transform = Transform3D(0.108170986, -0.030071327, 4.2531525e-09, -8.185997e-10, -6.1379254e-08, -0.07687557, 0.01925058, 0.16897388, -2.716791e-08, -2.4024422, -0.86754894, 0.044544697)
+visible = false
+
+[node name="Cylinder_010" parent="." index="8" unique_id=315690844]
+transform = Transform3D(0.108170986, -0.030071327, 4.2531525e-09, -8.185997e-10, -6.1379254e-08, -0.07687557, 0.01925058, 0.16897388, -2.716791e-08, -2.5661092, -0.86754894, -0.11480284)
+visible = false
+
+[node name="Cylinder_011" parent="." index="9" unique_id=322383269]
+transform = Transform3D(0.108170986, -0.030071327, 4.2531525e-09, -8.185997e-10, -6.1379254e-08, -0.07687557, 0.01925058, 0.16897388, -2.716791e-08, -2.5661092, -0.86754894, -0.648952)
+visible = false
+
+[node name="Cylinder_012" parent="." index="10" unique_id=118183843]
+transform = Transform3D(0.108170986, -0.030071327, 4.2531525e-09, -8.185997e-10, -6.1379254e-08, -0.07687557, 0.01925058, 0.16897388, -2.716791e-08, -2.356547, -0.86754894, -0.648952)
+visible = false
+
+[node name="Cylinder_013" parent="." index="11" unique_id=1527700401]
+transform = Transform3D(0.108170986, -0.030071327, 4.2531525e-09, -8.185997e-10, -6.1379254e-08, -0.07687557, 0.01925058, 0.16897388, -2.716791e-08, -2.1695714, -0.86754894, -0.648952)
+visible = false
+
+[node name="Cylinder_014" parent="." index="12" unique_id=1157375129]
+transform = Transform3D(0.108170986, -0.030071327, 4.2531525e-09, -8.185997e-10, -6.1379254e-08, -0.07687557, 0.01925058, 0.16897388, -2.716791e-08, -2.1227634, -0.86754894, -0.113875866)
+visible = false
+
+[node name="Cylinder_015" parent="." index="13" unique_id=787600800]
+transform = Transform3D(0.011588719, -0.17067143, 0, 0, 0, -0.07687555, 0.10925771, 0.018102733, 0, -2.362327, -0.86754894, -1.1431575)
+visible = false
+
+[node name="Cylinder_016" parent="." index="14" unique_id=608257713]
+transform = Transform3D(0.011588719, -0.17067143, 0, 0, 0, -0.07687555, 0.10925771, 0.018102733, 0, -2.362327, -0.74009037, -0.25182295)
+visible = false
+
+[node name="Cylinder_017" parent="." index="15" unique_id=1719006008]
+transform = Transform3D(0.10443807, 0.053300276, -1.7571234e-09, 1.6371994e-09, -2.045975e-08, -0.07687556, -0.034120917, 0.16314268, -9.066907e-09, -2.362327, -0.74009037, -0.71465254)
+visible = false
+
+[node name="Cylinder_018" parent="." index="16" unique_id=582151780]
+transform = Transform3D(0.08768219, 0.10342211, -1.8395346e-08, -3.2743988e-09, -6.1379254e-08, -0.07687556, -0.0662071, 0.13696833, -2.0560075e-08, -2.362327, -0.61938, -0.42668104)
+visible = false
+
+[node name="Cylinder_019" parent="." index="17" unique_id=1758584335]
+transform = Transform3D(0.06796178, 0.08016164, -0.048573684, -0.055401832, -0.06534708, -0.059585646, -0.066207096, 0.13696833, -1.0074711e-08, -2.2320418, -0.61938, -0.644897)
+visible = false
+
+[node name="Cylinder_020" parent="." index="18" unique_id=689450940]
+transform = Transform3D(-0.08408953, 0.054371886, 0.098648146, 0.0072463104, 0.255749, -0.025257034, -0.14504007, -0.01874565, -0.05845486, -1.3394554, -0.014681816, -1.5706174)
+visible = false
+
+[node name="Cylinder_021" parent="." index="19" unique_id=858469123]
+transform = Transform3D(0.5582584, 0, 0, 0, -0.011059786, 0, 0, 0, 0.5582584, -0.57331896, -1.3783131, -1.3580282)
+
+[node name="Cylinder_022" parent="." index="20" unique_id=1928020468]
+transform = Transform3D(0.5582584, 0, 0, 0, -0.011059786, 0, 0, 0, 0.5582584, 0.4519273, -1.3783131, -1.4348791)
+
+[node name="Cylinder_023" parent="." index="21" unique_id=829750074]
+transform = Transform3D(0.7167536, 0, 0, 0, -0.011059786, 0, 0, 0, 0.5582584, 0.025066465, -1.3783131, -0.8620181)
+
+[node name="Cylinder_024" parent="." index="22" unique_id=1331443318]
+transform = Transform3D(0.401354, 0, 0, 0, -0.007951317, 0, 0, 0, 0.401354, -1.139718, -1.3783131, -1.3580282)
+
+[node name="head_012" parent="." index="23" unique_id=965671977]
+transform = Transform3D(0.3742352, 0, 0, 0, 0.36060113, -0.10009445, 0, 0.10009445, 0.36060113, -0.6570188, -0.5850725, -2.0112798)
+
+[node name="leftLeg_006" parent="." index="24" unique_id=1667376670]
+transform = Transform3D(0.40987545, 0.06402533, 0.04169048, -0.035565954, -0.04146458, 0.41334125, 0.06761953, -0.40989837, -0.035300884, 0.5432562, -1.3506708, -1.75267)
+
+[node name="rightArm_010" parent="." index="25" unique_id=1952014583]
+transform = Transform3D(0.0013560113, -0.35309523, 0, 0.35309523, 0.0013560113, 0, 0, 0, 0.3530978, 1.3245522, 0.45908642, -1.6698949)

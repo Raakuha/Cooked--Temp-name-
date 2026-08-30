@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://buu7x5ogwdq40"]
+
+[ext_resource type="PackedScene" uid="uid://dwxw34mqtavap" path="res://kitchenmodel_ingame/tablekitchen - Copy/tableinkitchen2.glb" id="1_pin8l"]
+
+[node name="tableinkitchen2" unique_id=1002744361 instance=ExtResource("1_pin8l")]
+
+[node name="TableCashier" parent="." index="0" unique_id=1298005995]
+transform = Transform3D(1.5266428, 0, 0, 0, 0.41721225, 0, 0, 0, 0.2671466, 1.6530335, 0.5320838, -0.42598963)
+visible = false
+
+[node name="TableCashier_1" parent="." index="1" unique_id=432586231]
+transform = Transform3D(-0.2662365, 0, -0.0069208783, 0, 0.38665357, 0, -0.0015794189, 0, 1.1666256, 0.33660865, 0.5224735, -1.4848523)
+visible = false
+
+[node name="TableCashier_2" parent="." index="2" unique_id=1001102829]
+transform = Transform3D(-0.2662436, 0, 0, 0, 0.41721225, 0, 0, 0, 0.58415914, 0.4274187, 0.5306225, -0.90131485)

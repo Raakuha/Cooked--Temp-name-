@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://djy6bw7t3lggr"]
+
+[ext_resource type="PackedScene" uid="uid://7or5j2ign8j7" path="res://assets/karakter/Karakter&Animasi/Psikiater/Psikiater.glb" id="1_h7hnl"]
+
+[node name="Psikiater" unique_id=587070155 instance=ExtResource("1_h7hnl")]
+
+[node name="Skeleton3D" parent="Armature_009" parent_id_path=PackedInt32Array(1130822881) index="0" unique_id=249782056]
+bones/0/position = Vector3(0, 0.40036708, 0)
+bones/0/rotation = Quaternion(-0.00088992936, 0, 0, 0.99999964)
+bones/1/rotation = Quaternion(0.0037088715, -4.8698552e-05, 0.004355247, 0.99998367)
+bones/4/rotation = Quaternion(1.2604774e-10, -3.1678926e-08, 0.0039786864, 0.9999921)
+bones/6/rotation = Quaternion(0.5043322, 0.49588025, 0.50408214, -0.495634)
+bones/7/rotation = Quaternion(-0.40198165, -0.30211145, -0.2999924, 0.8106442)
+bones/8/rotation = Quaternion(-0.28636009, -0.0069579603, -0.3619575, 0.8870944)
+bones/9/rotation = Quaternion(0.5037733, -0.49619818, -0.5037732, -0.49619815)
+bones/10/rotation = Quaternion(-0.47524405, 0.37704134, 0.18370493, 0.77345675)
+bones/11/rotation = Quaternion(-0.2864846, -0.03866061, 0.3297398, 0.8987233)
+bones/12/position = Vector3(0.0075233327, 0.40405813, 4.064583e-08)
+bones/13/rotation = Quaternion(-0.58578634, -0.42150658, -0.40241995, 0.5632448)
+bones/15/position = Vector3(-0.0075233327, 0.40405813, 4.064583e-08)
+bones/16/rotation = Quaternion(-0.5787244, 0.3936789, 0.39976153, 0.5918493)
