@@ -48,7 +48,6 @@
 [ext_resource type="PackedScene" uid="uid://blrc087prr4v" path="res://scene/Timing_mekanisme.tscn" id="30_usim7"]
 [ext_resource type="Resource" uid="uid://bil8idvhiu4ep" path="res://data/customers/roy.tres" id="30_x8f3f"]
 [ext_resource type="Resource" uid="uid://d3sq4hqxnfg8e" path="res://data/customers/dion.tres" id="31_f47vc"]
-[ext_resource type="Script" uid="uid://kqky5gta3jw4" path="res://script/Player.gd" id="31_usim7"]
 [ext_resource type="PackedScene" uid="uid://dco0q4l08t3hw" path="res://scene/workstation.tscn" id="31_x8f3f"]
 [ext_resource type="Script" uid="uid://bk4grk6b61gs2" path="res://script/Plating.gd" id="32_f47vc"]
 [ext_resource type="Resource" uid="uid://dbmfcyr1caeu8" path="res://data/customers/mysterious.tres" id="32_hwjsq"]
@@ -627,13 +626,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.194687, 1.2878685, 1.08357
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3265176, 0.8337264, 5.211712)
 
 [node name="Player" parent="." unique_id=835283696 instance=ExtResource("7_m5dmv")]
-transform = Transform3D(-0.99953204, 0, -0.030587163, 0, 1, 0, 0.030587163, 0, -0.99953204, 15.407942, 1.3160796, -5.7124176)
-script = ExtResource("31_usim7")
+transform = Transform3D(0.020093575, 0, 0.9997982, 0, 1, 0, -0.9997982, 0, 0.020093575, 12.301089, 1.2093279, -5.1730566)
 
 [node name="DialogueMarker" parent="Player" index="0" unique_id=1648197195]
 transform = Transform3D(1, 0, -7.450581e-09, 0, 1, 0, 7.450581e-09, 0, 1, -0.02500534, 2, 1.0890944)
 
-[node name="FPPCamera" parent="Player" index="3" unique_id=1399624304]
+[node name="FPPCamera" parent="Player" index="2" unique_id=1399624304]
 transform = Transform3D(0.99943423, 0, -0.0336369, 0, 1, 0, 0.0336369, 0, 0.99943423, 0, 0.9230728, 0)
 
 [node name="DiningPoints" type="Node3D" parent="." unique_id=309269333]
@@ -787,10 +785,13 @@ command = "REFRIGERATOR"
 typing_ui = NodePath("../../UI/TypingUI")
 camera_controller = NodePath("../../CameraSystem")
 typing_manager = NodePath("../../Managers/TypingManager")
+start_animations = {
+"TAKE": "ChefAseli/ngambil"
+}
 item_pick_manager = NodePath("../../Managers/ItemPickManager")
 
 [node name="NavigationTarget" type="Marker3D" parent="World/Refrigerator" unique_id=2037627292]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48060513, 0, -0.26745796)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.3719616, 0.2551521, -0.05374503)
 
 [node name="PromptAnchor" type="Marker3D" parent="World/Refrigerator" unique_id=725683675]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.057925224, 0.8986399, 0.078152895)
@@ -805,7 +806,7 @@ typing_manager = NodePath("../../Managers/TypingManager")
 item_pick_manager = NodePath("../../Managers/ItemPickManager")
 
 [node name="NavigationTarget" type="Marker3D" parent="World/RiceStorage" unique_id=730663450]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.67024803, 0, -0.15568733)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.70942974, 0, 0.036132216)
 
 [node name="PromptAnchor" type="Marker3D" parent="World/RiceStorage" unique_id=15489662]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9475689, 0, 0.7560692)
@@ -820,7 +821,7 @@ typing_manager = NodePath("../../Managers/TypingManager")
 item_pick_manager = NodePath("../../Managers/ItemPickManager")
 
 [node name="NavigationTarget" type="Marker3D" parent="World/Produce" unique_id=1630907516]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08633947, 0, 0)
+transform = Transform3D(-0.12677431, 0, -0.9919316, 0, 1, 0, 0.9919316, 0, -0.12677431, 0.3792615, -0.4857831, 0.43581963)
 
 [node name="PromptAnchor" type="Marker3D" parent="World/Produce" unique_id=555245230]
 
@@ -834,7 +835,7 @@ typing_manager = NodePath("../../Managers/TypingManager")
 item_pick_manager = NodePath("../../Managers/ItemPickManager")
 
 [node name="NavigationTarget" type="Marker3D" parent="World/Seasoning" unique_id=1830104472]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12360668, -0.3398298, 0.0943048)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.01516819, -0.47845203, 0.39850307)
 
 [node name="PromptAnchor" type="Marker3D" parent="World/Seasoning" unique_id=675347709]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.081228256, 0, -0.2845521)
@@ -851,7 +852,7 @@ stove_timing_ui = NodePath("Timing_mekanisme")
 item_pick_manager = NodePath("../../Managers/ItemPickManager")
 
 [node name="NavigationTarget" type="Marker3D" parent="World/Stove" unique_id=1178233338]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.038342953, -0.26513195, -0.24302673)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -0.038342953, -0.49522364, 0.39269924)
 
 [node name="PromptAnchor" type="Marker3D" parent="World/Stove" unique_id=1110168275]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.055183887, 0, 0)
@@ -862,7 +863,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05956745, 0.03182304, 0.219
 [node name="Timing_mekanisme" parent="World/Stove" unique_id=48844692 instance=ExtResource("30_usim7")]
 
 [node name="Plating" type="Node3D" parent="World" unique_id=1520171741 node_paths=PackedStringArray("typing_ui", "camera_controller", "typing_manager", "item_pick_manager")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.930029, 0.9487001, -0.89987814)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.930029, 0.5995173, -1.4405775)
 script = ExtResource("32_f47vc")
 command = "PLATING"
 typing_ui = NodePath("../../UI/TypingUI")
@@ -871,8 +872,10 @@ typing_manager = NodePath("../../Managers/TypingManager")
 item_pick_manager = NodePath("../../Managers/ItemPickManager")
 
 [node name="NavigationTarget" type="Marker3D" parent="World/Plating" unique_id=526064413]
+transform = Transform3D(0.9999997, 0, 0, 0, 1, 0, 0, 0, 0.9999997, 0.30769968, 0, 0.01462388)
 
 [node name="PromptAnchor" type="Marker3D" parent="World/Plating" unique_id=886716442]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13314533, 0, 0.5877949)
 
 [node name="InteractionCameraAnchor" type="Marker3D" parent="World/Plating" unique_id=1388993636]
 
@@ -886,6 +889,7 @@ typing_manager = NodePath("../../Managers/TypingManager")
 item_pick_manager = NodePath("../../Managers/ItemPickManager")
 
 [node name="NavigationTarget" type="Marker3D" parent="World/Bun_Storage" unique_id=1486180603]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49539566, -0.4262367, -0.035349846)
 
 [node name="PromptAnchor" type="Marker3D" parent="World/Bun_Storage" unique_id=1022152094]
 
@@ -902,7 +906,7 @@ stove_timing_ui = NodePath("Timing_mekanisme")
 item_pick_manager = NodePath("../../Managers/ItemPickManager")
 
 [node name="NavigationTarget" parent="World/Flat_Plan" index="0" unique_id=526064413]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005566597, -0.23516244, 0.16605043)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.005566597, -0.23516244, 0.5707445)
 
 [node name="PromptAnchor" parent="World/Flat_Plan" index="1" unique_id=886716442]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.043249607, 0.06605399, 0)
@@ -922,7 +926,7 @@ typing_manager = NodePath("../../Managers/TypingManager")
 item_pick_manager = NodePath("../../Managers/ItemPickManager")
 
 [node name="NavigationTarget" parent="World/Cutting_Board" index="0" unique_id=526064413]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25673056, -0.2740487, 0)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.31323814, -0.2740487, 0)
 
 [node name="InteractionCameraAnchor" parent="World/Cutting_Board" index="2" unique_id=1388993636]
 transform = Transform3D(-3.4273334e-08, -0.561565, 0.8274327, -2.7129756e-08, 0.8274327, 0.561565, -1, -3.201345e-09, -4.3594e-08, 0.2260518, 0.24478096, 0)
@@ -936,7 +940,7 @@ typing_manager = NodePath("../../Managers/TypingManager")
 item_pick_manager = NodePath("../../Managers/ItemPickManager")
 
 [node name="NavigationTarget" parent="World/Oven" index="0" unique_id=526064413]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.38705873)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.2092478, 0.40438938)
 
 [node name="PoliceCarSequence" type="Node3D" parent="World" unique_id=2096176667]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.133283, 0, 41.868774)

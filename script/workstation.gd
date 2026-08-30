@@ -50,6 +50,14 @@ var last_picked_item_id: String = ""
 var current_picked_item_id: String = ""
 func get_navigation_position() -> Vector3 :
 	return navigation_target.global_position
+func get_navigation_rotation() -> float:
+	print(
+		"[Navigation] ",
+		command,
+		" | Global Rotation Y = ",
+		rad_to_deg(navigation_target.global_rotation.y)
+	)
+	return navigation_target.global_rotation.y
 	
 func get_prompt_position() -> Vector3:
 	return prompt_anchor.global_position
@@ -59,6 +67,13 @@ func _enter_tree() -> void:
 
 func _try_play_animation(clip_name: String) -> void:
 	if clip_name == "" or animation_player == null:
+		return
+
+	# Kata kunci khusus -- hentikan animasi yang lagi jalan, tanpa perlu
+	# clip "idle" tersendiri. Dipakai kalau workstation itu belum (atau
+	# gak akan pernah) punya clip idle/rest pose spesifik.
+	if clip_name == "STOP":
+		animation_player.stop()
 		return
 
 	if not animation_player.has_animation(clip_name):

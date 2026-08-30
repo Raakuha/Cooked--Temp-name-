@@ -115,7 +115,8 @@ func start_move_step() -> void:
 	pending_workstation = target_workstation
 
 	player.move_to_target(
-		target_workstation.get_navigation_position()
+		target_workstation.get_navigation_position(),
+		target_workstation.get_navigation_rotation()
 	)
 
 
