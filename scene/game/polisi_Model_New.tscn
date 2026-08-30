@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cad8bi5i17jac"]
+
+[ext_resource type="PackedScene" uid="uid://6tcutk7647ux" path="res://assets/karakter/Karakter&Animasi/polisi2/Polisi2.glb" id="1_7ogal"]
+
+[node name="Polisi2" unique_id=2142236633 instance=ExtResource("1_7ogal")]
+
+[node name="Skeleton3D" parent="Armature_004" parent_id_path=PackedInt32Array(2146885447) index="0" unique_id=322014949]
+bones/0/position = Vector3(0, 0.043111876, 0)
+bones/1/rotation = Quaternion(6.7266804e-08, -2.0503578e-08, 0.0043552774, 0.9999905)
+bones/4/rotation = Quaternion(-1.2530546e-07, 2.6810415e-06, 0.0024566308, 0.999997)
+bones/6/rotation = Quaternion(0.5037733, 0.49619818, 0.5037732, -0.49619815)
+bones/7/rotation = Quaternion(-0.5318849, -0.01819803, -0.025427446, 0.84623915)
+bones/8/rotation = Quaternion(-0.10279994, 0.059611693, 0.023930483, 0.99262583)
+bones/9/rotation = Quaternion(0.5037733, -0.49619818, -0.5037732, -0.49619815)
+bones/10/rotation = Quaternion(-0.55334777, -0.009192643, 0.012010952, 0.83281296)
+bones/11/rotation = Quaternion(-0.12288795, 0.027177012, -0.028810184, 0.99162996)
+bones/13/rotation = Quaternion(-0.7207325, 0.012484852, 0.011919369, 0.6929984)
+bones/16/rotation = Quaternion(-0.69870347, -0.024630938, -0.0250114, 0.71454966)

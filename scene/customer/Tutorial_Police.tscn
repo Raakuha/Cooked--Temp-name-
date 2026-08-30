@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://s1g7aayex6ba"]
 
+[ext_resource type="PackedScene" uid="uid://cad8bi5i17jac" path="res://scene/game/polisi_Model_New.tscn" id="1_tvu6h"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y8wd6"]
 albedo_color = Color(0.014257291, 0.114854015, 0.9999997, 1)
 metallic = 1.0
@@ -13,7 +15,11 @@ height = 1.5078125
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=907987024]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06703782, 0.3376093)
+visible = false
 mesh = SubResource("CapsuleMesh_ucjqn")
 
 [node name="DialogueMarker" type="Marker3D" parent="." unique_id=1950099194]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0031991825, 1.0281074, 0.38146764)
+
+[node name="Polisi2" parent="." unique_id=2142236633 instance=ExtResource("1_tvu6h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7638335, -0.99552333, 0.40892637)

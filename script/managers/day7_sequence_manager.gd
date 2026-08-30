@@ -9,6 +9,12 @@ signal sequence_finished
 @onready var transition_layer: TransitionLayer = $"../../UI/TransitionLayer"
 @onready var player: Player = $"../../Player"
 
+
+@onready var day7_backsound: AudioStreamPlayer = (
+	$"../../Audio/Day7FPPBackSound"
+)
+
+
 @onready var basement_player_start: Marker3D = $"../../SpawnPoints/BasementPlayerStart"
 
 @onready var mysterious_spawn: Marker3D = $"../../SpawnPoints/MysteriousSpawn"
@@ -66,6 +72,8 @@ func play_day7_sequence() -> void:
 
 	camera_director.switch_to_fpp()
 
+	play_day7_backsound()
+
 	await transition_layer.fade_in(0.7)
 
 	print("========================")
@@ -76,6 +84,26 @@ func play_day7_sequence() -> void:
 	active = false
 
 	sequence_finished.emit()
+
+
+
+func play_day7_backsound() -> void:
+
+	if day7_backsound == null:
+		print("Day 7 backsound tidak ditemukan.")
+		return
+
+	if day7_backsound.playing:
+		return
+
+	print("========================")
+	print("DAY 7 BACKSOUND START")
+	print("========================")
+
+	day7_backsound.play()
+
+
+
 
 func spawn_mysterious_customer() -> void:
 

@@ -25,11 +25,54 @@ signal tutorial_order_finished
 var active: bool = false
 var tutorial_order_index: int = -1
 
+var police_animation_player: AnimationPlayer = null
+
+
 func _ready() -> void:
 
 	cooking_sequence_manager.recipe_completed.connect(
 		_on_recipe_completed
 	)
+
+	if tutorial_police != null:
+
+		police_animation_player = tutorial_police.find_child(
+			"AnimationPlayer",
+			true,
+			false
+		) as AnimationPlayer
+
+		if police_animation_player != null:
+
+			print(
+				"Tutorial Police AnimationPlayer ditemukan."
+			)
+
+		else:
+
+			print(
+				"Tutorial Police AnimationPlayer tidak ditemukan."
+			)
+
+
+func play_police_idle() -> void:
+
+	if police_animation_player == null:
+		print("AnimationPlayer polisi tidak tersedia.")
+		return
+
+	if not police_animation_player.has_animation("idle"):
+
+		print(
+			"Animasi idle polisi tidak ditemukan."
+		)
+
+		return
+
+	print("TUTORIAL POLICE -> IDLE")
+
+	police_animation_player.play("idle")
+
 
 func _on_recipe_completed(result: CookingResult) -> void:
 
@@ -222,6 +265,8 @@ func enter_restaurant() -> void:
 	print("Tutorial Police Point    : ", tutorial_police_point.global_position)
 
 	tutorial_police.show()
+	
+	play_police_idle()
 
 	print("Tutorial Police Visible  : ", tutorial_police.visible)
 
