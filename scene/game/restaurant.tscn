@@ -1,19 +1,19 @@
 [gd_scene format=4 uid="uid://2vebttq24dyx"]
 
-[ext_resource type="PackedScene" uid="uid://1g8haud7pr0q" path="res://kitchenmodel_ingame/tablenchair/tablenchair.glb" id="1_y4xqc"]
-[ext_resource type="PackedScene" uid="uid://jmhq00nhv1hg" path="res://kitchenmodel_ingame/door1/door1.glb" id="2_xc8xi"]
-[ext_resource type="PackedScene" uid="uid://dikaxutcibtnj" path="res://kitchenmodel_ingame/door2/door2.glb" id="3_w5cll"]
-[ext_resource type="PackedScene" uid="uid://dtgsggioha7i6" path="res://kitchenmodel_ingame/floorkitchen/floorkitchen.glb" id="4_epjxj"]
-[ext_resource type="PackedScene" uid="uid://dsso5t3wio5eu" path="res://kitchenmodel_ingame/kulkas/kulkas.glb" id="5_l6aja"]
+[ext_resource type="PackedScene" uid="uid://c7tbng3k18fcd" path="res://kitchenmodel_ingame/tablenchair/tablenchair.glb" id="1_y4xqc"]
+[ext_resource type="PackedScene" uid="uid://b7mmulr6q81gq" path="res://kitchenmodel_ingame/door1/door1.glb" id="2_xc8xi"]
+[ext_resource type="PackedScene" uid="uid://bhmeevrae8d0t" path="res://kitchenmodel_ingame/door2/door2.glb" id="3_w5cll"]
+[ext_resource type="PackedScene" uid="uid://hmg646jbdo7o" path="res://kitchenmodel_ingame/floorkitchen/floorkitchen.glb" id="4_epjxj"]
+[ext_resource type="PackedScene" uid="uid://c08pbh4dmcfvf" path="res://kitchenmodel_ingame/kulkas/kulkas.glb" id="5_l6aja"]
 [ext_resource type="Texture2D" uid="uid://dv8hgb2k55iup" path="res://kitchenmodel_ingame/kompornoven/kompor_Screenshot 2026-08-07 091752.png" id="6_4j5o5"]
-[ext_resource type="PackedScene" uid="uid://b07ba4m4ogfwc" path="res://kitchenmodel_ingame/wok/flatwok.glb" id="7_xqhrp"]
-[ext_resource type="PackedScene" uid="uid://vxokuk1acb32" path="res://kitchenmodel_ingame/wok/wok1.glb" id="8_cr3o1"]
-[ext_resource type="PackedScene" uid="uid://bmpyxmmtrd4o4" path="res://kitchenmodel_ingame/cashier/cashier.glb" id="9_iqsrw"]
-[ext_resource type="PackedScene" uid="uid://cbc75dv6odkf3" path="res://kitchenmodel_ingame/peripheral/tempatpotong.glb" id="10_jiea1"]
-[ext_resource type="PackedScene" uid="uid://b0bbb1jtp3e2o" path="res://kitchenmodel_ingame/peripheral/piso.glb" id="11_3xnx5"]
-[ext_resource type="PackedScene" uid="uid://blnb11np7buis" path="res://kitchenmodel_ingame/bun&nasi/boxbun.glb" id="12_gequ5"]
-[ext_resource type="PackedScene" uid="uid://dpqnkuu75arph" path="res://kitchenmodel_ingame/bun&nasi/boxnasi.glb" id="13_u1myk"]
-[ext_resource type="PackedScene" uid="uid://dtcx5tycdsvjr" path="res://kitchenmodel_ingame/tembok/temboknframe.glb" id="14_hr3og"]
+[ext_resource type="PackedScene" uid="uid://cx4dhfavwgekq" path="res://kitchenmodel_ingame/wok/flatwok.glb" id="7_xqhrp"]
+[ext_resource type="PackedScene" uid="uid://ccod85s1re47" path="res://kitchenmodel_ingame/wok/wok1.glb" id="8_cr3o1"]
+[ext_resource type="PackedScene" uid="uid://b32qya25vxopj" path="res://kitchenmodel_ingame/cashier/cashier.glb" id="9_iqsrw"]
+[ext_resource type="PackedScene" uid="uid://c4c2bsdmghde8" path="res://kitchenmodel_ingame/peripheral/tempatpotong.glb" id="10_jiea1"]
+[ext_resource type="PackedScene" uid="uid://din7n7hhl2wx2" path="res://kitchenmodel_ingame/peripheral/piso.glb" id="11_3xnx5"]
+[ext_resource type="PackedScene" uid="uid://vvuxsim0r7jb" path="res://kitchenmodel_ingame/bun&nasi/boxbun.glb" id="12_gequ5"]
+[ext_resource type="PackedScene" uid="uid://cect8e7v3xv2h" path="res://kitchenmodel_ingame/bun&nasi/boxnasi.glb" id="13_u1myk"]
+[ext_resource type="PackedScene" uid="uid://dm1gmkduqlavf" path="res://kitchenmodel_ingame/tembok/temboknframe.glb" id="14_hr3og"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m2jk7"]
 resource_name = "Material.030"
@@ -1313,6 +1313,24 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_xr06d")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3gngh"]
+emission_enabled = true
+emission = Color(0.9367016, 0.9367016, 0.93670154, 1)
+emission_energy_multiplier = 2.05
+
+[sub_resource type="BoxMesh" id="BoxMesh_y4xqc"]
+material = SubResource("StandardMaterial3D_3gngh")
+size = Vector3(0.83839417, 0.91052246, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xc8xi"]
+emission_enabled = true
+emission = Color(0.9367016, 0.9367016, 0.93670154, 1)
+emission_energy_multiplier = 2.05
+
+[sub_resource type="BoxMesh" id="BoxMesh_w5cll"]
+material = SubResource("StandardMaterial3D_xc8xi")
+size = Vector3(0.97021484, 0.6977539, 1)
+
 [node name="Restaurant" type="Node3D" unique_id=424843313]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
@@ -1475,3 +1493,11 @@ mesh = SubResource("ArrayMesh_fjo3e")
 
 [node name="temboknframe" parent="." unique_id=447339091 instance=ExtResource("14_hr3og")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49881792, 0, -0.16719937)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=652954980]
+transform = Transform3D(8.720608, 0, 0, 0, 2.4294338, 0, 0, 0, 0.24543498, -0.7384374, 1.2740585, 4.7187557)
+mesh = SubResource("BoxMesh_y4xqc")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1417287869]
+transform = Transform3D(-0.014712771, 0, -0.13504758, 0, 2.4294338, 0, 8.70785, 0, -0.00022817624, -4.987946, 1.7190335, -0.04474616)
+mesh = SubResource("BoxMesh_w5cll")
