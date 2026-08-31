@@ -507,13 +507,16 @@ navigation_mesh = SubResource("NavigationMesh_riqys")
 [node name="Restaurant" parent="World" unique_id=1293282191 instance=ExtResource("14_fd77o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2947865, 0, 0.45060158)
 
-[node name="Cube_035" parent="World/Restaurant/door2" parent_id_path=PackedInt32Array(1293282191, 893266216) index="0" unique_id=1595962607]
+[node name="tablenchair" parent="World/Restaurant" index="0" unique_id=1019391076]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0676899, 0.18730533, -0.07415581)
+
+[node name="Cube_035" parent="World/Restaurant/door2" parent_id_path=PackedInt32Array(1293282191, 893266216) index="0" unique_id=1869402280]
 transform = Transform3D(-0.22884804, -5.4278924e-08, 0.03303441, -9.224368e-08, 0.9596015, 2.03547e-17, 0.56641877, 1.3434506e-07, 0.013346768, -1.8814273, 1.136609, -4.0340667)
 
-[node name="frame_001" parent="World/Restaurant/door2" parent_id_path=PackedInt32Array(1293282191, 893266216) index="1" unique_id=1742338716]
+[node name="frame_001" parent="World/Restaurant/door2" parent_id_path=PackedInt32Array(1293282191, 893266216) index="1" unique_id=398964970]
 transform = Transform3D(-0.23882578, 0, -0.0525026, 0, 0.99785656, 0, 0.5911145, 0, -0.021212427, -1.8813758, 1.1521235, -4.022926)
 
-[node name="Door_kulkas" parent="World/Restaurant/kulkas" parent_id_path=PackedInt32Array(1293282191, 763844842) index="1" unique_id=568307363]
+[node name="Door_kulkas" parent="World/Restaurant/kulkas" parent_id_path=PackedInt32Array(1293282191, 763844842) index="1" unique_id=1532875523]
 transform = Transform3D(0.008222813, 0, 0, 0, 0.79652077, 0, 0, 0, 0.4451763, 3.7108603, 0.97326714, -3.450365)
 
 [node name="HorrorFocusPoint" type="Marker3D" parent="World" unique_id=1911894409]
