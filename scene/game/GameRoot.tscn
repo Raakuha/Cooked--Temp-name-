@@ -82,6 +82,9 @@
 [ext_resource type="AudioStream" uid="uid://bb2kwlblt8hx8" path="res://assets/Sound/Day7BackSSoundEnv/BacksoundEnvDay7.mp3" id="75_ksdpc"]
 [ext_resource type="AudioStream" uid="uid://cg4cpf05jyakc" path="res://assets/Sound/effect/pixel-duck-by-johny-grimes.mp3" id="77_m1bqi"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_0f1fa"]
+line_spacing = 5.0
+
 [sub_resource type="Theme" id="Theme_7c5yd"]
 default_font = ExtResource("54_66wm3")
 default_font_size = 24
@@ -322,7 +325,7 @@ offset_right = 177.0
 offset_bottom = 92.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 40
-text = "COOKED!!!"
+text = "Today's Special Ended here"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -339,11 +342,17 @@ offset_right = 324.0
 offset_bottom = 163.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A GAME BY
+text = "Thank you for playing
 
-2 Kalimantan & kebuman
+This game made by Data:E  team
+consisting of three people ;
+1.  Daffa Raihansyah Tjoen - Asset 3D Makers & UI
+2. Leo Bambang Febrian - Programming & Story Makers, Level Design
+3. Rakha Maulana Hisyam Ramadhan -  Programming & Core Gameplay 
 
-Powered by Godot Engine"
+
+See you next time !"
+label_settings = SubResource("LabelSettings_0f1fa")
 horizontal_alignment = 1
 vertical_alignment = 1
 
