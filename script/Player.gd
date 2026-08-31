@@ -19,7 +19,13 @@ const ARRIVAL := 1.0
 )
 var model_y_offset: float = 0.0
 const GRAVITY := 20.0
-
+@export_range(
+	-180.0,
+	180.0,
+	1.0,
+	"degrees"
+)
+var camera_y_offset: float = 180.0
 
 @export var move_speed: float = 2.0
 @export var mouse_sensitivity: float = 0.002
@@ -66,7 +72,9 @@ func _play_movement_animation(is_currently_moving: bool) -> void:
 func _ready() -> void:
 	navigation_agent_3d.path_desired_distance = ARRIVAL
 	navigation_agent_3d.target_desired_distance = ARRIVAL
-	
+
+	camera.rotation.y = deg_to_rad(camera_y_offset)
+
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	print("========================")
 	print("PLAYER READY")
