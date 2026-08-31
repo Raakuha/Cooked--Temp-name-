@@ -3,6 +3,7 @@ extends CanvasLayer
 
 @onready var game_title: Label = $Control/GameTitle
 @onready var credits: Label = $Control/Credits
+@export var auto_show: bool = false
 
 func _ready() -> void:
 	visible = false
@@ -13,7 +14,8 @@ func _ready() -> void:
 	print("========================")
 	print("ENDING SCREEN READY")
 	print("========================")
-
+	if auto_show:
+		show_ending()
 
 func show_ending() -> void:
 

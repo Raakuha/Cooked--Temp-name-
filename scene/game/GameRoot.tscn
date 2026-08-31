@@ -24,7 +24,6 @@
 [ext_resource type="PackedScene" uid="uid://cdg5gj08rmyys" path="res://scene/workstation_registry.tscn" id="16_nqm02"]
 [ext_resource type="PackedScene" uid="uid://dko3175p12cb" path="res://scene/game/basement_temp.tscn" id="17_hd2yi"]
 [ext_resource type="Resource" uid="uid://na4mbvmrtfsv" path="res://data/customers/ulbar.tres" id="17_qf78g"]
-[ext_resource type="Script" uid="uid://cgk28uetmun1j" path="res://script/managers/ending_screen.gd" id="17_qwtac"]
 [ext_resource type="Resource" uid="uid://b6juxpm1xl2hy" path="res://data/customers/nanda.tres" id="18_qil7q"]
 [ext_resource type="Script" uid="uid://ba358ao4tyr5t" path="res://script/managers/prep_location_picker.gd" id="19_5oyco"]
 [ext_resource type="PackedScene" uid="uid://bxwdn3yvlgi7m" path="res://scene/ui/TypingUI.tscn" id="19_d54mb"]
@@ -69,6 +68,7 @@
 [ext_resource type="AudioStream" uid="uid://bgu7kf3mctk8q" path="res://assets/Sound/effect/echoes_of_lumen-tutorial-music-educational-583424.mp3" id="52_bdyn8"]
 [ext_resource type="PackedScene" uid="uid://v11epxajdnyt" path="res://scene/ui/day_summary_ui.tscn" id="53_svhq0"]
 [ext_resource type="FontFile" uid="uid://bcnauk8avrvvg" path="res://scene/ui/Super Mellow.ttf" id="54_66wm3"]
+[ext_resource type="PackedScene" uid="uid://crbtn4qqn46k6" path="res://scene/ui/ending_screen.tscn" id="56_0f1fa"]
 [ext_resource type="PackedScene" uid="uid://3fne6jm5xd1p" path="res://scene/ui/pause_menu.tscn" id="56_61jv0"]
 [ext_resource type="PackedScene" uid="uid://b4asr81thln0c" path="res://scene/ui/tutorial_menu.tscn" id="58_k60xw"]
 [ext_resource type="PackedScene" uid="uid://dydhaulhw44x4" path="res://scene/game/psychiatrist_room.tscn" id="63_cq5hq"]
@@ -81,9 +81,6 @@
 [ext_resource type="AudioStream" uid="uid://dmt2llnm0t1rw" path="res://assets/Sound/effect/kasi.mp3" id="72_m1bqi"]
 [ext_resource type="AudioStream" uid="uid://bb2kwlblt8hx8" path="res://assets/Sound/Day7BackSSoundEnv/BacksoundEnvDay7.mp3" id="75_ksdpc"]
 [ext_resource type="AudioStream" uid="uid://cg4cpf05jyakc" path="res://assets/Sound/effect/pixel-duck-by-johny-grimes.mp3" id="77_m1bqi"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_0f1fa"]
-line_spacing = 5.0
 
 [sub_resource type="Theme" id="Theme_7c5yd"]
 default_font = ExtResource("54_66wm3")
@@ -303,58 +300,8 @@ menu_deadline_timer = NodePath("../../Managers/MenuDeadlineTimer")
 [node name="TypingUI" parent="UI" unique_id=1494470883 node_paths=PackedStringArray("camera") instance=ExtResource("19_d54mb")]
 camera = NodePath("../../CameraSystem/GameplayCamera")
 
-[node name="EndingScreen" type="CanvasLayer" parent="UI" unique_id=1972361431]
-layer = 2
-script = ExtResource("17_qwtac")
-
-[node name="Control" type="Control" parent="UI/EndingScreen" unique_id=1690230869]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="GameTitle" type="Label" parent="UI/EndingScreen/Control" unique_id=1787125660]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -177.0
-offset_right = 177.0
-offset_bottom = 92.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 40
-text = "Today's Special Ended here"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Credits" type="Label" parent="UI/EndingScreen/Control" unique_id=1433242302]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -309.0
-offset_top = -174.5
-offset_right = 324.0
-offset_bottom = 163.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Thank you for playing
-
-This game made by Data:E  team
-consisting of three people ;
-1.  Daffa Raihansyah Tjoen - Asset 3D Makers & UI
-2. Leo Bambang Febrian - Programming & Story Makers, Level Design
-3. Rakha Maulana Hisyam Ramadhan -  Programming & Core Gameplay 
-
-
-See you next time !"
-label_settings = SubResource("LabelSettings_0f1fa")
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="EndingScreen" parent="UI" unique_id=1210329798 instance=ExtResource("56_0f1fa")]
+auto_show = false
 
 [node name="TransitionLayer" type="CanvasLayer" parent="UI" unique_id=183180732]
 script = ExtResource("14_foydr")
