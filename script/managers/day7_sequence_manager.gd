@@ -24,6 +24,7 @@ signal sequence_finished
 var active: bool = false
 var mysterious_instance: Node3D = null
 
+var mysterious_animation_player: AnimationPlayer = null
 
 func play_day7_sequence() -> void:
 
@@ -87,6 +88,51 @@ func play_day7_sequence() -> void:
 
 
 
+func play_mysterious_idle() -> void:
+
+	if mysterious_animation_player == null:
+		print("Mysterious AnimationPlayer tidak ditemukan.")
+		return
+
+	var idle_animation_name := ""
+
+	if mysterious_animation_player.has_animation("idle"):
+		idle_animation_name = "idle"
+
+	elif mysterious_animation_player.has_animation("Idle"):
+		idle_animation_name = "Idle"
+
+	else:
+		print(
+			"Mysterious tidak memiliki animasi idle."
+		)
+
+		print(
+			"Animasi tersedia : ",
+			mysterious_animation_player.get_animation_list()
+		)
+
+		return
+
+	var animation: Animation = (
+		mysterious_animation_player.get_animation(
+			idle_animation_name
+		)
+	)
+
+	animation.loop_mode = Animation.LOOP_LINEAR
+
+	print(
+		"MYSTERIOUS -> IDLE : ",
+		idle_animation_name
+	)
+
+	mysterious_animation_player.play(
+		idle_animation_name
+	)
+
+
+
 func play_day7_backsound() -> void:
 
 	if day7_backsound == null:
@@ -121,15 +167,51 @@ func spawn_mysterious_customer() -> void:
 
 	mysterious_instance = mysterious_scene.instantiate()
 
-	get_tree().current_scene.add_child(mysterious_instance)
+	get_tree().current_scene.add_child(
+		mysterious_instance
+	)
 
-	mysterious_instance.global_position = mysterious_spawn.global_position
+	mysterious_instance.global_position = (
+		mysterious_spawn.global_position
+	)
 
 	print(
 		"Mysterious customer muncul di : ",
 		mysterious_instance.global_position
 	)
 
+	# =========================================
+	# CARI ANIMATION PLAYER
+	# =========================================
+
+	mysterious_animation_player = mysterious_instance.find_child(
+		"AnimationPlayer",
+		true,
+		false
+	) as AnimationPlayer
+
+	if mysterious_animation_player == null:
+
+		print(
+			"Mysterious AnimationPlayer tidak ditemukan."
+		)
+
+		return
+
+	print(
+		"Mysterious AnimationPlayer ditemukan."
+	)
+
+	print(
+		"Animasi Mysterious : ",
+		mysterious_animation_player.get_animation_list()
+	)
+
+	# =========================================
+	# PLAY IDLE
+	# =========================================
+
+	play_mysterious_idle()
 
 func remove_mysterious_customer() -> void:
 
@@ -141,7 +223,9 @@ func remove_mysterious_customer() -> void:
 	print("========================")
 
 	mysterious_instance.queue_free()
+
 	mysterious_instance = null
+	mysterious_animation_player = null
 
 
 func play_glitch() -> void:

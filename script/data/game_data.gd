@@ -53,7 +53,7 @@ const DAY1 = [
 
 	{
 		"type": "typing"
-	},
+	}
 
 ]
 
@@ -73,6 +73,32 @@ const DAY2 = [
 	{
 		"type": "typing"
 	},
+	
+	{
+		"type": "spawn_customer",
+		"customer_id": "gul"
+	},
+
+	{
+		"type": "customer_opening"
+	},
+
+	{
+		"type": "typing"
+	},
+	
+	{
+		"type": "spawn_customer",
+		"customer_id": "kala"
+	},
+
+	{
+		"type": "customer_opening"
+	},
+
+	{
+		"type": "typing"
+	}
 ]
 
 const DAY3 = [
@@ -173,6 +199,19 @@ const DAY5 = [
 
 const DAY6 = [
 
+	{
+		"type": "spawn_customer",
+		"customer_id": "dion"
+	},
+
+	{
+		"type": "customer_opening"
+	},
+
+	{
+		"type": "typing"
+	},
+	
 	
 	{
 		"type": "spawn_mika_day6"

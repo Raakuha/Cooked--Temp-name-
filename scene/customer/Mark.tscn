@@ -1,33 +1,18 @@
 [gd_scene format=3 uid="uid://dcmtrpb5xncle"]
 
+[ext_resource type="PackedScene" uid="uid://b456xhrh4a0l1" path="res://assets/karakter/Karakter&Animasi/Mark/Mark.glb" id="1_qxhpo"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_021wl"]
 albedo_color = Color(0.84141356, 1.1262596e-05, 0.5578344, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8f85w"]
 material = SubResource("StandardMaterial3D_021wl")
 
-[sub_resource type="Animation" id="Animation_021wl"]
-resource_name = "Celebrate"
-
-[sub_resource type="Animation" id="Animation_qxhpo"]
-resource_name = "Idle"
-loop_mode = 1
-
-[sub_resource type="Animation" id="Animation_fjnri"]
-resource_name = "Walk"
-loop_mode = 1
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_lj002"]
-_data = {
-&"Celebrate": SubResource("Animation_021wl"),
-&"Idle": SubResource("Animation_qxhpo"),
-&"Walk": SubResource("Animation_fjnri")
-}
-
 [node name="Mark" type="Node3D" unique_id=1684929741]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1168059194]
+visible = false
 mesh = SubResource("CapsuleMesh_8f85w")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=981094983]
-libraries/ = SubResource("AnimationLibrary_lj002")
+[node name="Model" parent="." unique_id=32238207 instance=ExtResource("1_qxhpo")]
