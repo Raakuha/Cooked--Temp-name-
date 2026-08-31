@@ -76,19 +76,31 @@ restaurant_dialogue = Array[Dictionary]([{
 }, {
 "mode": "bubble",
 "speaker": "Polisi",
-"text": "Nasgor goreng dengan maksimal 60 detik."
+"text": "Nasgor goreng dengan maksimal 65 detik."
 }, {
 "mode": "bubble",
 "speaker": "Polisi",
-"text": "Steak dengan maksimal 60 detik."
+"text": "Steak dengan maksimal 65 detik."
 }, {
 "mode": "bubble",
 "speaker": "Polisi",
-"text": "Salad dengan maksimal 40 detik."
+"text": "Salad dengan maksimal 45 detik."
 }, {
 "mode": "bubble",
 "speaker": "Polisi",
-"text": "Dan roti khas Lempuyangan dengan maksimal 40 detik."
+"text": "Roti khas Lempuyangan dengan maksimal 60 detik."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Burger banggor dengan maksimal 65 detik."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Soda dengan maksimal 20 detik."
+}, {
+"mode": "bubble",
+"speaker": "Polisi",
+"text": "Air miineral dengan maksimal 20 detik."
 }, {
 "mode": "bubble",
 "speaker": "Polisi",
@@ -110,7 +122,7 @@ restaurant_dialogue = Array[Dictionary]([{
 "speaker": "Polisi",
 "text": "Untuk sekarang tolong buatkan burger banggor dan bawakan soda untukku."
 }])
-recipe_id = "soda"
+recipe_id = "burger_banggor"
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Polisi",

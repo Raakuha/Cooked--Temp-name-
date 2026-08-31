@@ -21,6 +21,14 @@ var customers_served: int = 0
 @onready var sit_point : Marker3D = $"../../DiningPoints/Table01/SitPoint"
 @onready var customer_database: CustomerDatabase = $"../CustomerDatabase"
 
+@onready var table_approach_point : Marker3D = (
+	$"../../DiningPoints/Table01/ApproachPoint"
+)
+
+@onready var table_exit_point: Marker3D = (
+	$"../../DiningPoints/Table01/ExitPoint"
+)
+
 func add_customers_served(amount: int) -> void:
 
 	customers_served += amount
@@ -42,7 +50,9 @@ func send_customer_to_table():
 	print("Customer pergi ke meja")
 
 	current_customer.walk_to_table(
-		sit_point.global_position,
+		table_approach_point.global_position,
+		sit_point.global_transform,
+		table_exit_point.global_position,
 		cashier_point.global_position
 	)
 

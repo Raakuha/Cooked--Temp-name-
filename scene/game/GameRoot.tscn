@@ -392,52 +392,52 @@ item_pick_manager = NodePath("../../Managers/ItemPickManager")
 [node name="SpawnPoints" type="Node" parent="." unique_id=237271012]
 
 [node name="CustomerSpawn" type="Marker3D" parent="SpawnPoints" unique_id=487339718]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.290552, 1.0128038, 8.540127)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.290552, 0.2279576, 8.540127)
 
 [node name="CashierPoint" type="Marker3D" parent="SpawnPoints" unique_id=168496371]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.584363, 1.5077901, 0.21494377)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.584363, 0.8775077, 0.21494377)
 
 [node name="CustomerExit" type="Marker3D" parent="SpawnPoints" unique_id=655611525]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.146453, 0.5813918, 9.399029)
 
 [node name="GroupSpawn1" type="Marker3D" parent="SpawnPoints" unique_id=815694970]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.0894866, 0.64726543, 5.5292525)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.605848, 0.64726543, 8.334543)
 
 [node name="GroupSpawn2" type="Marker3D" parent="SpawnPoints" unique_id=131381193]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2920556, 0.7372842, 6.2533097)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.808416, 0.7372842, 9.058599)
 
 [node name="GroupSpawn3" type="Marker3D" parent="SpawnPoints" unique_id=1676281419]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.8988447, 0.73790705, 6.3228927)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.415206, 0.73790705, 9.128183)
 
 [node name="GroupWait1" type="Marker3D" parent="SpawnPoints" unique_id=1521216954]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.358144, 0.9999374, 0.40623045)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.085707, 0.9999374, 1.9868553)
 
 [node name="GroupWait2" type="Marker3D" parent="SpawnPoints" unique_id=1763737907]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.361185, 0.9645598, 1.1067718)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.088748, 0.9645598, 2.6873965)
 
 [node name="GroupWait3" type="Marker3D" parent="SpawnPoints" unique_id=1032278589]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.385621, 0.82699406, 1.2849491)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.113184, 0.82699406, 2.865574)
 
 [node name="GroupExit1" type="Marker3D" parent="SpawnPoints" unique_id=869906616]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.055949, 0.7565427, 4.113182)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.351188, 0.7565427, 8.834181)
 
 [node name="GroupExit2" type="Marker3D" parent="SpawnPoints" unique_id=146192805]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.8378577, 0.9075576, 3.4101806)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.133097, 0.9075576, 8.13118)
 
 [node name="GroupExit3" type="Marker3D" parent="SpawnPoints" unique_id=1905377555]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3400393, 0.9102323, 3.3475478)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.635278, 0.9102323, 8.068547)
 
 [node name="BasementPlayerStart" type="Marker3D" parent="SpawnPoints" unique_id=1721307797]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.238777, 0.20493329, -2.8922758)
 
 [node name="MysteriousSpawn" type="Marker3D" parent="SpawnPoints" unique_id=505856605]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2552614, 1.1077995, 1.1251287)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.576926, 1.1077995, 1.657541)
 
 [node name="TutorialPolicePoint" type="Marker3D" parent="SpawnPoints" unique_id=1248771850]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.194687, 1.2878685, 2.1874301)
 
 [node name="TutorialPoliceExit" type="Marker3D" parent="SpawnPoints" unique_id=1393585412]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3265176, 0.8337264, 5.211712)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.353588, 0.8337264, 8.469835)
 
 [node name="Player" parent="." unique_id=835283696 instance=ExtResource("7_m5dmv")]
 transform = Transform3D(0.020093575, 0, 0.9997982, 0, 1, 0, -0.9997982, 0, 0.020093575, 12.301089, 1.2093279, -5.1730566)
@@ -463,18 +463,42 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.792444, 0.6686027, -1.19637
 [node name="Table01" type="Node3D" parent="DiningPoints" unique_id=795684809]
 
 [node name="SitPoint" type="Marker3D" parent="DiningPoints/Table01" unique_id=800939455]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.74954605, 0.034581423, -0.0960058)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.0145755, 0.31417382, 1.2163179)
+
+[node name="ApproachPoint" type="Marker3D" parent="DiningPoints/Table01" unique_id=433470059]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9015503, 0.14028203, 0.36387378)
+
+[node name="ExitPoint" type="Marker3D" parent="DiningPoints/Table01" unique_id=1657764883]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8623271, 0, 0.3636726)
 
 [node name="Table02" type="Node3D" parent="DiningPoints" unique_id=1116986469]
 
 [node name="SitPoint1" type="Marker3D" parent="DiningPoints/Table02" unique_id=1597800728]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5802011, 0.5327594, 0.26721305)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7897778, 0.26491463, -3.109957)
 
 [node name="SitPoint2" type="Marker3D" parent="DiningPoints/Table02" unique_id=1814259288]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9564967, 0.5202872, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9619794, 0.32912493, -3.3771703)
 
 [node name="SitPoint3" type="Marker3D" parent="DiningPoints/Table02" unique_id=428480357]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.985664, 0.51879853, 0.78047454)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9116666, 0.33390296, -3.7422593)
+
+[node name="ApproachPoint1" type="Marker3D" parent="DiningPoints/Table02" unique_id=982665224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8222406, 0, -2.361647)
+
+[node name="ApproachPoint2" type="Marker3D" parent="DiningPoints/Table02" unique_id=951561263]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9522846, 0, -2.349632)
+
+[node name="ApproachPoint3" type="Marker3D" parent="DiningPoints/Table02" unique_id=512352895]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8605404, 0, -2.4843519)
+
+[node name="ExitPoint1" type="Marker3D" parent="DiningPoints/Table02" unique_id=2063553783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9331322, 0, -2.289759)
+
+[node name="ExitPoint2" type="Marker3D" parent="DiningPoints/Table02" unique_id=472749784]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1553, 0, -2.3679383)
+
+[node name="ExitPoint3" type="Marker3D" parent="DiningPoints/Table02" unique_id=970635796]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2075996, 0, -2.3459523)
 
 [node name="World" type="NavigationRegion3D" parent="." unique_id=1366203796]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

@@ -1,33 +1,18 @@
 [gd_scene format=3 uid="uid://cef8cxtwwnfd1"]
 
+[ext_resource type="PackedScene" uid="uid://pydx76tp1o44" path="res://assets/karakter/Karakter&Animasi/Harlan/Harlan.glb" id="1_857tn"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w7fuy"]
 albedo_color = Color(0.35392624, 0.34275094, 0.21144739, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8f85w"]
 material = SubResource("StandardMaterial3D_w7fuy")
 
-[sub_resource type="Animation" id="Animation_w7fuy"]
-resource_name = "Celebrate"
-
-[sub_resource type="Animation" id="Animation_857tn"]
-resource_name = "Idle"
-loop_mode = 1
-
-[sub_resource type="Animation" id="Animation_s6q4j"]
-resource_name = "Walk"
-loop_mode = 1
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_bgyn0"]
-_data = {
-&"Celebrate": SubResource("Animation_w7fuy"),
-&"Idle": SubResource("Animation_857tn"),
-&"Walk": SubResource("Animation_s6q4j")
-}
-
 [node name="Harlan" type="Node3D" unique_id=1963024145]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=388058221]
+visible = false
 mesh = SubResource("CapsuleMesh_8f85w")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=66435443]
-libraries/ = SubResource("AnimationLibrary_bgyn0")
+[node name="Model" parent="." unique_id=1630750457 instance=ExtResource("1_857tn")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)

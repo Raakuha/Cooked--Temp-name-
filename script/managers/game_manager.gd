@@ -384,7 +384,7 @@ func start_day() -> void:
 		orders_completed_today
 	)
 
-	day_manager.start_day(7)
+	day_manager.start_day(1)
 
 func _on_day_started(day: int) -> void:
 	print("GameManager memulai Day ", day)

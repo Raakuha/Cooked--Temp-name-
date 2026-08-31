@@ -1,33 +1,33 @@
 [gd_scene format=3 uid="uid://b62kdxc60pejb"]
 
+[ext_resource type="PackedScene" uid="uid://cb3ynyn48hv8g" path="res://assets/karakter/Karakter&Animasi/Abel/AbelNew.glb" id="1_6ytkw"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s4x8v"]
 albedo_color = Color(0.9440489, 1, 0.61527485, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8f85w"]
 material = SubResource("StandardMaterial3D_s4x8v")
 
-[sub_resource type="Animation" id="Animation_s4x8v"]
-resource_name = "Celebrate"
-
-[sub_resource type="Animation" id="Animation_6ytkw"]
-resource_name = "Idle"
-loop_mode = 1
-
-[sub_resource type="Animation" id="Animation_h2fpv"]
-resource_name = "Walk"
-loop_mode = 1
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_w3og6"]
-_data = {
-&"Celebrate": SubResource("Animation_s4x8v"),
-&"Idle": SubResource("Animation_6ytkw"),
-&"Walk": SubResource("Animation_h2fpv")
-}
-
 [node name="Abel" type="Node3D" unique_id=1346978988]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1706345959]
+visible = false
 mesh = SubResource("CapsuleMesh_8f85w")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=700192744]
-libraries/ = SubResource("AnimationLibrary_w3og6")
+[node name="Model" parent="." unique_id=153857409 instance=ExtResource("1_6ytkw")]
+
+[node name="Skeleton3D" parent="Model/Armature_014" parent_id_path=PackedInt32Array(153857409, 187289691) index="0" unique_id=519685530]
+bones/0/position = Vector3(0, -0.003761015, 0)
+bones/1/rotation = Quaternion(6.7266804e-08, -2.0503578e-08, 0.0043552774, 0.9999905)
+bones/4/rotation = Quaternion(1.2604774e-10, -3.1678926e-08, 0.0039786864, 0.9999921)
+bones/6/rotation = Quaternion(0.5043322, 0.49588025, 0.50408214, -0.495634)
+bones/7/rotation = Quaternion(0.008682593, -0.0008925835, -0.36341116, 0.931588)
+bones/8/rotation = Quaternion(0.051697385, 0.105441175, -0.30240336, 0.9459185)
+bones/9/rotation = Quaternion(0.5037733, -0.49619818, -0.5037732, -0.49619815)
+bones/10/rotation = Quaternion(0.031902995, 0.010699476, 0.4179525, 0.90784556)
+bones/11/rotation = Quaternion(0.046278533, -0.16491449, 0.29168186, 0.94105434)
+bones/13/rotation = Quaternion(-0.720832, -0.0033781026, -0.003225276, 0.6930941)
+bones/16/rotation = Quaternion(-0.6991283, 0.002941075, 0.0029866144, 0.714984)
+
+[editable path="Model"]
