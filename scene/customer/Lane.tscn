@@ -1,33 +1,18 @@
 [gd_scene format=3 uid="uid://0cuca8uuyd5"]
 
+[ext_resource type="PackedScene" uid="uid://ddgojams0f3wh" path="res://assets/karakter/Karakter&Animasi/Lane/LaneBaru.glb" id="1_pl2y3"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ipgu0"]
 albedo_color = Color(0.30399626, 0.2957868, 0.99999446, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8f85w"]
 material = SubResource("StandardMaterial3D_ipgu0")
 
-[sub_resource type="Animation" id="Animation_2ugut"]
-resource_name = "Celebrate"
-
-[sub_resource type="Animation" id="Animation_ipgu0"]
-resource_name = "Idle"
-loop_mode = 1
-
-[sub_resource type="Animation" id="Animation_pl2y3"]
-resource_name = "Walk"
-loop_mode = 1
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ugut"]
-_data = {
-&"Celebrate": SubResource("Animation_2ugut"),
-&"Idle": SubResource("Animation_ipgu0"),
-&"Walk": SubResource("Animation_pl2y3")
-}
-
 [node name="Lane" type="Node3D" unique_id=640360419]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1859418910]
+visible = false
 mesh = SubResource("CapsuleMesh_8f85w")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=880241850]
-libraries/ = SubResource("AnimationLibrary_2ugut")
+[node name="Model" parent="." unique_id=1669859987 instance=ExtResource("1_pl2y3")]

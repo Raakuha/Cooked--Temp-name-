@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://bkvk5or8afrro"]
 
+[ext_resource type="PackedScene" uid="uid://cgibrclbn4ngt" path="res://assets/karakter/Karakter&Animasi/Misterius/Misterius.glb" id="1_csb8r"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4vhog"]
 albedo_color = Color(0, 0, 0, 1)
 
@@ -9,4 +11,8 @@ material = SubResource("StandardMaterial3D_4vhog")
 [node name="Mysterious" type="Node3D" unique_id=1586482428]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=68360248]
+visible = false
 mesh = SubResource("CapsuleMesh_8f85w")
+
+[node name="Model" parent="." unique_id=1804391932 instance=ExtResource("1_csb8r")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)

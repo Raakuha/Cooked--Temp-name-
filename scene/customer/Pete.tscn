@@ -1,33 +1,18 @@
 [gd_scene format=3 uid="uid://cf7ukjtjfux55"]
 
+[ext_resource type="PackedScene" uid="uid://bg2qn5ivvxrqc" path="res://assets/karakter/Karakter&Animasi/Pete/PeteBaru.glb" id="1_bxu7g"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qrhaf"]
 albedo_color = Color(8.085966e-06, 0.7396085, 0.6938139, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8f85w"]
 material = SubResource("StandardMaterial3D_qrhaf")
 
-[sub_resource type="Animation" id="Animation_qrhaf"]
-resource_name = "Celebrate"
-
-[sub_resource type="Animation" id="Animation_bxu7g"]
-resource_name = "Idle"
-loop_mode = 1
-
-[sub_resource type="Animation" id="Animation_jwco2"]
-resource_name = "Walk"
-loop_mode = 1
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_53e2g"]
-_data = {
-&"Celebrate": SubResource("Animation_qrhaf"),
-&"Idle": SubResource("Animation_bxu7g"),
-&"Walk": SubResource("Animation_jwco2")
-}
-
 [node name="Pete" type="Node3D" unique_id=2078515294]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1637667279]
+visible = false
 mesh = SubResource("CapsuleMesh_8f85w")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1000340966]
-libraries/ = SubResource("AnimationLibrary_53e2g")
+[node name="Model" parent="." unique_id=2093590 instance=ExtResource("1_bxu7g")]

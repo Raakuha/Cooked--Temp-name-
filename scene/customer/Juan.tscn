@@ -1,33 +1,18 @@
 [gd_scene format=3 uid="uid://dml3cii2qett4"]
 
+[ext_resource type="PackedScene" uid="uid://8h1jx7vbkpi5" path="res://assets/karakter/Karakter&Animasi/Juan/Juan.glb" id="1_h7ajc"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hfida"]
 albedo_color = Color(0.39462975, 0.40680227, 0.41483992, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8f85w"]
 material = SubResource("StandardMaterial3D_hfida")
 
-[sub_resource type="Animation" id="Animation_hfida"]
-resource_name = "Celebrate"
-
-[sub_resource type="Animation" id="Animation_h7ajc"]
-resource_name = "Idle"
-loop_mode = 1
-
-[sub_resource type="Animation" id="Animation_47bv1"]
-resource_name = "Walk"
-loop_mode = 1
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_fx246"]
-_data = {
-&"Celebrate": SubResource("Animation_hfida"),
-&"Idle": SubResource("Animation_h7ajc"),
-&"Walk": SubResource("Animation_47bv1")
-}
-
 [node name="Juan" type="Node3D" unique_id=102169334]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1313060758]
+visible = false
 mesh = SubResource("CapsuleMesh_8f85w")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1026773533]
-libraries/ = SubResource("AnimationLibrary_fx246")
+[node name="Model" parent="." unique_id=1609488601 instance=ExtResource("1_h7ajc")]
