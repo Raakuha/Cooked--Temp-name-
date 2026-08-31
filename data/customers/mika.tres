@@ -12,13 +12,63 @@ opening_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Mika",
 "speaker_type": "customer",
-"text": "Femboy sejati"
+"text": "Huft… diluar Panas sekali"
+}, {
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Dari pada aku memaksakan diri untuk melanjutkan perjalananku, sepertinya mampir ke restoran ini adalah keputusan yang benar"
+}, {
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Setidaknya aku bisa bersantai disini untuk sementara karena disini cukup sejuk"
+}, {
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Jadinya aku bisa betah lama-lama disini"
+}, {
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Apakah kamu juga merasa akhir-akhir ini sangat panas paman?"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Sepertinya Kau benar"
+}, {
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Aku salut dengan orang-orang yang bekerja dibidang ini pada cuaca yang sangat panas ini"
+}, {
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Sepertinya aku hanya akan memesan beberapa makanan ringan"
+}, {
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Tolong buatkan Salad, Roti khas lempuyangan, dan 2 soda dingin"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Baik"
 }])
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Mika",
 "speaker_type": "customer",
-"text": "Femboy sejati cabuts"
+"text": "Hmmmm segar"
+}, {
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Terimakasih untuk hidangannya paman, mungkin aku akan kembali dengan membawa beberapa teman"
 }])
 recipe_id = "steak"
 additional_orders = Array[String](["roti_khas_lempuyangan", "soda", "soda"])
@@ -26,13 +76,64 @@ day6_opening_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Mika",
 "speaker_type": "customer",
-"text": "Femboy sejati Datang untuk kedua kali"
+"text": "Oh halo paman! kita bertemu lagi"
+}, {
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Apakah kamu mengingatku?"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Iya, ingat"
+}, {
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Syukurlah, jujur aku lebih nyaman dengan orang-orang yang sudah kukenal"
+}, {
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Terakhir kali aku kesini adalah saat kepergianku keluar kota, sekarang aku sudah kembali ke kota ini dan mumpung jalannya sudah pasti melewati restoran mu maka aku memutuskan untuk mampir"
+}, {
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Sebelumnya aku juga bilang akan membawa teman tapi maaf aku belum bisa melakukannya…."
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Tidak masalah"
+}, {
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Baiklah mungkin aku akan memesan beberapa makanan berat"
+}, {
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Aku ingin Nasgor, Roti Khas Lempuyangan dan soda"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Baik"
 }])
 day6_recipe_id = "soda"
+day6_additional_orders = Array[String](["roti_khas_lempuyangan", "nasgor_goreng"])
 day6_closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Mika",
 "speaker_type": "customer",
-"text": "Femboy sejati Cabuts untuk kedua kali"
+"text": "Wah ternyata makanan beratmu enak sekali!"
+}, {
+"mode": "bubble",
+"speaker": "Mika",
+"speaker_type": "customer",
+"text": "Lain kali aku akan beneran membawa teman kesini!"
 }])
 metadata/_custom_type_script = "uid://cl423sww4t3q0"

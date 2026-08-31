@@ -15,9 +15,54 @@ opening_dialogue = Array[Dictionary]([{
 "text": "Wajah baru…"
 }, {
 "mode": "bubble",
+"speaker": "Andrian",
+"speaker_type": "customer",
+"text": "Kamu kepala koki yang baru disini?"
+}, {
+"mode": "bubble",
 "speaker": "MC",
 "speaker_type": "mc",
-"text": "mwah"
+"text": "ya benar"
+}, {
+"mode": "bubble",
+"speaker": "Andrian",
+"speaker_type": "customer",
+"text": "Kemana koki yang sebelumnya?"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": ". . . . Aku tidak tahu"
+}, {
+"mode": "bubble",
+"speaker": "Andrian",
+"speaker_type": "customer",
+"text": "Sepertinya kamu tipe orang yang hanya menerima perintah dari atasan ya"
+}, {
+"mode": "bubble",
+"speaker": "Andrian",
+"speaker_type": "customer",
+"text": "Tenang kawan kamu tidak sendirian kok, aku cukup relate ( melihat diriku juga  karyawan kantoran heheh)"
+}, {
+"mode": "bubble",
+"speaker": "Andrian",
+"speaker_type": "customer",
+"text": "Baiklah aku ingin memesan Nasi Goreng dan Roti khas lempuyangan"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Minum ?"
+}, {
+"mode": "bubble",
+"speaker": "Andrian",
+"speaker_type": "customer",
+"text": "Tidak perlu, aku membawa minumanku sendiri"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Baiklah"
 }])
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
@@ -26,9 +71,14 @@ closing_dialogue = Array[Dictionary]([{
 "text": "Hmmm setidaknya rasa makanannya masih konsisten, mungkin malah seperti ada sentuhan baru?"
 }, {
 "mode": "bubble",
+"speaker": "Andrian",
+"speaker_type": "customer",
+"text": "Aku tidak yakin tapi tidak buruk"
+}, {
+"mode": "bubble",
 "speaker": "MC",
 "speaker_type": "mc",
-"text": "woke"
+"text": "Terimakasih . . ."
 }])
 recipe_id = "nasgor_goreng"
 additional_orders = Array[String](["roti_khas_lempuyangan"])

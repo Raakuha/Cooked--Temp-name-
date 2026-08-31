@@ -12,13 +12,88 @@ opening_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Dion",
 "speaker_type": "customer",
-"text": "Dion Datang"
+"text": "Halo!"
+}, {
+"mode": "bubble",
+"speaker": "Dion",
+"speaker_type": "customer",
+"text": "Wah sepi juga ya tempat ini"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": ". . . ."
+}, {
+"mode": "bubble",
+"speaker": "Dion",
+"speaker_type": "customer",
+"text": "Tapi tidak apa-apa, aku suka tempat sepi"
+}, {
+"mode": "bubble",
+"speaker": "Dion",
+"speaker_type": "customer",
+"text": "Kalau rame nanti malah lama nunggunya kan?"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Mau pesan apa?"
+}, {
+"mode": "bubble",
+"speaker": "Dion",
+"speaker_type": "customer",
+"text": "Santai dulu!!! aku masih melihat menunya”(sudah 5 menit dia melihat menunya)"
+}, {
+"mode": "bubble",
+"speaker": "Dion",
+"speaker_type": "customer",
+"text": "Hmmm"
+}, {
+"mode": "bubble",
+"speaker": "Dion",
+"speaker_type": "customer",
+"text": "Aku ingin Steak, Burger Banggor, dan soda!"
+}, {
+"mode": "bubble",
+"speaker": "Dion",
+"speaker_type": "customer",
+"text": ". . ."
+}, {
+"mode": "bubble",
+"speaker": "Dion",
+"speaker_type": "customer",
+"text": "Ehh s tambah roti deh, biar sekalian kenyang"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Oke"
 }])
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Dion",
 "speaker_type": "customer",
-"text": "Dion Cabuts"
+"text": "Aku suka koki yg gk banyak omong"
+}, {
+"mode": "bubble",
+"speaker": "Dion",
+"speaker_type": "customer",
+"text": "Soalnya aku sudah lelah berbicara dengan semua orang!"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": ". . . . ."
+}, {
+"mode": "bubble",
+"speaker": "Dion",
+"speaker_type": "customer",
+"text": "Hahaha"
+}, {
+"mode": "bubble",
+"speaker": "Dion",
+"speaker_type": "customer",
+"text": "Sampai ketemu lagi!"
 }])
 recipe_id = "burger_banggor"
 additional_orders = Array[String](["steak", "soda", "roti_khas_lempuyangan"])

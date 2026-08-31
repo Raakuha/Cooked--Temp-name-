@@ -12,13 +12,78 @@ opening_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Gul",
 "speaker_type": "customer",
-"text": "Saya Gul"
+"text": "Halo . . ."
+}, {
+"mode": "bubble",
+"speaker": "Gul",
+"speaker_type": "customer",
+"text": "Setauku restoran ini sempat tutup selama beberapa bulan"
+}, {
+"mode": "bubble",
+"speaker": "Gul",
+"speaker_type": "customer",
+"text": "Sejak kapan restoran ini kembali buka?"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Baru beberapa hari yang lalu"
+}, {
+"mode": "bubble",
+"speaker": "Gul",
+"speaker_type": "customer",
+"text": "ohh . . "
+}, {
+"mode": "bubble",
+"speaker": "Gul",
+"speaker_type": "customer",
+"text": "Dulu aku sering mampir kesini setiap pulang dari kerja namun karna sempat tutup aku jadi tidak tau lagi kabarnya"
+}, {
+"mode": "bubble",
+"speaker": "Gul",
+"speaker_type": "customer",
+"text": "Dan saat aku iseng melewati jalan ini aku kaget ternyata restoran ini sudah buka kembali"
+}, {
+"mode": "bubble",
+"speaker": "Gul",
+"speaker_type": "customer",
+"text": "Aku lihat sekarang kamu yang mengurus tempat ini, tidak lagi dengan orang tua itu lagi"
+}, {
+"mode": "bubble",
+"speaker": "Gul",
+"speaker_type": "customer",
+"text": "Karna kamu tidak setua dia bukannya harusnya kamu menjadi lebih lihai?"
+}, {
+"mode": "bubble",
+"speaker": "Gul",
+"speaker_type": "customer",
+"text": "Aku ingin mencoba lagi beberapa makanan andalan yang pernah aku pesan dulu"
+}, {
+"mode": "bubble",
+"speaker": "Gul",
+"speaker_type": "customer",
+"text": "Buatkan aku salad, steak, burger banggor, dan 2 soda"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Oke"
 }])
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Gul",
 "speaker_type": "customer",
-"text": "Gul Cabut"
+"text": "Aku merasakan ada sebuah perbedaan tapi dalam artian baik"
+}, {
+"mode": "bubble",
+"speaker": "Gul",
+"speaker_type": "customer",
+"text": "Mungkin tempat ini bisa menjadi lebih ramai semenjak kedatanganmu"
+}, {
+"mode": "bubble",
+"speaker": "Gul",
+"speaker_type": "customer",
+"text": "Bagaimanapun juga setidaknya kau tidak membuatku kecewa”"
 }])
 recipe_id = "roti_khas_lempuyangan"
 additional_orders = Array[String](["soda", "soda", "steak", "salad"])

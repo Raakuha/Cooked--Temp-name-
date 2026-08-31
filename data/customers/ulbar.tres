@@ -25,19 +25,39 @@ opening_dialogue = Array[Dictionary]([{
 "text": "Wow, aku kaget restoran ini sudah buka kembali."
 }, {
 "mode": "bubble",
-"speaker": "MC",
-"speaker_type": "mc",
-"text": "Sudah cukup lama memang."
+"speaker": "Ulbar",
+"speaker_type": "customer",
+"text": "karena aku cukup sering bepergian keluar kota, dulu aku selalu mampir kesini sebelum perjalanan pulang"
 }, {
 "mode": "bubble",
 "speaker": "Ulbar",
 "speaker_type": "customer",
-"text": "Rasanya sudah lama sekali aku tidak makan di sini."
+"text": "Jadinya aku cukup sedih karena tempat ini sempat tutup beberapa bulan."
+}, {
+"mode": "bubble",
+"speaker": "Ulbar",
+"speaker_type": "customer",
+"text": "Aku jadi sadar kalau kau adalah koki baru juga ya disini?"
 }, {
 "mode": "bubble",
 "speaker": "MC",
 "speaker_type": "mc",
-"text": "Masih mau yang biasa?"
+"text": "Ya, benar"
+}, {
+"mode": "bubble",
+"speaker": "Ulbar",
+"speaker_type": "customer",
+"text": "Baiklah aku berharap makanannya masih sama enaknya dengan yang dulu"
+}, {
+"mode": "bubble",
+"speaker": "Ulbar",
+"speaker_type": "customer",
+"text": "Kalau begitu aku ingin memesan steak dan soda"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Baiklah."
 }])
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",

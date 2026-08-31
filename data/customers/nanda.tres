@@ -12,28 +12,63 @@ opening_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Nanda",
 "speaker_type": "customer",
-"text": "Permisi.... apakah sudah buka?"
-}, {
-"mode": "bubble",
-"speaker": "MC",
-"speaker_type": "mc",
-"text": "Masih."
+"text": "Halo..."
 }, {
 "mode": "bubble",
 "speaker": "Nanda",
 "speaker_type": "customer",
-"text": "Mam"
+"text": "Restoran di daerah sini tidak banyak ya?"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Memang cukup jauh dari kota"
+}, {
+"mode": "bubble",
+"speaker": "Nanda",
+"speaker_type": "customer",
+"text": "Justru itu bagus, aku tidak suka tempat yang ramai"
+}, {
+"mode": "bubble",
+"speaker": "Nanda",
+"speaker_type": "customer",
+"text": "Kau juga setuju kan?"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": ". . . ."
+}, {
+"mode": "bubble",
+"speaker": "Nanda",
+"speaker_type": "customer",
+"text": "Karena ini adalah kunjungan pertamaku, apakah ada rekomendasi??"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Mungkin sebuah burger?"
+}, {
+"mode": "bubble",
+"speaker": "Nanda",
+"speaker_type": "customer",
+"text": "Baiklah satu, dan segelas air mineral dingin"
 }])
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Nanda",
 "speaker_type": "customer",
-"text": "Enak mantap"
+"text": "Untuk sebuah restoran pinggir kota tidak buruk juga"
+}, {
+"mode": "bubble",
+"speaker": "Nanda",
+"speaker_type": "customer",
+"text": "Aku mungkin akan kesini lagi jika sedang mampir"
 }, {
 "mode": "bubble",
 "speaker": "Mc",
 "speaker_type": "mc",
-"text": "Sama sama"
+"text": "Ditunggu . . ."
 }])
 recipe_id = "soda"
 additional_orders = Array[String](["air_mineral"])

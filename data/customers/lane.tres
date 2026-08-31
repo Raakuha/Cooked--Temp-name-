@@ -12,13 +12,83 @@ opening_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Lane",
 "speaker_type": "customer",
-"text": "Lane len Datang"
+"text": "Hey"
+}, {
+"mode": "bubble",
+"speaker": "Lane",
+"speaker_type": "customer",
+"text": "Perkenalkan aku Lane, tinggal tidak jauh dari sini"
+}, {
+"mode": "bubble",
+"speaker": "Lane",
+"speaker_type": "customer",
+"text": "Jadi kita mungkin akan terus bertemu jika kau tetap bekerja disini selama beberapa tahun kedepan"
+}, {
+"mode": "bubble",
+"speaker": "Lane",
+"speaker_type": "customer",
+"text": "Area ini sudah tidak banyak penghuninya lagi, tidak seperti dulu"
+}, {
+"mode": "bubble",
+"speaker": "Lane",
+"speaker_type": "customer",
+"text": "Anak-anak muda sekarang lebih sering ke kota"
+}, {
+"mode": "bubble",
+"speaker": "Lane",
+"speaker_type": "customer",
+"text": "Yang tinggal disini hanyalah orang lama"
+}, {
+"mode": "bubble",
+"speaker": "Lane",
+"speaker_type": "customer",
+"text": "Makanya aku cukup senang restoran ini buka kembali"
+}, {
+"mode": "bubble",
+"speaker": "Lane",
+"speaker_type": "customer",
+"text": "Lumayan ada tempat makan"
+}, {
+"mode": "bubble",
+"speaker": "Lane",
+"speaker_type": "customer",
+"text": "Aku juga turut berduka cita atas kepulangan koki sebelumnya"
+}, {
+"mode": "bubble",
+"speaker": "Lane",
+"speaker_type": "customer",
+"text": "Tapi aku pribadi kurang suka dengan orang itu"
+}, {
+"mode": "bubble",
+"speaker": "Lane",
+"speaker_type": "customer",
+"text": "Oleh karna itu aku harap kita bisa tetap akrab untuk kedepannya"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Saya juga tuan"
+}, {
+"mode": "bubble",
+"speaker": "Lane",
+"speaker_type": "customer",
+"text": "Baiklah aku akan memesan Steak, Burger Banggor, dan 3 Soda dingin"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Baik, mohon ditunggu pesanannya"
 }])
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Lane",
 "speaker_type": "customer",
-"text": "Lane len cabuts"
+"text": "Hmm enak juga masakanmu"
+}, {
+"mode": "bubble",
+"speaker": "Lane",
+"speaker_type": "customer",
+"text": "Mungkin lebih baik daripada buatannya"
 }])
 recipe_id = "steak"
 additional_orders = Array[String](["burger_banggor", "soda", "soda", "soda"])

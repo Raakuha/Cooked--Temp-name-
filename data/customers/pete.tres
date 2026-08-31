@@ -12,13 +12,83 @@ opening_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Pete",
 "speaker_type": "customer",
-"text": "Pete te Datang"
+"text": "Halo"
+}, {
+"mode": "bubble",
+"speaker": "Pete",
+"speaker_type": "customer",
+"text": "Aku baru saja pindah ke kota ini beberapa minggu yang lalu"
+}, {
+"mode": "bubble",
+"speaker": "Pete",
+"speaker_type": "customer",
+"text": "Saat perjalananku menuju ke kota ini perasaanku restoran ini tutup dan sekarang sudah beroprasi lagi"
+}, {
+"mode": "bubble",
+"speaker": "Pete",
+"speaker_type": "customer",
+"text": "Apakah ini restoran baru atau memang sudah berdiri sejak lama?"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Aku tidak tau"
+}, {
+"mode": "bubble",
+"speaker": "Pete",
+"speaker_type": "customer",
+"text": "Haha sepertinya bukan cuma aku yang orang baru disini"
+}, {
+"mode": "bubble",
+"speaker": "Pete",
+"speaker_type": "customer",
+"text": "Selain karna urusan pekerjaan yang mengharuskanku pindah kesini, aku juga dengar bahwa kota ini cukup aman"
+}, {
+"mode": "bubble",
+"speaker": "Pete",
+"speaker_type": "customer",
+"text": "Namun semenjak aku pindah sepertinya ada semacam rumor atau berita tentang hilangnya beberapa orang"
+}, {
+"mode": "bubble",
+"speaker": "Pete",
+"speaker_type": "customer",
+"text": "Tapi sepertinya aku tidak perlu begitu khawatir"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Kau benar"
+}, {
+"mode": "bubble",
+"speaker": "Pete",
+"speaker_type": "customer",
+"text": "Memikirkan ini membuatku menjadi semakin lapar……"
+}, {
+"mode": "bubble",
+"speaker": "Pete",
+"speaker_type": "customer",
+"text": "Aku ingin Steak, Burger banggor, Nasgor, dan air mineral dingin"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Baik mohon ditunggu"
 }])
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Pete",
 "speaker_type": "customer",
-"text": "Pete te Cabuts"
+"text": "Masakan buatanmu enak-enak"
+}, {
+"mode": "bubble",
+"speaker": "Pete",
+"speaker_type": "customer",
+"text": "Tapi lokasimu cukup jauh dengan tempat tinggalku sekarang…"
+}, {
+"mode": "bubble",
+"speaker": "Pete",
+"speaker_type": "customer",
+"text": "Mungkin jika aku ada waktu sangat luang aku akan mampir"
 }])
 recipe_id = "steak"
 additional_orders = Array[String](["burger_banggor", "nasgor_goreng", "air_mineral"])

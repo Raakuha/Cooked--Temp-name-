@@ -12,13 +12,7 @@ opening_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Mark",
 "speaker_type": "customer",
-"text": "Mark67 Datang"
-}])
-closing_dialogue = Array[Dictionary]([{
-"mode": "bubble",
-"speaker": "Mark",
-"speaker_type": "customer",
-"text": "Mark67 Asembel Pulang"
+"text": "Kalau aku Steak, Salad, dan Roti khas lempuyangan"
 }])
 recipe_id = "steak"
 additional_orders = Array[String](["salad", "roti_khas_lempuyangan"])

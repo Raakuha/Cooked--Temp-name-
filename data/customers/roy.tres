@@ -12,13 +12,83 @@ opening_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Roy",
 "speaker_type": "customer",
-"text": "Roy kiyosi Datang"
+"text": "Permisi"
+}, {
+"mode": "bubble",
+"speaker": "Roy",
+"speaker_type": "customer",
+"text": "Wah aku tidak menyangka setelah sekian lama tidak kesini…. isinya masih sama saja"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": ". . ."
+}, {
+"mode": "bubble",
+"speaker": "Roy",
+"speaker_type": "customer",
+"text": "Sepertinya sudah hampir 5 bulan aku tidak lewat jalan sini"
+}, {
+"mode": "bubble",
+"speaker": "Roy",
+"speaker_type": "customer",
+"text": "Dulu aku cukup sering kesini karna sedang antar barang dan kebetulan melewati jalan ini"
+}, {
+"mode": "bubble",
+"speaker": "Roy",
+"speaker_type": "customer",
+"text": "Walaupun begitu sepertinya yang sekarang beda adalah kokinya ya?"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": ". . ."
+}, {
+"mode": "bubble",
+"speaker": "Roy",
+"speaker_type": "customer",
+"text": "Sayang juga, padahal orang tua itu cukup asik"
+}, {
+"mode": "bubble",
+"speaker": "Roy",
+"speaker_type": "customer",
+"text": "Tapi yasudahlah"
+}, {
+"mode": "bubble",
+"speaker": "Roy",
+"speaker_type": "customer",
+"text": "Aku pesan Steak, Salad, dan Air Mineral"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Baik mohon ditunggu . . ."
 }])
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Roy",
 "speaker_type": "customer",
-"text": "Roy kiyosi Cabuts"
+"text": "Hmmm ternyata buatanmu lebih enak daripada yang lama"
+}, {
+"mode": "bubble",
+"speaker": "Roy",
+"speaker_type": "customer",
+"text": ". . . . ."
+}, {
+"mode": "bubble",
+"speaker": "Roy",
+"speaker_type": "customer",
+"text": "Tunggu… Apa kita pernah bertemu sebelumnya?"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Sepertinya tidak"
+}, {
+"mode": "bubble",
+"speaker": "Roy",
+"speaker_type": "customer",
+"text": "Hmmm, baiklah mungkin aku salah ingat"
 }])
 recipe_id = "steak"
 additional_orders = Array[String](["salad", "air_mineral"])

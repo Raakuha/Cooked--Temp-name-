@@ -12,13 +12,48 @@ opening_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Juan",
 "speaker_type": "customer",
-"text": "Juan Uma Datang"
+"text": "Ehhh halo tuan"
+}, {
+"mode": "bubble",
+"speaker": "Juan",
+"speaker_type": "customer",
+"text": "Restoran ini sudah buka?"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Iya"
+}, {
+"mode": "bubble",
+"speaker": "Juan",
+"speaker_type": "customer",
+"text": "Baguslah, sepertinya kami memang perlu pergi makan terlebih dahulu sebelum melakukan perjalanan panjang bersama"
+}, {
+"mode": "bubble",
+"speaker": "Juan",
+"speaker_type": "customer",
+"text": "Kami dengar restoran yang sebelumnya tutup di pinggiran kota sekarang sudah beroprasi lagi maka dari itu kami memutuskan untuk sekalian mencoba sebagai awal dari perjalanan panjang kami"
+}, {
+"mode": "bubble",
+"speaker": "Juan",
+"speaker_type": "customer",
+"text": "Baiklah kalau aku akan memesan Nasgor dan Burger saja"
 }])
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Juan",
 "speaker_type": "customer",
-"text": "Juan Uma menang"
+"text": "Wow ini pertama kalinya kami makan di sebuah resto yang cukup tua, makanannya serasa cukup unik dibandingkan dengan yang ada di kota"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Ya, aku mendapatkan bahan-bahan segar untuk itu"
+}, {
+"mode": "bubble",
+"speaker": "Juan",
+"speaker_type": "customer",
+"text": "Baguslah kalau begitu, kami sangat menikmatinya!"
 }])
 recipe_id = "nasgor_goreng"
 additional_orders = Array[String](["burger_banggor"])

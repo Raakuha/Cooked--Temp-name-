@@ -12,13 +12,58 @@ opening_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "James",
 "speaker_type": "customer",
-"text": "James Bond Datang"
+"text": "Hallo…. tunggu kau orang baru?"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Benar"
+}, {
+"mode": "bubble",
+"speaker": "James",
+"speaker_type": "customer",
+"text": "Damn padahal aku belum sempat berkenalan dengan koki sebelumnya"
+}, {
+"mode": "bubble",
+"speaker": "James",
+"speaker_type": "customer",
+"text": "Itu juga karna aku memang jarang banget kesini sih"
+}, {
+"mode": "bubble",
+"speaker": "James",
+"speaker_type": "customer",
+"text": "Tapi terakhir kali dengan koki lama rasanya lumayan, aku berharap setidaknya kau bisa membuat yang lebih enak dibandingkannya"
+}, {
+"mode": "bubble",
+"speaker": "James",
+"speaker_type": "customer",
+"text": "Kalau begitu aku memesan Nasgor goreng dengan Roti khas lempuyangan dan air mineral dingin"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Oke"
 }])
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "James",
 "speaker_type": "customer",
-"text": "James Bond Cabuts"
+"text": "Wow aku tidak menyangka kau lebih jago memasak dibandingkan pak tua itu"
+}, {
+"mode": "bubble",
+"speaker": "James",
+"speaker_type": "customer",
+"text": "Tapi setidaknya masakan kalian berdua tetap membuatku puas"
+}, {
+"mode": "bubble",
+"speaker": "James",
+"speaker_type": "customer",
+"text": "Tolong titipkan salamku kepada koki itu, aku harap dia senang melihat restoran sekarang dipegang oleh orang yang berbakat"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": ". . . ."
 }])
 recipe_id = "soda"
 metadata/_custom_type_script = "uid://cl423sww4t3q0"

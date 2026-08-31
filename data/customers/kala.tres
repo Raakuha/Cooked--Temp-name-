@@ -12,13 +12,113 @@ opening_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Kala",
 "speaker_type": "customer",
-"text": "She Her kala"
+"text": "Wow Restoran ini buka kembali… tidak kusangka"
+}, {
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "Restoran yang aneh, hanya ada beberapa pelanggan setia dan harga menu yang cukup terjangkau"
+}, {
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "Apa kamu pernah bertemu dengan pemilik dari restoran ini?"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Belum"
+}, {
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "Begitu ya…"
+}, {
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "Katanya dia adalah orang yang cukup penting di kota ini"
+}, {
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "Entah kenapa ia masih ingin mempertahankan restoran kecil ini"
+}, {
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "Padahal letaknya jauh dari mana-mana"
+}, {
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "Apakah mungkin sebuah skema pencucian uang?"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Aku tidak tau"
+}, {
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "Hahaha maaf aku hanya bercanda, tentu saja kamu tidak tau kamu kan hanya bawahan biasa"
+}, {
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "Jujur mungkin jika aku adalah orang penting yang serakah mungkin aku akan melakukan hal yang sama, atau bahkan aku akan melakukan hal yang lebih ekstrim untuk mendapatkan uang lebih banyak"
+}, {
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "Tapi apapun alasannya aku tidak boleh berprasangka buruk"
+}, {
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "Setidaknya itulah pikiranku sekarang"
+}, {
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "Ohhh maaf aku banyak bicara, aku jadi lupa ingin memesan apa"
+}, {
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "Aku ingin Salad, Steak, dan Burger Banggor, oiya dan segelas air mineral dingin"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Kamu... banyak makan juga"
+}, {
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "Hei!! tidak sopan berbicara seperti itu pada wanita"
+}, {
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "Aku akan memintamu untuk membungkusnya setelah aku selesai menghabiskan saladku"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Baiklah"
 }])
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Kala",
 "speaker_type": "customer",
-"text": "She Her kala Cabuts"
+"text": "Aku suka saladnya"
+}, {
+"mode": "bubble",
+"speaker": "Kala",
+"speaker_type": "customer",
+"text": "Padahal restoran ini ada di pinggir kota tapi kamu masih bisa memberikan salad segar"
 }])
 recipe_id = "salad"
 additional_orders = Array[String](["burger_banggor", "steak", "air_mineral"])

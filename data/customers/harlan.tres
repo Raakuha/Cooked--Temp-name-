@@ -12,13 +12,43 @@ opening_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Harlan",
 "speaker_type": "customer",
-"text": "Harlan viking Datang"
+"text": "Halo apakah sudah buka?"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Sudah"
+}, {
+"mode": "bubble",
+"speaker": "Harlan",
+"speaker_type": "customer",
+"text": "Baguslah, keadaan restoran terlihat sepi jadi kukira tutup"
+}, {
+"mode": "bubble",
+"speaker": "Harlan",
+"speaker_type": "customer",
+"text": "Hari ini aku sangat lapar sekali, mungkin aku akan memesan beberapa makanan berat"
+}, {
+"mode": "bubble",
+"speaker": "Harlan",
+"speaker_type": "customer",
+"text": "Aku ingin 2 Steak, 2 Burger Banggor, dan 3 soda dingin"
+}, {
+"mode": "bubble",
+"speaker": "MC",
+"speaker_type": "mc",
+"text": "Baiklah"
 }])
 closing_dialogue = Array[Dictionary]([{
 "mode": "bubble",
 "speaker": "Harlan",
 "speaker_type": "customer",
-"text": "Harlan viking Ganti pemain"
+"text": "Ughh…"
+}, {
+"mode": "bubble",
+"speaker": "Harlan",
+"speaker_type": "customer",
+"text": "Masakkanmu hebat juga"
 }])
 recipe_id = "soda"
 metadata/_custom_type_script = "uid://cl423sww4t3q0"
