@@ -28,6 +28,33 @@ signal group_finished
 @onready var sit_point_2: Marker3D = $"../../DiningPoints/Table02/SitPoint2"
 @onready var sit_point_3: Marker3D = $"../../DiningPoints/Table02/SitPoint3"
 
+
+@onready var approach_point_1 : Marker3D = (
+	$"../../DiningPoints/Table02/ApproachPoint1"
+)
+
+@onready var approach_point_2 : Marker3D = (
+	$"../../DiningPoints/Table02/ApproachPoint2"
+)
+
+@onready var approach_point_3 : Marker3D = (
+	$"../../DiningPoints/Table02/ApproachPoint3"
+)
+
+
+@onready var exit_point_1: Marker3D = (
+	$"../../DiningPoints/Table02/ExitPoint1"
+)
+
+@onready var exit_point_2: Marker3D = (
+	$"../../DiningPoints/Table02/ExitPoint2"
+)
+
+@onready var exit_point_3: Marker3D = (
+	$"../../DiningPoints/Table02/ExitPoint3"
+)
+
+
 var group_map: Dictionary = {}
 
 var current_group: CustomerGroup = null
@@ -275,18 +302,26 @@ func send_current_member_to_table() -> void:
 	if current_customer == null:
 		return
 
-	var target: Vector3
+	var approach_target: Vector3
+	var sit_transform: Transform3D
+	var exit_target: Vector3
 
 	match current_member_index:
 
 		0:
-			target = sit_point_1.global_position
+			approach_target = approach_point_1.global_position
+			sit_transform = sit_point_1.global_transform
+			exit_target = exit_point_1.global_position
 
 		1:
-			target = sit_point_2.global_position
+			approach_target = approach_point_2.global_position
+			sit_transform = sit_point_2.global_transform
+			exit_target = exit_point_2.global_position
 
 		2:
-			target = sit_point_3.global_position
+			approach_target = approach_point_3.global_position
+			sit_transform = sit_point_3.global_transform
+			exit_target = exit_point_3.global_position
 
 		_:
 			return
@@ -297,11 +332,12 @@ func send_current_member_to_table() -> void:
 	)
 
 	current_customer.walk_to_table(
-		target,
+		approach_target,
+		sit_transform,
+		exit_target,
 		cashier_point.global_position,
 		false
 	)
-
 
 func _on_current_member_table_arrived() -> void:
 

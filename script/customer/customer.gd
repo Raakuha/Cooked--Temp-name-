@@ -325,6 +325,131 @@ func play_celebration() -> void:
 	)
 
 
+
+func play_animation_and_wait(animation_name: String) -> bool:
+
+	if animation_player == null:
+
+		print(
+			customer_name,
+			": AnimationPlayer tidak ditemukan."
+		)
+
+		return false
+
+	if not animation_player.has_animation(animation_name):
+
+		print(
+			customer_name,
+			": Animasi tidak ditemukan -> ",
+			animation_name
+		)
+
+		return false
+
+	var animation := animation_player.get_animation(
+		animation_name
+	)
+
+	# Animasi seperti Duduk, Makan, dan TurunKursi
+	# dijalankan satu kali.
+	animation.loop_mode = Animation.LOOP_NONE
+
+	print(
+		customer_name,
+		": PLAY -> ",
+		animation_name
+	)
+
+	animation_player.play(animation_name)
+
+	await animation_player.animation_finished
+
+	print(
+		customer_name,
+		": FINISHED -> ",
+		animation_name
+	)
+
+	return true
+
+
+func play_dining_sequence() -> void:
+
+	print("========================")
+	print(
+		customer_name,
+		": DINING ANIMATION START"
+	)
+	print("========================")
+
+
+	# =========================================
+	# DUDUK
+	# =========================================
+
+	var sat_down := await play_animation_and_wait(
+		"Duduk"
+	)
+
+	if not sat_down:
+		print(
+			customer_name,
+			": Gagal memainkan animasi Duduk."
+		)
+
+		return
+
+
+	# =========================================
+	# MAKAN
+	# =========================================
+
+	var ate := await play_animation_and_wait(
+		"Makan"
+	)
+
+	if not ate:
+		print(
+			customer_name,
+			": Gagal memainkan animasi Makan."
+		)
+
+		return
+
+
+	# =========================================
+	# TURUN KURSI / BERDIRI
+	# =========================================
+
+	var stood_up := await play_animation_and_wait(
+		"TurunKursi"
+	)
+
+	if not stood_up:
+		print(
+			customer_name,
+			": Gagal memainkan animasi TurunKursi."
+		)
+
+		return
+
+
+	# =========================================
+	# SELESAI
+	# =========================================
+
+	play_idle_animation()
+
+	print("========================")
+	print(
+		customer_name,
+		": DINING ANIMATION FINISHED"
+	)
+	print("========================")
+
+
+
 func walk_to_cashier(target_position: Vector3) -> void:
 
 	set_state(State.MOVING_TO_CASHIER)
@@ -348,7 +473,9 @@ func walk_to_cashier(target_position: Vector3) -> void:
 
 
 func walk_to_table(
-	target_position: Vector3,
+	approach_position: Vector3,
+	sit_transform: Transform3D,
+	exit_position: Vector3,
 	cashier_position: Vector3,
 	auto_return: bool = true
 ) -> void:
@@ -357,24 +484,35 @@ func walk_to_table(
 
 	print(
 		customer_name,
-		" berjalan ke meja"
+		" berjalan menuju meja"
 	)
 
-	await move_to_position(target_position)
+	# =========================================
+	# MENUJU DEPAN KURSI
+	# =========================================
+
+	await move_to_position(
+		approach_position
+	)
 
 	print(
 		customer_name,
-		" sudah sampai di meja"
+		" sampai ApproachPoint"
 	)
+
+	# =========================================
+	# POSISI AWAL DUDUK
+	# =========================================
+
+	global_transform = sit_transform
 
 	table_arrived.emit()
 
-	print(
-		customer_name,
-		" mulai makan"
-	)
+	# =========================================
+	# DUDUK → MAKAN → TURUN KURSI
+	# =========================================
 
-	await get_tree().create_timer(5.0).timeout
+	await play_dining_sequence()
 
 	print(
 		customer_name,
@@ -383,9 +521,33 @@ func walk_to_table(
 
 	dining_finished.emit()
 
-	if auto_return:
-		return_to_cashier(cashier_position)
+	# =========================================
+	# KELUAR DARI KURSI
+	# =========================================
 
+	if auto_return:
+
+		print(
+			customer_name,
+			" keluar dari kursi"
+		)
+
+		await move_to_position(
+			exit_position
+		)
+
+		print(
+			customer_name,
+			" sudah keluar dari area kursi"
+		)
+
+		# =====================================
+		# KEMBALI KE KASIR
+		# =====================================
+
+		await return_to_cashier(
+			cashier_position
+		)
 
 
 
